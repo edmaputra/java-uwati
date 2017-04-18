@@ -1,0 +1,13 @@
+/home/edmaputra/coding/workspace/java-uwati/src/main/java/id/edmaputra/uwati/config/UwatiAppConfiguration.java
+/home/edmaputra/coding/workspace/java-uwati/src/main/java/id/edmaputra/uwati/service/Init.java
+/home/edmaputra/coding/workspace/java-uwati/src/main/java/id/edmaputra/uwati/entity/DasarTransaksiEntity.java
+/home/edmaputra/coding/workspace/java-uwati/src/main/java/id/edmaputra/uwati/entity/master/Apotek.java
+/home/edmaputra/coding/workspace/java-uwati/src/main/java/id/edmaputra/uwati/config/UwatiServletConfiguration.java
+/home/edmaputra/coding/workspace/java-uwati/src/main/java/id/edmaputra/uwati/view/json/JsonReturn.java
+/home/edmaputra/coding/workspace/java-uwati/src/main/java/id/edmaputra/uwati/service/ApotekService.java
+/home/edmaputra/coding/workspace/java-uwati/src/main/java/id/edmaputra/uwati/config/UwatiAppInitializer.java
+/home/edmaputra/coding/workspace/java-uwati/src/main/java/id/edmaputra/uwati/controller/IndexController.java
+/home/edmaputra/coding/workspace/java-uwati/src/main/java/id/edmaputra/uwati/entity/DasarEntity.java
+/home/edmaputra/coding/workspace/java-uwati/src/main/java/id/edmaputra/uwati/repository/ApotekRepository.java
+/home/edmaputra/coding/workspace/java-uwati/src/main/java/id/edmaputra/uwati/view/json/Suggestion.java
+/home/edmaputra/coding/workspace/java-uwati/src/main/java/id/edmaputra/uwati/config/DBConf.java
