@@ -19,13 +19,14 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "id.edmaputra.uwati.repository")
 @EnableTransactionManagement
 @ComponentScan(basePackages = "id.edmaputra.uwati", excludeFilters = {
 		@ComponentScan.Filter(type = FilterType.ANNOTATION, classes = Controller.class) })
-@ImportResource("classpath:/id/edmaputra/uwati/config/security-context.xml")
+@ImportResource(locations = {"classpath:/id/edmaputra/uwati/config/security-context.xml", "classpath:/id/edmaputra/uwati/config/jasper-view.xml"})
 @PropertySource("classpath:/id/edmaputra/uwati/config/uwati.properties")
 public class UwatiAppConfiguration {
 
@@ -62,11 +63,11 @@ public class UwatiAppConfiguration {
 	}
 
 	@Bean
-	@Autowired
 	public JpaTransactionManager transactionManager(DataSource dataSource) {
 		JpaTransactionManager transactionManager = new JpaTransactionManager();
 		transactionManager.setDataSource(dataSource);
 		return transactionManager;
 	}
+	
 
 }

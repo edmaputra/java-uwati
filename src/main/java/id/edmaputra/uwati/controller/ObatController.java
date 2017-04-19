@@ -343,6 +343,7 @@ public class ObatController {
 		return nav;
 	}
 	
+	@Transactional
 	private Obat getObat(Long id){
 		Obat get = obatService.dapatkan(id);
 

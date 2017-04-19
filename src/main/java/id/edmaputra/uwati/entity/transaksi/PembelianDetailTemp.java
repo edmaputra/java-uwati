@@ -2,7 +2,7 @@ package id.edmaputra.uwati.entity.transaksi;
 
 public class PembelianDetailTemp{
 
-	private Integer id;
+	private Long id;
 	
 	private String obat;
 	
@@ -29,12 +29,14 @@ public class PembelianDetailTemp{
 	private String tanggal;
 	
 	private String supplier;
+	
+	private String pesan;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -148,6 +150,14 @@ public class PembelianDetailTemp{
 				+ ", hargaJualResep=" + hargaJualResep + ", hargaBeli=" + hargaBeli + ", diskon=" + diskon + ", pajak="
 				+ pajak + ", subTotal=" + subTotal + ", tanggalKadaluarsa=" + tanggalKadaluarsa + ", pengguna="
 				+ pengguna + ", nomorFaktur=" + nomorFaktur + ", tanggal=" + tanggal + ", supplier=" + supplier + "]";
+	}
+
+	public String getPesan() {
+		return pesan;
+	}
+
+	public void setPesan(String pesan) {
+		this.pesan = pesan;
 	}
 	
 	

@@ -10,6 +10,8 @@
 <c:url var="hapusObatUrl" value="/pembelian-obat/hapusTemp" />
 <c:url var="daftarTempUrl" value="/pembelian-obat/daftarTemp" />
 <c:url var="beliUrl" value="/pembelian-obat/beli" />
+<c:url var="tersediaUrl" value="/pembelian-obat/tersedia" />
+<c:url var="cetakUrl" value="/pembelian-obat/cetak" />
 
 
 <div class="row mt">
@@ -154,6 +156,31 @@
 	<%@ include file="../../layouts/gritter.jsp"%>
 </div>
 
+<div class="modal fade" id="cetakModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Pembelian Tersimpan</h4>
+			</div>
+			<div class="form-panel">
+				<div class="modal-body">
+					<p>Apakah Anda Ingin Mencetak Bukti Pembelian ?</p>
+				</div>
+			</div>
+			<form action="${cetakUrl}" class="form-horizontal style-form formCetak" method="post">
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default btnKeluar"
+						id="keluarModal" data-dismiss="modal">Tidak</button>
+					<input type="hidden" name="id" class="form-control" id="beliId" />
+					<input type="submit" class="btn btn-primary" value="CETAK" />
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
 <script>
 	$(document).ready(function() {
 		setAutoComplete('#namaObat', '${cariObatUrl}');
@@ -170,48 +197,32 @@
 			}
 		});
 		
-		$('#tanggal').blur(function() {			
-			$('#nomorFaktur').focus();
-		});
-		
-		$('#nomorFaktur').blur(function() {			
-			$('#supplier').focus();
-		});
-		
-		$('#supplier').blur(function() {			
-			$('#namaObat').focus();
-		});
+		tabKey('#tanggal', '#nomorFaktur');
+		tabKey('#nomorFaktur', '#supplier');
+		tabKey('#supplier', '#namaObat');
+		tabKey('#namaObat', '#jumlah');
+		tabKey('#jumlah', '#tanggalKadaluarsa');
+		tabKey('#tanggalKadaluarsa', '#hargaBeli');
+		tabKey('#hargaBeli', '#hargaJual');
+		tabKey('#hargaJual', '#hargaJualResep');
+		tabKey('#hargaJualResep', '#tambah');
 		
 		$('#jumlah').blur(function() {			
-			hitungSubTotal();
-			$('#tanggalKadaluarsa').focus();
-		});
-		
-		$('#tanggalKadaluarsa').blur(function() {			
-			$('#hargaBeli').focus();
-		});
+			hitungSubTotal('#jumlah');
+		});		
 		
 		$('#hargaBeli').blur(function() {			
-			hitungSubTotal();
-			$('#hargaJual').focus();
-		});
-		
-		$('#hargaJual').blur(function() {			
-			$('#hargaJualResep').focus();
-		});
-		
-		$('#hargaJualResep').blur(function() {			
-			$('#simpan').focus();
+			hitungSubTotal('#hargaBeli');
 		});
 		
 		$("#jumlah").keyup(function(event) {
 			if (event.keyCode == 13) {
-				hitungSubTotal();
+				hitungSubTotal("#jumlah");
 			}
 		});
 		
 		$('#tambah').click(function(){
-			hitungSubTotal();
+			hitungSubTotal('#tambah');
 			$(".formTambah").validate({
 				rules : {
 					tanggal : {
@@ -221,7 +232,19 @@
 						required : true
 					},
 					nomorFaktur : {
-						required : true
+						required : true,
+						remote: {
+							url: "${tersediaUrl}",
+							type: "get",
+							data: {
+								nomorFaktur: function(){
+									return $("#nomorFaktur").val();
+								},
+								tahun: function(){
+									return $("#tanggal").val();
+								}
+							}
+						},
 					},
 					namaObat : {
 						required : true
@@ -285,7 +308,7 @@
 						clean();
 						refresh();
 					}, function() {
-						$('#gritter-tambah-gagal').click();
+						$('#gritter-tambah-gagal').click();						
 					});
 				}
 			});
@@ -302,9 +325,11 @@
 				data['tanggal'] = tanggal;
 				data['supplier'] = supplier;
 				data['nomorFaktur'] = nomorFaktur;					
-				$.postJSON('${beliUrl}', data, function() {
+				$.postJSON('${beliUrl}', data, function(result) {
 					cleanAll();
 					refresh();
+					$('#beliId').val(result.id);
+					$('#cetakModal').modal('show');
 					$('#gritter-tambah-sukses').click();
 				}, function() {
 					$('#gritter-tambah-gagal').click();
@@ -312,6 +337,21 @@
 				e.preventDefault();
 			}
 		});
+		
+// 		$(".formCetak").submit(function(e) {
+// 			e.preventDefault();
+// 			var data = {};
+// 			data['id'] = $('#beliId').val();
+// 			$.postJSON('${cetakUrl}', data, function(result) {
+// 				refresh();
+// 				$('#keluarModalHapus').click();
+// 				$('#gritter-hapus-sukses').click();
+// 			}, function(e) {
+// 				$('#gritter-hapus-sukses').click();
+// 				$('#keluarModalHapus').click();
+// 				refresh();
+// 			});
+// 		});
 		
 		setMaskingUang("#hargaJual");
 		setMaskingUang("#hargaJualResep");
@@ -326,25 +366,19 @@
 		$.getAjax('${getObatUrl}', data, function(obat) {
 			$('#kodeObat').val(obat.kode);
 			$('#hargaJual').val(obat.obatDetail[0].hargaJual);
-			$('#hargaJual').focus();
 			$('#hargaJualResep').val(obat.obatDetail[0].hargaJualResep);
-			$('#hargaJualResep').focus();
 			$('#hargaBeli').val(obat.obatDetail[0].hargaBeli);
-			$('#hargaBeli').focus();
 			$('#tanggalKadaluarsa').val(
-					dateFormat(obat.expired[0].tanggalExpired, 'dd-mm-yyyy'));
-			$('#jumlah').focus();
+					dateFormat(obat.expired[0].tanggalExpired, 'dd-mm-yyyy'));			
 		}, null);
 	}
 	
-	function hitungSubTotal(){
+	function hitungSubTotal(origin){
 		var hargaBeli = $('#hargaBeli').val();			
 		var hargaBeli = hargaBeli.replace(/\./g, '');			
 		var jumlah = $('#jumlah').val();		
-		var subTotal = hargaBeli * jumlah;
-		console.log(subTotal);
-		$('#subTotal').val(subTotal);
-		$('#subTotal').focus();		
+		var subTotal = hargaBeli * jumlah;		
+		$('#subTotal').val(subTotal);		
 	}
 	
 	function refresh() {
@@ -369,6 +403,16 @@
 			refresh();			
 		}, function(e) {
 			console.log('GAGAL HAPUS');
+		});
+	}
+	
+	function tabKey(origin, destination){
+		$(".formTambah").on('keydown', origin, function(e) { 
+			  var keyCode = e.keyCode || e.which; 
+			  if (keyCode == 9) { 
+			    e.preventDefault(); 
+			    $(destination).focus();
+			  } 
 		});
 	}
 	

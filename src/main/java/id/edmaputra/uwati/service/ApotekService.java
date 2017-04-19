@@ -1,5 +1,7 @@
 package id.edmaputra.uwati.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -35,6 +37,10 @@ public class ApotekService {
 	public Page<Apotek> muatDaftar(Integer halaman) {
 		PageRequest request = new PageRequest(halaman - 1, PAGE_SIZE, Sort.Direction.ASC, "id");
 		return apotekRepo.findAll(request);
+	}
+	
+	public List<Apotek> semua(){
+		return apotekRepo.findAll();
 	}
 
 	public void hapus(Apotek apotek) {

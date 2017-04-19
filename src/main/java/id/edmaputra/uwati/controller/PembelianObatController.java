@@ -6,9 +6,11 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,6 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mysema.query.types.expr.BooleanExpression;
 
+import id.edmaputra.uwati.entity.master.Apotek;
 import id.edmaputra.uwati.entity.master.obat.Obat;
 import id.edmaputra.uwati.entity.master.obat.ObatDetail;
 import id.edmaputra.uwati.entity.master.obat.ObatExpired;
@@ -37,6 +40,8 @@ import id.edmaputra.uwati.entity.master.obat.ObatStok;
 import id.edmaputra.uwati.entity.transaksi.Pembelian;
 import id.edmaputra.uwati.entity.transaksi.PembelianDetail;
 import id.edmaputra.uwati.entity.transaksi.PembelianDetailTemp;
+import id.edmaputra.uwati.reports.Struk;
+import id.edmaputra.uwati.service.ApotekService;
 import id.edmaputra.uwati.service.ObatDetailService;
 import id.edmaputra.uwati.service.ObatExpiredService;
 import id.edmaputra.uwati.service.ObatService;
@@ -45,12 +50,17 @@ import id.edmaputra.uwati.service.PembelianDetailService;
 import id.edmaputra.uwati.service.PembelianService;
 import id.edmaputra.uwati.service.PenggunaService;
 import id.edmaputra.uwati.specification.ObatPredicateBuilder;
+import id.edmaputra.uwati.specification.PembelianPredicateBuilder;
 import id.edmaputra.uwati.support.Converter;
 import id.edmaputra.uwati.support.LogSupport;
 import id.edmaputra.uwati.view.Html;
 import id.edmaputra.uwati.view.HtmlElement;
 import id.edmaputra.uwati.view.json.JsonReturn;
 import id.edmaputra.uwati.view.json.Suggestion;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+
+
 
 @Controller
 @RequestMapping("/pembelian-obat")
@@ -78,6 +88,9 @@ public class PembelianObatController {
 
 	@Autowired
 	private PenggunaService penggunaService;
+	
+	@Autowired
+	private ApotekService apotekService;
 
 	private List<PembelianDetailTemp> listDetailTemp = new ArrayList<>();;
 
@@ -162,10 +175,8 @@ public class PembelianObatController {
 			for (PembelianDetailTemp te : listDetailTemp){
 				Integer subTotal = Integer.valueOf(te.getSubTotal().replaceAll("[.,]", ""));
 				tot = tot + subTotal;
-			}			
-			System.out.println(tot);
-			String total = NumberFormat.getNumberInstance(new Locale("id", "ID")).format(tot);
-			System.out.println(total);
+			}						
+			String total = NumberFormat.getNumberInstance(new Locale("id", "ID")).format(tot);			
 			el.setGrandTotal(total);
 			// logger.info(LogSupport.);
 			return el;
@@ -185,7 +196,7 @@ public class PembelianObatController {
 			// t.setId(Long.valueOf(index));
 //			System.out.println("Index : " + pembelianDetailTemp.getId());
 			
-			Integer index = pembelianDetailTemp.getId();			
+			Long index = pembelianDetailTemp.getId();			
 			
 			ListIterator<PembelianDetailTemp> iter = listDetailTemp.listIterator();
 			while(iter.hasNext()){
@@ -205,13 +216,17 @@ public class PembelianObatController {
 		}
 	}
 
-	@Transactional
+//	@Transactional
 	@RequestMapping(value = "/beli", method = RequestMethod.POST)
 	@ResponseBody
 	public PembelianDetailTemp simpanPembelian(@RequestBody PembelianDetailTemp temp, BindingResult result, Principal principal,
 			HttpServletRequest request) {
 		Pembelian pembelian = new Pembelian();
 		try {
+			if (!isTersedia(temp.getNomorFaktur(), temp.getTanggal().toString())){
+//				throw new Exception("Nomor Faktur Sudah Ada");
+				return null;
+			}
 			pembelian.setNomorFaktur(temp.getNomorFaktur());
 			pembelian.setWaktuTransaksi(Converter.stringToDate(temp.getTanggal()));
 			pembelian.setSupplier(temp.getSupplier());
@@ -232,17 +247,78 @@ public class PembelianObatController {
 			}
 			pembelian.setGrandTotal(grandTotal);
 			pembelian.setPembelianDetail(listPembelianDetail);
-
+			
 			pembelianService.simpan(pembelian);
+			
 			logger.info(LogSupport.tambah(principal.getName(), pembelian.toString(), request));
 			listDetailTemp.removeAll(listDetailTemp);
 			listDetailTemp = new ArrayList<>();
+			
+			temp.setId(pembelian.getId());
 			return temp;			
 		} catch (Exception e) {
 			logger.info(e.getMessage());
 			logger.info(LogSupport.tambahGagal(principal.getName(), pembelian.toString(), request));
+			temp.setPesan(e.getMessage());
+			return temp;
+		}
+	}
+	
+	@RequestMapping(value = "/tersedia")
+	@ResponseBody
+	public String tersedia(@RequestParam("nomorFaktur") String nomorFaktur, @RequestParam("tahun") String tahun) {		
+		return isTersedia(nomorFaktur, tahun).toString();		
+	}
+	
+	private Boolean isTersedia(String nomorFaktur, String tahun){
+		PembelianPredicateBuilder builder = new PembelianPredicateBuilder();
+		if (!StringUtils.isBlank(nomorFaktur)) {
+			builder.nomorFaktur(nomorFaktur);
+		}
+		tahun = tahun.substring(tahun.length() - 4, tahun.length());
+		if (!StringUtils.isBlank(tahun)) {
+			builder.tahun(tahun);
+		}
+		
+		BooleanExpression exp = builder.getExpression();
+		Boolean tersedia = pembelianService.dapatkan(exp) == null;
+		
+		return tersedia;
+	}
+	
+	@RequestMapping(value = "/cetak", method = RequestMethod.POST)
+	private ModelAndView buatRest(ModelAndView mav, @RequestParam("id") String id){
+		try {
+			List<Struk> struks = new ArrayList<>();
+			Map<String, Object> parameterMap = new HashMap<String, Object>();			
+			System.out.println(id);
+//			Apotek apotek = apotekService.muatDaftar(1).getContent().get(0);
+//			System.out.println(apotek.getNama());
+			
+			Pembelian pembelian = pembelianService.dapatkan(Long.valueOf(id));
+			List<PembelianDetail> detail = pembelianDetailService.dapatkanByPembelian(pembelian);
+			System.out.println(pembelian.getNomorFaktur()+" "+pembelian.getGrandTotal());
+			for (PembelianDetail d : detail){
+				Struk struk = new Struk();
+//				struk.setStrukNamaApotek(apotek.getNama());
+//				struk.setStrukAlamatApotek(apotek.getAlamat());
+//				struk.setStrukTeleponApotek(apotek.getTelepon());
+				struk.setStrukNamaObat(d.getObat().getNama());
+				struks.add(struk);
+			}
+			
+			JRDataSource JRdataSource = new JRBeanCollectionDataSource(struks);
+			
+			parameterMap.put("dataSource", JRdataSource);
+			
+			mav = new ModelAndView("strukPembelianPdf", parameterMap);
+			return mav;
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+			System.out.println(e.getMessage());
 			return null;
 		}
+		
 	}
 
 	private PembelianDetail setDetailContent(PembelianDetail pembelianDetail, PembelianDetailTemp temp) {
@@ -295,125 +371,6 @@ public class PembelianObatController {
 		}
 	}
 
-	// @RequestMapping(value = "/daftar", method = RequestMethod.GET)
-	// @ResponseBody
-	// public HtmlElement dapatkanDaftarPelanggan(
-	// @RequestParam(value = "hal", defaultValue = "1", required = false)
-	// Integer halaman,
-	// @RequestParam(value = "cari", defaultValue = "", required = false) String
-	// cari, HttpServletRequest request,
-	// HttpServletResponse response) {
-	// try {
-	// HtmlElement el = new HtmlElement();
-	//
-	// PelangganPredicateBuilder builder = new PelangganPredicateBuilder();
-	// if (!StringUtils.isBlank(cari)) {
-	// builder.cari(cari);
-	// }
-	//
-	// BooleanExpression exp = builder.getExpression();
-	// Page<Pelanggan> page = pelangganService.muatDaftar(halaman, exp);
-	//
-	// String tabel = tabelGenerator(page, request);
-	// el.setTabel(tabel);
-	//
-	// if (page.hasContent()){
-	// int current = page.getNumber() + 1;
-	// int next = current + 1;
-	// int prev = current - 1;
-	// int first = Math.max(1, current - 5);
-	// int last = Math.min(first + 10, page.getTotalPages());
-	//
-	// String h = navigasiHalamanGenerator(first, prev, current, next, last,
-	// page.getTotalPages(), cari);
-	// el.setNavigasiHalaman(h);
-	// }
-	// return el;
-	// } catch (Exception e) {
-	// logger.info(e.getMessage());
-	// return null;
-	// }
-	// }
-	//
-	// @Transactional
-	// @RequestMapping(value = "/dapatkan", method = RequestMethod.GET)
-	// @ResponseBody
-	// public Pelanggan dapatkanPelanggan(@RequestParam("id") String dokter) {
-	// try {
-	// Pelanggan get = pelangganService.dapatkan(Integer.valueOf(dokter));
-	// return get;
-	// } catch (Exception e) {
-	// logger.info(e.getMessage());
-	// return null;
-	// }
-	// }
-	//
-	// @Transactional
-	// @RequestMapping(value = "/tambah", method = RequestMethod.POST)
-	// @ResponseBody
-	// public Pelanggan tambahPelanggan(@RequestBody Pelanggan pelanggan,
-	// BindingResult result, Principal principal,
-	// HttpServletRequest request) {
-	// try {
-	// pelanggan.setUserInput(principal.getName());
-	// pelanggan.setWaktuDibuat(new Date());
-	// pelanggan.setTerakhirDirubah(new Date());
-	// pelangganService.simpan(pelanggan);
-	// logger.info(LogSupport.tambah(principal.getName(), pelanggan.toString(),
-	// request));
-	// return pelanggan;
-	// } catch (Exception e) {
-	// logger.info(e.getMessage());
-	// logger.info(LogSupport.tambahGagal(principal.getName(),
-	// pelanggan.toString(), request));
-	// return null;
-	// }
-	// }
-	//
-	// @Transactional
-	// @RequestMapping(value = "/edit", method = RequestMethod.POST)
-	// @ResponseBody
-	// public Pelanggan editPelanggan(@RequestBody Pelanggan pelanggan,
-	// BindingResult result, Principal principal,
-	// HttpServletRequest request) {
-	// Pelanggan edit = pelangganService.dapatkan(pelanggan.getId());
-	// String entity = edit.toString();
-	// try {
-	// edit.setNama(pelanggan.getNama());
-	// edit.setKontak(pelanggan.getKontak());
-	// edit.setKode(pelanggan.getKode());
-	// edit.setAlamat(pelanggan.getAlamat());
-	// edit.setUserEditor(principal.getName());
-	// edit.setTerakhirDirubah(new Date());
-	// pelangganService.simpan(edit);
-	// logger.info(LogSupport.edit(principal.getName(), entity, request));
-	// return edit;
-	// } catch (Exception e) {
-	// logger.info(e.getMessage());
-	// logger.info(LogSupport.editGagal(principal.getName(), entity, request));
-	// return null;
-	// }
-	// }
-	//
-	// @RequestMapping(value = "/hapus", method = RequestMethod.POST, produces =
-	// "application/json; charset=utf-8")
-	// @ResponseBody
-	// public String hapusPelanggan(@RequestBody Pelanggan pelanggan,
-	// BindingResult result, Principal principal,
-	// HttpServletRequest request) {
-	// Pelanggan hapus = pelangganService.dapatkan(pelanggan.getId());
-	// String entity = hapus.toString();
-	// try {
-	// pelangganService.hapus(hapus);
-	// logger.info(LogSupport.hapus(principal.getName(), entity, request));
-	// return "HAPUS OK";
-	// } catch (Exception e) {
-	// logger.info(e.getMessage());
-	// logger.info(LogSupport.hapusGagal(principal.getName(), entity, request));
-	// return null;
-	// }
-	// }
-	//
 	private String tabelGenerator(List<PembelianDetailTemp> list, HttpServletRequest request) {
 		String html = "";
 		String data = "";
@@ -437,6 +394,7 @@ public class PembelianObatController {
 		return html;
 	}
 
+//	@Transactional
 	private Obat getObat(String nama) {
 		Obat get = obatService.dapatkanByNama(nama);
 

@@ -50,4 +50,8 @@ public class PembelianService {
 	public List<Pembelian> dapatkanList(BooleanExpression exp) {
 		return (List<Pembelian>) pembelianRepo.findAll(exp);
 	}
+	
+	public Pembelian dapatkan(BooleanExpression expression){
+		return pembelianRepo.findOne(expression);
+	}
 }

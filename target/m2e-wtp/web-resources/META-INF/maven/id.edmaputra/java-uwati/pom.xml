@@ -116,24 +116,6 @@
 			<version>${tiles.version}</version>
 		</dependency>
 
-		<!-- <dependency> -->
-		<!-- <groupId>org.apache.tiles</groupId> -->
-		<!-- <artifactId>tiles-api</artifactId> -->
-		<!-- <version>${tiles.version}</version> -->
-		<!-- </dependency> -->
-
-		<!-- <dependency> -->
-		<!-- <groupId>org.apache.tiles</groupId> -->
-		<!-- <artifactId>tiles-extras</artifactId> -->
-		<!-- <version>${tiles.version}</version> -->
-		<!-- </dependency> -->
-
-		<!-- <dependency> -->
-		<!-- <groupId>org.apache.tiles</groupId> -->
-		<!-- <artifactId>tiles-servlet</artifactId> -->
-		<!-- <version>${tiles.version}</version> -->
-		<!-- </dependency> -->
-
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
@@ -183,12 +165,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>5.1.0.Final</version>
-		</dependency>
-
-		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
 			<version>1.7.1.RELEASE</version>
@@ -211,12 +187,6 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
-		<!-- <dependency> -->
-		<!-- <groupId>org.codehaus.jackson</groupId> -->
-		<!-- <artifactId>jackson-mapper-asl</artifactId> -->
-		<!-- <version>1.9.13</version> -->
-		<!-- </dependency> -->
 
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -241,6 +211,25 @@
 			<artifactId>querydsl-jpa</artifactId>
 			<version>${querydsl.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>6.2.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.4.1212</version>
+		</dependency>
+
 
 	</dependencies>
 
@@ -282,10 +271,10 @@
 
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
+				<version>3.5.1</version>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
 
