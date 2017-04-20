@@ -79,6 +79,7 @@
 		<intercept-url pattern="/pembelian-obat/hapusTemp**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
 		<intercept-url pattern="/pembelian-obat/beli**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
 		<intercept-url pattern="/pembelian-obat/tersedia**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
+		<intercept-url pattern="/pembelian-obat/cetak**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
 				
 		<form-login login-page="/masuk"
 			default-target-url="/" username-parameter="username"

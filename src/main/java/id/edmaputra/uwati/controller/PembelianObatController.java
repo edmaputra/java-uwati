@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
 
@@ -20,6 +19,7 @@ import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView;
 
 import com.mysema.query.types.expr.BooleanExpression;
 
@@ -60,8 +61,6 @@ import id.edmaputra.uwati.view.json.Suggestion;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
-
-
 @Controller
 @RequestMapping("/pembelian-obat")
 public class PembelianObatController {
@@ -91,14 +90,19 @@ public class PembelianObatController {
 	
 	@Autowired
 	private ApotekService apotekService;
+	
+	@Autowired 
+	@Qualifier("strukPembelianPdf")
+	private JasperReportsPdfView strukPembelian;
 
-	private List<PembelianDetailTemp> listDetailTemp = new ArrayList<>();;
+	List<PembelianDetailTemp> listDetailTemp;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView tampilkanPelanggan(Principal principal, HttpServletRequest request) {
 		try {
 			logger.info(LogSupport.load(principal.getName(), request));
 			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+			listDetailTemp = new ArrayList<>();
 			ModelAndView mav = new ModelAndView("pembelian-obat");
 			Date tanggalHariIni = new Date();
 			mav.addObject("tanggalHariIni", formatter.format(tanggalHariIni));			
@@ -161,14 +165,6 @@ public class PembelianObatController {
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			HtmlElement el = new HtmlElement();
-			// List<PembelianDetailTemp> list = new ArrayList<>();
-			// for (PembelianDetailTemp p : listDetailTemp){
-			// if (p.getPengguna() == principal.getName() && p.getSupplier() ==
-			// supplier && p.getTanggal() == Converter.stringToDate(tanggal)){
-			// list.add(p);
-			// }
-			// }
-			System.out.println("size " + listDetailTemp.size());
 			String tabel = tabelGenerator(listDetailTemp, request);
 			el.setTabel(tabel);
 			Integer tot = 0;
@@ -193,21 +189,12 @@ public class PembelianObatController {
 			Principal principal, HttpServletRequest request) {
 		PembelianDetailTemp t = pembelianDetailTemp;
 		try {
-			// t.setId(Long.valueOf(index));
-//			System.out.println("Index : " + pembelianDetailTemp.getId());
 			
-			Long index = pembelianDetailTemp.getId();			
+			Long index = pembelianDetailTemp.getId();
+			Integer i = index.intValue();
+			PembelianDetailTemp dt = listDetailTemp.get(i);
+			listDetailTemp.remove(dt);
 			
-			ListIterator<PembelianDetailTemp> iter = listDetailTemp.listIterator();
-			while(iter.hasNext()){
-			    if(iter.next().getId().equals(index)){
-			    	System.out.println("hpapus");
-			        iter.remove();
-			    }
-			}
-			
-//			listDetailTemp.remove(index);
-			System.out.println("size after Delete : " + listDetailTemp.size());
 			return t;
 		} catch (Exception e) {
 			logger.info(e.getMessage());
@@ -287,31 +274,41 @@ public class PembelianObatController {
 	}
 	
 	@RequestMapping(value = "/cetak", method = RequestMethod.POST)
-	private ModelAndView buatRest(ModelAndView mav, @RequestParam("id") String id){
+	public ModelAndView buatResi(ModelAndView mav, @RequestParam("id") String id, Principal principal){
 		try {
 			List<Struk> struks = new ArrayList<>();
-			Map<String, Object> parameterMap = new HashMap<String, Object>();			
-			System.out.println(id);
-//			Apotek apotek = apotekService.muatDaftar(1).getContent().get(0);
-//			System.out.println(apotek.getNama());
+			Map<String, Object> parameterMap = new HashMap<String, Object>();						
+			Apotek apotek = apotekService.semua().get(0);			
+			BigDecimal grandTotal = new BigDecimal(0);
 			
-			Pembelian pembelian = pembelianService.dapatkan(Long.valueOf(id));
-			List<PembelianDetail> detail = pembelianDetailService.dapatkanByPembelian(pembelian);
-			System.out.println(pembelian.getNomorFaktur()+" "+pembelian.getGrandTotal());
-			for (PembelianDetail d : detail){
+			Pembelian pembelian = getPembelian(Long.valueOf(id).longValue());
+			for (PembelianDetail d : pembelian.getPembelianDetail()){
 				Struk struk = new Struk();
-//				struk.setStrukNamaApotek(apotek.getNama());
-//				struk.setStrukAlamatApotek(apotek.getAlamat());
-//				struk.setStrukTeleponApotek(apotek.getTelepon());
+				struk.setStrukNamaApotek(apotek.getNama());
+				struk.setStrukAlamatApotek(apotek.getAlamat()+"\n"+apotek.getTelepon());	
+				struk.setStrukTanggal(Converter.dateToString(pembelian.getWaktuTransaksi()));
+				struk.setStrukNomorFaktur(pembelian.getNomorFaktur());
+				struk.setStrukOperator(principal.getName());
+				
+//				BigDecimal pengurang = d.getDiskon().add(d.getPajak());
+//				BigDecimal temp = d.getHargaJual().multiply(new BigDecimal(d.getJumlah()));
+//				BigDecimal netto = temp.subtract(pengurang);
+				
 				struk.setStrukNamaObat(d.getObat().getNama());
+				struk.setStrukJumlahObat(d.getJumlah().toString() + " x");
+				struk.setStrukHargaObat(Converter.patternCurrency(d.getHargaBeli()));
+				BigDecimal subTotal = d.getSubTotal();
+				struk.setStrukSubTotalObat(Converter.patternCurrency(subTotal));				
+				grandTotal = grandTotal.add(subTotal);
+				struk.setStrukGrandTotal(Converter.patternCurrency(grandTotal));
 				struks.add(struk);
 			}
 			
 			JRDataSource JRdataSource = new JRBeanCollectionDataSource(struks);
 			
-			parameterMap.put("dataSource", JRdataSource);
+			parameterMap.put("datasource", JRdataSource);
 			
-			mav = new ModelAndView("strukPembelianPdf", parameterMap);
+			mav = new ModelAndView(strukPembelian, parameterMap);
 			return mav;
 		} catch (Exception e) {
 			logger.info(e.getMessage());
@@ -410,6 +407,16 @@ public class PembelianObatController {
 		get.setExpired(lObatExpired);
 		Hibernate.initialize(get.getExpired());
 		return get;
+	}
+	
+	private Pembelian getPembelian(Long id){
+		Pembelian pembelian  = pembelianService.dapatkan(id);
+		
+		List<PembelianDetail> pembelianDetails = pembelianDetailService.dapatkanByPembelian(pembelian);
+		pembelian.setPembelianDetail(pembelianDetails);
+		Hibernate.initialize(pembelian.getPembelianDetail());
+		
+		return pembelian;
 	}
 
 }

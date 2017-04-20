@@ -1,6 +1,10 @@
 package id.edmaputra.uwati.support;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -42,6 +46,20 @@ public class Converter {
 	public static String thousandSeparator(String angka){		
 		String str = String.format("%.d", angka);
 		return str;
+	}
+	
+	public static String dateToString(Date date) {
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");		
+		return df.format(date);		
+	}
+	
+	public static String patternCurrency(BigDecimal angka) {
+		DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
+		DecimalFormatSymbols dfs = formatter.getDecimalFormatSymbols();
+		dfs.setGroupingSeparator('.');
+		dfs.setDecimalSeparator(',');
+		formatter.setDecimalFormatSymbols(dfs);
+		return formatter.format(angka.doubleValue());
 	}
 
 	// 0: BeritaAcaraAtm

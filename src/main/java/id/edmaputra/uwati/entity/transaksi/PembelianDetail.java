@@ -37,13 +37,14 @@ public class PembelianDetail extends DasarTransaksiEntity<Long> {
 
 	@Column(nullable = false)	
 	private Integer jumlah;
-	
+		
 	private BigDecimal hargaJual;
 	
 	private BigDecimal hargaJualResep;
 	
 	private BigDecimal hargaBeli;
 
+	@Column(columnDefinition="Decimal(19,2) default 0")
 	private BigDecimal diskon;
 
 	private BigDecimal pajak;

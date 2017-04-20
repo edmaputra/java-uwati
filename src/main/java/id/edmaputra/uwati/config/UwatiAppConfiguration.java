@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -26,7 +27,7 @@ import org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView;
 @EnableTransactionManagement
 @ComponentScan(basePackages = "id.edmaputra.uwati", excludeFilters = {
 		@ComponentScan.Filter(type = FilterType.ANNOTATION, classes = Controller.class) })
-@ImportResource(locations = {"classpath:/id/edmaputra/uwati/config/security-context.xml", "classpath:/id/edmaputra/uwati/config/jasper-view.xml"})
+@ImportResource(locations = { "classpath:/id/edmaputra/uwati/config/security-context.xml"})
 @PropertySource("classpath:/id/edmaputra/uwati/config/uwati.properties")
 public class UwatiAppConfiguration {
 
@@ -68,6 +69,14 @@ public class UwatiAppConfiguration {
 		transactionManager.setDataSource(dataSource);
 		return transactionManager;
 	}
-	
+
+	@Bean
+	@Qualifier("strukPembelianPdf")
+	public JasperReportsPdfView getHelloWorldReport() {
+		JasperReportsPdfView v = new JasperReportsPdfView();
+		v.setUrl("classpath:reports/struk_pembelian.jasper");
+		v.setReportDataKey("datasource");
+		return v;
+	}
 
 }

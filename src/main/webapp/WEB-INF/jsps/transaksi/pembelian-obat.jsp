@@ -169,7 +169,7 @@
 					<p>Apakah Anda Ingin Mencetak Bukti Pembelian ?</p>
 				</div>
 			</div>
-			<form action="${cetakUrl}" class="form-horizontal style-form formCetak" method="post">
+			<form action="${cetakUrl}" class="form-horizontal style-form formCetak" method="POST">
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default btnKeluar"
 						id="keluarModal" data-dismiss="modal">Tidak</button>
@@ -233,18 +233,18 @@
 					},
 					nomorFaktur : {
 						required : true,
-						remote: {
-							url: "${tersediaUrl}",
-							type: "get",
-							data: {
-								nomorFaktur: function(){
-									return $("#nomorFaktur").val();
-								},
-								tahun: function(){
-									return $("#tanggal").val();
-								}
-							}
-						},
+// 						remote: {
+// 							url: "${tersediaUrl}",
+// 							type: "get",
+// 							data: {
+// 								nomorFaktur: function(){
+// 									return $("#nomorFaktur").val();
+// 								},
+// 								tahun: function(){
+// 									return $("#tanggal").val();
+// 								}
+// 							}
+// 						},
 					},
 					namaObat : {
 						required : true
@@ -273,7 +273,10 @@
 				messages : {
 					tanggal : "Isi Tanggal Pembelian",
 					supplier : "Isi Nama Supplier",
-					nomorFaktur : "Isi Nomor Faktur",
+					nomorFaktur : {
+						required : "Isi Nomor Faktur",
+// 						remote : "Nomor Faktur Sudah Ada"
+					},
 					namaObat : "Masukkan Nama Obat",
 					kodeObat : "Masukkan Kode Obat",
 					tanggalKadaluarsa : "Tentukan Tanggal Expire Obat",
