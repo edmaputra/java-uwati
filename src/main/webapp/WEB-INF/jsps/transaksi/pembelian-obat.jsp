@@ -17,7 +17,7 @@
 <div class="row mt">
 	<div class="col-md-12">
 		<div class="form-panel">
-		<form class="form formTambah" id="formCari" action="${tambahObatUrl}" method="POST">
+		<form class="form formTambah" id="formObat" action="${tambahObatUrl}" method="POST">
 			<h5 class="mb">
 				<i class="fa fa-angle-right"></i> Rincian Pembelian
 			</h5>
