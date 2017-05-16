@@ -20,6 +20,8 @@ import id.edmaputra.uwati.entity.master.obat.Obat;
 import id.edmaputra.uwati.entity.master.obat.ObatDetail;
 import id.edmaputra.uwati.entity.master.obat.ObatExpired;
 import id.edmaputra.uwati.entity.master.obat.ObatStok;
+import id.edmaputra.uwati.entity.master.obat.Racikan;
+import id.edmaputra.uwati.entity.master.obat.RacikanDetail;
 import id.edmaputra.uwati.entity.pengguna.Pengguna;
 import id.edmaputra.uwati.entity.pengguna.Role;
 import id.edmaputra.uwati.repository.ApotekRepository;
@@ -31,6 +33,8 @@ import id.edmaputra.uwati.repository.ObatRepository;
 import id.edmaputra.uwati.repository.ObatStokRepository;
 import id.edmaputra.uwati.repository.PelangganRepository;
 import id.edmaputra.uwati.repository.PenggunaRepository;
+import id.edmaputra.uwati.repository.RacikanDetailRepository;
+import id.edmaputra.uwati.repository.RacikanRepository;
 import id.edmaputra.uwati.repository.RoleRepository;
 import id.edmaputra.uwati.repository.SatuanRepository;
 
@@ -69,6 +73,12 @@ public class Init {
 
 	@Autowired
 	private ObatExpiredRepository obatExpiredRepo;
+	
+	@Autowired
+	private RacikanRepository racikanRepository;
+	
+	@Autowired
+	private RacikanDetailRepository racikanDetailRepository;
 
 	@PostConstruct
 	public void mulai() {
@@ -146,6 +156,17 @@ public class Init {
 
 		Apotek a = buatApotek("APOTEK FERRY", "Jalan Jelarai Tanjung Selor", "0552-12121");
 		apotekRepo.save(a);
+		
+		int i = 1;
+		for (Obat o : obatRepo.findAll()){
+			Racikan r = buatRacikan("ABC"+ i, i*1100, i*1000);
+			racikanRepository.save(r);
+			
+			RacikanDetail rd = buatRacikanDetail(r, o, i, i*100);
+			racikanDetailRepository.save(rd);
+			
+			i++;
+		}
 	}
 
 	private Role buatRole(String nama) {
@@ -241,5 +262,20 @@ public class Init {
 		obat.setTerakhirDirubah(new Date());
 		return obat;
 	}
-
+	
+	private Racikan buatRacikan(String nama, int hargaJual, int biayaRacik){
+		Racikan racikan = new Racikan(nama, new BigDecimal(hargaJual), new BigDecimal(biayaRacik));
+		racikan.setUserInput("admin");
+		racikan.setWaktuDibuat(new Date());
+		racikan.setTerakhirDirubah(new Date());
+		return racikan;
+	}
+	
+	private RacikanDetail buatRacikanDetail(Racikan racikan, Obat obat, int jumlah, int hargaSatuan){
+		RacikanDetail racikanDetail = new RacikanDetail(racikan, obat, jumlah, new BigDecimal(hargaSatuan));
+		racikanDetail.setUserInput("admin");
+		racikanDetail.setWaktuDibuat(new Date());
+		racikanDetail.setTerakhirDirubah(new Date());
+		return racikanDetail;
+	}
 }

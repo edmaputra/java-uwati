@@ -22,14 +22,23 @@
 			<a href="javascript:;">
 				<i class="fa fa-cubes"></i><span>Master</span>
 			</a>
-			<ul class="sub">
-				
+			<ul class="sub">				
 				<li><a href="<spring:url value="/profil" />">Profil</a></li>
 				<li><a href="<spring:url value="/satuan" />">Satuan</a></li>
 				<li><a href="<spring:url value="/kategori" />">Kategori</a></li>			
 				<li><a href="<spring:url value="/dokter" />">Dokter</a></li>				
 				<li><a href="<spring:url value="/pelanggan" />">Pelanggan</a></li>
 				<li><a href="<spring:url value="/obat" />">Obat</a></li>				
+			</ul>
+		</li>
+		
+		<li class="sub-menu">
+			<a href="javascript:;">
+				<i class="fa fa-cubes"></i><span>Obat</span>
+			</a>
+			<ul class="sub">
+				<li><a href="<spring:url value="/obat" />">Obat</a></li>
+				<li><a href="<spring:url value="/racikan" />">Racikan</a></li>				
 			</ul>
 		</li>
 		</security:authorize>

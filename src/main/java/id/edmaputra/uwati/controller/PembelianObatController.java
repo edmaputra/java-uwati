@@ -21,7 +21,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,10 +46,12 @@ import id.edmaputra.uwati.service.ObatDetailService;
 import id.edmaputra.uwati.service.ObatExpiredService;
 import id.edmaputra.uwati.service.ObatService;
 import id.edmaputra.uwati.service.ObatStokService;
-import id.edmaputra.uwati.service.PembelianDetailService;
-import id.edmaputra.uwati.service.PembelianService;
 import id.edmaputra.uwati.service.PenggunaService;
+import id.edmaputra.uwati.service.transaksi.PembelianDetailService;
+import id.edmaputra.uwati.service.transaksi.PembelianDetailTempService;
+import id.edmaputra.uwati.service.transaksi.PembelianService;
 import id.edmaputra.uwati.specification.ObatPredicateBuilder;
+import id.edmaputra.uwati.specification.PembelianDetailTempPredicateBuilder;
 import id.edmaputra.uwati.specification.PembelianPredicateBuilder;
 import id.edmaputra.uwati.support.Converter;
 import id.edmaputra.uwati.support.LogSupport;
@@ -91,18 +92,18 @@ public class PembelianObatController {
 	@Autowired
 	private ApotekService apotekService;
 	
+	@Autowired
+	private PembelianDetailTempService pdtService;
+	
 	@Autowired 
 	@Qualifier("strukPembelianPdf")
 	private JasperReportsPdfView strukPembelian;
-
-	List<PembelianDetailTemp> listDetailTemp;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView tampilkanPelanggan(Principal principal, HttpServletRequest request) {
 		try {
 			logger.info(LogSupport.load(principal.getName(), request));
 			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-			listDetailTemp = new ArrayList<>();
 			ModelAndView mav = new ModelAndView("pembelian-obat");
 			Date tanggalHariIni = new Date();
 			mav.addObject("tanggalHariIni", formatter.format(tanggalHariIni));			
@@ -141,13 +142,16 @@ public class PembelianObatController {
 		}
 	}
 
-	@Transactional
+//	@Transactional
 	@RequestMapping(value = "/tambahTemp", method = RequestMethod.POST)
 	@ResponseBody
 	public PembelianDetailTemp tambahObat(@RequestBody PembelianDetailTemp pembelianDetailTemp, BindingResult result,
 			Principal principal, HttpServletRequest request) {
 		try {
-			listDetailTemp.add(pembelianDetailTemp);
+			pembelianDetailTemp.setPengguna(principal.getName());
+			pembelianDetailTemp.setWaktuDibuat(new Date());
+			pembelianDetailTemp.setTerakhirDirubah(new Date());
+			pdtService.simpan(pembelianDetailTemp);
 			logger.info(LogSupport.tambah(principal.getName(), pembelianDetailTemp.toString(), request));
 			return pembelianDetailTemp;
 		} catch (Exception e) {
@@ -164,11 +168,19 @@ public class PembelianObatController {
 			@RequestParam(value = "n", required = false) String nomorFaktur, Principal principal,
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
+			
+			PembelianDetailTempPredicateBuilder builder = new PembelianDetailTempPredicateBuilder();			
+			builder.find(nomorFaktur, principal.getName());
+			
+			BooleanExpression exp = builder.getExpression();			
+			List<PembelianDetailTemp> listTemp = pdtService.dapatkanList(exp);
+			
+			String tabel = tabelGenerator(listTemp, request);			
 			HtmlElement el = new HtmlElement();
-			String tabel = tabelGenerator(listDetailTemp, request);
 			el.setTabel(tabel);
+			
 			Integer tot = 0;
-			for (PembelianDetailTemp te : listDetailTemp){
+			for (PembelianDetailTemp te : listTemp){
 				Integer subTotal = Integer.valueOf(te.getSubTotal().replaceAll("[.,]", ""));
 				tot = tot + subTotal;
 			}						
@@ -188,12 +200,9 @@ public class PembelianObatController {
 	public PembelianDetailTemp hapusObat(@RequestBody PembelianDetailTemp pembelianDetailTemp, BindingResult result,
 			Principal principal, HttpServletRequest request) {
 		PembelianDetailTemp t = pembelianDetailTemp;
-		try {
-			
+		try {			
 			Long index = pembelianDetailTemp.getId();
-			Integer i = index.intValue();
-			PembelianDetailTemp dt = listDetailTemp.get(i);
-			listDetailTemp.remove(dt);
+			pdtService.hapus(index);
 			
 			return t;
 		} catch (Exception e) {
@@ -214,7 +223,8 @@ public class PembelianObatController {
 //				throw new Exception("Nomor Faktur Sudah Ada");
 				return null;
 			}
-			pembelian.setNomorFaktur(temp.getNomorFaktur());
+			String nomorFaktur = temp.getNomorFaktur();
+			pembelian.setNomorFaktur(nomorFaktur);
 			pembelian.setWaktuTransaksi(Converter.stringToDate(temp.getTanggal()));
 			pembelian.setSupplier(temp.getSupplier());
 			pembelian.setPengguna(penggunaService.temukan(principal.getName()));
@@ -222,8 +232,15 @@ public class PembelianObatController {
 			pembelian.setTerakhirDirubah(new Date());
 
 			BigDecimal grandTotal = new BigDecimal(0);
+			PembelianDetailTempPredicateBuilder builder = new PembelianDetailTempPredicateBuilder();
+			if (!StringUtils.isBlank(nomorFaktur)) {
+				builder.find(nomorFaktur, principal.getName());
+			}
+			BooleanExpression exp = builder.getExpression();			
+			List<PembelianDetailTemp> listTemp = pdtService.dapatkanList(exp);
+			
 			List<PembelianDetail> listPembelianDetail = new ArrayList<>();
-			for (PembelianDetailTemp t : listDetailTemp) {
+			for (PembelianDetailTemp t : listTemp) {
 				PembelianDetail pembelianDetail = new PembelianDetail();
 				pembelianDetail = setDetailContent(pembelianDetail, t);
 				pembelianDetail.setPembelian(pembelian);
@@ -237,11 +254,13 @@ public class PembelianObatController {
 			
 			pembelianService.simpan(pembelian);
 			
-			logger.info(LogSupport.tambah(principal.getName(), pembelian.toString(), request));
-			listDetailTemp.removeAll(listDetailTemp);
-			listDetailTemp = new ArrayList<>();
+			for (PembelianDetailTemp t : listTemp) {
+				pdtService.hapus(t);
+			}
+			
 			
 			temp.setId(pembelian.getId());
+			logger.info(LogSupport.tambah(principal.getName(), pembelian.toString(), request));
 			return temp;			
 		} catch (Exception e) {
 			logger.info(e.getMessage());
@@ -353,9 +372,9 @@ public class PembelianObatController {
 	
 	private void updateObat(Obat obat, PembelianDetail detail, String user, HttpServletRequest request){		
 		try {			
-			obat.getObatDetail().get(0).setHargaBeli(detail.getHargaBeli());
-			obat.getObatDetail().get(0).setHargaJual(detail.getHargaJual());
-			obat.getObatDetail().get(0).setHargaJualResep(detail.getHargaJualResep());
+			obat.getDetail().get(0).setHargaBeli(detail.getHargaBeli());
+			obat.getDetail().get(0).setHargaJual(detail.getHargaJual());
+			obat.getDetail().get(0).setHargaJualResep(detail.getHargaJualResep());
 			Integer stokLama = obat.getStok().get(0).getStok();
 			Integer stokBaru = stokLama + detail.getJumlah();
 			obat.getStok().get(0).setStok(stokBaru);
@@ -371,7 +390,6 @@ public class PembelianObatController {
 	private String tabelGenerator(List<PembelianDetailTemp> list, HttpServletRequest request) {
 		String html = "";
 		String data = "";
-		int i = 0;
 		for (PembelianDetailTemp pdt : list) {
 			String row = "";
 			String btn = "";
@@ -382,10 +400,9 @@ public class PembelianObatController {
 			row += Html.td(pdt.getSubTotal());
 			// row += Html.td(pdt.getHargaJual());
 			// row += Html.td(pdt.getHargaJualResep());
-			btn += Html.button("btn btn-danger btn-xs", null, null, "onClick", "hapus(" + i + ")", 1);
+			btn += Html.button("btn btn-danger btn-xs", null, null, "onClick", "hapus(" + pdt.getId() + ")", 1);
 			row += Html.td(btn);
-			data += Html.tr(row);
-			i++;
+			data += Html.tr(row);			
 		}
 		html = data;
 		return html;
@@ -396,8 +413,8 @@ public class PembelianObatController {
 		Obat get = obatService.dapatkanByNama(nama);
 
 		List<ObatDetail> lObatDetail = obatDetailService.temukanByObats(get);
-		get.setObatDetail(lObatDetail);
-		Hibernate.initialize(get.getObatDetail());
+		get.setDetail(lObatDetail);
+		Hibernate.initialize(get.getDetail());
 
 		List<ObatStok> lObatStok = obatStokService.temukanByObats(get);
 		get.setStok(lObatStok);

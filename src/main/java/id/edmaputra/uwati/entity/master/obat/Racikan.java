@@ -37,6 +37,19 @@ public class Racikan extends DasarEntity<Long> {
 		
 	@Column(name = "harga_jual", nullable = false)
 	private BigDecimal hargaJual;
+	
+	@Column(name = "biaya_racik", nullable = false)
+	private BigDecimal biayaRacik;
+	
+	public Racikan(){
+		
+	}
+
+	public Racikan(String nama, BigDecimal hargaJual, BigDecimal biayaRacik) {		
+		this.nama = nama;
+		this.hargaJual = hargaJual;
+		this.biayaRacik = biayaRacik;
+	}
 
 	public Long getId() {
 		return id;
@@ -68,6 +81,14 @@ public class Racikan extends DasarEntity<Long> {
 
 	public void setHargaJual(BigDecimal hargaJual) {
 		this.hargaJual = hargaJual;
+	}
+
+	public BigDecimal getBiayaRacik() {
+		return biayaRacik;
+	}
+
+	public void setBiayaRacik(BigDecimal biayaRacik) {
+		this.biayaRacik = biayaRacik;
 	}
 	
 }

@@ -8,7 +8,7 @@ $(document).ready(function() {
 		language : "id",
 		todayHighlight : true
 	});
-	
+
 	$('#formCari').submit(function(e) {
 		e.preventDefault();
 	});
@@ -22,6 +22,10 @@ $(document).ready(function() {
 	$('#btnReset').click(function() {
 		$('#stringCari').val('');
 	});
+
+	$.validator.addMethod("valueNotEquals", function(value, element, arg) {
+		return arg != value;
+	}, "Value must not equal arg.");
 });
 
 $.postJSON = function(url, data, callback, error) {
@@ -49,16 +53,16 @@ $.getAjax = function(url, data, callback, error) {
 	});
 };
 
-function setAutoComplete(e, url){
+function setAutoComplete(e, url) {
 	$(e).autocomplete({
-	    serviceUrl: url
-//		    onSelect: function (suggestion) {
-//	        alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
-//	    }
+		serviceUrl : url
+	// onSelect: function (suggestion) {
+	// alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+	// }
 	});
 }
 
-function setMaskingUang(e){
+function setMaskingUang(e) {
 	$(e).maskMoney({
 		thousands : '.',
 		precision : 0,
@@ -66,4 +70,3 @@ function setMaskingUang(e){
 		selectAllOnFocus : true
 	});
 }
-

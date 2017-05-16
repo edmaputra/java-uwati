@@ -24,7 +24,7 @@ public class QRacikanDetail extends EntityPathBase<RacikanDetail> {
 
     public final id.edmaputra.uwati.entity.QDasarEntity _super = new id.edmaputra.uwati.entity.QDasarEntity(this);
 
-    public final NumberPath<java.math.BigDecimal> hargaJualPerKomposisi = createNumber("hargaJualPerKomposisi", java.math.BigDecimal.class);
+    public final NumberPath<java.math.BigDecimal> hargaSatuan = createNumber("hargaSatuan", java.math.BigDecimal.class);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 

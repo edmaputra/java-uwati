@@ -25,22 +25,32 @@ public class RacikanDetail extends DasarEntity<Long> {
 	private static final long serialVersionUID = 2605773865176568103L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_racikan", nullable = false)
 	@JsonIgnore
 	private Racikan racikan;
-	
-	@ManyToOne	
+
+	@ManyToOne
 	private Obat komposisi;
-	
-	@Column(name="jumlah", nullable=false)
+
+	@Column(name = "jumlah", nullable = false)
 	private Integer jumlah;
-	
-	@Column(nullable=false)
-	private BigDecimal hargaJualPerKomposisi;
+
+	@Column(name = "harga_satuan", nullable = false)
+	private BigDecimal hargaSatuan;
+
+	public RacikanDetail() {
+	}
+
+	public RacikanDetail(Racikan racikan, Obat komposisi, Integer jumlah, BigDecimal hargaSatuan) {
+		this.racikan = racikan;
+		this.komposisi = komposisi;
+		this.jumlah = jumlah;
+		this.hargaSatuan = hargaSatuan;
+	}
 
 	public Long getId() {
 		return id;
@@ -66,12 +76,12 @@ public class RacikanDetail extends DasarEntity<Long> {
 		this.komposisi = komposisi;
 	}
 
-	public BigDecimal getHargaJualPerKomposisi() {
-		return hargaJualPerKomposisi;
+	public BigDecimal getHargaSatuan() {
+		return hargaSatuan;
 	}
 
-	public void setHargaJualPerKomposisi(BigDecimal hargaJualPerKomposisi) {
-		this.hargaJualPerKomposisi = hargaJualPerKomposisi;
+	public void setHargaSatuan(BigDecimal hargaJualPerKomposisi) {
+		this.hargaSatuan = hargaJualPerKomposisi;
 	}
 
 	public Integer getJumlah() {
@@ -80,5 +90,5 @@ public class RacikanDetail extends DasarEntity<Long> {
 
 	public void setJumlah(Integer jumlah) {
 		this.jumlah = jumlah;
-	}	
+	}
 }

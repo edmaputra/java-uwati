@@ -91,6 +91,13 @@
 		<!-- <put-attribute name="current" value="home" /> -->
 	</definition>
 	
+	<definition name="racikan-daftar" extends="dasar">
+		<put-attribute name="title" value="UWATI - Racikan" />
+		<put-attribute name="page_title" value="Racikan" />
+		<put-attribute name="body" value="/WEB-INF/jsps/racikan/racikan-daftar.jsp" />
+		<!-- <put-attribute name="current" value="home" /> -->
+	</definition>
+	
 	<definition name="role-daftar" extends="dasar">
 		<put-attribute name="title" value="UWATI - Role" />
 		<put-attribute name="page_title" value="Role" />

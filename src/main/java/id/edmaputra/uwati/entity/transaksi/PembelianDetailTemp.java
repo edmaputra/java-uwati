@@ -1,35 +1,70 @@
 package id.edmaputra.uwati.entity.transaksi;
 
-public class PembelianDetailTemp{
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import id.edmaputra.uwati.entity.DasarTransaksiEntity;
+
+@Entity
+@Table(name = "pembelian_detail_temp", uniqueConstraints = { @UniqueConstraint(columnNames = "id")},
+		indexes = {@Index(name = "i_nomorFaktur_pengguna", columnList = "nomorFaktur,pengguna")})
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public class PembelianDetailTemp extends DasarTransaksiEntity<Long>{
+
+	private static final long serialVersionUID = -2093256738213786669L;
+
+	@Id
+	@GeneratedValue
 	private Long id;
 	
+	@Column(length = 150)
 	private String obat;
 	
+	@Column(length = 6)
 	private String jumlah;
 	
+	@Column(length = 15)
 	private String hargaJual;
 	
+	@Column(length = 15)
 	private String hargaJualResep;
 	
+	@Column(length = 15)
 	private String hargaBeli;
 
+	@Column(length = 15)
 	private String diskon;
 
+	@Column(length = 15)
 	private String pajak;
 
+	@Column(length = 15)
 	private String subTotal;
 
+	@Column(length = 12)
 	private String tanggalKadaluarsa;
 	
+	@Column(length = 50)
 	private String pengguna;
 	
+	@Column(length = 30, name = "nomorFaktur")
 	private String nomorFaktur;
 	
+	@Column(length = 12)
 	private String tanggal;
 	
+	@Column(length = 70)
 	private String supplier;
 	
+	@Column(length = 100)
 	private String pesan;
 
 	public Long getId() {

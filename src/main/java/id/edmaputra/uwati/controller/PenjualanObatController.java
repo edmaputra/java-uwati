@@ -21,7 +21,6 @@ public class PenjualanObatController {
 
 	private static final Logger logger = LoggerFactory.getLogger(PenjualanObatController.class);
 
-	
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView tampilkanPelanggan(Principal principal, HttpServletRequest request) {

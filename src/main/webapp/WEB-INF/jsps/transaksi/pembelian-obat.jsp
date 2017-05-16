@@ -104,7 +104,7 @@
 				</div>
 				<div class="row">
 					<div class="col-md-12">
-						<div class="text-right">
+						<div class="text-right">							
 							<input type="submit" class="btn btn-default" value="Tambahkan" id="tambah"/>
 						</div>
 					</div>
@@ -160,8 +160,6 @@
 	<div class="modal-dialog modal-sm">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">&times;</button>
 				<h4 class="modal-title" id="myModalLabel">Pembelian Tersimpan</h4>
 			</div>
 			<div class="form-panel">
@@ -169,12 +167,11 @@
 					<p>Apakah Anda Ingin Mencetak Bukti Pembelian ?</p>
 				</div>
 			</div>
-			<form action="${cetakUrl}" class="form-horizontal style-form formCetak" method="POST">
+			<form action="${cetakUrl}" class="form-horizontal style-form formCetak" method="POST" target="_blank">
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default btnKeluar"
-						id="keluarModal" data-dismiss="modal">Tidak</button>
+					<button type="button" class="btn btn-default btnKeluar" id="keluarModal" data-dismiss="modal" onclick="muatUlangHalaman()">Tidak</button>
 					<input type="hidden" name="id" class="form-control" id="beliId" />
-					<input type="submit" class="btn btn-primary" value="CETAK" />
+					<input type="submit" id="cetak" class="btn btn-primary" value="CETAK" />
 				</div>
 			</form>
 		</div>
@@ -233,18 +230,18 @@
 					},
 					nomorFaktur : {
 						required : true,
-// 						remote: {
-// 							url: "${tersediaUrl}",
-// 							type: "get",
-// 							data: {
-// 								nomorFaktur: function(){
-// 									return $("#nomorFaktur").val();
-// 								},
-// 								tahun: function(){
-// 									return $("#tanggal").val();
-// 								}
-// 							}
-// 						},
+						remote: {
+							url: "${tersediaUrl}",
+							type: "get",
+							data: {
+								nomorFaktur: function(){
+									return $("#nomorFaktur").val();
+								},
+								tahun: function(){
+									return $("#tanggal").val();
+								}
+							}
+						},
 					},
 					namaObat : {
 						required : true
@@ -275,7 +272,7 @@
 					supplier : "Isi Nama Supplier",
 					nomorFaktur : {
 						required : "Isi Nomor Faktur",
-// 						remote : "Nomor Faktur Sudah Ada"
+						remote : "Nomor Faktur Sudah Ada"
 					},
 					namaObat : "Masukkan Nama Obat",
 					kodeObat : "Masukkan Kode Obat",
@@ -296,6 +293,7 @@
 					}				
 				},
 				submitHandler : function(form) {
+					document.getElementById('nomorFaktur').readOnly = true;
 					var data = {};
 					data['obat'] = $('#namaObat').val();
 					data['tanggal'] = $('#tanggal').val();
@@ -341,6 +339,7 @@
 			}
 		});
 		
+		
 // 		$(".formCetak").submit(function(e) {
 // 			e.preventDefault();
 // 			var data = {};
@@ -368,9 +367,9 @@
 		};
 		$.getAjax('${getObatUrl}', data, function(obat) {
 			$('#kodeObat').val(obat.kode);
-			$('#hargaJual').val(obat.obatDetail[0].hargaJual);
-			$('#hargaJualResep').val(obat.obatDetail[0].hargaJualResep);
-			$('#hargaBeli').val(obat.obatDetail[0].hargaBeli);
+			$('#hargaJual').val(obat.detail[0].hargaJual);
+			$('#hargaJualResep').val(obat.detail[0].hargaJualResep);
+			$('#hargaBeli').val(obat.detail[0].hargaBeli);
 			$('#tanggalKadaluarsa').val(
 					dateFormat(obat.expired[0].tanggalExpired, 'dd-mm-yyyy'));			
 		}, null);
@@ -385,10 +384,11 @@
 	}
 	
 	function refresh() {
+		var nomorFaktur = $('#nomorFaktur').val();
 		var data = {
 // 			s : supplier,
-// 			t : tanggal,
-// 			n : nomorFaktur
+// 			t : tanggal
+			n : nomorFaktur
 		};
 
 		$.getAjax('${daftarTempUrl}', data, function(result) {			
@@ -419,6 +419,10 @@
 		});
 	}
 	
+	function muatUlangHalaman(){
+		 window.location.reload();
+	}
+	
 	function clean(){
 		$('#kodeObat').val('');
 		$('#hargaJual').val('');		
@@ -442,5 +446,6 @@
 		$('#namaObat').val('');
 		$('#supplier').val('');		
 		$('#nomorFaktur').val('');
+		document.getElementById('nomorFaktur').readOnly = false;
 	}
 </script>

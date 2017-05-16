@@ -56,7 +56,7 @@ public class Obat extends DasarEntity<Long> {
 
 	@OneToMany(mappedBy = "obat", cascade = CascadeType.ALL, orphanRemoval = true)
 //	@JsonSerialize(using = ObatDetailListSerializer.class)
-	private List<ObatDetail> obatDetail;
+	private List<ObatDetail> detail;
 
 	@OneToMany(mappedBy = "obat", cascade = CascadeType.ALL, orphanRemoval = true)
 //	@JsonIgnore
@@ -71,6 +71,8 @@ public class Obat extends DasarEntity<Long> {
 
 	@Column(name = "tipe", nullable = false)
 	private Integer tipe;
+	
+	
 
 	public Obat() {
 	}
@@ -83,19 +85,19 @@ public class Obat extends DasarEntity<Long> {
 		this.kategori = kategori;
 		this.batch = batch;
 		this.barcode = barcode;
-		this.obatDetail = obatDetail;
+		this.detail = obatDetail;
 		this.stok = stok;
 		this.stokMinimal = stokMinimal;
 		this.tipe = tipe;
 	}
 	
 	public void addObatDetail(ObatDetail od){
-		obatDetail.add(od);
+		detail.add(od);
 		od.setObat(this);
 	}
 	
 	public void deleteObatDetail(ObatDetail od){
-		obatDetail.remove(od);
+		detail.remove(od);
 		od.setObat(null);
 	}
 	
@@ -176,12 +178,12 @@ public class Obat extends DasarEntity<Long> {
 		this.barcode = barcode;
 	}
 
-	public List<ObatDetail> getObatDetail() {
-		return obatDetail;
+	public List<ObatDetail> getDetail() {
+		return detail;
 	}
 
-	public void setObatDetail(List<ObatDetail> obatDetail) {
-		this.obatDetail = obatDetail;
+	public void setDetail(List<ObatDetail> obatDetail) {
+		this.detail = obatDetail;
 	}
 
 	public List<ObatStok> getStok() {
@@ -219,7 +221,7 @@ public class Obat extends DasarEntity<Long> {
 	@Override
 	public String toString() {
 		return "Obat [id=" + id + ", nama=" + nama + ", kode=" + kode + ", satuan=" + satuan + ", kategori=" + kategori
-				+ ", batch=" + batch + ", barcode=" + barcode + ", obatDetail=" + obatDetail + ", stok=" + stok
+				+ ", batch=" + batch + ", barcode=" + barcode + ", obatDetail=" + detail + ", stok=" + stok
 				+ ", expired=" + expired + ", stokMinimal=" + stokMinimal + ", tipe=" + tipe + "]";
 	}
 

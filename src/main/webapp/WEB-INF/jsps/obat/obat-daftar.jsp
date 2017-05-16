@@ -383,10 +383,10 @@
 			$('#editSatuan').val(obat.satuan.nama);
 			$('#editKategori').val(obat.kategori.nama);
 			$('#editStokMinimal').val(obat.stokMinimal);
-			$('#editHargaJual').val(obat.obatDetail[0].hargaJual);
-			$('#editHargaJualResep').val(obat.obatDetail[0].hargaJualResep);
-			$('#editHargaBeli').val(obat.obatDetail[0].hargaBeli);
-			$('#editHargaDiskon').val(obat.obatDetail[0].hargaDiskon);
+			$('#editHargaJual').val(obat.detail[0].hargaJual);
+			$('#editHargaJualResep').val(obat.detail[0].hargaJualResep);
+			$('#editHargaBeli').val(obat.detail[0].hargaBeli);
+			$('#editHargaDiskon').val(obat.detail[0].hargaDiskon);
 			$('#editStok').val(obat.stok[0].stok);
 			$('#editTanggalExpired').val(
 					dateFormat(obat.expired[0].tanggalExpired, 'dd-mm-yyyy'));

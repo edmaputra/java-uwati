@@ -28,6 +28,8 @@ public class QObat extends EntityPathBase<Obat> {
 
     public final StringPath batch = createString("batch");
 
+    public final ListPath<ObatDetail, QObatDetail> detail = this.<ObatDetail, QObatDetail>createList("detail", ObatDetail.class, QObatDetail.class, PathInits.DIRECT2);
+
     public final ListPath<ObatExpired, QObatExpired> expired = this.<ObatExpired, QObatExpired>createList("expired", ObatExpired.class, QObatExpired.class, PathInits.DIRECT2);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
@@ -37,8 +39,6 @@ public class QObat extends EntityPathBase<Obat> {
     public final StringPath kode = createString("kode");
 
     public final StringPath nama = createString("nama");
-
-    public final ListPath<ObatDetail, QObatDetail> obatDetail = this.<ObatDetail, QObatDetail>createList("obatDetail", ObatDetail.class, QObatDetail.class, PathInits.DIRECT2);
 
     public final id.edmaputra.uwati.entity.master.QSatuan satuan;
 

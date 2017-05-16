@@ -1,4 +1,4 @@
-package id.edmaputra.uwati.service;
+package id.edmaputra.uwati.service.transaksi;
 
 import java.util.List;
 

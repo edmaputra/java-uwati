@@ -45,6 +45,8 @@ import id.edmaputra.uwati.support.LogSupport;
 import id.edmaputra.uwati.view.Formatter;
 import id.edmaputra.uwati.view.Html;
 import id.edmaputra.uwati.view.HtmlElement;
+import id.edmaputra.uwati.view.json.JsonReturn;
+import id.edmaputra.uwati.view.json.Suggestion;
 
 @Controller
 @RequestMapping("/obat")
@@ -184,7 +186,7 @@ public class ObatController {
 			expired.setWaktuDibuat(new Date());
 			lOE.add(expired);
 
-			obat.setObatDetail(lOD);
+			obat.setDetail(lOD);
 			obat.setStok(lStok);
 			obat.setExpired(lOE);
 
@@ -212,11 +214,11 @@ public class ObatController {
 			edit.setUserEditor(principal.getName());			
 			edit.setTerakhirDirubah(new Date());
 						
-			for (ObatDetail od:edit.getObatDetail()){				
+			for (ObatDetail od:edit.getDetail()){				
 				od = setObatDetailContent(edit, od, h);				
 				od.setUserEditor(principal.getName());				
 				od.setTerakhirDirubah(new Date());				
-				edit.getObatDetail().set(i, od);
+				edit.getDetail().set(i, od);
 				i++;
 			}
 			i = 0;
@@ -262,6 +264,34 @@ public class ObatController {
 		} catch (Exception e) {
 			logger.info(e.getMessage());
 			logger.info(LogSupport.hapusGagal(principal.getName(), entity, request));
+			return null;
+		}
+	}
+	
+	@RequestMapping(value = "/cariobat", method = RequestMethod.GET)
+	@ResponseBody
+	public Suggestion suggestionObatByNama(@RequestParam("query") String nama) {
+		try {
+			ObatPredicateBuilder builder = new ObatPredicateBuilder();
+			if (!StringUtils.isBlank(nama)) {
+				builder.nama(nama);
+			}
+
+			BooleanExpression exp = builder.getExpression();
+			List<Obat> l = obatService.dapatkanListByNama(exp);
+
+			List<JsonReturn> listReturn = new ArrayList<>();
+			for (Obat o : l) {
+				JsonReturn jr = new JsonReturn();
+				jr.setData(o.getNama());
+				jr.setValue(o.getNama());
+				listReturn.add(jr);
+			}
+			Suggestion r = new Suggestion();
+			r.setSuggestions(listReturn);
+			return r;
+		} catch (Exception e) {
+			logger.info(e.getMessage());
 			return null;
 		}
 	}
@@ -348,8 +378,8 @@ public class ObatController {
 		Obat get = obatService.dapatkan(id);
 
 		List<ObatDetail> lObatDetail = obatDetailService.temukanByObats(get);
-		get.setObatDetail(lObatDetail);
-		Hibernate.initialize(get.getObatDetail());
+		get.setDetail(lObatDetail);
+		Hibernate.initialize(get.getDetail());
 
 		List<ObatStok> lObatStok = obatStokService.temukanByObats(get);
 		get.setStok(lObatStok);
@@ -365,8 +395,8 @@ public class ObatController {
 		Obat get = obatService.dapatkanByNama(nama);
 
 		List<ObatDetail> lObatDetail = obatDetailService.temukanByObats(get);
-		get.setObatDetail(lObatDetail);
-		Hibernate.initialize(get.getObatDetail());
+		get.setDetail(lObatDetail);
+		Hibernate.initialize(get.getDetail());
 
 		List<ObatStok> lObatStok = obatStokService.temukanByObats(get);
 		get.setStok(lObatStok);

@@ -1,0 +1,1101 @@
+2017-05-16 22:02:38 INFO  ContextLoader:304 - Root WebApplicationContext: initialization started
+2017-05-16 22:02:38 INFO  AnnotationConfigWebApplicationContext:582 - Refreshing Root WebApplicationContext: startup date [Tue May 16 22:02:38 WITA 2017]; root of context hierarchy
+2017-05-16 22:02:38 INFO  AnnotationConfigWebApplicationContext:207 - Registering annotated classes: [class id.edmaputra.uwati.config.UwatiAppConfiguration,class id.edmaputra.uwati.config.UwatiServletConfiguration,class id.edmaputra.uwati.config.UwatiSecurityWebApplicationInitializer]
+2017-05-16 22:02:38 INFO  XmlBeanDefinitionReader:317 - Loading XML bean definitions from class path resource [id/edmaputra/uwati/config/security-context.xml]
+2017-05-16 22:02:38 INFO  SpringSecurityCoreVersion:75 - You are running with Spring Security Core 4.2.2.RELEASE
+2017-05-16 22:02:38 INFO  SecurityNamespaceHandler:78 - Spring Security 'config' module version is 4.2.2.RELEASE
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated()' for /
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'permitAll' for /masuk
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /satuan**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /satuan/dapatkan**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /satuan/daftar**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /satuan/tambah**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /satuan/edit**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /satuan/hapus**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /profil**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /profil/simpan**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /profil/dapatkan**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /kategori**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /kategori/dapatkan**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /kategori/daftar**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /kategori/tambah**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /kategori/edit**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /kategori/hapus**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','MEDIS')' for /dokter**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','MEDIS')' for /dokter/dapatkan**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','MEDIS')' for /dokter/daftar**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','MEDIS')' for /dokter/tambah**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','MEDIS')' for /dokter/edit**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','MEDIS')' for /dokter/hapus**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /pelanggan**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /pelanggan/dapatkan**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /pelanggan/daftar**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /pelanggan/tambah**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /pelanggan/edit**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /pelanggan/hapus**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /obat**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /obat/dapatkan**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /obat/daftar**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /obat/tambah**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /obat/edit**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /obat/hapus**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and permitAll' for /pengguna**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and permitAll' for /pengguna/simpan**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN')' for /daftarpengguna**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN')' for /daftarpengguna/daftar**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN')' for /daftarpengguna/dapatkan**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN')' for /daftarpengguna/semua**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN')' for /daftarpengguna/tambah**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN')' for /daftarpengguna/edit**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN')' for /daftarpengguna/hapus**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN')' for /role**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN')' for /role/daftar**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN')' for /role/dapatkan**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and permitAll' for /role/nama**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and permitAll' for /role/semua**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN')' for /role/tambah**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN')' for /role/edit**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN')' for /role/hapus**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /pembelian-obat**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /pembelian-obat/cariobat**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /pembelian-obat/tambahTemp**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /pembelian-obat/daftarTemp**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /pembelian-obat/hapusTemp**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /pembelian-obat/beli**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /pembelian-obat/tersedia**
+2017-05-16 22:02:38 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /pembelian-obat/cetak**
+2017-05-16 22:02:38 INFO  HttpSecurityBeanDefinitionParser:306 - Checking sorted filter chain: [Root bean: class [org.springframework.security.web.context.SecurityContextPersistenceFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 200, Root bean: class [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 400, Root bean: class [org.springframework.security.web.header.HeaderWriterFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 500, Root bean: class [org.springframework.security.web.authentication.logout.LogoutFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 800, <org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter#0>, order = 1200, Root bean: class [org.springframework.security.web.authentication.www.BasicAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1600, Root bean: class [org.springframework.security.web.savedrequest.RequestCacheAwareFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1700, Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.security.config.http.HttpConfigurationBuilder$SecurityContextHolderAwareRequestFilterBeanFactory#0; factoryMethodName=getBean; initMethodName=null; destroyMethodName=null, order = 1800, Root bean: class [org.springframework.security.web.authentication.AnonymousAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2100, Root bean: class [org.springframework.security.web.session.SessionManagementFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2200, Root bean: class [org.springframework.security.web.access.ExceptionTranslationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2300, <org.springframework.security.web.access.intercept.FilterSecurityInterceptor#0>, order = 2400]
+2017-05-16 22:02:38 INFO  DefaultListableBeanFactory:828 - Overriding bean definition for bean 'customUserDetailService' with a different definition: replacing [Generic bean: class [id.edmaputra.uwati.service.security.CustomUserDetailService]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null; defined in file [/home/edmaputra/coding/workspace/java-uwati/target/classes/id/edmaputra/uwati/service/security/CustomUserDetailService.class]] with [Generic bean: class [id.edmaputra.uwati.service.security.CustomUserDetailService]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null; defined in class path resource [id/edmaputra/uwati/config/security-context.xml]]
+2017-05-16 22:02:38 INFO  AutowiredAnnotationBeanPostProcessor:155 - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2017-05-16 22:02:39 INFO  LocalContainerEntityManagerFactoryBean:349 - Building JPA container EntityManagerFactory for persistence unit 'default'
+2017-05-16 22:02:39 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2017-05-16 22:02:39 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+2017-05-16 22:02:39 INFO  Environment:213 - HHH000206: hibernate.properties not found
+2017-05-16 22:02:39 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2017-05-16 22:02:39 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2017-05-16 22:02:39 INFO  LobCreatorBuilderImpl:124 - HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+2017-05-16 22:02:39 INFO  BasicTypeRegistry:148 - HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@719770c2
+2017-05-16 22:02:41 WARN  ExceptionHandlerLoggedImpl:27 - GenerationTarget encountered exception accepting command : Error executing DDL via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.applySqlString(SchemaCreatorImpl.java:439)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.applySqlStrings(SchemaCreatorImpl.java:424)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:336)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:166)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:135)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:121)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:155)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:72)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:309)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:445)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:889)
+	at org.hibernate.jpa.HibernatePersistenceProvider.createContainerEntityManagerFactory(HibernatePersistenceProvider.java:151)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:353)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:370)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:359)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1687)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1624)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1081)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:856)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:542)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:443)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:325)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:107)
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4937)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5434)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1559)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1549)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.postgresql.util.PSQLException: ERROR: relation "i_nomorfaktur_pengguna" already exists
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2455)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2155)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:288)
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:430)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:356)
+	at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:303)
+	at org.postgresql.jdbc.PgStatement.executeCachedSql(PgStatement.java:289)
+	at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:266)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:262)
+	at org.apache.commons.dbcp.DelegatingStatement.execute(DelegatingStatement.java:264)
+	at org.apache.commons.dbcp.DelegatingStatement.execute(DelegatingStatement.java:264)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	... 38 more
+2017-05-16 22:02:41 INFO  SchemaCreatorImpl:488 - HHH000476: Executing import script 'org.hibernate.tool.schema.internal.exec.ScriptSourceInputNonExistentImpl@3f94271c'
+2017-05-16 22:02:41 INFO  LocalContainerEntityManagerFactoryBean:379 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2017-05-16 22:02:44 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+2017-05-16 22:02:44 INFO  JasperReportsPdfView:500 - Loading pre-compiled Jasper Report from class path resource [reports/struk_pembelian.jasper]
+2017-05-16 22:02:45 INFO  DefaultSecurityFilterChain:43 - Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.SecurityContextPersistenceFilter@26cd5970, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@537be890, org.springframework.security.web.header.HeaderWriterFilter@29118fc, org.springframework.security.web.authentication.logout.LogoutFilter@7f77feb0, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@a9b4fd6, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@4b8e2681, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@d696d4b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2120c61e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@29ddeebe, org.springframework.security.web.session.SessionManagementFilter@41227490, org.springframework.security.web.access.ExceptionTranslationFilter@2dc5e7d1, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2df1820b]
+2017-05-16 22:02:45 INFO  DefaultFilterChainValidator:154 - Checking whether login URL '/masuk' is accessible with your configuration
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/profil/simpan],methods=[POST]}" onto public id.edmaputra.uwati.entity.master.Apotek id.edmaputra.uwati.controller.ApotekController.simpan(id.edmaputra.uwati.entity.master.Apotek,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/profil],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView id.edmaputra.uwati.controller.ApotekController.muatHalaman(java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/profil/dapatkan],methods=[GET]}" onto public id.edmaputra.uwati.entity.master.Apotek id.edmaputra.uwati.controller.ApotekController.dapatkanApotek()
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/dokter],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView id.edmaputra.uwati.controller.DokterController.tampilkanDokter(java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/dokter/daftar],methods=[GET]}" onto public id.edmaputra.uwati.view.HtmlElement id.edmaputra.uwati.controller.DokterController.dapatkanDaftarDokter(java.lang.Integer,java.lang.String,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/dokter/dapatkan],methods=[GET]}" onto public id.edmaputra.uwati.entity.master.Dokter id.edmaputra.uwati.controller.DokterController.dapatkanDokter(java.lang.String)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/dokter/tambah],methods=[POST]}" onto public id.edmaputra.uwati.entity.master.Dokter id.edmaputra.uwati.controller.DokterController.tambahDokter(id.edmaputra.uwati.entity.master.Dokter,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/dokter/edit],methods=[POST]}" onto public id.edmaputra.uwati.entity.master.Dokter id.edmaputra.uwati.controller.DokterController.editDokter(id.edmaputra.uwati.entity.master.Dokter,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/dokter/hapus],methods=[POST],produces=[application/json;charset=utf-8]}" onto public java.lang.String id.edmaputra.uwati.controller.DokterController.hapusDokter(id.edmaputra.uwati.entity.master.Dokter,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/keluar],methods=[GET]}" onto public java.lang.String id.edmaputra.uwati.controller.IndexController.keluar(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/ || /masuk]}" onto public java.lang.String id.edmaputra.uwati.controller.IndexController.home(org.springframework.ui.Model)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/kategori/semua],methods=[GET]}" onto public java.util.List<id.edmaputra.uwati.entity.master.Kategori> id.edmaputra.uwati.controller.KategoriController.dapatkanSemua()
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/kategori],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView id.edmaputra.uwati.controller.KategoriController.tampilkanKategori(java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/kategori/daftar],methods=[GET]}" onto public id.edmaputra.uwati.view.HtmlElement id.edmaputra.uwati.controller.KategoriController.dapatkanDaftarKategori(java.lang.Integer,java.lang.String,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/kategori/dapatkan],methods=[GET]}" onto public id.edmaputra.uwati.entity.master.Kategori id.edmaputra.uwati.controller.KategoriController.dapatkanKategori(java.lang.String)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/kategori/nama],methods=[GET]}" onto public id.edmaputra.uwati.view.json.Suggestion id.edmaputra.uwati.controller.KategoriController.dapatkanKategoriByNama(java.lang.String)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/kategori/tambah],methods=[POST]}" onto public id.edmaputra.uwati.entity.master.Kategori id.edmaputra.uwati.controller.KategoriController.tambahKategori(id.edmaputra.uwati.entity.master.Kategori,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/kategori/edit],methods=[POST]}" onto public id.edmaputra.uwati.entity.master.Kategori id.edmaputra.uwati.controller.KategoriController.editKategori(id.edmaputra.uwati.entity.master.Kategori,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/kategori/hapus],methods=[POST],produces=[application/json;charset=utf-8]}" onto public java.lang.String id.edmaputra.uwati.controller.KategoriController.hapusKategori(id.edmaputra.uwati.entity.master.Kategori,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/obat/daftar],methods=[GET]}" onto public id.edmaputra.uwati.view.HtmlElement id.edmaputra.uwati.controller.ObatController.dapatkanDaftarObat(java.lang.Integer,java.lang.String,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/obat/dapatkan],methods=[GET]}" onto public id.edmaputra.uwati.entity.master.obat.Obat id.edmaputra.uwati.controller.ObatController.dapatkanObat(java.lang.String)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/obat/nama],methods=[GET]}" onto public id.edmaputra.uwati.entity.master.obat.Obat id.edmaputra.uwati.controller.ObatController.dapatkanObatByNama(java.lang.String)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/obat/tambah],methods=[POST]}" onto public id.edmaputra.uwati.entity.master.obat.Obat id.edmaputra.uwati.controller.ObatController.tambahObat(id.edmaputra.uwati.entity.master.obat.ObatHandler,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/obat],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView id.edmaputra.uwati.controller.ObatController.tampilkanObat(java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/obat/edit],methods=[POST]}" onto public id.edmaputra.uwati.entity.master.obat.Obat id.edmaputra.uwati.controller.ObatController.editObat(id.edmaputra.uwati.entity.master.obat.ObatHandler,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/obat/hapus],methods=[POST],produces=[application/json;charset=utf-8]}" onto public id.edmaputra.uwati.entity.master.obat.Obat id.edmaputra.uwati.controller.ObatController.hapusObat(id.edmaputra.uwati.entity.master.obat.ObatHandler,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/obat/cariobat],methods=[GET]}" onto public id.edmaputra.uwati.view.json.Suggestion id.edmaputra.uwati.controller.ObatController.suggestionObatByNama(java.lang.String)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/pelanggan],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView id.edmaputra.uwati.controller.PelangganController.tampilkanPelanggan(java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/pelanggan/daftar],methods=[GET]}" onto public id.edmaputra.uwati.view.HtmlElement id.edmaputra.uwati.controller.PelangganController.dapatkanDaftarPelanggan(java.lang.Integer,java.lang.String,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/pelanggan/dapatkan],methods=[GET]}" onto public id.edmaputra.uwati.entity.master.Pelanggan id.edmaputra.uwati.controller.PelangganController.dapatkanPelanggan(java.lang.String)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/pelanggan/tambah],methods=[POST]}" onto public id.edmaputra.uwati.entity.master.Pelanggan id.edmaputra.uwati.controller.PelangganController.tambahPelanggan(id.edmaputra.uwati.entity.master.Pelanggan,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/pelanggan/edit],methods=[POST]}" onto public id.edmaputra.uwati.entity.master.Pelanggan id.edmaputra.uwati.controller.PelangganController.editPelanggan(id.edmaputra.uwati.entity.master.Pelanggan,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/pelanggan/hapus],methods=[POST],produces=[application/json;charset=utf-8]}" onto public java.lang.String id.edmaputra.uwati.controller.PelangganController.hapusPelanggan(id.edmaputra.uwati.entity.master.Pelanggan,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/pembelian-obat/daftarTemp],methods=[GET]}" onto public id.edmaputra.uwati.view.HtmlElement id.edmaputra.uwati.controller.PembelianObatController.dapatkanDaftarObat(java.lang.String,java.lang.String,java.lang.String,java.security.Principal,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/pembelian-obat/cariobat],methods=[GET]}" onto public id.edmaputra.uwati.view.json.Suggestion id.edmaputra.uwati.controller.PembelianObatController.dapatkanObatByNama(java.lang.String)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/pembelian-obat/tambahTemp],methods=[POST]}" onto public id.edmaputra.uwati.entity.transaksi.PembelianDetailTemp id.edmaputra.uwati.controller.PembelianObatController.tambahObat(id.edmaputra.uwati.entity.transaksi.PembelianDetailTemp,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/pembelian-obat/hapusTemp],methods=[POST]}" onto public id.edmaputra.uwati.entity.transaksi.PembelianDetailTemp id.edmaputra.uwati.controller.PembelianObatController.hapusObat(id.edmaputra.uwati.entity.transaksi.PembelianDetailTemp,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/pembelian-obat],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView id.edmaputra.uwati.controller.PembelianObatController.tampilkanPelanggan(java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/pembelian-obat/beli],methods=[POST]}" onto public id.edmaputra.uwati.entity.transaksi.PembelianDetailTemp id.edmaputra.uwati.controller.PembelianObatController.simpanPembelian(id.edmaputra.uwati.entity.transaksi.PembelianDetailTemp,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/pembelian-obat/tersedia]}" onto public java.lang.String id.edmaputra.uwati.controller.PembelianObatController.tersedia(java.lang.String,java.lang.String)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/pembelian-obat/cetak],methods=[POST]}" onto public org.springframework.web.servlet.ModelAndView id.edmaputra.uwati.controller.PembelianObatController.buatResi(org.springframework.web.servlet.ModelAndView,java.lang.String,java.security.Principal)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/daftarpengguna/semua],methods=[GET]}" onto public java.util.List<id.edmaputra.uwati.entity.pengguna.Pengguna> id.edmaputra.uwati.controller.PenggunaController.dapatkanSemua()
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/pengguna/simpan],methods=[POST]}" onto public id.edmaputra.uwati.entity.pengguna.Pengguna id.edmaputra.uwati.controller.PenggunaController.simpan(id.edmaputra.uwati.view.handler.PasswordHandler,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/daftarpengguna]}" onto public org.springframework.web.servlet.ModelAndView id.edmaputra.uwati.controller.PenggunaController.tampilkanDaftarPengguna(java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/daftarpengguna/daftar],methods=[GET]}" onto public id.edmaputra.uwati.view.HtmlElement id.edmaputra.uwati.controller.PenggunaController.dapatkanDaftarPengguna(java.lang.Integer,java.lang.String,java.lang.Boolean,java.lang.Boolean,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/daftarpengguna/dapatkan],methods=[GET]}" onto public id.edmaputra.uwati.entity.pengguna.Pengguna id.edmaputra.uwati.controller.PenggunaController.dapatkanPengguna(java.lang.String)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/daftarpengguna/tambah],methods=[POST]}" onto public id.edmaputra.uwati.entity.pengguna.Pengguna id.edmaputra.uwati.controller.PenggunaController.tambahPengguna(id.edmaputra.uwati.view.handler.PenggunaHandler,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/daftarpengguna/edit],methods=[POST]}" onto public id.edmaputra.uwati.entity.pengguna.Pengguna id.edmaputra.uwati.controller.PenggunaController.editPengguna(id.edmaputra.uwati.view.handler.PenggunaHandler,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/daftarpengguna/hapus],methods=[POST],produces=[application/json;charset=utf-8]}" onto public id.edmaputra.uwati.entity.pengguna.Pengguna id.edmaputra.uwati.controller.PenggunaController.hapusPengguna(id.edmaputra.uwati.entity.pengguna.Pengguna,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/pengguna]}" onto public org.springframework.web.servlet.ModelAndView id.edmaputra.uwati.controller.PenggunaController.tampilkanProfilPengguna(java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/penjualan-obat],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView id.edmaputra.uwati.controller.PenjualanObatController.tampilkanPelanggan(java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/racikan],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView id.edmaputra.uwati.controller.RacikanController.tampilkanSatuan(java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/racikan/daftar],methods=[GET]}" onto public id.edmaputra.uwati.view.HtmlElement id.edmaputra.uwati.controller.RacikanController.dapatkanDaftarSatuan(java.lang.Integer,java.lang.String,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/role/semua],methods=[GET]}" onto public java.util.List<id.edmaputra.uwati.entity.pengguna.Role> id.edmaputra.uwati.controller.RoleController.dapatkanSemua()
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/role/nama],methods=[GET]}" onto public id.edmaputra.uwati.view.json.Suggestion id.edmaputra.uwati.controller.RoleController.dapatkanRoleByNama(java.lang.String)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/role/tambah],methods=[POST]}" onto public id.edmaputra.uwati.entity.pengguna.Role id.edmaputra.uwati.controller.RoleController.tambahRole(id.edmaputra.uwati.entity.pengguna.Role,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/role/edit],methods=[POST]}" onto public id.edmaputra.uwati.entity.pengguna.Role id.edmaputra.uwati.controller.RoleController.editRole(id.edmaputra.uwati.entity.pengguna.Role,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/role/hapus],methods=[POST],produces=[application/json;charset=utf-8]}" onto public java.lang.String id.edmaputra.uwati.controller.RoleController.hapusRole(id.edmaputra.uwati.entity.pengguna.Role,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/role],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView id.edmaputra.uwati.controller.RoleController.tampilkanRole(java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/role/daftar],methods=[GET]}" onto public id.edmaputra.uwati.view.HtmlElement id.edmaputra.uwati.controller.RoleController.dapatkanDaftarRole(java.lang.Integer,java.lang.String,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/role/dapatkan],methods=[GET]}" onto public id.edmaputra.uwati.entity.pengguna.Role id.edmaputra.uwati.controller.RoleController.dapatkanRole(java.lang.String)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/satuan/semua],methods=[GET]}" onto public java.util.List<id.edmaputra.uwati.entity.master.Satuan> id.edmaputra.uwati.controller.SatuanController.dapatkanSemua()
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/satuan/nama],methods=[GET]}" onto public id.edmaputra.uwati.view.json.Suggestion id.edmaputra.uwati.controller.SatuanController.dapatkanKategoriByNama(java.lang.String)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/satuan/dapatkan],methods=[GET]}" onto public id.edmaputra.uwati.entity.master.Satuan id.edmaputra.uwati.controller.SatuanController.dapatkanSatuan(java.lang.String)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/satuan/tambah],methods=[POST]}" onto public id.edmaputra.uwati.entity.master.Satuan id.edmaputra.uwati.controller.SatuanController.tambahSatuan(id.edmaputra.uwati.entity.master.Satuan,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/satuan/edit],methods=[POST]}" onto public id.edmaputra.uwati.entity.master.Satuan id.edmaputra.uwati.controller.SatuanController.editSatuan(id.edmaputra.uwati.entity.master.Satuan,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/satuan/hapus],methods=[POST],produces=[application/json;charset=utf-8]}" onto public java.lang.String id.edmaputra.uwati.controller.SatuanController.hapusSatuan(id.edmaputra.uwati.entity.master.Satuan,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/satuan],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView id.edmaputra.uwati.controller.SatuanController.tampilkanSatuan(java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:02:45 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/satuan/daftar],methods=[GET]}" onto public id.edmaputra.uwati.view.HtmlElement id.edmaputra.uwati.controller.SatuanController.dapatkanDaftarSatuan(java.lang.Integer,java.lang.String,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-05-16 22:02:45 INFO  SimpleUrlHandlerMapping:362 - Mapped URL path [/static/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-05-16 22:02:45 INFO  RequestMappingHandlerAdapter:534 - Looking for @ControllerAdvice: Root WebApplicationContext: startup date [Tue May 16 22:02:38 WITA 2017]; root of context hierarchy
+2017-05-16 22:02:45 INFO  TilesAccess:93 - Publishing TilesContext for context: org.springframework.web.servlet.view.tiles3.SpringWildcardServletTilesApplicationContext
+2017-05-16 22:02:46 INFO  ContextLoader:344 - Root WebApplicationContext: initialization completed in 7901 ms
+2017-05-16 22:02:46 INFO  DispatcherServlet:489 - FrameworkServlet 'dispatcher': initialization started
+2017-05-16 22:02:46 INFO  AnnotationConfigWebApplicationContext:582 - Refreshing WebApplicationContext for namespace 'dispatcher-servlet': startup date [Tue May 16 22:02:46 WITA 2017]; parent: Root WebApplicationContext
+2017-05-16 22:02:46 INFO  AutowiredAnnotationBeanPostProcessor:155 - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2017-05-16 22:02:46 INFO  DispatcherServlet:508 - FrameworkServlet 'dispatcher': initialization completed in 48 ms
+2017-05-16 22:03:57 INFO  RacikanController:53 - USER : admin, OPERASI : LOAD, PATH : /racikan, IP ADDRESS : 127.0.0.1, HOST : 127.0.0.1 
+2017-05-16 22:03:58 INFO  RacikanController:53 - USER : admin, OPERASI : LOAD, PATH : /racikan, IP ADDRESS : 127.0.0.1, HOST : 127.0.0.1 
+2017-05-16 22:04:09 WARN  PageNotFound:1172 - No mapping found for HTTP request with URI [/uwati/racikan/dapatkan] in DispatcherServlet with name 'dispatcher'
+2017-05-16 22:16:05 INFO  RacikanController:53 - USER : admin, OPERASI : LOAD, PATH : /racikan, IP ADDRESS : 127.0.0.1, HOST : 127.0.0.1 
+2017-05-16 22:16:06 ERROR InputTag:87 - Neither BindingResult nor plain target object for bean name 'command' available as request attribute
+java.lang.IllegalStateException: Neither BindingResult nor plain target object for bean name 'command' available as request attribute
+	at org.springframework.web.servlet.support.BindStatus.<init>(BindStatus.java:144)
+	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getBindStatus(AbstractDataBoundFormElementTag.java:168)
+	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getPropertyPath(AbstractDataBoundFormElementTag.java:188)
+	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getName(AbstractDataBoundFormElementTag.java:154)
+	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.writeDefaultAttributes(AbstractDataBoundFormElementTag.java:117)
+	at org.springframework.web.servlet.tags.form.AbstractHtmlElementTag.writeDefaultAttributes(AbstractHtmlElementTag.java:422)
+	at org.springframework.web.servlet.tags.form.InputTag.writeTagContent(InputTag.java:142)
+	at org.springframework.web.servlet.tags.form.AbstractFormTag.doStartTagInternal(AbstractFormTag.java:84)
+	at org.springframework.web.servlet.tags.RequestContextAwareTag.doStartTag(RequestContextAwareTag.java:80)
+	at org.apache.jsp.WEB_002dINF.jsps.racikan.racikan_002ddaftar_jsp._jspx_meth_form_005finput_005f0(racikan_002ddaftar_jsp.java:615)
+	at org.apache.jsp.WEB_002dINF.jsps.racikan.racikan_002ddaftar_jsp._jspx_meth_form_005fform_005f0(racikan_002ddaftar_jsp.java:550)
+	at org.apache.jsp.WEB_002dINF.jsps.racikan.racikan_002ddaftar_jsp._jspService(racikan_002ddaftar_jsp.java:156)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:432)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:390)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:334)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:749)
+	at org.apache.catalina.core.ApplicationDispatcher.doInclude(ApplicationDispatcher.java:605)
+	at org.apache.catalina.core.ApplicationDispatcher.include(ApplicationDispatcher.java:544)
+	at org.apache.jasper.runtime.JspRuntimeLibrary.include(JspRuntimeLibrary.java:954)
+	at org.apache.jasper.runtime.PageContextImpl.doInclude(PageContextImpl.java:684)
+	at org.apache.jasper.runtime.PageContextImpl.include(PageContextImpl.java:678)
+	at org.apache.tiles.request.jsp.JspRequest.doInclude(JspRequest.java:123)
+	at org.apache.tiles.request.AbstractViewRequest.dispatch(AbstractViewRequest.java:47)
+	at org.apache.tiles.request.render.DispatchRenderer.render(DispatchRenderer.java:47)
+	at org.apache.tiles.request.render.ChainedDelegateRenderer.render(ChainedDelegateRenderer.java:68)
+	at org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:259)
+	at org.apache.tiles.template.InsertAttributeModel.renderAttribute(InsertAttributeModel.java:188)
+	at org.apache.tiles.template.InsertAttributeModel.execute(InsertAttributeModel.java:132)
+	at org.apache.tiles.jsp.taglib.InsertAttributeTag.doTag(InsertAttributeTag.java:299)
+	at org.apache.jsp.WEB_002dINF.layouts.template_jsp._jspx_meth_tiles_005finsertAttribute_005f4(template_jsp.java:1224)
+	at org.apache.jsp.WEB_002dINF.layouts.template_jsp._jspService(template_jsp.java:263)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:432)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:390)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:334)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:749)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:487)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:412)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:339)
+	at org.apache.tiles.request.servlet.ServletRequest.forward(ServletRequest.java:265)
+	at org.apache.tiles.request.servlet.ServletRequest.doForward(ServletRequest.java:228)
+	at org.apache.tiles.request.AbstractClientRequest.dispatch(AbstractClientRequest.java:57)
+	at org.apache.tiles.request.render.DispatchRenderer.render(DispatchRenderer.java:47)
+	at org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:259)
+	at org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:397)
+	at org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:238)
+	at org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:221)
+	at org.apache.tiles.renderer.DefinitionRenderer.render(DefinitionRenderer.java:59)
+	at org.springframework.web.servlet.view.tiles3.TilesView.renderMergedOutputModel(TilesView.java:132)
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:303)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1282)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1037)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:980)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:897)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:970)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:861)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:621)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:846)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:317)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:127)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:91)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:114)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:137)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:111)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:170)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.authentication.www.BasicAuthenticationFilter.doFilterInternal(BasicAuthenticationFilter.java:158)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:200)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:64)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:214)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:177)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:346)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:262)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:100)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:953)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:603)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:310)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+2017-05-16 22:16:35 INFO  RacikanController:53 - USER : admin, OPERASI : LOAD, PATH : /racikan, IP ADDRESS : 127.0.0.1, HOST : 127.0.0.1 
+2017-05-16 22:16:35 ERROR InputTag:87 - Neither BindingResult nor plain target object for bean name 'racikan' available as request attribute
+java.lang.IllegalStateException: Neither BindingResult nor plain target object for bean name 'racikan' available as request attribute
+	at org.springframework.web.servlet.support.BindStatus.<init>(BindStatus.java:144)
+	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getBindStatus(AbstractDataBoundFormElementTag.java:168)
+	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getPropertyPath(AbstractDataBoundFormElementTag.java:188)
+	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getName(AbstractDataBoundFormElementTag.java:154)
+	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.writeDefaultAttributes(AbstractDataBoundFormElementTag.java:117)
+	at org.springframework.web.servlet.tags.form.AbstractHtmlElementTag.writeDefaultAttributes(AbstractHtmlElementTag.java:422)
+	at org.springframework.web.servlet.tags.form.InputTag.writeTagContent(InputTag.java:142)
+	at org.springframework.web.servlet.tags.form.AbstractFormTag.doStartTagInternal(AbstractFormTag.java:84)
+	at org.springframework.web.servlet.tags.RequestContextAwareTag.doStartTag(RequestContextAwareTag.java:80)
+	at org.apache.jsp.WEB_002dINF.jsps.racikan.racikan_002ddaftar_jsp._jspx_meth_form_005finput_005f0(racikan_002ddaftar_jsp.java:617)
+	at org.apache.jsp.WEB_002dINF.jsps.racikan.racikan_002ddaftar_jsp._jspx_meth_form_005fform_005f0(racikan_002ddaftar_jsp.java:552)
+	at org.apache.jsp.WEB_002dINF.jsps.racikan.racikan_002ddaftar_jsp._jspService(racikan_002ddaftar_jsp.java:156)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:432)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:390)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:334)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:749)
+	at org.apache.catalina.core.ApplicationDispatcher.doInclude(ApplicationDispatcher.java:605)
+	at org.apache.catalina.core.ApplicationDispatcher.include(ApplicationDispatcher.java:544)
+	at org.apache.jasper.runtime.JspRuntimeLibrary.include(JspRuntimeLibrary.java:954)
+	at org.apache.jasper.runtime.PageContextImpl.doInclude(PageContextImpl.java:684)
+	at org.apache.jasper.runtime.PageContextImpl.include(PageContextImpl.java:678)
+	at org.apache.tiles.request.jsp.JspRequest.doInclude(JspRequest.java:123)
+	at org.apache.tiles.request.AbstractViewRequest.dispatch(AbstractViewRequest.java:47)
+	at org.apache.tiles.request.render.DispatchRenderer.render(DispatchRenderer.java:47)
+	at org.apache.tiles.request.render.ChainedDelegateRenderer.render(ChainedDelegateRenderer.java:68)
+	at org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:259)
+	at org.apache.tiles.template.InsertAttributeModel.renderAttribute(InsertAttributeModel.java:188)
+	at org.apache.tiles.template.InsertAttributeModel.execute(InsertAttributeModel.java:132)
+	at org.apache.tiles.jsp.taglib.InsertAttributeTag.doTag(InsertAttributeTag.java:299)
+	at org.apache.jsp.WEB_002dINF.layouts.template_jsp._jspx_meth_tiles_005finsertAttribute_005f4(template_jsp.java:1224)
+	at org.apache.jsp.WEB_002dINF.layouts.template_jsp._jspService(template_jsp.java:263)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:432)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:390)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:334)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:749)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:487)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:412)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:339)
+	at org.apache.tiles.request.servlet.ServletRequest.forward(ServletRequest.java:265)
+	at org.apache.tiles.request.servlet.ServletRequest.doForward(ServletRequest.java:228)
+	at org.apache.tiles.request.AbstractClientRequest.dispatch(AbstractClientRequest.java:57)
+	at org.apache.tiles.request.render.DispatchRenderer.render(DispatchRenderer.java:47)
+	at org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:259)
+	at org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:397)
+	at org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:238)
+	at org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:221)
+	at org.apache.tiles.renderer.DefinitionRenderer.render(DefinitionRenderer.java:59)
+	at org.springframework.web.servlet.view.tiles3.TilesView.renderMergedOutputModel(TilesView.java:132)
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:303)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1282)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1037)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:980)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:897)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:970)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:861)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:621)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:846)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:317)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:127)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:91)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:114)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:137)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:111)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:170)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.authentication.www.BasicAuthenticationFilter.doFilterInternal(BasicAuthenticationFilter.java:158)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:200)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:64)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:214)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:177)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:346)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:262)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:100)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:953)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:603)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:310)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+2017-05-16 22:16:38 INFO  RacikanController:53 - USER : admin, OPERASI : LOAD, PATH : /racikan, IP ADDRESS : 127.0.0.1, HOST : 127.0.0.1 
+2017-05-16 22:16:38 ERROR InputTag:87 - Neither BindingResult nor plain target object for bean name 'racikan' available as request attribute
+java.lang.IllegalStateException: Neither BindingResult nor plain target object for bean name 'racikan' available as request attribute
+	at org.springframework.web.servlet.support.BindStatus.<init>(BindStatus.java:144)
+	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getBindStatus(AbstractDataBoundFormElementTag.java:168)
+	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getPropertyPath(AbstractDataBoundFormElementTag.java:188)
+	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getName(AbstractDataBoundFormElementTag.java:154)
+	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.writeDefaultAttributes(AbstractDataBoundFormElementTag.java:117)
+	at org.springframework.web.servlet.tags.form.AbstractHtmlElementTag.writeDefaultAttributes(AbstractHtmlElementTag.java:422)
+	at org.springframework.web.servlet.tags.form.InputTag.writeTagContent(InputTag.java:142)
+	at org.springframework.web.servlet.tags.form.AbstractFormTag.doStartTagInternal(AbstractFormTag.java:84)
+	at org.springframework.web.servlet.tags.RequestContextAwareTag.doStartTag(RequestContextAwareTag.java:80)
+	at org.apache.jsp.WEB_002dINF.jsps.racikan.racikan_002ddaftar_jsp._jspx_meth_form_005finput_005f0(racikan_002ddaftar_jsp.java:617)
+	at org.apache.jsp.WEB_002dINF.jsps.racikan.racikan_002ddaftar_jsp._jspx_meth_form_005fform_005f0(racikan_002ddaftar_jsp.java:552)
+	at org.apache.jsp.WEB_002dINF.jsps.racikan.racikan_002ddaftar_jsp._jspService(racikan_002ddaftar_jsp.java:156)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:432)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:390)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:334)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:749)
+	at org.apache.catalina.core.ApplicationDispatcher.doInclude(ApplicationDispatcher.java:605)
+	at org.apache.catalina.core.ApplicationDispatcher.include(ApplicationDispatcher.java:544)
+	at org.apache.jasper.runtime.JspRuntimeLibrary.include(JspRuntimeLibrary.java:954)
+	at org.apache.jasper.runtime.PageContextImpl.doInclude(PageContextImpl.java:684)
+	at org.apache.jasper.runtime.PageContextImpl.include(PageContextImpl.java:678)
+	at org.apache.tiles.request.jsp.JspRequest.doInclude(JspRequest.java:123)
+	at org.apache.tiles.request.AbstractViewRequest.dispatch(AbstractViewRequest.java:47)
+	at org.apache.tiles.request.render.DispatchRenderer.render(DispatchRenderer.java:47)
+	at org.apache.tiles.request.render.ChainedDelegateRenderer.render(ChainedDelegateRenderer.java:68)
+	at org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:259)
+	at org.apache.tiles.template.InsertAttributeModel.renderAttribute(InsertAttributeModel.java:188)
+	at org.apache.tiles.template.InsertAttributeModel.execute(InsertAttributeModel.java:132)
+	at org.apache.tiles.jsp.taglib.InsertAttributeTag.doTag(InsertAttributeTag.java:299)
+	at org.apache.jsp.WEB_002dINF.layouts.template_jsp._jspx_meth_tiles_005finsertAttribute_005f4(template_jsp.java:1224)
+	at org.apache.jsp.WEB_002dINF.layouts.template_jsp._jspService(template_jsp.java:263)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:432)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:390)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:334)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:749)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:487)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:412)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:339)
+	at org.apache.tiles.request.servlet.ServletRequest.forward(ServletRequest.java:265)
+	at org.apache.tiles.request.servlet.ServletRequest.doForward(ServletRequest.java:228)
+	at org.apache.tiles.request.AbstractClientRequest.dispatch(AbstractClientRequest.java:57)
+	at org.apache.tiles.request.render.DispatchRenderer.render(DispatchRenderer.java:47)
+	at org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:259)
+	at org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:397)
+	at org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:238)
+	at org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:221)
+	at org.apache.tiles.renderer.DefinitionRenderer.render(DefinitionRenderer.java:59)
+	at org.springframework.web.servlet.view.tiles3.TilesView.renderMergedOutputModel(TilesView.java:132)
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:303)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1282)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1037)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:980)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:897)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:970)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:861)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:621)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:846)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:317)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:127)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:91)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:114)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:137)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:111)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:170)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.authentication.www.BasicAuthenticationFilter.doFilterInternal(BasicAuthenticationFilter.java:158)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:200)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:64)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:214)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:177)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:346)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:262)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:100)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:953)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:603)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:310)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+2017-05-16 22:34:29 INFO  RacikanController:53 - USER : admin, OPERASI : LOAD, PATH : /racikan, IP ADDRESS : 127.0.0.1, HOST : 127.0.0.1 
+2017-05-16 22:34:29 ERROR InputTag:87 - Neither BindingResult nor plain target object for bean name 'racikan' available as request attribute
+java.lang.IllegalStateException: Neither BindingResult nor plain target object for bean name 'racikan' available as request attribute
+	at org.springframework.web.servlet.support.BindStatus.<init>(BindStatus.java:144)
+	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getBindStatus(AbstractDataBoundFormElementTag.java:168)
+	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getPropertyPath(AbstractDataBoundFormElementTag.java:188)
+	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getName(AbstractDataBoundFormElementTag.java:154)
+	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.writeDefaultAttributes(AbstractDataBoundFormElementTag.java:117)
+	at org.springframework.web.servlet.tags.form.AbstractHtmlElementTag.writeDefaultAttributes(AbstractHtmlElementTag.java:422)
+	at org.springframework.web.servlet.tags.form.InputTag.writeTagContent(InputTag.java:142)
+	at org.springframework.web.servlet.tags.form.AbstractFormTag.doStartTagInternal(AbstractFormTag.java:84)
+	at org.springframework.web.servlet.tags.RequestContextAwareTag.doStartTag(RequestContextAwareTag.java:80)
+	at org.apache.jsp.WEB_002dINF.jsps.racikan.racikan_002ddaftar_jsp._jspx_meth_form_005finput_005f0(racikan_002ddaftar_jsp.java:623)
+	at org.apache.jsp.WEB_002dINF.jsps.racikan.racikan_002ddaftar_jsp._jspx_meth_form_005fform_005f0(racikan_002ddaftar_jsp.java:552)
+	at org.apache.jsp.WEB_002dINF.jsps.racikan.racikan_002ddaftar_jsp._jspService(racikan_002ddaftar_jsp.java:156)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:432)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:390)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:334)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:749)
+	at org.apache.catalina.core.ApplicationDispatcher.doInclude(ApplicationDispatcher.java:605)
+	at org.apache.catalina.core.ApplicationDispatcher.include(ApplicationDispatcher.java:544)
+	at org.apache.jasper.runtime.JspRuntimeLibrary.include(JspRuntimeLibrary.java:954)
+	at org.apache.jasper.runtime.PageContextImpl.doInclude(PageContextImpl.java:684)
+	at org.apache.jasper.runtime.PageContextImpl.include(PageContextImpl.java:678)
+	at org.apache.tiles.request.jsp.JspRequest.doInclude(JspRequest.java:123)
+	at org.apache.tiles.request.AbstractViewRequest.dispatch(AbstractViewRequest.java:47)
+	at org.apache.tiles.request.render.DispatchRenderer.render(DispatchRenderer.java:47)
+	at org.apache.tiles.request.render.ChainedDelegateRenderer.render(ChainedDelegateRenderer.java:68)
+	at org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:259)
+	at org.apache.tiles.template.InsertAttributeModel.renderAttribute(InsertAttributeModel.java:188)
+	at org.apache.tiles.template.InsertAttributeModel.execute(InsertAttributeModel.java:132)
+	at org.apache.tiles.jsp.taglib.InsertAttributeTag.doTag(InsertAttributeTag.java:299)
+	at org.apache.jsp.WEB_002dINF.layouts.template_jsp._jspx_meth_tiles_005finsertAttribute_005f4(template_jsp.java:1224)
+	at org.apache.jsp.WEB_002dINF.layouts.template_jsp._jspService(template_jsp.java:263)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:432)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:390)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:334)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:749)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:487)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:412)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:339)
+	at org.apache.tiles.request.servlet.ServletRequest.forward(ServletRequest.java:265)
+	at org.apache.tiles.request.servlet.ServletRequest.doForward(ServletRequest.java:228)
+	at org.apache.tiles.request.AbstractClientRequest.dispatch(AbstractClientRequest.java:57)
+	at org.apache.tiles.request.render.DispatchRenderer.render(DispatchRenderer.java:47)
+	at org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:259)
+	at org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:397)
+	at org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:238)
+	at org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:221)
+	at org.apache.tiles.renderer.DefinitionRenderer.render(DefinitionRenderer.java:59)
+	at org.springframework.web.servlet.view.tiles3.TilesView.renderMergedOutputModel(TilesView.java:132)
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:303)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1282)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1037)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:980)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:897)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:970)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:861)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:621)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:846)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:317)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:127)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:91)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:114)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:137)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:111)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:170)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.authentication.www.BasicAuthenticationFilter.doFilterInternal(BasicAuthenticationFilter.java:158)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:200)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:64)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:214)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:177)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:346)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:262)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:100)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:953)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:603)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:310)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+2017-05-16 22:34:37 INFO  AnnotationConfigWebApplicationContext:987 - Closing WebApplicationContext for namespace 'dispatcher-servlet': startup date [Tue May 16 22:02:46 WITA 2017]; parent: Root WebApplicationContext
+2017-05-16 22:34:37 INFO  AnnotationConfigWebApplicationContext:987 - Closing Root WebApplicationContext: startup date [Tue May 16 22:02:38 WITA 2017]; root of context hierarchy
+2017-05-16 22:34:37 INFO  TilesAccess:88 - Removing TilesContext for context: org.springframework.web.servlet.view.tiles3.SpringWildcardServletTilesApplicationContext
+2017-05-16 22:34:37 INFO  LocalContainerEntityManagerFactoryBean:548 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2017-05-16 22:35:04 INFO  ContextLoader:304 - Root WebApplicationContext: initialization started
+2017-05-16 22:35:04 INFO  AnnotationConfigWebApplicationContext:582 - Refreshing Root WebApplicationContext: startup date [Tue May 16 22:35:04 WITA 2017]; root of context hierarchy
+2017-05-16 22:35:04 INFO  AnnotationConfigWebApplicationContext:207 - Registering annotated classes: [class id.edmaputra.uwati.config.UwatiAppConfiguration,class id.edmaputra.uwati.config.UwatiServletConfiguration,class id.edmaputra.uwati.config.UwatiSecurityWebApplicationInitializer]
+2017-05-16 22:35:04 INFO  XmlBeanDefinitionReader:317 - Loading XML bean definitions from class path resource [id/edmaputra/uwati/config/security-context.xml]
+2017-05-16 22:35:05 INFO  SpringSecurityCoreVersion:75 - You are running with Spring Security Core 4.2.2.RELEASE
+2017-05-16 22:35:05 INFO  SecurityNamespaceHandler:78 - Spring Security 'config' module version is 4.2.2.RELEASE
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated()' for /
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'permitAll' for /masuk
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /satuan**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /satuan/dapatkan**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /satuan/daftar**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /satuan/tambah**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /satuan/edit**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /satuan/hapus**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /profil**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /profil/simpan**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /profil/dapatkan**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /kategori**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /kategori/dapatkan**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /kategori/daftar**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /kategori/tambah**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /kategori/edit**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /kategori/hapus**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','MEDIS')' for /dokter**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','MEDIS')' for /dokter/dapatkan**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','MEDIS')' for /dokter/daftar**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','MEDIS')' for /dokter/tambah**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','MEDIS')' for /dokter/edit**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','MEDIS')' for /dokter/hapus**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /pelanggan**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /pelanggan/dapatkan**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /pelanggan/daftar**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /pelanggan/tambah**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /pelanggan/edit**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /pelanggan/hapus**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /obat**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /obat/dapatkan**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /obat/daftar**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /obat/tambah**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /obat/edit**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /obat/hapus**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and permitAll' for /pengguna**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and permitAll' for /pengguna/simpan**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN')' for /daftarpengguna**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN')' for /daftarpengguna/daftar**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN')' for /daftarpengguna/dapatkan**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN')' for /daftarpengguna/semua**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN')' for /daftarpengguna/tambah**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN')' for /daftarpengguna/edit**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN')' for /daftarpengguna/hapus**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN')' for /role**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN')' for /role/daftar**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN')' for /role/dapatkan**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and permitAll' for /role/nama**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and permitAll' for /role/semua**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN')' for /role/tambah**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN')' for /role/edit**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN')' for /role/hapus**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /pembelian-obat**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /pembelian-obat/cariobat**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /pembelian-obat/tambahTemp**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /pembelian-obat/daftarTemp**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /pembelian-obat/hapusTemp**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /pembelian-obat/beli**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /pembelian-obat/tersedia**
+2017-05-16 22:35:05 INFO  FilterInvocationSecurityMetadataSourceParser:194 - Creating access control expression attribute 'isAuthenticated() and hasAnyRole('ADMIN','APOTIK')' for /pembelian-obat/cetak**
+2017-05-16 22:35:05 INFO  HttpSecurityBeanDefinitionParser:306 - Checking sorted filter chain: [Root bean: class [org.springframework.security.web.context.SecurityContextPersistenceFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 200, Root bean: class [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 400, Root bean: class [org.springframework.security.web.header.HeaderWriterFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 500, Root bean: class [org.springframework.security.web.authentication.logout.LogoutFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 800, <org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter#0>, order = 1200, Root bean: class [org.springframework.security.web.authentication.www.BasicAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1600, Root bean: class [org.springframework.security.web.savedrequest.RequestCacheAwareFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1700, Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.security.config.http.HttpConfigurationBuilder$SecurityContextHolderAwareRequestFilterBeanFactory#0; factoryMethodName=getBean; initMethodName=null; destroyMethodName=null, order = 1800, Root bean: class [org.springframework.security.web.authentication.AnonymousAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2100, Root bean: class [org.springframework.security.web.session.SessionManagementFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2200, Root bean: class [org.springframework.security.web.access.ExceptionTranslationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2300, <org.springframework.security.web.access.intercept.FilterSecurityInterceptor#0>, order = 2400]
+2017-05-16 22:35:05 INFO  DefaultListableBeanFactory:828 - Overriding bean definition for bean 'customUserDetailService' with a different definition: replacing [Generic bean: class [id.edmaputra.uwati.service.security.CustomUserDetailService]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null; defined in file [/home/edmaputra/coding/workspace/java-uwati/target/classes/id/edmaputra/uwati/service/security/CustomUserDetailService.class]] with [Generic bean: class [id.edmaputra.uwati.service.security.CustomUserDetailService]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null; defined in class path resource [id/edmaputra/uwati/config/security-context.xml]]
+2017-05-16 22:35:05 INFO  AutowiredAnnotationBeanPostProcessor:155 - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2017-05-16 22:35:05 INFO  LocalContainerEntityManagerFactoryBean:349 - Building JPA container EntityManagerFactory for persistence unit 'default'
+2017-05-16 22:35:05 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2017-05-16 22:35:06 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+2017-05-16 22:35:06 INFO  Environment:213 - HHH000206: hibernate.properties not found
+2017-05-16 22:35:06 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2017-05-16 22:35:06 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2017-05-16 22:35:07 INFO  LobCreatorBuilderImpl:124 - HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+2017-05-16 22:35:07 INFO  BasicTypeRegistry:148 - HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@74e5b249
+2017-05-16 22:35:10 WARN  ExceptionHandlerLoggedImpl:27 - GenerationTarget encountered exception accepting command : Error executing DDL via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.applySqlString(SchemaCreatorImpl.java:439)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.applySqlStrings(SchemaCreatorImpl.java:424)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:336)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:166)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:135)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:121)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:155)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:72)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:309)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:445)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:889)
+	at org.hibernate.jpa.HibernatePersistenceProvider.createContainerEntityManagerFactory(HibernatePersistenceProvider.java:151)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:353)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:370)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:359)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1687)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1624)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1081)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:856)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:542)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:443)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:325)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:107)
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4937)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5434)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1559)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1549)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.postgresql.util.PSQLException: ERROR: relation "i_nomorfaktur_pengguna" already exists
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2455)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2155)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:288)
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:430)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:356)
+	at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:303)
+	at org.postgresql.jdbc.PgStatement.executeCachedSql(PgStatement.java:289)
+	at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:266)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:262)
+	at org.apache.commons.dbcp.DelegatingStatement.execute(DelegatingStatement.java:264)
+	at org.apache.commons.dbcp.DelegatingStatement.execute(DelegatingStatement.java:264)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	... 38 more
+2017-05-16 22:35:10 INFO  SchemaCreatorImpl:488 - HHH000476: Executing import script 'org.hibernate.tool.schema.internal.exec.ScriptSourceInputNonExistentImpl@5714d596'
+2017-05-16 22:35:10 INFO  LocalContainerEntityManagerFactoryBean:379 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2017-05-16 22:35:14 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+2017-05-16 22:35:14 INFO  JasperReportsPdfView:500 - Loading pre-compiled Jasper Report from class path resource [reports/struk_pembelian.jasper]
+2017-05-16 22:35:15 INFO  DefaultSecurityFilterChain:43 - Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.SecurityContextPersistenceFilter@568fb88c, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@53374e6f, org.springframework.security.web.header.HeaderWriterFilter@1f806bf2, org.springframework.security.web.authentication.logout.LogoutFilter@26837ae5, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@48a10fa5, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@66fa76b0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@321f2d46, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4f7da4f9, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@653fd404, org.springframework.security.web.session.SessionManagementFilter@52fe052a, org.springframework.security.web.access.ExceptionTranslationFilter@56d83ac0, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6b37d70e]
+2017-05-16 22:35:15 INFO  DefaultFilterChainValidator:154 - Checking whether login URL '/masuk' is accessible with your configuration
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/profil/simpan],methods=[POST]}" onto public id.edmaputra.uwati.entity.master.Apotek id.edmaputra.uwati.controller.ApotekController.simpan(id.edmaputra.uwati.entity.master.Apotek,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/profil],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView id.edmaputra.uwati.controller.ApotekController.muatHalaman(java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/profil/dapatkan],methods=[GET]}" onto public id.edmaputra.uwati.entity.master.Apotek id.edmaputra.uwati.controller.ApotekController.dapatkanApotek()
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/dokter],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView id.edmaputra.uwati.controller.DokterController.tampilkanDokter(java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/dokter/daftar],methods=[GET]}" onto public id.edmaputra.uwati.view.HtmlElement id.edmaputra.uwati.controller.DokterController.dapatkanDaftarDokter(java.lang.Integer,java.lang.String,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/dokter/dapatkan],methods=[GET]}" onto public id.edmaputra.uwati.entity.master.Dokter id.edmaputra.uwati.controller.DokterController.dapatkanDokter(java.lang.String)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/dokter/tambah],methods=[POST]}" onto public id.edmaputra.uwati.entity.master.Dokter id.edmaputra.uwati.controller.DokterController.tambahDokter(id.edmaputra.uwati.entity.master.Dokter,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/dokter/edit],methods=[POST]}" onto public id.edmaputra.uwati.entity.master.Dokter id.edmaputra.uwati.controller.DokterController.editDokter(id.edmaputra.uwati.entity.master.Dokter,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/dokter/hapus],methods=[POST],produces=[application/json;charset=utf-8]}" onto public java.lang.String id.edmaputra.uwati.controller.DokterController.hapusDokter(id.edmaputra.uwati.entity.master.Dokter,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/keluar],methods=[GET]}" onto public java.lang.String id.edmaputra.uwati.controller.IndexController.keluar(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/ || /masuk]}" onto public java.lang.String id.edmaputra.uwati.controller.IndexController.home(org.springframework.ui.Model)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/kategori/semua],methods=[GET]}" onto public java.util.List<id.edmaputra.uwati.entity.master.Kategori> id.edmaputra.uwati.controller.KategoriController.dapatkanSemua()
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/kategori],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView id.edmaputra.uwati.controller.KategoriController.tampilkanKategori(java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/kategori/daftar],methods=[GET]}" onto public id.edmaputra.uwati.view.HtmlElement id.edmaputra.uwati.controller.KategoriController.dapatkanDaftarKategori(java.lang.Integer,java.lang.String,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/kategori/dapatkan],methods=[GET]}" onto public id.edmaputra.uwati.entity.master.Kategori id.edmaputra.uwati.controller.KategoriController.dapatkanKategori(java.lang.String)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/kategori/nama],methods=[GET]}" onto public id.edmaputra.uwati.view.json.Suggestion id.edmaputra.uwati.controller.KategoriController.dapatkanKategoriByNama(java.lang.String)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/kategori/tambah],methods=[POST]}" onto public id.edmaputra.uwati.entity.master.Kategori id.edmaputra.uwati.controller.KategoriController.tambahKategori(id.edmaputra.uwati.entity.master.Kategori,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/kategori/edit],methods=[POST]}" onto public id.edmaputra.uwati.entity.master.Kategori id.edmaputra.uwati.controller.KategoriController.editKategori(id.edmaputra.uwati.entity.master.Kategori,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/kategori/hapus],methods=[POST],produces=[application/json;charset=utf-8]}" onto public java.lang.String id.edmaputra.uwati.controller.KategoriController.hapusKategori(id.edmaputra.uwati.entity.master.Kategori,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/obat/daftar],methods=[GET]}" onto public id.edmaputra.uwati.view.HtmlElement id.edmaputra.uwati.controller.ObatController.dapatkanDaftarObat(java.lang.Integer,java.lang.String,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/obat/dapatkan],methods=[GET]}" onto public id.edmaputra.uwati.entity.master.obat.Obat id.edmaputra.uwati.controller.ObatController.dapatkanObat(java.lang.String)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/obat/nama],methods=[GET]}" onto public id.edmaputra.uwati.entity.master.obat.Obat id.edmaputra.uwati.controller.ObatController.dapatkanObatByNama(java.lang.String)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/obat/tambah],methods=[POST]}" onto public id.edmaputra.uwati.entity.master.obat.Obat id.edmaputra.uwati.controller.ObatController.tambahObat(id.edmaputra.uwati.entity.master.obat.ObatHandler,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/obat],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView id.edmaputra.uwati.controller.ObatController.tampilkanObat(java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/obat/edit],methods=[POST]}" onto public id.edmaputra.uwati.entity.master.obat.Obat id.edmaputra.uwati.controller.ObatController.editObat(id.edmaputra.uwati.entity.master.obat.ObatHandler,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/obat/hapus],methods=[POST],produces=[application/json;charset=utf-8]}" onto public id.edmaputra.uwati.entity.master.obat.Obat id.edmaputra.uwati.controller.ObatController.hapusObat(id.edmaputra.uwati.entity.master.obat.ObatHandler,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/obat/cariobat],methods=[GET]}" onto public id.edmaputra.uwati.view.json.Suggestion id.edmaputra.uwati.controller.ObatController.suggestionObatByNama(java.lang.String)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/pelanggan],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView id.edmaputra.uwati.controller.PelangganController.tampilkanPelanggan(java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/pelanggan/daftar],methods=[GET]}" onto public id.edmaputra.uwati.view.HtmlElement id.edmaputra.uwati.controller.PelangganController.dapatkanDaftarPelanggan(java.lang.Integer,java.lang.String,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/pelanggan/dapatkan],methods=[GET]}" onto public id.edmaputra.uwati.entity.master.Pelanggan id.edmaputra.uwati.controller.PelangganController.dapatkanPelanggan(java.lang.String)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/pelanggan/tambah],methods=[POST]}" onto public id.edmaputra.uwati.entity.master.Pelanggan id.edmaputra.uwati.controller.PelangganController.tambahPelanggan(id.edmaputra.uwati.entity.master.Pelanggan,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/pelanggan/edit],methods=[POST]}" onto public id.edmaputra.uwati.entity.master.Pelanggan id.edmaputra.uwati.controller.PelangganController.editPelanggan(id.edmaputra.uwati.entity.master.Pelanggan,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/pelanggan/hapus],methods=[POST],produces=[application/json;charset=utf-8]}" onto public java.lang.String id.edmaputra.uwati.controller.PelangganController.hapusPelanggan(id.edmaputra.uwati.entity.master.Pelanggan,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/pembelian-obat/daftarTemp],methods=[GET]}" onto public id.edmaputra.uwati.view.HtmlElement id.edmaputra.uwati.controller.PembelianObatController.dapatkanDaftarObat(java.lang.String,java.lang.String,java.lang.String,java.security.Principal,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/pembelian-obat/cariobat],methods=[GET]}" onto public id.edmaputra.uwati.view.json.Suggestion id.edmaputra.uwati.controller.PembelianObatController.dapatkanObatByNama(java.lang.String)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/pembelian-obat/tambahTemp],methods=[POST]}" onto public id.edmaputra.uwati.entity.transaksi.PembelianDetailTemp id.edmaputra.uwati.controller.PembelianObatController.tambahObat(id.edmaputra.uwati.entity.transaksi.PembelianDetailTemp,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/pembelian-obat/hapusTemp],methods=[POST]}" onto public id.edmaputra.uwati.entity.transaksi.PembelianDetailTemp id.edmaputra.uwati.controller.PembelianObatController.hapusObat(id.edmaputra.uwati.entity.transaksi.PembelianDetailTemp,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/pembelian-obat],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView id.edmaputra.uwati.controller.PembelianObatController.tampilkanPelanggan(java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/pembelian-obat/beli],methods=[POST]}" onto public id.edmaputra.uwati.entity.transaksi.PembelianDetailTemp id.edmaputra.uwati.controller.PembelianObatController.simpanPembelian(id.edmaputra.uwati.entity.transaksi.PembelianDetailTemp,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/pembelian-obat/tersedia]}" onto public java.lang.String id.edmaputra.uwati.controller.PembelianObatController.tersedia(java.lang.String,java.lang.String)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/pembelian-obat/cetak],methods=[POST]}" onto public org.springframework.web.servlet.ModelAndView id.edmaputra.uwati.controller.PembelianObatController.buatResi(org.springframework.web.servlet.ModelAndView,java.lang.String,java.security.Principal)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/pengguna/simpan],methods=[POST]}" onto public id.edmaputra.uwati.entity.pengguna.Pengguna id.edmaputra.uwati.controller.PenggunaController.simpan(id.edmaputra.uwati.view.handler.PasswordHandler,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/daftarpengguna/semua],methods=[GET]}" onto public java.util.List<id.edmaputra.uwati.entity.pengguna.Pengguna> id.edmaputra.uwati.controller.PenggunaController.dapatkanSemua()
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/daftarpengguna]}" onto public org.springframework.web.servlet.ModelAndView id.edmaputra.uwati.controller.PenggunaController.tampilkanDaftarPengguna(java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/daftarpengguna/daftar],methods=[GET]}" onto public id.edmaputra.uwati.view.HtmlElement id.edmaputra.uwati.controller.PenggunaController.dapatkanDaftarPengguna(java.lang.Integer,java.lang.String,java.lang.Boolean,java.lang.Boolean,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/daftarpengguna/dapatkan],methods=[GET]}" onto public id.edmaputra.uwati.entity.pengguna.Pengguna id.edmaputra.uwati.controller.PenggunaController.dapatkanPengguna(java.lang.String)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/daftarpengguna/tambah],methods=[POST]}" onto public id.edmaputra.uwati.entity.pengguna.Pengguna id.edmaputra.uwati.controller.PenggunaController.tambahPengguna(id.edmaputra.uwati.view.handler.PenggunaHandler,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/daftarpengguna/edit],methods=[POST]}" onto public id.edmaputra.uwati.entity.pengguna.Pengguna id.edmaputra.uwati.controller.PenggunaController.editPengguna(id.edmaputra.uwati.view.handler.PenggunaHandler,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/daftarpengguna/hapus],methods=[POST],produces=[application/json;charset=utf-8]}" onto public id.edmaputra.uwati.entity.pengguna.Pengguna id.edmaputra.uwati.controller.PenggunaController.hapusPengguna(id.edmaputra.uwati.entity.pengguna.Pengguna,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/pengguna]}" onto public org.springframework.web.servlet.ModelAndView id.edmaputra.uwati.controller.PenggunaController.tampilkanProfilPengguna(java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/penjualan-obat],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView id.edmaputra.uwati.controller.PenjualanObatController.tampilkanPelanggan(java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/racikan],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView id.edmaputra.uwati.controller.RacikanController.tampilkanSatuan(java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/racikan/daftar],methods=[GET]}" onto public id.edmaputra.uwati.view.HtmlElement id.edmaputra.uwati.controller.RacikanController.dapatkanDaftarSatuan(java.lang.Integer,java.lang.String,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/role/semua],methods=[GET]}" onto public java.util.List<id.edmaputra.uwati.entity.pengguna.Role> id.edmaputra.uwati.controller.RoleController.dapatkanSemua()
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/role],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView id.edmaputra.uwati.controller.RoleController.tampilkanRole(java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/role/daftar],methods=[GET]}" onto public id.edmaputra.uwati.view.HtmlElement id.edmaputra.uwati.controller.RoleController.dapatkanDaftarRole(java.lang.Integer,java.lang.String,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/role/dapatkan],methods=[GET]}" onto public id.edmaputra.uwati.entity.pengguna.Role id.edmaputra.uwati.controller.RoleController.dapatkanRole(java.lang.String)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/role/nama],methods=[GET]}" onto public id.edmaputra.uwati.view.json.Suggestion id.edmaputra.uwati.controller.RoleController.dapatkanRoleByNama(java.lang.String)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/role/tambah],methods=[POST]}" onto public id.edmaputra.uwati.entity.pengguna.Role id.edmaputra.uwati.controller.RoleController.tambahRole(id.edmaputra.uwati.entity.pengguna.Role,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/role/edit],methods=[POST]}" onto public id.edmaputra.uwati.entity.pengguna.Role id.edmaputra.uwati.controller.RoleController.editRole(id.edmaputra.uwati.entity.pengguna.Role,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/role/hapus],methods=[POST],produces=[application/json;charset=utf-8]}" onto public java.lang.String id.edmaputra.uwati.controller.RoleController.hapusRole(id.edmaputra.uwati.entity.pengguna.Role,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/satuan/semua],methods=[GET]}" onto public java.util.List<id.edmaputra.uwati.entity.master.Satuan> id.edmaputra.uwati.controller.SatuanController.dapatkanSemua()
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/satuan/nama],methods=[GET]}" onto public id.edmaputra.uwati.view.json.Suggestion id.edmaputra.uwati.controller.SatuanController.dapatkanKategoriByNama(java.lang.String)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/satuan/edit],methods=[POST]}" onto public id.edmaputra.uwati.entity.master.Satuan id.edmaputra.uwati.controller.SatuanController.editSatuan(id.edmaputra.uwati.entity.master.Satuan,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/satuan/hapus],methods=[POST],produces=[application/json;charset=utf-8]}" onto public java.lang.String id.edmaputra.uwati.controller.SatuanController.hapusSatuan(id.edmaputra.uwati.entity.master.Satuan,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/satuan],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView id.edmaputra.uwati.controller.SatuanController.tampilkanSatuan(java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/satuan/daftar],methods=[GET]}" onto public id.edmaputra.uwati.view.HtmlElement id.edmaputra.uwati.controller.SatuanController.dapatkanDaftarSatuan(java.lang.Integer,java.lang.String,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/satuan/dapatkan],methods=[GET]}" onto public id.edmaputra.uwati.entity.master.Satuan id.edmaputra.uwati.controller.SatuanController.dapatkanSatuan(java.lang.String)
+2017-05-16 22:35:15 INFO  RequestMappingHandlerMapping:543 - Mapped "{[/satuan/tambah],methods=[POST]}" onto public id.edmaputra.uwati.entity.master.Satuan id.edmaputra.uwati.controller.SatuanController.tambahSatuan(id.edmaputra.uwati.entity.master.Satuan,org.springframework.validation.BindingResult,java.security.Principal,javax.servlet.http.HttpServletRequest)
+2017-05-16 22:35:15 INFO  SimpleUrlHandlerMapping:362 - Mapped URL path [/static/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-05-16 22:35:16 INFO  RequestMappingHandlerAdapter:534 - Looking for @ControllerAdvice: Root WebApplicationContext: startup date [Tue May 16 22:35:04 WITA 2017]; root of context hierarchy
+2017-05-16 22:35:16 INFO  TilesAccess:93 - Publishing TilesContext for context: org.springframework.web.servlet.view.tiles3.SpringWildcardServletTilesApplicationContext
+2017-05-16 22:35:16 INFO  ContextLoader:344 - Root WebApplicationContext: initialization completed in 11627 ms
+2017-05-16 22:35:16 INFO  DispatcherServlet:489 - FrameworkServlet 'dispatcher': initialization started
+2017-05-16 22:35:16 INFO  AnnotationConfigWebApplicationContext:582 - Refreshing WebApplicationContext for namespace 'dispatcher-servlet': startup date [Tue May 16 22:35:16 WITA 2017]; parent: Root WebApplicationContext
+2017-05-16 22:35:16 INFO  AutowiredAnnotationBeanPostProcessor:155 - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2017-05-16 22:35:16 INFO  DispatcherServlet:508 - FrameworkServlet 'dispatcher': initialization completed in 51 ms
+2017-05-16 22:39:04 INFO  RacikanController:50 - USER : admin, OPERASI : LOAD, PATH : /racikan, IP ADDRESS : 127.0.0.1, HOST : 127.0.0.1 
+2017-05-16 22:39:04 ERROR InputTag:87 - Invalid property 'jumlah' of bean class [id.edmaputra.uwati.entity.master.obat.Racikan]: Bean property 'jumlah' is not readable or has an invalid getter method: Does the return type of the getter match the parameter type of the setter?
+org.springframework.beans.NotReadablePropertyException: Invalid property 'jumlah' of bean class [id.edmaputra.uwati.entity.master.obat.Racikan]: Bean property 'jumlah' is not readable or has an invalid getter method: Does the return type of the getter match the parameter type of the setter?
+	at org.springframework.beans.AbstractNestablePropertyAccessor.getPropertyValue(AbstractNestablePropertyAccessor.java:633)
+	at org.springframework.beans.AbstractNestablePropertyAccessor.getPropertyValue(AbstractNestablePropertyAccessor.java:624)
+	at org.springframework.validation.AbstractPropertyBindingResult.getActualFieldValue(AbstractPropertyBindingResult.java:99)
+	at org.springframework.validation.AbstractBindingResult.getFieldValue(AbstractBindingResult.java:229)
+	at org.springframework.web.servlet.support.BindStatus.<init>(BindStatus.java:120)
+	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getBindStatus(AbstractDataBoundFormElementTag.java:168)
+	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getPropertyPath(AbstractDataBoundFormElementTag.java:188)
+	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getName(AbstractDataBoundFormElementTag.java:154)
+	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.writeDefaultAttributes(AbstractDataBoundFormElementTag.java:117)
+	at org.springframework.web.servlet.tags.form.AbstractHtmlElementTag.writeDefaultAttributes(AbstractHtmlElementTag.java:422)
+	at org.springframework.web.servlet.tags.form.InputTag.writeTagContent(InputTag.java:142)
+	at org.springframework.web.servlet.tags.form.AbstractFormTag.doStartTagInternal(AbstractFormTag.java:84)
+	at org.springframework.web.servlet.tags.RequestContextAwareTag.doStartTag(RequestContextAwareTag.java:80)
+	at org.apache.jsp.WEB_002dINF.jsps.racikan.racikan_002ddaftar_jsp._jspx_meth_form_005finput_005f1(racikan_002ddaftar_jsp.java:654)
+	at org.apache.jsp.WEB_002dINF.jsps.racikan.racikan_002ddaftar_jsp._jspx_meth_form_005fform_005f0(racikan_002ddaftar_jsp.java:561)
+	at org.apache.jsp.WEB_002dINF.jsps.racikan.racikan_002ddaftar_jsp._jspService(racikan_002ddaftar_jsp.java:156)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:432)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:390)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:334)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:749)
+	at org.apache.catalina.core.ApplicationDispatcher.doInclude(ApplicationDispatcher.java:605)
+	at org.apache.catalina.core.ApplicationDispatcher.include(ApplicationDispatcher.java:544)
+	at org.apache.jasper.runtime.JspRuntimeLibrary.include(JspRuntimeLibrary.java:954)
+	at org.apache.jasper.runtime.PageContextImpl.doInclude(PageContextImpl.java:684)
+	at org.apache.jasper.runtime.PageContextImpl.include(PageContextImpl.java:678)
+	at org.apache.tiles.request.jsp.JspRequest.doInclude(JspRequest.java:123)
+	at org.apache.tiles.request.AbstractViewRequest.dispatch(AbstractViewRequest.java:47)
+	at org.apache.tiles.request.render.DispatchRenderer.render(DispatchRenderer.java:47)
+	at org.apache.tiles.request.render.ChainedDelegateRenderer.render(ChainedDelegateRenderer.java:68)
+	at org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:259)
+	at org.apache.tiles.template.InsertAttributeModel.renderAttribute(InsertAttributeModel.java:188)
+	at org.apache.tiles.template.InsertAttributeModel.execute(InsertAttributeModel.java:132)
+	at org.apache.tiles.jsp.taglib.InsertAttributeTag.doTag(InsertAttributeTag.java:299)
+	at org.apache.jsp.WEB_002dINF.layouts.template_jsp._jspx_meth_tiles_005finsertAttribute_005f4(template_jsp.java:1224)
+	at org.apache.jsp.WEB_002dINF.layouts.template_jsp._jspService(template_jsp.java:263)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:432)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:390)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:334)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:749)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:487)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:412)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:339)
+	at org.apache.tiles.request.servlet.ServletRequest.forward(ServletRequest.java:265)
+	at org.apache.tiles.request.servlet.ServletRequest.doForward(ServletRequest.java:228)
+	at org.apache.tiles.request.AbstractClientRequest.dispatch(AbstractClientRequest.java:57)
+	at org.apache.tiles.request.render.DispatchRenderer.render(DispatchRenderer.java:47)
+	at org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:259)
+	at org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:397)
+	at org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:238)
+	at org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:221)
+	at org.apache.tiles.renderer.DefinitionRenderer.render(DefinitionRenderer.java:59)
+	at org.springframework.web.servlet.view.tiles3.TilesView.renderMergedOutputModel(TilesView.java:132)
+	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:303)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1282)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1037)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:980)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:897)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:970)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:861)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:621)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:846)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:317)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:127)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:91)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:114)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:137)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:111)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:170)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.authentication.www.BasicAuthenticationFilter.doFilterInternal(BasicAuthenticationFilter.java:158)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:200)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:64)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:331)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:214)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:177)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:346)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:262)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:100)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:953)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1041)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:603)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+2017-05-16 22:40:24 INFO  RacikanController:50 - USER : admin, OPERASI : LOAD, PATH : /racikan, IP ADDRESS : 127.0.0.1, HOST : 127.0.0.1 
+2017-05-16 22:40:25 INFO  RacikanController:50 - USER : admin, OPERASI : LOAD, PATH : /racikan, IP ADDRESS : 127.0.0.1, HOST : 127.0.0.1 
+2017-05-16 22:40:42 INFO  RacikanController:50 - USER : admin, OPERASI : LOAD, PATH : /racikan, IP ADDRESS : 127.0.0.1, HOST : 127.0.0.1 
+2017-05-16 22:40:43 INFO  RacikanController:50 - USER : admin, OPERASI : LOAD, PATH : /racikan, IP ADDRESS : 127.0.0.1, HOST : 127.0.0.1 
+2017-05-16 22:41:02 INFO  RacikanController:50 - USER : admin, OPERASI : LOAD, PATH : /racikan, IP ADDRESS : 127.0.0.1, HOST : 127.0.0.1 
+2017-05-16 22:41:02 INFO  RacikanController:50 - USER : admin, OPERASI : LOAD, PATH : /racikan, IP ADDRESS : 127.0.0.1, HOST : 127.0.0.1 
+2017-05-16 22:41:23 INFO  RacikanController:50 - USER : admin, OPERASI : LOAD, PATH : /racikan, IP ADDRESS : 127.0.0.1, HOST : 127.0.0.1 
+2017-05-16 22:41:23 INFO  RacikanController:50 - USER : admin, OPERASI : LOAD, PATH : /racikan, IP ADDRESS : 127.0.0.1, HOST : 127.0.0.1 
+2017-05-16 22:41:48 INFO  RacikanController:50 - USER : admin, OPERASI : LOAD, PATH : /racikan, IP ADDRESS : 127.0.0.1, HOST : 127.0.0.1 
+2017-05-16 22:41:49 INFO  RacikanController:50 - USER : admin, OPERASI : LOAD, PATH : /racikan, IP ADDRESS : 127.0.0.1, HOST : 127.0.0.1 
+2017-05-16 22:46:44 INFO  RacikanController:50 - USER : admin, OPERASI : LOAD, PATH : /racikan, IP ADDRESS : 127.0.0.1, HOST : 127.0.0.1 
+2017-05-16 22:46:44 INFO  RacikanController:50 - USER : admin, OPERASI : LOAD, PATH : /racikan, IP ADDRESS : 127.0.0.1, HOST : 127.0.0.1 
+2017-05-16 22:53:29 INFO  RacikanController:50 - USER : admin, OPERASI : LOAD, PATH : /racikan, IP ADDRESS : 127.0.0.1, HOST : 127.0.0.1 
+2017-05-16 22:53:29 INFO  RacikanController:50 - USER : admin, OPERASI : LOAD, PATH : /racikan, IP ADDRESS : 127.0.0.1, HOST : 127.0.0.1 
+2017-05-16 22:53:41 INFO  RacikanController:50 - USER : admin, OPERASI : LOAD, PATH : /racikan, IP ADDRESS : 127.0.0.1, HOST : 127.0.0.1 
+2017-05-16 22:53:41 INFO  RacikanController:50 - USER : admin, OPERASI : LOAD, PATH : /racikan, IP ADDRESS : 127.0.0.1, HOST : 127.0.0.1 
