@@ -25,5 +25,6 @@
 		<class>id.edmaputra.uwati.entity.master.obat.Racikan</class>
 		<class>id.edmaputra.uwati.entity.master.obat.RacikanDetail</class>
 		<class>id.edmaputra.uwati.entity.transaksi.PembelianDetailTemp</class>
+		<class>id.edmaputra.uwati.entity.transaksi.PenjualanDetailTemp</class>
 	</persistence-unit>
 </persistence>

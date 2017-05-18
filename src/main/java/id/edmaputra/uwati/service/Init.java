@@ -128,6 +128,9 @@ public class Init {
 		
 		Kategori ok = buatKategori("OBAT KERAS");
 		kategoriRepo.save(ok);
+		
+		Kategori ll = buatKategori("LAIN-LAIN");
+		kategoriRepo.save(ll);
 
 
 		for (int i = 0; i < 7; i++) {
@@ -141,7 +144,7 @@ public class Init {
 		}
 		
 		for (int i = 0; i < 10; i++) {
-			Obat obat = buatObat("OBAT "+i , "K-"+i, kaplet, ok, null, null, null, null, 50, 0);
+			Obat obat = buatObat("OBAT "+i , "K-"+i, kaplet, ll, null, null, null, null, 50, 0);
 			obatRepo.save(obat);
 			
 			ObatDetail obatDetail = buatObatDetail(obat, new BigDecimal(i*10000), new BigDecimal(i*9000), new BigDecimal(i*1000), new BigDecimal(i*100));

@@ -90,5 +90,11 @@ public class Racikan extends DasarEntity<Long> {
 	public void setBiayaRacik(BigDecimal biayaRacik) {
 		this.biayaRacik = biayaRacik;
 	}
+
+	@Override
+	public String toString() {
+		return "Racikan [nama=" + nama + ", racikanDetail=" + racikanDetail + ", hargaJual=" + hargaJual
+				+ ", biayaRacik=" + biayaRacik + "]";
+	}
 	
 }

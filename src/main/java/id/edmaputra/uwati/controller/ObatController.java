@@ -276,6 +276,8 @@ public class ObatController {
 			if (!StringUtils.isBlank(nama)) {
 				builder.nama(nama);
 			}
+			
+			builder.tipe(0);
 
 			BooleanExpression exp = builder.getExpression();
 			List<Obat> l = obatService.dapatkanListByNama(exp);

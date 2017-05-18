@@ -91,4 +91,11 @@ public class RacikanDetail extends DasarEntity<Long> {
 	public void setJumlah(Integer jumlah) {
 		this.jumlah = jumlah;
 	}
+
+	@Override
+	public String toString() {
+		return "RacikanDetail [racikan=" + racikan + ", komposisi=" + komposisi + ", jumlah=" + jumlah
+				+ ", hargaSatuan=" + hargaSatuan + "]";
+	}
+	
 }
