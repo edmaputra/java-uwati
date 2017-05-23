@@ -72,6 +72,8 @@ public class Html {
 			btn += "<i class='fa fa-pencil'></i>";
 		} else if (tipe == 1) {
 			btn += "<i class='fa fa-trash-o'></i>";
+		} else if (tipe == 2) {
+			btn += "<i class='fa fa-check-square-o'></i>";
 		}
 		btn += "</button>";
 		return btn;

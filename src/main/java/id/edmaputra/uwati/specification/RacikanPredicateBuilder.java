@@ -19,5 +19,13 @@ public class RacikanPredicateBuilder {
 			hasil = hasil.and(QRacikan.racikan.nama.containsIgnoreCase(cari));
 		}
 	}
+	
+	public void id(Long id) {
+		if (hasil == null) {
+			hasil = QRacikan.racikan.id.eq(id);
+		} else {
+			hasil = hasil.and(QRacikan.racikan.id.eq(id));
+		}
+	}
 
 }

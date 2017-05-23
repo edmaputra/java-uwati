@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.mysema.query.types.expr.BooleanExpression;
 
+import id.edmaputra.uwati.entity.master.obat.Racikan;
 import id.edmaputra.uwati.entity.master.obat.RacikanDetail;
 import id.edmaputra.uwati.repository.RacikanDetailRepository;
 
@@ -45,5 +46,9 @@ public class RacikanDetailService {
 
 	public List<RacikanDetail> dapatkanListByNama(BooleanExpression exp) {
 		return (List<RacikanDetail>) racikanDetailRepository.findAll(exp);
+	}
+
+	public List<RacikanDetail> dapatkanByRacikan(Racikan racikan) {		
+		return racikanDetailRepository.findByRacikan(racikan);
 	}
 }

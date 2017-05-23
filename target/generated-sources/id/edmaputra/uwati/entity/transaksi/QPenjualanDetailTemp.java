@@ -23,18 +23,14 @@ public class QPenjualanDetailTemp extends EntityPathBase<PenjualanDetailTemp> {
 
     public final StringPath diskon = createString("diskon");
 
-    public final StringPath hargaBeli = createString("hargaBeli");
+    public final StringPath dokter = createString("dokter");
 
     public final StringPath hargaJual = createString("hargaJual");
-
-    public final StringPath hargaJualResep = createString("hargaJualResep");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     //inherited
     public final StringPath info = _super.info;
-
-    public final StringPath jenis = createString("jenis");
 
     public final StringPath jumlah = createString("jumlah");
 
@@ -44,18 +40,18 @@ public class QPenjualanDetailTemp extends EntityPathBase<PenjualanDetailTemp> {
 
     public final StringPath pajak = createString("pajak");
 
+    public final StringPath pelanggan = createString("pelanggan");
+
     public final StringPath pengguna = createString("pengguna");
 
     public final StringPath subTotal = createString("subTotal");
 
-    public final StringPath supplier = createString("supplier");
-
     public final StringPath tanggal = createString("tanggal");
-
-    public final StringPath tanggalKadaluarsa = createString("tanggalKadaluarsa");
 
     //inherited
     public final DateTimePath<java.util.Date> terakhirDirubah = _super.terakhirDirubah;
+
+    public final NumberPath<Integer> tipe = createNumber("tipe", Integer.class);
 
     //inherited
     public final DateTimePath<java.util.Date> waktuDibuat = _super.waktuDibuat;

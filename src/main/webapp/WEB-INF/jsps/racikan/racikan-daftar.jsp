@@ -113,10 +113,6 @@
 							</div>
 						</div>
 					</div>
-					
-<%-- 					<form:hidden path="id" cssClass="form-control" id="tambahId" /> --%>
-					
-<!-- 					<button class="form-control btn btn-default" id="simpan">Simpan</button> -->
 				</div>
 
 			</form:form>
@@ -215,6 +211,7 @@
 	var obatRacikanJson;
 	$(document).ready(function() {
 		setMaskingUang("#biayaRacik");
+		setMaskingUang("#total");
 		refresh(1, '');
 
 		$('#btnCari').click(function() {

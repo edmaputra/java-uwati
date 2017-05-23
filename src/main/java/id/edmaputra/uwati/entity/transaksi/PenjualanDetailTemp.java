@@ -15,7 +15,7 @@ import id.edmaputra.uwati.entity.DasarTransaksiEntity;
 
 @Entity
 @Table(name = "penjualan_detail_temp", uniqueConstraints = { @UniqueConstraint(columnNames = "id")},
-		indexes = {@Index(name = "i_nomorFaktur_pengguna", columnList = "nomorFaktur,pengguna")})
+		indexes = {@Index(name = "iPenjualanDetailTemp_nomorFaktur_pengguna", columnList = "nomorFaktur,pengguna")})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class PenjualanDetailTemp extends DasarTransaksiEntity<Long>{
 
@@ -24,6 +24,21 @@ public class PenjualanDetailTemp extends DasarTransaksiEntity<Long>{
 	@Id
 	@GeneratedValue
 	private Long id;
+
+	@Column(length = 30, name = "nomorFaktur")
+	private String nomorFaktur;
+	
+	@Column(length = 12)
+	private String tanggal;	
+	
+	@Column
+	private Integer tipe;
+	
+	@Column(length = 150)
+	private String dokter;
+	
+	@Column(length = 150)
+	private String pelanggan;
 	
 	@Column(length = 150)
 	private String obat;
@@ -32,13 +47,7 @@ public class PenjualanDetailTemp extends DasarTransaksiEntity<Long>{
 	private String jumlah;
 	
 	@Column(length = 15)
-	private String hargaJual;
-	
-	@Column(length = 15)
-	private String hargaJualResep;
-	
-	@Column(length = 15)
-	private String hargaBeli;
+	private String hargaJual;		
 
 	@Column(length = 15)
 	private String diskon;
@@ -48,25 +57,10 @@ public class PenjualanDetailTemp extends DasarTransaksiEntity<Long>{
 
 	@Column(length = 15)
 	private String subTotal;
-
-	@Column(length = 12)
-	private String tanggalKadaluarsa;
 	
 	@Column(length = 50)
 	private String pengguna;
 	
-	@Column(length = 30, name = "nomorFaktur")
-	private String nomorFaktur;
-	
-	@Column(length = 12)
-	private String tanggal;
-	
-	@Column(length = 70)
-	private String supplier;
-	
-	@Column(length = 100)
-	private String jenis;
-
 	public Long getId() {
 		return id;
 	}
@@ -99,22 +93,6 @@ public class PenjualanDetailTemp extends DasarTransaksiEntity<Long>{
 		this.hargaJual = hargaJual;
 	}
 
-	public String getHargaJualResep() {
-		return hargaJualResep;
-	}
-
-	public void setHargaJualResep(String hargaJualResep) {
-		this.hargaJualResep = hargaJualResep;
-	}
-
-	public String getHargaBeli() {
-		return hargaBeli;
-	}
-
-	public void setHargaBeli(String hargaBeli) {
-		this.hargaBeli = hargaBeli;
-	}
-
 	public String getDiskon() {
 		return diskon;
 	}
@@ -137,14 +115,6 @@ public class PenjualanDetailTemp extends DasarTransaksiEntity<Long>{
 
 	public void setSubTotal(String subTotal) {
 		this.subTotal = subTotal;
-	}
-
-	public String getTanggalKadaluarsa() {
-		return tanggalKadaluarsa;
-	}
-
-	public void setTanggalKadaluarsa(String tanggalKadaluarsa) {
-		this.tanggalKadaluarsa = tanggalKadaluarsa;
 	}
 
 	public String getPengguna() {
@@ -171,31 +141,28 @@ public class PenjualanDetailTemp extends DasarTransaksiEntity<Long>{
 		this.tanggal = tanggal;
 	}
 
-	public String getSupplier() {
-		return supplier;
+	public Integer getTipe() {
+		return tipe;
 	}
 
-	public void setSupplier(String supplier) {
-		this.supplier = supplier;
+	public void setTipe(Integer tipe) {
+		this.tipe = tipe;
 	}
 
-	@Override
-	public String toString() {
-		return "PembelianDetailTemp [obat=" + obat + ", jumlah=" + jumlah + ", hargaJual=" + hargaJual
-				+ ", hargaJualResep=" + hargaJualResep + ", hargaBeli=" + hargaBeli + ", diskon=" + diskon + ", pajak="
-				+ pajak + ", subTotal=" + subTotal + ", tanggalKadaluarsa=" + tanggalKadaluarsa + ", pengguna="
-				+ pengguna + ", nomorFaktur=" + nomorFaktur + ", tanggal=" + tanggal + ", supplier=" + supplier + "]";
+	public String getDokter() {
+		return dokter;
 	}
 
-	public String getJenis() {
-		return jenis;
+	public void setDokter(String dokter) {
+		this.dokter = dokter;
 	}
 
-	public void setJenis(String pesan) {
-		this.jenis = pesan;
+	public String getPelanggan() {
+		return pelanggan;
 	}
-	
-	
-	
+
+	public void setPelanggan(String pelanggan) {
+		this.pelanggan = pelanggan;
+	}	
 	
 }

@@ -178,7 +178,7 @@
 		$('#btnCari').click(function() {
 			refresh(1, $('#stringCari').val());
 		});
-
+		
 		$(".formTambah").validate({
 			rules : {
 				nama : {

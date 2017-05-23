@@ -7,6 +7,8 @@ public class HtmlElement {
 	private String navigasiHalaman;
 	
 	private String grandTotal;
+	
+	private String value1;
 
 	public String getNavigasiHalaman() {
 		return navigasiHalaman;
@@ -30,6 +32,14 @@ public class HtmlElement {
 
 	public void setGrandTotal(String grandTotal) {
 		this.grandTotal = grandTotal;
+	}
+
+	public String getValue1() {
+		return value1;
+	}
+
+	public void setValue1(String value1) {
+		this.value1 = value1;
 	}
 
 }

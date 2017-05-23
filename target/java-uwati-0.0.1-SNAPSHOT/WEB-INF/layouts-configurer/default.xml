@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+	<definition name="dasar" template="/WEB-INF/layouts/template.jsp">	
+		<put-attribute name="pesan" value="/WEB-INF/layouts/pesan.jsp" />
+		<put-attribute name="notifikasi" value="/WEB-INF/layouts/notifikasi.jsp" />
+		<put-attribute name="navigasi-top-menu" value="/WEB-INF/layouts/navigasi-top-menu.jsp" />
+		<put-attribute name="navigasi-sidebar" value="/WEB-INF/layouts/navigasi-sidebar.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/layouts/footer.jsp" />
+	</definition>
+	
+	<definition name="login-dasar" template="/WEB-INF/layouts/template-login.jsp">		
+	</definition>
+
+	<definition name="beranda" extends="dasar">
+		<put-attribute name="title" value="UWATI - Beranda" />
+		<put-attribute name="page_title" value="Beranda" />
+		<put-attribute name="body" value="/WEB-INF/jsps/beranda.jsp" />
+		<!-- <put-attribute name="current" value="home" /> -->
+	</definition>	
+	
+	<definition name="dokter-daftar" extends="dasar">
+		<put-attribute name="title" value="UWATI - Dokter" />
+		<put-attribute name="page_title" value="Dokter" />
+		<put-attribute name="body" value="/WEB-INF/jsps/dokter/dokter-daftar.jsp" />
+		<!-- <put-attribute name="current" value="home" /> -->
+	</definition>
+	
+	<definition name="kategori-daftar" extends="dasar">
+		<put-attribute name="title" value="UWATI - Kategori" />
+		<put-attribute name="page_title" value="Kategori" />
+		<put-attribute name="body" value="/WEB-INF/jsps/kategori/kategori-daftar.jsp" />
+		<!-- <put-attribute name="current" value="home" /> -->
+	</definition>
+	
+	<definition name="masuk" extends="login-dasar">
+		<put-attribute name="title" value="UWATI - Login" />
+		<put-attribute name="body" value="/WEB-INF/jsps/login/login.jsp" />
+		<!-- <put-attribute name="current" value="home" /> -->
+	</definition>
+	
+	<definition name="obat-daftar" extends="dasar">
+		<put-attribute name="title" value="UWATI - Obat" />
+		<put-attribute name="page_title" value="Obat" />
+		<put-attribute name="body" value="/WEB-INF/jsps/obat/obat-daftar.jsp" />
+		<!-- <put-attribute name="current" value="home" /> -->
+	</definition>
+	
+	<definition name="pelanggan-daftar" extends="dasar">
+		<put-attribute name="title" value="UWATI - Pelanggan" />
+		<put-attribute name="page_title" value="Pelanggan" />
+		<put-attribute name="body" value="/WEB-INF/jsps/pelanggan/pelanggan-daftar.jsp" />
+		<!-- <put-attribute name="current" value="home" /> -->
+	</definition>
+	
+	<definition name="pembelian-obat" extends="dasar">
+		<put-attribute name="title" value="UWATI - Pembelian Obat" />
+		<put-attribute name="page_title" value="Pembelian Obat" />
+		<put-attribute name="body" value="/WEB-INF/jsps/transaksi/pembelian-obat.jsp" />
+		<!-- <put-attribute name="current" value="home" /> -->
+	</definition>
+	
+	<definition name="pengguna" extends="dasar">
+		<put-attribute name="title" value="UWATI - Pengguna" />
+		<put-attribute name="page_title" value="Profil Pengguna" />
+		<put-attribute name="body" value="/WEB-INF/jsps/pengguna/pengguna.jsp" />
+		<!-- <put-attribute name="current" value="home" /> -->
+	</definition>
+	
+	<definition name="pengguna-daftar" extends="dasar">
+		<put-attribute name="title" value="UWATI - Pengguna" />
+		<put-attribute name="page_title" value="Pengguna" />
+		<put-attribute name="body" value="/WEB-INF/jsps/pengguna/pengguna-daftar.jsp" />
+		<!-- <put-attribute name="current" value="home" /> -->
+	</definition>
+	
+	<definition name="penjualan-obat" extends="dasar">
+		<put-attribute name="title" value="UWATI - Penjualan Obat" />
+		<put-attribute name="page_title" value="Penjualan Obat" />
+		<put-attribute name="body" value="/WEB-INF/jsps/transaksi/penjualan-obat.jsp" />
+		<!-- <put-attribute name="current" value="home" /> -->
+	</definition>
+	
+	<definition name="profil" extends="dasar">
+		<put-attribute name="title" value="UWATI - Profil" />
+		<put-attribute name="page_title" value="Profil Apotek" />
+		<put-attribute name="body" value="/WEB-INF/jsps/profil/profil.jsp" />
+		<!-- <put-attribute name="current" value="home" /> -->
+	</definition>
+	
+	<definition name="racikan-daftar" extends="dasar">
+		<put-attribute name="title" value="UWATI - Racikan" />
+		<put-attribute name="page_title" value="Racikan" />
+		<put-attribute name="body" value="/WEB-INF/jsps/racikan/racikan-daftar.jsp" />
+		<!-- <put-attribute name="current" value="home" /> -->
+	</definition>
+	
+	<definition name="role-daftar" extends="dasar">
+		<put-attribute name="title" value="UWATI - Role" />
+		<put-attribute name="page_title" value="Role" />
+		<put-attribute name="body" value="/WEB-INF/jsps/role/role-daftar.jsp" />
+		<!-- <put-attribute name="current" value="home" /> -->
+	</definition>
+	
+	<definition name="satuan-daftar" extends="dasar">
+		<put-attribute name="title" value="UWATI - Satuan" />
+		<put-attribute name="page_title" value="Satuan" />
+		<put-attribute name="body" value="/WEB-INF/jsps/satuan/satuan-daftar.jsp" />
+		<!-- <put-attribute name="current" value="home" /> -->
+	</definition>
+	
+</tiles-definitions>

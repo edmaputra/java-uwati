@@ -35,6 +35,11 @@ public class RacikanService {
 		return racikanRepository.findAll(expression, request);
 	}
 	
+	public Page<Racikan> muatDaftar(Integer halaman, BooleanExpression expression, Integer pageSize) {
+		PageRequest request = new PageRequest(halaman - 1, pageSize, Sort.Direction.ASC, "id");
+		return racikanRepository.findAll(expression, request);
+	}
+	
 	public List<Racikan> dapatkanSemua(){
 		return racikanRepository.findAll(new Sort(Direction.ASC, "nama"));
 	}

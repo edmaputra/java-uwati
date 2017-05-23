@@ -1,0 +1,14 @@
+package id.edmaputra.uwati.repository.transaksi;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.querydsl.QueryDslPredicateExecutor;
+
+import id.edmaputra.uwati.entity.transaksi.PenjualanDetailTemp;
+
+public interface PenjualanDetailTempRepository extends JpaRepository<PenjualanDetailTemp, Long>, QueryDslPredicateExecutor<PenjualanDetailTemp>{
+	
+	void deleteByNomorFakturAndPengguna(String nomorFaktur, String pengguna);
+
+	PenjualanDetailTemp findByIdAndNomorFaktur(Long id, String nomorFaktur);
+	
+}

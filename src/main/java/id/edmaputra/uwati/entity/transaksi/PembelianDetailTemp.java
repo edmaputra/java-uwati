@@ -15,7 +15,7 @@ import id.edmaputra.uwati.entity.DasarTransaksiEntity;
 
 @Entity
 @Table(name = "pembelian_detail_temp", uniqueConstraints = { @UniqueConstraint(columnNames = "id")},
-		indexes = {@Index(name = "i_nomorFaktur_pengguna", columnList = "nomorFaktur,pengguna")})
+		indexes = {@Index(name = "iPembelianDetailTemp_nomorFaktur_pengguna", columnList = "nomorFaktur,pengguna")})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class PembelianDetailTemp extends DasarTransaksiEntity<Long>{
 
