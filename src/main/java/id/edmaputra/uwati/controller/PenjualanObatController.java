@@ -32,6 +32,8 @@ import id.edmaputra.uwati.entity.master.obat.Obat;
 import id.edmaputra.uwati.entity.master.obat.ObatDetail;
 import id.edmaputra.uwati.entity.master.obat.ObatExpired;
 import id.edmaputra.uwati.entity.master.obat.ObatStok;
+import id.edmaputra.uwati.entity.master.obat.Racikan;
+import id.edmaputra.uwati.entity.master.obat.RacikanDetail;
 import id.edmaputra.uwati.entity.transaksi.NomorFaktur;
 import id.edmaputra.uwati.entity.transaksi.PembelianDetailTemp;
 import id.edmaputra.uwati.entity.transaksi.PenjualanDetailTemp;
@@ -39,6 +41,8 @@ import id.edmaputra.uwati.service.ObatDetailService;
 import id.edmaputra.uwati.service.ObatExpiredService;
 import id.edmaputra.uwati.service.ObatService;
 import id.edmaputra.uwati.service.ObatStokService;
+import id.edmaputra.uwati.service.RacikanDetailService;
+import id.edmaputra.uwati.service.RacikanService;
 import id.edmaputra.uwati.service.transaksi.NomorFakturService;
 import id.edmaputra.uwati.service.transaksi.PenjualanDetailTempService;
 import id.edmaputra.uwati.specification.NomorFakturPredicateBuilder;
@@ -71,6 +75,12 @@ public class PenjualanObatController {
 
 	@Autowired
 	private ObatExpiredService obatExpiredService;
+	
+	@Autowired
+	private RacikanService racikanService;
+	
+	@Autowired
+	private RacikanDetailService racikanDetailService;
 	
 	private final String KODE_TRANSAKSI = "A";
 
@@ -126,7 +136,8 @@ public class PenjualanObatController {
 	@ResponseBody
 	public PenjualanDetailTemp tambahRacikanTemp(@RequestBody PenjualanDetailTemp pdt, BindingResult result,
 			Principal principal, HttpServletRequest request) {
-		try {			
+		try {
+			
 			pdt.setPengguna(principal.getName());			
 			pdt.setWaktuDibuat(new Date());			
 			pdt.setTerakhirDirubah(new Date());			
@@ -315,6 +326,31 @@ public class PenjualanObatController {
 		String nomor = nomorFaktur.substring(nomorFaktur.length() - 4, nomorFaktur.length());
 		Integer returnValue = Integer.valueOf(nomor).intValue();
 		return returnValue;
+	}
+	
+	private String cekStokObatFromRacikan(PembelianDetailTemp pdt){
+		String kondisi = "OK";
+		Racikan r = getRacikan(pdt.getObat());
+		for (RacikanDetail rd : r.getRacikanDetail()){
+			String temp = "";
+			Obat obat = getObat(rd.getKomposisi().getNama());
+			Integer jumlahBeli = Integer.valueOf(pdt.getJumlah()) * rd.getJumlah();
+			Integer stok = obat.getStok().get(0).getStok();
+			if (jumlahBeli > stok){
+				kondisi = ""; 
+			} 
+		}
+		return kondisi;
+	}
+	
+	private Racikan getRacikan(String nama) {
+		Racikan racikan = racikanService.dapatkanByNama(nama);
+		
+		List<RacikanDetail> listRacikanDetail = racikanDetailService.dapatkanByRacikan(racikan);
+		racikan.setRacikanDetail(listRacikanDetail);
+		Hibernate.initialize(racikan.getRacikanDetail());
+		
+		return racikan;
 	}
 	
 
