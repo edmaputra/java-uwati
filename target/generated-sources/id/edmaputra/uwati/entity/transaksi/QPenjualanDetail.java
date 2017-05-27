@@ -39,11 +39,13 @@ public class QPenjualanDetail extends EntityPathBase<PenjualanDetail> {
 
     public final NumberPath<Integer> jumlah = createNumber("jumlah", Integer.class);
 
-    public final id.edmaputra.uwati.entity.master.obat.QObatDetail obatDetail;
+    public final StringPath obat = createString("obat");
 
     public final NumberPath<java.math.BigDecimal> pajak = createNumber("pajak", java.math.BigDecimal.class);
 
     public final QPenjualan penjualan;
+
+    public final ListPath<PenjualanDetailRacikan, QPenjualanDetailRacikan> racikanDetail = this.<PenjualanDetailRacikan, QPenjualanDetailRacikan>createList("racikanDetail", PenjualanDetailRacikan.class, QPenjualanDetailRacikan.class, PathInits.DIRECT2);
 
     //inherited
     public final DateTimePath<java.util.Date> terakhirDirubah = _super.terakhirDirubah;
@@ -69,8 +71,7 @@ public class QPenjualanDetail extends EntityPathBase<PenjualanDetail> {
 
     public QPenjualanDetail(Class<? extends PenjualanDetail> type, PathMetadata<?> metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.obatDetail = inits.isInitialized("obatDetail") ? new id.edmaputra.uwati.entity.master.obat.QObatDetail(forProperty("obatDetail"), inits.get("obatDetail")) : null;
-        this.penjualan = inits.isInitialized("penjualan") ? new QPenjualan(forProperty("penjualan"), inits.get("penjualan")) : null;
+        this.penjualan = inits.isInitialized("penjualan") ? new QPenjualan(forProperty("penjualan")) : null;
     }
 
 }

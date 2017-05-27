@@ -246,7 +246,7 @@ public class PembelianObatController {
 				pembelianDetail.setPembelian(pembelian);
 				grandTotal = grandTotal.add(new BigDecimal(t.getSubTotal().replaceAll("[.,]", "")));
 				listPembelianDetail.add(pembelianDetail);
-				Obat obat = pembelianDetail.getObat();
+				Obat obat = getObat(pembelianDetail.getObat());
 				updateObat(obat, pembelianDetail, principal.getName(), request);				
 			}
 			pembelian.setGrandTotal(grandTotal);
@@ -293,7 +293,7 @@ public class PembelianObatController {
 	}
 	
 	@RequestMapping(value = "/cetak", method = RequestMethod.POST)
-	public ModelAndView buatResi(ModelAndView mav, @RequestParam("id") String id, Principal principal){
+	public ModelAndView buatResiDanCetak(ModelAndView mav, @RequestParam("id") String id, Principal principal){
 		try {
 			List<Struk> struks = new ArrayList<>();
 			Map<String, Object> parameterMap = new HashMap<String, Object>();						
@@ -313,7 +313,7 @@ public class PembelianObatController {
 //				BigDecimal temp = d.getHargaJual().multiply(new BigDecimal(d.getJumlah()));
 //				BigDecimal netto = temp.subtract(pengurang);
 				
-				struk.setStrukNamaObat(d.getObat().getNama());
+				struk.setStrukNamaObat(d.getObat());
 				struk.setStrukJumlahObat(d.getJumlah().toString() + " x");
 				struk.setStrukHargaObat(Converter.patternCurrency(d.getHargaBeli()));
 				BigDecimal subTotal = d.getSubTotal();
@@ -333,8 +333,7 @@ public class PembelianObatController {
 			logger.info(e.getMessage());
 			System.out.println(e.getMessage());
 			return null;
-		}
-		
+		}		
 	}
 
 	private PembelianDetail setDetailContent(PembelianDetail pembelianDetail, PembelianDetailTemp temp) {
@@ -354,7 +353,7 @@ public class PembelianObatController {
 			pembelianDetail.setJumlah(Integer.valueOf(temp.getJumlah()));
 		}
 		if (temp.getObat() != null) {
-			pembelianDetail.setObat(getObat(temp.getObat()));
+			pembelianDetail.setObat(getObat(temp.getObat()).getNama());
 		}
 		if (temp.getPajak() != null) {
 			pembelianDetail.setPajak(new BigDecimal(temp.getPajak().replaceAll("[.,]", "")));

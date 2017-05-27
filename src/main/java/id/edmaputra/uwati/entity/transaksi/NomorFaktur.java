@@ -30,7 +30,10 @@ public class NomorFaktur extends DasarTransaksiEntity<Long>{
 	private Integer nomor;
 	
 	@Column(nullable = false)
-	private Boolean isDone;
+	private Boolean isSelesai;
+	
+	@Column(nullable = false)
+	private Boolean isTerpakai;
 	
 	@Column(name = "tanggal", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -52,12 +55,12 @@ public class NomorFaktur extends DasarTransaksiEntity<Long>{
 		this.nomor = nomor;
 	}
 
-	public Boolean getIsDone() {
-		return isDone;
+	public Boolean getIsSelesai() {
+		return isSelesai;
 	}
 
-	public void setIsDone(Boolean isDone) {
-		this.isDone = isDone;
+	public void setIsSelesai(Boolean isDone) {
+		this.isSelesai = isDone;
 	}
 
 	public Date getTanggal() {
@@ -66,6 +69,14 @@ public class NomorFaktur extends DasarTransaksiEntity<Long>{
 
 	public void setTanggal(Date tanggal) {
 		this.tanggal = tanggal;
+	}
+
+	public Boolean getIsTerpakai() {
+		return isTerpakai;
+	}
+
+	public void setIsTerpakai(Boolean isTerpakai) {
+		this.isTerpakai = isTerpakai;
 	}
 	
 }

@@ -26,6 +26,9 @@ public class QObatStok extends EntityPathBase<ObatStok> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    //inherited
+    public final StringPath info = _super.info;
+
     public final QObat obat;
 
     public final NumberPath<Integer> stok = createNumber("stok", Integer.class);

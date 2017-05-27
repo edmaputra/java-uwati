@@ -15,10 +15,10 @@ public abstract class DasarEntity<T> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "user_input", nullable = true, length = DBConf.LENGTH_NAMA_PENGGUNA) 
+	@Column(name = "creator", nullable = true, length = DBConf.LENGTH_NAMA_PENGGUNA) 
 	private String userInput;
 
-	@Column(name = "user_editor", nullable = true, length = DBConf.LENGTH_NAMA_PENGGUNA)
+	@Column(name = "editor", nullable = true, length = DBConf.LENGTH_NAMA_PENGGUNA)
 	private String userEditor;
 
 	@Column(name = "waktu_dibuat", nullable = false)
@@ -28,6 +28,9 @@ public abstract class DasarEntity<T> implements Serializable {
 	@Column(name = "terakhir_dirubah", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date terakhirDirubah;
+	
+	@Column(name = "info", nullable = true, length = DBConf.LENGTH_NAMA)
+	private String info;
 
 	public String getUserInput() {
 		return userInput;
@@ -59,6 +62,14 @@ public abstract class DasarEntity<T> implements Serializable {
 
 	public void setTerakhirDirubah(Date terakhirDirubah) {
 		this.terakhirDirubah = terakhirDirubah;
+	}
+
+	public String getInfo() {
+		return info;
+	}
+
+	public void setInfo(String info) {
+		this.info = info;
 	}
 
 }

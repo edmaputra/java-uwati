@@ -18,7 +18,6 @@
 		<class>id.edmaputra.uwati.entity.transaksi.PembelianDetail</class>
 		<class>id.edmaputra.uwati.entity.transaksi.Penjualan</class>
 		<class>id.edmaputra.uwati.entity.transaksi.PenjualanDetail</class>
-		<class>id.edmaputra.uwati.entity.transaksi.PenjualanRacikan</class>
 		<class>id.edmaputra.uwati.entity.transaksi.PenjualanDetailRacikan</class>
 		<class>id.edmaputra.uwati.entity.transaksi.ReturPembelian</class>
 		<class>id.edmaputra.uwati.entity.transaksi.ReturPembelianDetail</class>

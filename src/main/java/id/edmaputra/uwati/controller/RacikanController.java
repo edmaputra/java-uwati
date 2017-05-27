@@ -35,7 +35,6 @@ import id.edmaputra.uwati.entity.master.obat.Racikan;
 import id.edmaputra.uwati.entity.master.obat.RacikanDetail;
 import id.edmaputra.uwati.entity.master.obat.RacikanDetailTemp;
 import id.edmaputra.uwati.entity.master.obat.RacikanTemp;
-import id.edmaputra.uwati.entity.transaksi.PenjualanDetailTemp;
 import id.edmaputra.uwati.service.KategoriService;
 import id.edmaputra.uwati.service.ObatDetailService;
 import id.edmaputra.uwati.service.ObatExpiredService;
@@ -181,7 +180,8 @@ public class RacikanController {
 			Racikan r = getRacikan(Long.valueOf(idx).longValue());
 			String tabel = tabelRacikanDetailPenjualan(r.getRacikanDetail());
 			el.setTabel(tabel);
-			el.setGrandTotal(r.getHargaJual() + "");
+			BigDecimal hargaJual = r.getBiayaRacik().add(r.getHargaJual());
+			el.setGrandTotal(Formatter.patternCurrency(hargaJual));
 			el.setValue1(r.getNama());
 			return el;
 		} catch (Exception e) {
@@ -217,6 +217,7 @@ public class RacikanController {
 			racikanService.simpan(racikan);
 
 			logger.info(LogSupport.tambah(principal.getName(), r.toString(), request));
+			logger.info(LogSupport.tambah(principal.getName(), obat.getNama(), request));
 			return r;
 		} catch (Exception e) {
 			logger.info(e.getMessage());
@@ -258,8 +259,8 @@ public class RacikanController {
 			String btn = "";
 			row += Html.td(s.getId().toString());
 			row += Html.td(s.getNama());
-			row += Html.td(s.getHargaJual() + "");
-			row += Html.td(s.getBiayaRacik() + "");
+			row += Html.td(Formatter.patternCurrency(s.getHargaJual()));
+			row += Html.td(Formatter.patternCurrency(s.getBiayaRacik()));
 			if (request.isUserInRole("ROLE_ADMIN") || request.isUserInRole("ROLE_APOTEK")) {
 				row += Html.td(s.getUserInput());
 				row += Html.td(Formatter.formatTanggal(s.getWaktuDibuat()));
@@ -292,8 +293,8 @@ public class RacikanController {
 			String btn = "";
 			row += Html.td(s.getId().toString());
 			row += Html.td(s.getNama());
-			row += Html.td(s.getHargaJual() + "");
-			row += Html.td(s.getBiayaRacik() + "");
+			row += Html.td(Formatter.patternCurrency(s.getHargaJual()));
+			row += Html.td(Formatter.patternCurrency(s.getBiayaRacik()));
 			btn = Html.button("btn btn-primary btn-xs btnEdit", null, null, "onClick",
 					"getDataRacikanPenjualan(" + s.getId() + ")", 2);
 			row += Html.td(btn);
@@ -314,10 +315,16 @@ public class RacikanController {
 		for (RacikanDetail s : list) {
 			String row = "";
 			row += Html.td(s.getKomposisi().getNama());
-			row += Html.td(s.getJumlah() + "");
-			row += Html.td(s.getHargaSatuan() + "");						
+			row += Html.td(s.getJumlah() + "");			
+			row += Html.td(Formatter.patternCurrency(s.getHargaSatuan().multiply(new BigDecimal(s.getJumlah()))));						
 			data += Html.tr(row);
 		}
+		String row = "";
+		row += Html.td("Biaya Racik");
+		row += Html.td("1");			
+		row += Html.td(Formatter.patternCurrency(list.get(0).getRacikan().getBiayaRacik()));
+		data += Html.tr(row);
+		
 		String tbody = Html.tbody(data);
 		html = thead + tbody;
 		return html;

@@ -33,9 +33,9 @@ public class QPenjualanDetailRacikan extends EntityPathBase<PenjualanDetailRacik
 
     public final NumberPath<Integer> jumlah = createNumber("jumlah", Integer.class);
 
-    public final id.edmaputra.uwati.entity.master.obat.QObat komposisi;
+    public final StringPath komposisi = createString("komposisi");
 
-    public final QPenjualanRacikan penjualanRacikan;
+    public final QPenjualanDetail penjualanDetail;
 
     //inherited
     public final DateTimePath<java.util.Date> terakhirDirubah = _super.terakhirDirubah;
@@ -61,8 +61,7 @@ public class QPenjualanDetailRacikan extends EntityPathBase<PenjualanDetailRacik
 
     public QPenjualanDetailRacikan(Class<? extends PenjualanDetailRacikan> type, PathMetadata<?> metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.komposisi = inits.isInitialized("komposisi") ? new id.edmaputra.uwati.entity.master.obat.QObat(forProperty("komposisi"), inits.get("komposisi")) : null;
-        this.penjualanRacikan = inits.isInitialized("penjualanRacikan") ? new QPenjualanRacikan(forProperty("penjualanRacikan"), inits.get("penjualanRacikan")) : null;
+        this.penjualanDetail = inits.isInitialized("penjualanDetail") ? new QPenjualanDetail(forProperty("penjualanDetail"), inits.get("penjualanDetail")) : null;
     }
 
 }

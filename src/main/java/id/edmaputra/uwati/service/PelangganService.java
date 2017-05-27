@@ -35,4 +35,8 @@ public class PelangganService {
 	public void hapus(Pelanggan pelanggan) {
 		pelangganRepo.delete(pelanggan);
 	}
+
+	public Pelanggan dapatkan(String nama) {
+		return pelangganRepo.findByNama(nama);
+	}
 }

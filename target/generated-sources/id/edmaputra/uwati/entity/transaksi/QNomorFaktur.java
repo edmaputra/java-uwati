@@ -26,7 +26,9 @@ public class QNomorFaktur extends EntityPathBase<NomorFaktur> {
     //inherited
     public final StringPath info = _super.info;
 
-    public final BooleanPath isDone = createBoolean("isDone");
+    public final BooleanPath isSelesai = createBoolean("isSelesai");
+
+    public final BooleanPath isTerpakai = createBoolean("isTerpakai");
 
     public final NumberPath<Integer> nomor = createNumber("nomor", Integer.class);
 

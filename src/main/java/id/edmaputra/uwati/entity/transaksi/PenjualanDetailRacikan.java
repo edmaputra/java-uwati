@@ -15,8 +15,8 @@ import javax.persistence.UniqueConstraint;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import id.edmaputra.uwati.config.DBConf;
 import id.edmaputra.uwati.entity.DasarTransaksiEntity;
-import id.edmaputra.uwati.entity.master.obat.Obat;
 
 @Entity
 @Table(name = "penjualan_detail_racikan", uniqueConstraints = { @UniqueConstraint(columnNames = "id")})
@@ -31,17 +31,16 @@ public class PenjualanDetailRacikan extends DasarTransaksiEntity<Long> {
 	
 	@ManyToOne
 	@JoinColumn(name = "id_racikan", nullable = false)
-	private PenjualanRacikan penjualanRacikan;
+	private PenjualanDetail penjualanDetail;
 	
-	@ManyToOne	
-	private Obat komposisi;
+	@Column(name="komposisi", nullable=false, length = DBConf.LENGTH_NAMA)
+	private String komposisi;
 	
 	@Column(name="jumlah", nullable=false)
 	private Integer jumlah;
 	
-	@Column(nullable=false)	
+	@Column(nullable=false)
 	private BigDecimal hargaJualPerKomposisi;
-	
 
 	public Long getId() {
 		return id;
@@ -51,20 +50,20 @@ public class PenjualanDetailRacikan extends DasarTransaksiEntity<Long> {
 		this.id = id;
 	}
 
-	public Obat getKomposisi() {
+	public PenjualanDetail getPenjualanDetail() {
+		return penjualanDetail;
+	}
+
+	public void setPenjualanDetail(PenjualanDetail penjualanDetail) {
+		this.penjualanDetail = penjualanDetail;
+	}
+
+	public String getKomposisi() {
 		return komposisi;
 	}
 
-	public void setKomposisi(Obat komposisi) {
+	public void setKomposisi(String komposisi) {
 		this.komposisi = komposisi;
-	}
-
-	public BigDecimal getHargaJualPerKomposisi() {
-		return hargaJualPerKomposisi;
-	}
-
-	public void setHargaJualPerKomposisi(BigDecimal hargaJualPerKomposisi) {
-		this.hargaJualPerKomposisi = hargaJualPerKomposisi;
 	}
 
 	public Integer getJumlah() {
@@ -75,11 +74,12 @@ public class PenjualanDetailRacikan extends DasarTransaksiEntity<Long> {
 		this.jumlah = jumlah;
 	}
 
-	public PenjualanRacikan getPenjualanRacikan() {
-		return penjualanRacikan;
+	public BigDecimal getHargaJualPerKomposisi() {
+		return hargaJualPerKomposisi;
 	}
 
-	public void setPenjualanRacikan(PenjualanRacikan penjualanRacikan) {
-		this.penjualanRacikan = penjualanRacikan;
+	public void setHargaJualPerKomposisi(BigDecimal hargaJualPerKomposisi) {
+		this.hargaJualPerKomposisi = hargaJualPerKomposisi;
 	}	
+
 }

@@ -9,12 +9,13 @@
 <c:url var="tambahKeListObatUrl" value="/penjualan-obat/tambahTemp" />
 <c:url var="hapusObatUrl" value="/penjualan-obat/hapusTemp" />
 <c:url var="daftarTempUrl" value="/penjualan-obat/daftarTemp" />
-<c:url var="beliUrl" value="/penjualan-obat/beli" />
+<c:url var="jualUrl" value="/penjualan-obat/jual" />
 <c:url var="tersediaUrl" value="/penjualan-obat/tersedia" />
 <c:url var="cetakUrl" value="/penjualan-obat/cetak" />
 <c:url var="racikanListUrl" value="/racikan/list" />
 <c:url var="racikanDetailUrl" value="/racikan/detail" />
 <c:url var="tambahRacikanKeListJual" value="/penjualan-obat/racikanTemp" />
+<c:url var="nomorFakturNotTerpakai" value="/nomor-faktur/not-terpakai" />
 
 
 <div class="row mt">
@@ -24,20 +25,22 @@
 				<div class="row">
 					<div class="col-md-2">
 						<div class="form-group">
-							<label class="lb-sm">Nomor Faktur</label> 
-							<input name="nomorFaktur" type="text" id="nomorFaktur" class="form-control" readonly="readonly"/>
+							<label class="lb-sm">Nomor Faktur</label> <input
+								name="nomorFaktur" type="text" id="nomorFaktur"
+								class="form-control" readonly="readonly" />
 						</div>
 					</div>
 					<div class="col-md-2">
 						<div class="form-group">
-							<label class="lb-sm">Tanggal Beli</label> 
-							<input name="tanggal" type="text" id="tanggal" class="form-control datePicker" value="${tanggalHariIni}" />
+							<label class="lb-sm">Tanggal Beli</label> <input name="tanggal"
+								type="text" id="tanggal" class="form-control datePicker"
+								value="${tanggalHariIni}" />
 						</div>
 					</div>
 					<div class="col-md-2">
 						<div class="form-group">
 							<label class="lb-sm">Jenis</label> <select class="form-control"
-								name="jenis-jual" id="jenis">
+								name="jenis" id="jenis">
 								<option value="default"></option>
 								<option value="0">Umum</option>
 								<option value="1">Dokter</option>
@@ -63,8 +66,8 @@
 				<div class="row">
 					<div class="col-md-4">
 						<div class="form-group">
-							<label class="lb-sm">Obat</label> 
-							<input name="obat" type="text" id="obat" class="form-control" />
+							<label class="lb-sm">Obat</label> <input name="obat" type="text"
+								id="obat" class="form-control" />
 						</div>
 					</div>
 					<div class="col-md-2">
@@ -76,20 +79,17 @@
 
 					<div class="col-md-2">
 						<div class="form-group">
-							<label class="lb-sm">Diskon</label> <input name="diskon"
-								type="text" id="diskon" class="form-control" />
+							<label class="lb-sm">Diskon</label> 
+							<input name="diskon" type="text" id="diskon" class="form-control" value="0"/>
 						</div>
 					</div>
 
 					<div class="col-md-1">
 						<div class="form-group">
 							<label class="lb-sm">%</label> <input name="persenDiskon"
-								type="text" id="persenDiskon" class="form-control" />
+								type="text" id="persenDiskon" class="form-control" value="0"/>
 						</div>
 					</div>
-
-
-
 				</div>
 
 				<div class="row">
@@ -115,13 +115,13 @@
 					<div class="col-md-2 col-md-offset-2">
 						<div class="form-group">
 							<label class="lb-sm">Pajak</label> <input name="pajak"
-								type="text" id="pajak" class="form-control" />
+								type="text" id="pajak" class="form-control" value="0"/>
 						</div>
 					</div>
 					<div class="col-md-1">
 						<div class="form-group">
 							<label class="lb-sm">%</label> <input name="persenPajak"
-								type="text" id="persenPajak" class="form-control" />
+								type="text" id="persenPajak" class="form-control" value="0"/>
 						</div>
 					</div>
 
@@ -181,7 +181,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="form-group">
-						<button class="form-control btn btn-primary" id="jual">Jual dan Simpan</button>
+						<button class="form-control btn btn-primary" id="btnBayar">B A Y A R</button>
 					</div>
 				</div>
 			</div>
@@ -200,68 +200,71 @@
 			</div>
 			<div class="form-panel">
 				<div class="modal-body">
-				<div class="row">
-<!-- 					<div class="col-md-2 "> -->
-<%-- 						<security:authorize access="hasAnyRole('ADMIN')"> --%>
-<!-- 							<button class="btn btn-primary" data-toggle="modal" data-target="#satuan-modal">Satuan Baru</button> -->
-<%-- 						</security:authorize> --%>
-<!-- 					</div> -->
-
-					<div class="col-md-12">
-						<form class="form-inline pull-right" id="formCari">
-							<div class="form-group">
-								<input type="text" id="stringCari" class="form-control" placeholder="Pencarian" style="width: 250px" />
-							</div>
-							<div class="form-group">
-								<button type="button" class="btn btn-primary" id="btnCari">Cari</button>
-							</div>
-							<div class="form-group">
-								<button type="button" class="btn btn-default" id="btnReset" onclick="refreshRacikan(1,'')">Reset</button>
-							</div>						
-						</form>
-					</div>
-				</div>
 					<div class="row">
-						<div class="col-md-8">
-						<table class="table table-striped table-advance table-hover" id="tabelRacikan">								
-						</table>
-						<div id="nav"></div>
-					</div>
-					<div class="col-md-4">
-						<div class="form-panel">
-							<h4 id="namaRacikan"></h4>
-							<table class="table" id="racikanDetail">
-							</table>
+						<div class="col-md-12">
+							<form class="form-inline pull-right" id="formCari">
+								<div class="form-group">
+									<input type="text" id="stringCari" class="form-control"
+										placeholder="Pencarian" style="width: 250px" />
+								</div>
+								<div class="form-group">
+									<button type="button" class="btn btn-primary" id="btnCari">Cari</button>
+								</div>
+								<div class="form-group">
+									<button type="button" class="btn btn-default" id="btnReset"
+										onclick="refreshRacikan(1,'')">Reset</button>
+								</div>
+							</form>
 						</div>
 					</div>
-				</div>
+					<div class="row">
+						<div class="col-md-8">
+							<table class="table table-striped table-advance table-hover"
+								id="tabelRacikan">
+							</table>
+							<div id="nav"></div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-panel">
+								<h4 id="namaRacikan"></h4>
+								<table class="table" id="racikanDetail">
+								</table>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="modal-footer">
 				<div class="row">
 					<div class="col-md-2">
 						<div class="form-grup">
-							<input type="text" class="form-control" id="hargaSatuanRacikan" readonly="readonly" placeholder="Harga Racikan">
+							<input type="text" class="form-control" id="hargaSatuanRacikan"
+								readonly="readonly" placeholder="Harga Racikan">
 						</div>
 					</div>
 					<div class="col-md-2">
 						<div class="form-grup">
-							<input type="text" class="form-control" id="jumlahBeliRacikan"  placeholder="Jumlah">
+							<input type="text" class="form-control" id="jumlahBeliRacikan"
+								placeholder="Jumlah">
 						</div>
 					</div>
 					<div class="col-md-3">
 						<div class="form-grup">
-							<input type="text" class="form-control" id="totalRacikan" readonly="readonly" placeholder="Total">
+							<input type="text" class="form-control" id="totalRacikan"
+								readonly="readonly" placeholder="Total">
 						</div>
 					</div>
 					<div class="col-md-2 col-md-offset-1">
 						<div class="form-group">
-							<button type="button" class="form-control btn btn-default btnKeluar" data-dismiss="modal">Keluar</button>
+							<button type="button"
+								class="form-control btn btn-default btnKeluar"
+								data-dismiss="modal">Keluar</button>
 						</div>
 					</div>
 					<div class="col-md-2">
 						<div class="form-group">
-							<input type="submit" class="form-control btn btn-primary" value="Tambah" id="tambahRacikan" />
+							<input type="submit" class="form-control btn btn-primary"
+								value="Tambah" id="tambahRacikan" />
 						</div>
 					</div>
 				</div>
@@ -271,25 +274,133 @@
 </div>
 
 <div class="modal fade" id="pesanModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal">
+	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
 				<h4 class="modal-title" id="myModalLabel">Pesan</h4>
-			</div>			
-			<div class="modal-body">
-									
-			</div>			
-			<div class="modal-footer">				
 			</div>
+			<div class="modal-body">
+				<div id="pesan"></div>
+			</div>
+			<div class="modal-footer"></div>
 		</div>
 	</div>
 </div>
 
+<div class="modal fade" id="bayarModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+	<form class="form formBayar" method="POST">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Bayar</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="lb-sm">Total Pembelian</label> 
+							<input name="total" type="text" id="total" class="form-control input-lg" value="0">
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label class="lb-sm">Pajak</label> 
+							<input name="pajakBayar" type="text" id="pajakBayar" class="form-control input-lg" value="0">
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group">
+							<label class="lb-sm">%</label> 
+							<input name="persenPajakBayar" type="text" id="persenPajakBayar" class="form-control input-lg" value="0">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 col-md-offset-6">
+						<div class="form-group">
+							<label class="lb-sm">Diskon</label> 
+							<input name="diskonBayar" type="text" id="diskonBayar" class="form-control input-lg" value="0">
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group">
+							<label class="lb-sm">%</label> 
+							<input name="persenDiskonBayar" type="text" id="persenDiskonBayar" class="form-control input-lg" value="0">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label class="lb-sm">Grand Total</label> 
+							<input name="grandTotalBayar" type="text" id="grandTotalBayar" class="form-control input-lg" readonly="readonly" value="0"/>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-7">
+						<div class="form-group">
+							<label class="lb-sm">Bayar</label> 
+							<input name="bayar" type="text" id="bayar" class="form-control input-lg" value="0"/>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<div class="form-group">
+							<label class="lb-sm">Kembali</label> 
+							<input name="kembali" type="text" id="kembali" class="form-control input-lg" readonly="readonly" value="0">
+						</div>
+					</div>
+				</div>				
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default btnKeluar" data-dismiss="modal">Keluar</button>
+				<input type="submit" class="btn btn-primary" value="JUAL" id="jual"/>
+			</div>
+		</div>
+		</form>
+	</div>
+</div>
+
+
+<button class="btn btn-primary btnHide" data-toggle="modal"
+	data-target="#pesanModal" id="pesanButton">-</button>
+
+<form action="${cetakUrl}" method="POST">	
+	<button class="btn btn-primary btnHide" id="cetakButton">-</button>
+</form>
 
 <script>
+	var nmrFaktur;
+	var tgl;
+	
 	$(document).ready(function() {
 		refreshRacikan(1, '');
+		$('#jenis').focus();
+		$('#jenis').on('change', function(e) {			
+			var optionSelected = $("option:selected", this);
+			var valueSelected = this.value;
+			if (valueSelected == 0) {				
+				$('#pelanggan').val('');
+				document.getElementById('pelanggan').readOnly = true;
+				$('#dokter').val('');
+				document.getElementById('dokter').readOnly = true;				
+			} else if (valueSelected == 1) {
+				document.getElementById('pelanggan').readOnly = false;
+				document.getElementById('dokter').readOnly = false;
+			} else if (valueSelected == 2) {
+				document.getElementById('pelanggan').readOnly = false;
+				$('#dokter').val('');
+				document.getElementById('dokter').readOnly = true;
+			} else {
+				$('#pelanggan').val('');
+				document.getElementById('pelanggan').readOnly = true;
+				$('#dokter').val('');
+				document.getElementById('dokter').readOnly = true;
+			}
+		});
 		
 		$('#btnCari').click(function() {
 			refreshRacikan(1, $('#stringCari').val());
@@ -318,6 +429,9 @@
 				isiDataObat(val);
 			}
 		});
+		
+		setKeyUpForHitungGrandTotal('#diskonBayar');
+		setKeyUpForHitungGrandTotal('#pajakBayar');
 
 		$("#racikan").click(function(event) {
 			event.preventDefault();
@@ -327,7 +441,39 @@
 			tambahRacikan();
 			event.preventDefault();		
 		});
-
+		
+		$('#btnBayar').click(function() {
+			if ($('#nomorFaktur').val() == '' || $('#nomorFaktur') == null){
+				alert("Harap Pilih Obat Terlebih Dulu");
+			} else {				
+				$('#bayarModal').modal('show');
+				$('#total').val($("#grandTotal").text());
+				$('#grandTotalBayar').val($("#grandTotal").text());
+				$('#grandTotalBayar').focus();
+			}
+		});
+		
+		$(window).bind('beforeunload', function(){
+			nmrFaktur = $('#nomorFaktur').val();
+			tgl = $('#tanggal').val();
+			return "Transaksi akan dibatalkan. Anda Yakin?";
+		});
+		
+		$(window).on('unload', function(e) {			
+			data = {nomorFaktur : nmrFaktur, tanggal : tgl};
+			$.postAjaxAsyncFalse('${nomorFakturNotTerpakai}', data, function(r) {
+				null;
+			}, function() {
+				$('#gritter-edit-gagal').click();						
+			});		
+		});
+		
+		setKeyUpForHitungGrandTotal('#diskonBayar');
+		setKeyUpForHitungGrandTotal('#pajakBayar');
+		setKeyUpForHitungGrandTotal('#persenPajakBayar');
+		setKeyUpForHitungGrandTotal('#persenDiskonBayar');
+		
+		setKeyUpForKembalian('#bayar');
 
 		tabKey('#obat', '#jumlah');
 		tabKey('#jumlah', '#hargaJual');
@@ -337,24 +483,8 @@
 		tabKey('#pajak', '#persenPajak');
 		tabKey('#persenPajak', '#tambah');
 		tabKey('#jumlahBeliRacikan', '#tambahRacikan');
-
-		$('#jenis').on('change', function(e) {
-			var optionSelected = $("option:selected", this);
-			var valueSelected = this.value;
-			if (valueSelected == 'umum') {
-				$('#pelanggan').val('');
-				document.getElementById('pelanggan').readOnly = true;
-				$('#dokter').val('');
-				document.getElementById('dokter').readOnly = true;
-			} else if (valueSelected == 'dokter') {
-				document.getElementById('pelanggan').readOnly = false;
-				document.getElementById('dokter').readOnly = false;
-			} else if (valueSelected == 'resep') {
-				document.getElementById('pelanggan').readOnly = false;
-				$('#dokter').val('');
-				document.getElementById('dokter').readOnly = true;
-			}
-		});
+		tabKey('#persenDiskonBayar', '#bayar');
+		tabKey('#bayar', '#jual');
 
 		$(".formTambah").validate({
 			rules : {
@@ -426,11 +556,58 @@
 				}, function() {
 					$('#gritter-tambah-gagal').click();						
 				});
-// 					clean();
+			}
+		});		
+		
+		$(".formBayar").validate({
+			rules : {
+				total : {
+					required : true
+				},
+				grandTotalBayar : {
+					min : 1,
+					required : true
+				},
+				bayar : {
+					min : 1,
+					required : true,
+					greaterThan : '#grandTotalBayar'
+				},
+				kembali : {
+					min : 0,
+					required : true
 				}
-			});
-// 			event.preventDefault();
-// 		});
+			},
+			messages : {
+				total : {
+					required : "Total Harga Tidak Ada"
+				},
+				grandTotalBayar : {
+					min : "Grand Total Salah",
+					required : "Grand Total Tidak Ada",					
+				},
+				bayar : {
+					min : "Input Pembayaran dengan Benar",
+					required : "Input Pembayaran dengan Benar",
+					greaterThan : "Uang Bayar Tidak Mencukupi"
+				},
+				kembali : {
+					min : "Kembalian Tidak Benar",
+					required : "Kembalian Tidak Benar"
+				}
+			},
+			submitHandler : function(form) {
+				var data = {};
+				data = setDataPenjualan();
+				$.postJSON('${jualUrl}', data, function(r) {
+					$('.btnKeluar').click();
+					cleanAll();
+					$('#cetakButton').click();
+				}, function() {
+					$('#gritter-tambah-gagal').click();						
+				});
+			}
+		});
 
 		setAutoComplete('#obat', '${cariObatUrl}');
 		setMaskingUang("#hargaJual");
@@ -439,18 +616,36 @@
 		setMaskingUang("#subTotal");
 		setMaskingUang("#hargaSatuanRacikan");
 		setMaskingUang("#totalRacikan");
+		setMaskingUang("#total");
+		setMaskingUang("#pajakBayar");
+		setMaskingUang("#diskonBayar");
+		setMaskingUang("#grandTotalBayar");
+		setMaskingUang("#bayar");
+		setMaskingUang("#kembali");
 
 	});
+	
+	function setKeyUpForHitungGrandTotal(selector){
+		$(selector).keyup(function(event) {			
+			var grandTotalBayar = hitungGrandTotalBayar('#total', '#diskonBayar', '#pajakBayar');			
+			$('#grandTotalBayar').val(grandTotalBayar);
+		});	
+	}
+	
+	function setKeyUpForKembalian(selector){
+		$(selector).keyup(function(event) {			
+			var kembalian = hitungKembalian('#grandTotalBayar', '#bayar');			
+			$('#kembali').val(kembalian);
+		});	
+	}
 
 	function isiDataObat(val) {
-		var data = {
-			nama : val
-		};
+		var data = {nama : val};
 		$.getAjax('${getObatUrl}', data, function(obat) {
 			$('#hargaJual').val(obat.detail[0].hargaJual);
 			$('#stok').val(obat.stok[0].stok);
 			$('#satuan').val(obat.satuan.nama);
-		}, null);
+		}, null);	
 	}
 	
 	function hitungSubTotal(hrg, jum){
@@ -461,6 +656,25 @@
 		return subTotal;				
 	}
 	
+	function hitungGrandTotalBayar(t, d, p){
+		var total = $(t).val().replace(/\./g, '');
+		total = parseInt(total, 10);
+		var pajak = $(p).val().replace(/\./g, '');
+		pajak = parseInt(pajak, 10);
+		var diskon = $(d).val().replace(/\./g, '');
+		diskon = parseInt(diskon, 10);
+		var pengurang = pajak + diskon;		
+		var grandTotal = total - pengurang;		
+		return grandTotal;				
+	}
+	
+	function hitungKembalian(gt, b){
+		var grandTotal = $(gt).val().replace(/\./g, '');
+		var bayar = $(b).val().replace(/\./g, '');
+		var kembali = bayar - grandTotal;
+		return kembali;
+	}
+	
 	function tambahRacikan(){
 		var h = $('#hargaSatuanRacikan').val();
 		if (h != null){
@@ -468,15 +682,37 @@
 	 		var data = setDataRacikan();
 	 		data['obat'] = racik;
 			$.postJSON('${tambahRacikanKeListJual}', data, function(r) {
-				clean();
-				$('#nomorFaktur').val(r.nomorFaktur);
-				reloadListObat();
-				document.getElementById('tanggal').disabled = true;	
-				$('.btnKeluar').click();
+				if (r.info == 'OK'){
+					clean();
+					$('#nomorFaktur').val(r.nomorFaktur);
+					reloadListObat();
+					document.getElementById('tanggal').disabled = true;	
+					$('.btnKeluar').click();	
+				} else {
+					$('#pesan').empty();
+					$('#pesanButton').click();
+					$('#pesan').append(r.info);
+				}				
 			}, function() {
 				$('#gritter-tambah-gagal').click();						
 			});
 		}
+	}
+	
+	function setDataPenjualan(){
+		var data = {};		
+		data['tanggal'] = $('#tanggal').val();
+		data['nomorFaktur'] = $('#nomorFaktur').val();
+		data['dokter'] = $('#dokter').val();
+		data['pelanggan'] = $('#pelanggan').val();
+		data['tipe'] = $('#jenis').val();
+		data['total'] = $('#total').val();
+		data['pajak'] = $('#pajakBayar').val();
+		data['diskon'] = $('#diskonBayar').val();
+		data['grandTotal'] = $('#grandTotalBayar').val();
+		data['bayar'] = $('#bayar').val();
+		data['kembali'] = $('#kembali').val();
+		return data;
 	}
 	
 	function setDataObat(){
@@ -509,8 +745,7 @@
 	}
 	
 	function reloadListObat() {
-		var nomorFaktur = $('#nomorFaktur').val();
-		console.log(nomorFaktur);
+		var nomorFaktur = $('#nomorFaktur').val();		
 		var data = {
 			n : nomorFaktur
 		};
@@ -519,7 +754,7 @@
 			$('#body').append(result.tabel);
 			$('#grandTotal').empty();
 			$('#grandTotal').append(result.grandTotal);
-		}, console.log(''));
+		}, null);
 	}
 	
 	function refreshRacikan(halaman, find) {
@@ -600,10 +835,10 @@
 	function clean() {
 		$('#obat').val('');
 		$('#hargaJual').val('');
-		$('#diskon').val('');
-		$('#personDiskon').val('');
-		$('#pajak').val('');
-		$('#persenPajak').val('');
+		$('#diskon').val('0');
+		$('#personDiskon').val('0');
+		$('#pajak').val('0');
+		$('#persenPajak').val('0');
 		$('#stok').val('');
 		$('#satuan').val('');
 		$('#jumlah').val('');
@@ -618,14 +853,13 @@
 	function cleanAll() {
 		$('#obat').val('');
 		$('#hargaJual').val('');
-		$('#diskon').val('');
-		$('#personDiskon').val('');
-		$('#pajak').val('');
-		$('#persenPajak').val('');
+		$('#diskon').val('0');
+		$('#personDiskon').val('0');
+		$('#pajak').val('0');
+		$('#persenPajak').val('0');
 		$('#stok').val('');
 		$('#satuan').val('');
 		$('#jumlah').val('');
-		$('#tanggal').val('');
 		$('#jenis').val('default');
 		$('#dokter').val('');
 		$('#pelanggan').val('');
@@ -635,5 +869,9 @@
 		$('#totalRacikan').val('');
 		$('#namaRacikan').empty();
 		$('#racikanDetail').empty();
+		$('#nomorFaktur').val('');
+		$('#grandTotal').text('0');
+		$('#body').empty();
+		document.getElementById('tanggal').disabled = false;
 	}
 </script>

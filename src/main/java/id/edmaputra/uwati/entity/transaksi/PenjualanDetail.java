@@ -1,7 +1,9 @@
 package id.edmaputra.uwati.entity.transaksi;
 
 import java.math.BigDecimal;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -16,9 +19,8 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import id.edmaputra.uwati.entity.DasarEntity;
+import id.edmaputra.uwati.config.DBConf;
 import id.edmaputra.uwati.entity.DasarTransaksiEntity;
-import id.edmaputra.uwati.entity.master.obat.ObatDetail;
 
 @Entity
 @Table(name = "penjualan_detail", uniqueConstraints = { @UniqueConstraint(columnNames = "id")})
@@ -31,9 +33,8 @@ public class PenjualanDetail extends DasarTransaksiEntity<Long> {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private Long id;
 	
-	@ManyToOne
-    @JoinColumn(name = "id_obat_detail", nullable = false)    
-	private ObatDetail obatDetail;
+	@Column(nullable=false, name = "obat", length = DBConf.LENGTH_NAMA) 
+	private String obat;
 	
 	@Column(nullable=false)	
 	private Integer jumlah;
@@ -48,6 +49,17 @@ public class PenjualanDetail extends DasarTransaksiEntity<Long> {
 	
 	private Boolean isRacikan;
 	
+	@OneToMany(mappedBy="penjualanDetail", cascade=CascadeType.ALL, orphanRemoval=true)
+	private List<PenjualanDetailRacikan> racikanDetail;	
+	
+	public List<PenjualanDetailRacikan> getRacikanDetail() {
+		return racikanDetail;
+	}
+
+	public void setRacikanDetail(List<PenjualanDetailRacikan> racikanDetail) {
+		this.racikanDetail = racikanDetail;
+	}
+
 	@ManyToOne
 	@JoinColumn(name="id_penjualan")
 	@JsonIgnore
@@ -61,12 +73,12 @@ public class PenjualanDetail extends DasarTransaksiEntity<Long> {
 		this.id = id;
 	}
 
-	public ObatDetail getObatDetail() {
-		return obatDetail;
+	public String getObat() {
+		return obat;
 	}
 
-	public void setObatDetail(ObatDetail obatDetail) {
-		this.obatDetail = obatDetail;
+	public void setObat(String obatDetail) {
+		this.obat = obatDetail;
 	}
 
 	public Integer getJumlah() {

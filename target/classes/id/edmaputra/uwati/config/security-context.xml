@@ -80,6 +80,14 @@
 		<intercept-url pattern="/pembelian-obat/beli**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
 		<intercept-url pattern="/pembelian-obat/tersedia**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
 		<intercept-url pattern="/pembelian-obat/cetak**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
+		
+		<intercept-url pattern="/penjualan-obat**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />		
+		<intercept-url pattern="/penjualan-obat/tambahTemp**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
+		<intercept-url pattern="/penjualan-obat/racikanTemp**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
+		<intercept-url pattern="/penjualan-obat/daftarTemp**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
+		<intercept-url pattern="/penjualan-obat/hapusTemp**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
+		<intercept-url pattern="/penjualan-obat/jual**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />	
+		<intercept-url pattern="/penjualan-obat/cetak**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
 				
 		<form-login login-page="/masuk"
 			default-target-url="/" username-parameter="username"

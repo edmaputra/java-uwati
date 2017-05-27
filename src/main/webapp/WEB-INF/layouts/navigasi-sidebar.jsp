@@ -34,7 +34,7 @@
 		
 		<li class="sub-menu">
 			<a href="javascript:;">
-				<i class="fa fa-cubes"></i><span>Obat</span>
+				<i class="fa fa-joomla"></i><span>Obat</span>
 			</a>
 			<ul class="sub">
 				<li><a href="<spring:url value="/obat" />">Obat</a></li>

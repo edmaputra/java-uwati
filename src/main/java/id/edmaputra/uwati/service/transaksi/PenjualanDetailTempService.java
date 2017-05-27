@@ -58,4 +58,12 @@ public class PenjualanDetailTempService {
 	public void hapus(String nomorFaktur, String pengguna){
 		penjualanDetailTempRepo.deleteByNomorFakturAndPengguna(nomorFaktur, pengguna);
 	}
+
+	public List<PenjualanDetailTemp> dapatkan(String nomorFakturTemp) {
+		return penjualanDetailTempRepo.findByNomorFaktur(nomorFakturTemp);
+	}
+
+	public List<PenjualanDetailTemp> dapatkan(String nomorFaktur, String pengguna) {
+		return penjualanDetailTempRepo.findByNomorFakturAndPengguna(nomorFaktur, pengguna);
+	}
 }

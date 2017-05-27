@@ -1,4 +1,5 @@
 /home/edmaputra/coding/workspace/java-uwati/src/main/java/id/edmaputra/uwati/repository/transaksi/PenjualanDetailRepository.java
+/home/edmaputra/coding/workspace/java-uwati/src/main/java/id/edmaputra/uwati/controller/NomorFakturController.java
 /home/edmaputra/coding/workspace/java-uwati/src/main/java/id/edmaputra/uwati/repository/transaksi/PenjualanRacikanRepository.java
 /home/edmaputra/coding/workspace/java-uwati/src/main/java/id/edmaputra/uwati/entity/transaksi/PenjualanDetailTemp.java
 /home/edmaputra/coding/workspace/java-uwati/src/main/java/id/edmaputra/uwati/service/ObatService.java
@@ -51,6 +52,7 @@
 /home/edmaputra/coding/workspace/java-uwati/src/main/java/id/edmaputra/uwati/service/ObatDetailService.java
 /home/edmaputra/coding/workspace/java-uwati/src/main/java/id/edmaputra/uwati/config/UwatiAppConfiguration.java
 /home/edmaputra/coding/workspace/java-uwati/src/main/java/id/edmaputra/uwati/repository/KategoriRepository.java
+/home/edmaputra/coding/workspace/java-uwati/src/main/java/id/edmaputra/uwati/service/transaksi/PenjualanDetailService.java
 /home/edmaputra/coding/workspace/java-uwati/src/main/java/id/edmaputra/uwati/controller/PenggunaController.java
 /home/edmaputra/coding/workspace/java-uwati/target/generated-sources/id/edmaputra/uwati/entity/master/QApotek.java
 /home/edmaputra/coding/workspace/java-uwati/src/main/java/id/edmaputra/uwati/entity/DasarTransaksiEntity.java
@@ -111,6 +113,7 @@
 /home/edmaputra/coding/workspace/java-uwati/src/main/java/id/edmaputra/uwati/view/json/Suggestion.java
 /home/edmaputra/coding/workspace/java-uwati/src/main/java/id/edmaputra/uwati/entity/master/obat/RacikanDetailTemp.java
 /home/edmaputra/coding/workspace/java-uwati/src/main/java/id/edmaputra/uwati/service/transaksi/PenjualanDetailTempService.java
+/home/edmaputra/coding/workspace/java-uwati/src/main/java/id/edmaputra/uwati/service/transaksi/PenjualanService.java
 /home/edmaputra/coding/workspace/java-uwati/src/main/java/id/edmaputra/uwati/entity/master/obat/ObatExpired.java
 /home/edmaputra/coding/workspace/java-uwati/src/main/java/id/edmaputra/uwati/specification/PembelianPredicateBuilder.java
 /home/edmaputra/coding/workspace/java-uwati/src/main/java/id/edmaputra/uwati/controller/ApotekController.java

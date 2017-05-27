@@ -73,14 +73,14 @@ public class Init {
 
 	@Autowired
 	private ObatExpiredRepository obatExpiredRepo;
-	
+
 	@Autowired
 	private RacikanRepository racikanRepository;
-	
+
 	@Autowired
 	private RacikanDetailRepository racikanDetailRepository;
 
-	@PostConstruct
+//	@PostConstruct
 	public void mulai() {
 		Role roleAdmin = buatRole("ROLE_ADMIN");
 		roleRepo.save(roleAdmin);
@@ -102,74 +102,76 @@ public class Init {
 		rolesMediss.add(roleApotik);
 
 		Pengguna pengguna = buatPengguna("admin", true, true, roles);
-		Pengguna apotik = buatPengguna("apotik", true, true, rolesApotik);
-		Pengguna medis = buatPengguna("medis", true, true, rolesMediss);
-
+//		Pengguna apotik = buatPengguna("apotik", true, true, rolesApotik);
+//		Pengguna medis = buatPengguna("medis", true, true, rolesMediss);
+//
 		penggunaRepo.save(pengguna);
-		penggunaRepo.save(apotik);
-		penggunaRepo.save(medis);
-
-		Satuan pcs = buatSatuan("PCS");
-		satuanRepo.save(pcs);
-
-		Satuan botol = buatSatuan("BOTOL");
-		satuanRepo.save(botol);
-
-		Satuan kapsul = buatSatuan("KAPSUL");
-		satuanRepo.save(kapsul);
-
-		Satuan kaplet = buatSatuan("KAPLET");
-		satuanRepo.save(kaplet);
-
-		 for (int i = 0; i < 50; i++){
-		 Satuan sat = buatSatuan("SATUAN"+i);
-		 satuanRepo.save(sat);
-		 }
-		
-		Kategori ok = buatKategori("OBAT KERAS");
-		kategoriRepo.save(ok);
-		
-		Kategori ll = buatKategori("LAIN-LAIN");
-		kategoriRepo.save(ll);
-
-
-		for (int i = 0; i < 7; i++) {
-			Dokter d = buatDokter("DOKTER " + i, "SPESIALIS " + i, i + "XXXX", "Jln. " + i);
-			dokterRepo.save(d);
-		}
-
-		for (int i = 0; i < 10; i++) {
-			Pelanggan p = buatPelanggan("Pelanggan " + i, "K" + i, "Komplek" + i, "0811" + i);
-			pelangganRepo.save(p);
-		}
-		
-		for (int i = 0; i < 10; i++) {
-			Obat obat = buatObat("OBAT "+i , "K-"+i, kaplet, ll, null, null, null, null, 50, 0);
-			obatRepo.save(obat);
-			
-			ObatDetail obatDetail = buatObatDetail(obat, new BigDecimal(i*10000), new BigDecimal(i*9000), new BigDecimal(i*1000), new BigDecimal(i*100));
-			obatDetailRepo.save(obatDetail);
-			
-			ObatStok obatStok = buatObatStok(obat, new Integer(i*100));
-			obatStokRepo.save(obatStok);
-			
-			ObatExpired obatExpired = buatObatExpired(obat, new Date());
-			obatExpiredRepo.save(obatExpired);
-		}
-
+//		penggunaRepo.save(apotik);
+//		penggunaRepo.save(medis);
+//
+//		Satuan pcs = buatSatuan("PCS");
+//		satuanRepo.save(pcs);
+//
+//		Satuan botol = buatSatuan("BOTOL");
+//		satuanRepo.save(botol);
+//
+//		Satuan kapsul = buatSatuan("KAPSUL");
+//		satuanRepo.save(kapsul);
+//
+//		Satuan kaplet = buatSatuan("KAPLET");
+//		satuanRepo.save(kaplet);
+//
+//		for (int i = 0; i < 50; i++) {
+//			Satuan sat = buatSatuan("SATUAN" + i);
+//			satuanRepo.save(sat);
+//		}
+//
+//		Kategori ok = buatKategori("OBAT KERAS");
+//		kategoriRepo.save(ok);
+//
+//		Kategori ll = buatKategori("LAIN-LAIN");
+//		kategoriRepo.save(ll);
+//
+//		for (int i = 0; i < 7; i++) {
+//			Dokter d = buatDokter("DOKTER " + i, "SPESIALIS " + i, i + "XXXX", "Jln. " + i);
+//			dokterRepo.save(d);
+//		}
+//
+//		for (int i = 0; i < 10; i++) {
+//			Pelanggan p = buatPelanggan("Pelanggan " + i, "K" + i, "Komplek" + i, "0811" + i);
+//			pelangganRepo.save(p);
+//		}
+//		//
+//		for (int i = 0; i < 10; i++) {
+//			Obat obat = buatObat("OBAT " + i, "K-" + i, kaplet, ll, null, null, null, null, 50, 0);
+//			obatRepo.save(obat);
+//
+//			ObatDetail obatDetail = buatObatDetail(obat, new BigDecimal(i * 10000), new BigDecimal(i * 9000),
+//					new BigDecimal(i * 1000), new BigDecimal(i * 100));
+//			obatDetailRepo.save(obatDetail);
+//
+//			ObatStok obatStok = buatObatStok(obat, new Integer(i * 100));
+//			obatStokRepo.save(obatStok);
+//
+//			ObatExpired obatExpired = buatObatExpired(obat, new Date());
+//			obatExpiredRepo.save(obatExpired);
+//		}
+		//
 		Apotek a = buatApotek("APOTEK FERRY", "Jalan Jelarai Tanjung Selor", "0552-12121");
 		apotekRepo.save(a);
-		
-		int i = 1;
-		for (Obat o : obatRepo.findAll()){
-			Racikan r = buatRacikan("ABC"+ i, i*1100, i*1000);
-			racikanRepository.save(r);
-			
-			RacikanDetail rd = buatRacikanDetail(r, o, i, i*100);
-			racikanDetailRepository.save(rd);
-			
-			i++;
-		}
+
+		// int i = 1;
+		// for (Obat o : obatRepo.findAll()){
+		// Racikan r = buatRacikan("ABC"+ i, i*1100, i*1000);
+		// racikanRepository.save(r);
+		//
+		// RacikanDetail rd = buatRacikanDetail(r, o, i, i*100);
+		// racikanDetailRepository.save(rd);
+		//
+		//
+		//
+		// i++;
+		// }
 	}
 
 	private Role buatRole(String nama) {
@@ -249,7 +251,7 @@ public class Init {
 		obatDetail.setTerakhirDirubah(new Date());
 		return obatDetail;
 	}
-	
+
 	private ObatStok buatObatStok(Obat obat, Integer stok) {
 		ObatStok obatStok = new ObatStok(obat, stok);
 		obatStok.setUserInput("admin");
@@ -257,24 +259,25 @@ public class Init {
 		obatStok.setTerakhirDirubah(new Date());
 		return obatStok;
 	}
-	
-	private Obat buatObat(String nama, String kode, Satuan satuan, Kategori kategori, String batch, String barcode, List<ObatDetail> obatDetail, List<ObatStok> stok, Integer stokMinimal, Integer tipe) {
-		Obat obat = new Obat(nama, kode, satuan, kategori, batch, barcode, obatDetail, stok, stokMinimal, tipe);		
+
+	private Obat buatObat(String nama, String kode, Satuan satuan, Kategori kategori, String batch, String barcode,
+			List<ObatDetail> obatDetail, List<ObatStok> stok, Integer stokMinimal, Integer tipe) {
+		Obat obat = new Obat(nama, kode, satuan, kategori, batch, barcode, obatDetail, stok, stokMinimal, tipe);
 		obat.setUserInput("admin");
 		obat.setWaktuDibuat(new Date());
 		obat.setTerakhirDirubah(new Date());
 		return obat;
 	}
-	
-	private Racikan buatRacikan(String nama, int hargaJual, int biayaRacik){
+
+	private Racikan buatRacikan(String nama, int hargaJual, int biayaRacik) {
 		Racikan racikan = new Racikan(nama, new BigDecimal(hargaJual), new BigDecimal(biayaRacik));
 		racikan.setUserInput("admin");
 		racikan.setWaktuDibuat(new Date());
 		racikan.setTerakhirDirubah(new Date());
 		return racikan;
 	}
-	
-	private RacikanDetail buatRacikanDetail(Racikan racikan, Obat obat, int jumlah, int hargaSatuan){
+
+	private RacikanDetail buatRacikanDetail(Racikan racikan, Obat obat, int jumlah, int hargaSatuan) {
 		RacikanDetail racikanDetail = new RacikanDetail(racikan, obat, jumlah, new BigDecimal(hargaSatuan));
 		racikanDetail.setUserInput("admin");
 		racikanDetail.setWaktuDibuat(new Date());

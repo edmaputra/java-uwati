@@ -34,6 +34,9 @@ public class QObat extends EntityPathBase<Obat> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    //inherited
+    public final StringPath info = _super.info;
+
     public final id.edmaputra.uwati.entity.master.QKategori kategori;
 
     public final StringPath kode = createString("kode");

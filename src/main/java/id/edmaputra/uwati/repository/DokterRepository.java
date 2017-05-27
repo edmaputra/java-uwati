@@ -7,4 +7,6 @@ import id.edmaputra.uwati.entity.master.Dokter;
 
 public interface DokterRepository extends JpaRepository<Dokter, Integer>, QueryDslPredicateExecutor<Dokter>{
 
+	Dokter findByNama(String nama);
+
 }

@@ -25,6 +25,9 @@ public class QPelanggan extends EntityPathBase<Pelanggan> {
 
     public final NumberPath<Integer> id = createNumber("id", Integer.class);
 
+    //inherited
+    public final StringPath info = _super.info;
+
     public final StringPath kode = createString("kode");
 
     public final StringPath kontak = createString("kontak");

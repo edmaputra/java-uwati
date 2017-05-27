@@ -34,6 +34,9 @@ public class QObatDetail extends EntityPathBase<ObatDetail> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    //inherited
+    public final StringPath info = _super.info;
+
     public final QObat obat;
 
     //inherited

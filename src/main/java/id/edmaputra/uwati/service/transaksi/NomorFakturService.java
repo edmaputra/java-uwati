@@ -1,5 +1,6 @@
 package id.edmaputra.uwati.service.transaksi;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +51,17 @@ public class NomorFakturService {
 
 	public void hapus(Long index) {
 		nomorFakturRepository.delete(index);		
-	}	
+	}
+
+	public NomorFaktur dapatkan(Integer nomorUrut, Date tanggal) {
+		return nomorFakturRepository.findByNomorAndTanggal(nomorUrut, tanggal);
+	}
+	
+	public NomorFaktur dapatkan(Integer nomorUrut, Date tanggal, Boolean isTerpakai) {
+		return nomorFakturRepository.findByNomorAndTanggalAndIsTerpakai(nomorUrut, tanggal, isTerpakai);
+	}
+	
+	public NomorFaktur dapatkan(Integer nomorUrut, Date tanggal, Boolean isTerpakai, Boolean isSelesai) {
+		return nomorFakturRepository.findByNomorAndTanggalAndIsTerpakaiAndIsSelesai(nomorUrut, tanggal, isTerpakai, isSelesai);
+	}
 }

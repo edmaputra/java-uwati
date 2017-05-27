@@ -22,12 +22,22 @@ public class NomorFakturPredicateBuilder {
 		} 
 	}
 	
-	public void isDone(Boolean b){
+	public void isSelesai(Boolean b){
 		if (hasil == null){
-			hasil = QNomorFaktur.nomorFaktur.isDone.eq(b);
+			hasil = QNomorFaktur.nomorFaktur.isSelesai.eq(b);
 		} else {
-			hasil = hasil.and(QNomorFaktur.nomorFaktur.isDone.eq(b));
+			hasil = hasil.and(QNomorFaktur.nomorFaktur.isSelesai.eq(b));
 		}
 	}
+	
+	public void isTerpakai(Boolean b){
+		if (hasil == null){
+			hasil = QNomorFaktur.nomorFaktur.isTerpakai.eq(b);
+		} else {
+			hasil = hasil.and(QNomorFaktur.nomorFaktur.isTerpakai.eq(b));
+		}
+	}
+	
+	
 
 }

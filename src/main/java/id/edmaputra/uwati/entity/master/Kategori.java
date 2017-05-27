@@ -24,7 +24,7 @@ public class Kategori extends DasarEntity<Integer> {
 	private Integer id;
 
 	@Column(name = "nama", nullable = false, length = DBConf.LENGTH_NAMA_KATEGORI)
-	private String nama;
+	private String nama;		
 	
 	public Kategori(){};
 

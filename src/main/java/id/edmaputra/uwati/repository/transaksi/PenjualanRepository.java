@@ -7,6 +7,8 @@ import id.edmaputra.uwati.entity.transaksi.Penjualan;
 
 public interface PenjualanRepository extends JpaRepository<Penjualan, Long>, QueryDslPredicateExecutor<Penjualan>{
 
+	Penjualan findByNomorFaktur(String nomorFaktur);
+
 	
 
 }

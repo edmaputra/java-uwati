@@ -59,7 +59,7 @@ public class UwatiAppConfiguration {
 		properties.put("hibernate.dialect", environment.getRequiredProperty("hibernate.dialect"));
 		properties.put("hibernate.show_sql", environment.getRequiredProperty("hibernate.show_sql"));
 		properties.put("hibernate.format_sql", environment.getRequiredProperty("hibernate.format_sql"));
-		properties.put("hibernate.hbm2ddl.auto", environment.getRequiredProperty("hibernate.hbm2ddl.auto"));
+//		properties.put("hibernate.hbm2ddl.auto", environment.getRequiredProperty("hibernate.hbm2ddl.auto"));
 		return properties;
 	}
 
@@ -72,9 +72,18 @@ public class UwatiAppConfiguration {
 
 	@Bean
 	@Qualifier("strukPembelianPdf")
-	public JasperReportsPdfView getHelloWorldReport() {
+	public JasperReportsPdfView getStrukPembelianReport() {
 		JasperReportsPdfView v = new JasperReportsPdfView();
 		v.setUrl("classpath:reports/struk_pembelian.jasper");
+		v.setReportDataKey("datasource");
+		return v;
+	}
+	
+	@Bean
+	@Qualifier("strukPenjualanPdf")
+	public JasperReportsPdfView getStrukPenjualanReport() {
+		JasperReportsPdfView v = new JasperReportsPdfView();
+		v.setUrl("classpath:reports/struk_penjualan.jasper");
 		v.setReportDataKey("datasource");
 		return v;
 	}

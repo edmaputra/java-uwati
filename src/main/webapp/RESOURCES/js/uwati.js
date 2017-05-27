@@ -85,6 +85,22 @@ $.postJSON = function(url, data, callback, error) {
 	});
 };
 
+$.postAjaxAsyncFalse = function(url, data, callback, error) {
+	return jQuery.ajax({
+		'headers' : {
+			'Accept' : 'application/json',
+			'Content-Type' : 'application/json'
+		},
+		'type' : 'POST',
+		'async': false,
+		'url' : url,
+		'data' : JSON.stringify(data),
+		'dataType' : 'json',
+		'success' : callback,
+		'error' : error
+	});
+};
+
 $.getAjax = function(url, data, callback, error) {
 	return jQuery.ajax({
 		'type' : 'GET',

@@ -35,4 +35,8 @@ public class DokterService {
 	public void hapus(Dokter dokter) {
 		dokterRepo.delete(dokter);
 	}
+
+	public Dokter dapatkan(String nama) {
+		return dokterRepo.findByNama(nama);
+	}
 }

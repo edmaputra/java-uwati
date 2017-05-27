@@ -7,4 +7,6 @@ import id.edmaputra.uwati.entity.master.Pelanggan;
 
 public interface PelangganRepository extends JpaRepository<Pelanggan, Integer>, QueryDslPredicateExecutor<Pelanggan>{
 
+	Pelanggan findByNama(String nama);
+
 }

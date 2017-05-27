@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -19,7 +18,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import id.edmaputra.uwati.entity.DasarTransaksiEntity;
-import id.edmaputra.uwati.entity.master.obat.Obat;
 
 @Entity
 @Table(name = "pembelian_detail", uniqueConstraints = { @UniqueConstraint(columnNames = "id")})
@@ -32,9 +30,8 @@ public class PembelianDetail extends DasarTransaksiEntity<Long> {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne
-	@JoinColumn(name = "id_obat", nullable = false)	
-	private Obat obat;
+	@Column(nullable = false, name = "obat")
+	private String obat;
 
 	@Column(nullable = false)	
 	private Integer jumlah;
@@ -69,6 +66,14 @@ public class PembelianDetail extends DasarTransaksiEntity<Long> {
 		this.id = id;
 	}
 
+	public String getObat() {
+		return obat;
+	}
+
+	public void setObat(String obat) {
+		this.obat = obat;
+	}
+
 	public Integer getJumlah() {
 		return jumlah;
 	}
@@ -83,6 +88,14 @@ public class PembelianDetail extends DasarTransaksiEntity<Long> {
 
 	public void setHargaJual(BigDecimal hargaJual) {
 		this.hargaJual = hargaJual;
+	}
+
+	public BigDecimal getHargaJualResep() {
+		return hargaJualResep;
+	}
+
+	public void setHargaJualResep(BigDecimal hargaJualResep) {
+		this.hargaJualResep = hargaJualResep;
 	}
 
 	public BigDecimal getHargaBeli() {
@@ -113,8 +126,8 @@ public class PembelianDetail extends DasarTransaksiEntity<Long> {
 		return subTotal;
 	}
 
-	public void setSubTotal(BigDecimal hargaTotal) {
-		this.subTotal = hargaTotal;
+	public void setSubTotal(BigDecimal subTotal) {
+		this.subTotal = subTotal;
 	}
 
 	public Date getTanggalKadaluarsa() {
@@ -140,22 +153,4 @@ public class PembelianDetail extends DasarTransaksiEntity<Long> {
 	public void setIsReturned(Boolean isReturned) {
 		this.isReturned = isReturned;
 	}
-
-	public BigDecimal getHargaJualResep() {
-		return hargaJualResep;
-	}
-
-	public void setHargaJualResep(BigDecimal hargaJualResep) {
-		this.hargaJualResep = hargaJualResep;
-	}
-
-	public Obat getObat() {
-		return obat;
-	}
-
-	public void setObat(Obat obat) {
-		this.obat = obat;
-	}
-
-
 }

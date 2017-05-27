@@ -26,6 +26,9 @@ public class QPengguna extends EntityPathBase<Pengguna> {
 
     public final NumberPath<Integer> id = createNumber("id", Integer.class);
 
+    //inherited
+    public final StringPath info = _super.info;
+
     public final BooleanPath isAktif = createBoolean("isAktif");
 
     public final BooleanPath isPertamaKali = createBoolean("isPertamaKali");

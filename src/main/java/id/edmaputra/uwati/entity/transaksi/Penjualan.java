@@ -10,8 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -23,9 +21,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import id.edmaputra.uwati.config.DBConf;
 import id.edmaputra.uwati.entity.DasarTransaksiEntity;
-import id.edmaputra.uwati.entity.master.Dokter;
-import id.edmaputra.uwati.entity.master.Pelanggan;
-import id.edmaputra.uwati.entity.pengguna.Pengguna;
 
 @Entity
 @Table(name = "penjualan", uniqueConstraints = { @UniqueConstraint(columnNames = "id")})
@@ -42,13 +37,14 @@ public class Penjualan extends DasarTransaksiEntity<Long> {
     @Column(name = "waktu_transaksi")
 	private Date waktuTransaksi;
 	
-	@ManyToOne
-    @JoinColumn(name = "id_pengguna")
-	private Pengguna pengguna;
+	@Column(name="kasir", length = DBConf.LENGTH_NAMA)
+	private String pengguna;
 	
-	@ManyToOne
-    @JoinColumn(name = "id_pelanggan", nullable = true)
-	private Pelanggan pelanggan;
+	@Column(name="pelanggan", length = DBConf.LENGTH_NAMA)
+	private String pelanggan;
+	
+	@Column(name="dokter", length = DBConf.LENGTH_NAMA)
+	private String dokter;
 	
 	@Column(name="nomor_faktur", nullable=false, length=DBConf.LENGTH_TRANSAKSI_NOMORFAKTUR)	
 	private String nomorFaktur;
@@ -69,16 +65,9 @@ public class Penjualan extends DasarTransaksiEntity<Long> {
 	
 	@Column(length=DBConf.LENGTH_TRANSAKSI_NOMORRESEP, nullable = true)
 	private String nomorResep;
-	
-	@ManyToOne
-    @JoinColumn(name = "id_dokter", nullable = true)
-	private Dokter dokter;
-	
+		
 	@OneToMany(mappedBy="penjualan", cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<PenjualanDetail> penjualanDetail;
-	
-	@OneToMany(mappedBy="penjualan", cascade=CascadeType.ALL, orphanRemoval=true)
-	private List<PenjualanRacikan> penjualanRacikan;
 	
 	public Date getWaktuTransaksi() {
 		return waktuTransaksi;
@@ -88,19 +77,19 @@ public class Penjualan extends DasarTransaksiEntity<Long> {
 		this.waktuTransaksi = waktuTransaksi;
 	}
 
-	public Pengguna getPengguna() {
+	public String getPengguna() {
 		return pengguna;
 	}
 
-	public void setPengguna(Pengguna pengguna) {
+	public void setPengguna(String pengguna) {
 		this.pengguna = pengguna;
 	}
 
-	public Pelanggan getPelanggan() {
+	public String getPelanggan() {
 		return pelanggan;
 	}
 
-	public void setPelanggan(Pelanggan pelanggan) {
+	public void setPelanggan(String pelanggan) {
 		this.pelanggan = pelanggan;
 	}
 
@@ -128,11 +117,11 @@ public class Penjualan extends DasarTransaksiEntity<Long> {
 		this.nomorResep = nomorResep;
 	}
 
-	public Dokter getDokter() {
+	public String getDokter() {
 		return dokter;
 	}
 
-	public void setDokter(Dokter dokter) {
+	public void setDokter(String dokter) {
 		this.dokter = dokter;
 	}
 
@@ -199,14 +188,6 @@ public class Penjualan extends DasarTransaksiEntity<Long> {
 
 	public void setPajak(BigDecimal pajak) {
 		this.pajak = pajak;
-	}
-
-	public List<PenjualanRacikan> getPenjualanRacikan() {
-		return penjualanRacikan;
-	}
-
-	public void setPenjualanRacikan(List<PenjualanRacikan> penjualanRacikan) {
-		this.penjualanRacikan = penjualanRacikan;
 	}
 
 }

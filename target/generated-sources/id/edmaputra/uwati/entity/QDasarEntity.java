@@ -19,6 +19,8 @@ public class QDasarEntity extends EntityPathBase<DasarEntity<?>> {
 
     public static final QDasarEntity dasarEntity = new QDasarEntity("dasarEntity");
 
+    public final StringPath info = createString("info");
+
     public final DateTimePath<java.util.Date> terakhirDirubah = createDateTime("terakhirDirubah", java.util.Date.class);
 
     public final StringPath userEditor = createString("userEditor");

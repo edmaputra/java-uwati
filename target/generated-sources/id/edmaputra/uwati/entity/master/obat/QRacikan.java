@@ -28,6 +28,9 @@ public class QRacikan extends EntityPathBase<Racikan> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    //inherited
+    public final StringPath info = _super.info;
+
     public final StringPath nama = createString("nama");
 
     public final ListPath<RacikanDetail, QRacikanDetail> racikanDetail = this.<RacikanDetail, QRacikanDetail>createList("racikanDetail", RacikanDetail.class, QRacikanDetail.class, PathInits.DIRECT2);

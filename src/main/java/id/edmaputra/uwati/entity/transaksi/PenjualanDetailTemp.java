@@ -1,5 +1,7 @@
 package id.edmaputra.uwati.entity.transaksi;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -60,6 +62,21 @@ public class PenjualanDetailTemp extends DasarTransaksiEntity<Long>{
 	
 	@Column(length = 50)
 	private String pengguna;
+	
+	@Column(length = 50)
+	private String info;
+	
+	@Column(length = 20)
+	private String total;
+	
+	@Column(length = 20)
+	private String grandTotal;
+	
+	@Column(length = 20)
+	private String bayar;
+	
+	@Column(length = 20)
+	private String kembali;
 	
 	public Long getId() {
 		return id;
@@ -163,6 +180,46 @@ public class PenjualanDetailTemp extends DasarTransaksiEntity<Long>{
 
 	public void setPelanggan(String pelanggan) {
 		this.pelanggan = pelanggan;
-	}	
+	}
+
+	public String getInfo() {
+		return info;
+	}
+
+	public void setInfo(String info) {
+		this.info = info;
+	}
+
+	public String getTotal() {
+		return total;
+	}
+
+	public void setTotal(String total) {
+		this.total = total;
+	}
+
+	public String getGrandTotal() {
+		return grandTotal;
+	}
+
+	public void setGrandTotal(String grandTotal) {
+		this.grandTotal = grandTotal;
+	}
+
+	public String getBayar() {
+		return bayar;
+	}
+
+	public void setBayar(String bayar) {
+		this.bayar = bayar;
+	}
+
+	public String getKembali() {
+		return kembali;
+	}
+
+	public void setKembali(String kembali) {
+		this.kembali = kembali;
+	}
 	
 }

@@ -41,7 +41,7 @@ public class QPembelianDetail extends EntityPathBase<PembelianDetail> {
 
     public final NumberPath<Integer> jumlah = createNumber("jumlah", Integer.class);
 
-    public final id.edmaputra.uwati.entity.master.obat.QObat obat;
+    public final StringPath obat = createString("obat");
 
     public final NumberPath<java.math.BigDecimal> pajak = createNumber("pajak", java.math.BigDecimal.class);
 
@@ -75,7 +75,6 @@ public class QPembelianDetail extends EntityPathBase<PembelianDetail> {
 
     public QPembelianDetail(Class<? extends PembelianDetail> type, PathMetadata<?> metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.obat = inits.isInitialized("obat") ? new id.edmaputra.uwati.entity.master.obat.QObat(forProperty("obat"), inits.get("obat")) : null;
         this.pembelian = inits.isInitialized("pembelian") ? new QPembelian(forProperty("pembelian"), inits.get("pembelian")) : null;
     }
 

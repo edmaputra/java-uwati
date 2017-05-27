@@ -28,6 +28,9 @@ public class QRacikanDetail extends EntityPathBase<RacikanDetail> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    //inherited
+    public final StringPath info = _super.info;
+
     public final NumberPath<Integer> jumlah = createNumber("jumlah", Integer.class);
 
     public final QObat komposisi;

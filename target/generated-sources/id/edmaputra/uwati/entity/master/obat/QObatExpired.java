@@ -26,6 +26,9 @@ public class QObatExpired extends EntityPathBase<ObatExpired> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    //inherited
+    public final StringPath info = _super.info;
+
     public final QObat obat;
 
     public final DatePath<java.util.Date> tanggalExpired = createDate("tanggalExpired", java.util.Date.class);
