@@ -31,29 +31,10 @@ public class UwatiServletConfiguration extends WebMvcConfigurerAdapter {
 		viewResolver.setViewClass(TilesView.class);
 		return viewResolver;
 	}
-	
-//	@Bean
-//	public TilesViewResolver tilesViewResolver() {
-//		TilesViewResolver tilesViewResolver = new TilesViewResolver();
-//		tilesViewResolver.setViewClass(TilesView.class);
-//		return tilesViewResolver;
-//	}
-
-//	@Bean
-//	public TilesViewResolver tilesViewResolver() {
-//		TilesViewResolver tilesViewResolver = new TilesViewResolver();
-//		return tilesViewResolver;
-//	}
-
-//	@Override
-//	public void configureViewResolvers(ViewResolverRegistry registry) {
-//		TilesViewResolver viewResolver = new TilesViewResolver();
-//		registry.viewResolver(viewResolver);
-//	}
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/static/**").addResourceLocations("/RESOURCES/");
+		registry.addResourceHandler("/static/**").addResourceLocations("/RESOURCES/").setCachePeriod(31556926);		
 	}
 
 }

@@ -9,8 +9,7 @@ public class UwatiAppInitializer extends AbstractAnnotationConfigDispatcherServl
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class[] { UwatiAppConfiguration.class, UwatiServletConfiguration.class, UwatiSecurityWebApplicationInitializer.class };
-		
+		return new Class[] { UwatiAppConfiguration.class, UwatiServletConfiguration.class, UwatiSecurityWebApplicationInitializer.class };		
 	}
 
 	@Override

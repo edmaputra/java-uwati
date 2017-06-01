@@ -210,14 +210,14 @@ public class ObatController {
 		String entity = edit.toString();
 		try {
 			int i = 0;
-			edit = setObatContent(edit, h);			
-			edit.setUserEditor(principal.getName());			
+			edit = setObatContent(edit, h);
+			edit.setUserEditor(principal.getName());
 			edit.setTerakhirDirubah(new Date());
 						
-			for (ObatDetail od:edit.getDetail()){				
-				od = setObatDetailContent(edit, od, h);				
-				od.setUserEditor(principal.getName());				
-				od.setTerakhirDirubah(new Date());				
+			for (ObatDetail od:edit.getDetail()){
+				od = setObatDetailContent(edit, od, h);
+				od.setUserEditor(principal.getName());
+				od.setTerakhirDirubah(new Date());
 				edit.getDetail().set(i, od);
 				i++;
 			}
@@ -374,12 +374,11 @@ public class ObatController {
 
 		return nav;
 	}
-	
-	@Transactional
+		
 	private Obat getObat(Long id){
 		Obat get = obatService.dapatkan(id);
 
-		List<ObatDetail> lObatDetail = obatDetailService.temukanByObats(get);
+		List<ObatDetail> lObatDetail = obatDetailService.temukanByObat(get);
 		get.setDetail(lObatDetail);
 		Hibernate.initialize(get.getDetail());
 
@@ -396,7 +395,7 @@ public class ObatController {
 	private Obat getObat(String nama){
 		Obat get = obatService.dapatkanByNama(nama);
 
-		List<ObatDetail> lObatDetail = obatDetailService.temukanByObats(get);
+		List<ObatDetail> lObatDetail = obatDetailService.temukanByObat(get);
 		get.setDetail(lObatDetail);
 		Hibernate.initialize(get.getDetail());
 

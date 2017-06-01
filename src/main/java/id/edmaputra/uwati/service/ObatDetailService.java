@@ -35,7 +35,7 @@ public class ObatDetailService {
 		return obatDetailRepo.findAll(expression, request);
 	}
 	
-	public List<ObatDetail> temukanByObats(Obat obat){
+	public List<ObatDetail> temukanByObat(Obat obat){
 		return obatDetailRepo.findByObat(obat);
 	}
 

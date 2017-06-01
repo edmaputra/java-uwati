@@ -54,15 +54,15 @@ public class Obat extends DasarEntity<Long> {
 	@Column(name = "barcode", nullable = true, length = DBConf.LENGTH_BARCODE)
 	private String barcode;
 
-	@OneToMany(mappedBy = "obat", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "obat", cascade = CascadeType.ALL)
 //	@JsonSerialize(using = ObatDetailListSerializer.class)
 	private List<ObatDetail> detail;
 
-	@OneToMany(mappedBy = "obat", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "obat", cascade = CascadeType.ALL)
 //	@JsonIgnore
 	private List<ObatStok> stok;
 	
-	@OneToMany(mappedBy = "obat", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "obat", cascade = CascadeType.ALL)
 //	@JsonIgnore
 	private List<ObatExpired> expired;
 
@@ -70,9 +70,7 @@ public class Obat extends DasarEntity<Long> {
 	private Integer stokMinimal;
 
 	@Column(name = "tipe", nullable = false)
-	private Integer tipe;
-	
-	
+	private Integer tipe;	
 
 	public Obat() {
 	}
@@ -90,37 +88,6 @@ public class Obat extends DasarEntity<Long> {
 		this.stokMinimal = stokMinimal;
 		this.tipe = tipe;
 	}
-	
-	public void addObatDetail(ObatDetail od){
-		detail.add(od);
-		od.setObat(this);
-	}
-	
-	public void deleteObatDetail(ObatDetail od){
-		detail.remove(od);
-		od.setObat(null);
-	}
-	
-	public void addStok(ObatStok s){
-		stok.add(s);
-		s.setObat(this);
-	}
-	
-	public void deleteStok(ObatStok s){
-		stok.remove(s);
-		s.setObat(null);
-	}
-	
-	public void addExpired(ObatExpired e){
-		expired.add(e);
-		e.setObat(this);
-	}
-	
-	public void deleteExpired(ObatExpired e){
-		expired.remove(e);
-		e.setObat(null);
-	}
-
 
 	public Long getId() {
 		return id;
@@ -182,8 +149,8 @@ public class Obat extends DasarEntity<Long> {
 		return detail;
 	}
 
-	public void setDetail(List<ObatDetail> obatDetail) {
-		this.detail = obatDetail;
+	public void setDetail(List<ObatDetail> detail) {
+		this.detail = detail;
 	}
 
 	public List<ObatStok> getStok() {
@@ -192,6 +159,14 @@ public class Obat extends DasarEntity<Long> {
 
 	public void setStok(List<ObatStok> stok) {
 		this.stok = stok;
+	}
+
+	public List<ObatExpired> getExpired() {
+		return expired;
+	}
+
+	public void setExpired(List<ObatExpired> expired) {
+		this.expired = expired;
 	}
 
 	public Integer getStokMinimal() {
@@ -208,21 +183,6 @@ public class Obat extends DasarEntity<Long> {
 
 	public void setTipe(Integer tipe) {
 		this.tipe = tipe;
-	}
-
-	public List<ObatExpired> getExpired() {
-		return expired;
-	}
-
-	public void setExpired(List<ObatExpired> expired) {
-		this.expired = expired;
-	}
-
-	@Override
-	public String toString() {
-		return "Obat [id=" + id + ", nama=" + nama + ", kode=" + kode + ", satuan=" + satuan + ", kategori=" + kategori
-				+ ", batch=" + batch + ", barcode=" + barcode + ", obatDetail=" + detail + ", stok=" + stok
-				+ ", expired=" + expired + ", stokMinimal=" + stokMinimal + ", tipe=" + tipe + "]";
 	}
 
 }

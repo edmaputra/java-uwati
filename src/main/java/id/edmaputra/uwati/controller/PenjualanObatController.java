@@ -355,10 +355,6 @@ public class PenjualanObatController {
 				struk.setStrukOperator(penjualan.getPengguna());
 				struk.setStrukPelanggan(penjualan.getPelanggan());
 				
-//				BigDecimal pengurang = d.getDiskon().add(d.getPajak());
-//				BigDecimal temp = d.getHargaJual().multiply(new BigDecimal(d.getJumlah()));
-//				BigDecimal netto = temp.subtract(pengurang);
-				
 				struk.setStrukNamaObat(d.getObat());
 				struk.setStrukJumlahObat(d.getJumlah().toString() + " x");
 				struk.setStrukHargaObat(Converter.patternCurrency(d.getHargaJual()));
@@ -369,11 +365,17 @@ public class PenjualanObatController {
 				BigDecimal total = penjualan.getGrandTotal().add(penjualan.getDiskon());
 				total = total.subtract(penjualan.getPajak());
 				
-				struk.setStrukTotal(Converter.patternCurrency(total));
+				struk.setStrukTotal(Converter.patternCurrency(total));			
 				
-				struk.setStrukPajak(Converter.patternCurrency(penjualan.getPajak()));
-				struk.setStrukDiskon(Converter.patternCurrency(penjualan.getDiskon()));				
-				struk.setStrukGrandTotal(Converter.patternCurrency(grandTotal));
+				BigDecimal p = penjualan.getPajak();
+				BigDecimal di = penjualan.getDiskon();
+				BigDecimal t = grandTotal.add(p);
+				t = t.subtract(di);
+				
+				struk.setStrukPajak(Converter.patternCurrency(p));
+				struk.setStrukDiskon(Converter.patternCurrency(di));				
+				
+				struk.setStrukGrandTotal(Converter.patternCurrency(t));
 				struk.setStrukBayar(Converter.patternCurrency(penjualan.getBayar()));
 				struk.setStrukKembali(Converter.patternCurrency(penjualan.getKembali()));
 				
@@ -535,7 +537,7 @@ public class PenjualanObatController {
 	private Obat getObat(String nama) {
 		Obat get = obatService.dapatkanByNama(nama);
 
-		List<ObatDetail> lObatDetail = obatDetailService.temukanByObats(get);
+		List<ObatDetail> lObatDetail = obatDetailService.temukanByObat(get);
 		get.setDetail(lObatDetail);
 		Hibernate.initialize(get.getDetail());
 

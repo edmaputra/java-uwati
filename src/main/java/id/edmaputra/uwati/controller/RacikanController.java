@@ -451,7 +451,7 @@ public class RacikanController {
 	private Obat getObat(String nama) {
 		Obat get = obatService.dapatkanByNama(nama);
 
-		List<ObatDetail> lObatDetail = obatDetailService.temukanByObats(get);
+		List<ObatDetail> lObatDetail = obatDetailService.temukanByObat(get);
 		get.setDetail(lObatDetail);
 		Hibernate.initialize(get.getDetail());
 
