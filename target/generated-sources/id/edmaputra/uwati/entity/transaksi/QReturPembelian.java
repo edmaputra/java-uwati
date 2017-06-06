@@ -67,7 +67,7 @@ public class QReturPembelian extends EntityPathBase<ReturPembelian> {
 
     public QReturPembelian(Class<? extends ReturPembelian> type, PathMetadata<?> metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.pengguna = inits.isInitialized("pengguna") ? new id.edmaputra.uwati.entity.pengguna.QPengguna(forProperty("pengguna")) : null;
+        this.pengguna = inits.isInitialized("pengguna") ? new id.edmaputra.uwati.entity.pengguna.QPengguna(forProperty("pengguna"), inits.get("pengguna")) : null;
     }
 
 }

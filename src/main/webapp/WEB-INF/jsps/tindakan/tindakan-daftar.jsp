@@ -1,0 +1,244 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<%@ include file="../../layouts/taglib.jsp"%>
+
+<c:url var="tambah" value="/tindakan/tambah" />
+<c:url var="edit" value="/tindakan/edit" />
+<c:url var="hapus" value="/tindakan/hapus" />
+<c:url var="dapatkan" value="/tindakan/dapatkan" />
+<c:url var="daftar" value="/tindakan/daftar" />
+<div class="showback">
+	<div class="row mt">
+		<div class="col-md-12">
+			<div class="content-panel">
+				<div class="row">
+					<div class="col-md-2 ">
+						<security:authorize access="hasAnyRole('ADMIN')">
+							<button class="btn btn-primary btnTambah" data-toggle="modal"
+								data-target="#tindakan-modal">Tindakan Baru</button>
+						</security:authorize>
+					</div>
+
+					<div class="col-md-10">
+						<form class="form-inline pull-right" id="formCari">
+							<div class="form-group">
+								<input type="text" id="stringCari" class="form-control"
+									placeholder="Pencarian" style="width: 250px" />
+							</div>
+							<div class="form-group">
+								<button type="button" class="btn btn-primary" id="btnCari">Cari</button>
+							</div>
+							<div class="form-group">
+								<button type="button" class="btn btn-default" id="btnReset"
+									onclick="refresh(1,'')">Reset</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<br />
+
+				<table class="table table-striped table-advance table-hover"
+					id="tabelCoba">
+				</table>
+				<div id="nav"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade" id="tindakan-modal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Tindakan</h4>
+			</div>
+
+			<form class="form style-form formTambah" method="post">
+				<div class="form-panel">
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label>Nama:</label> <input type="text" name="nama"
+										class="form-control" id="nama" />
+
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label>Kode:</label> <input type="text" name="kode"
+										class="form-control" id="kode" />
+								</div>
+							</div>
+							<div class="col-md-8">
+								<div class="form-group">
+									<label>Tarif/Harga:</label> <input type="text" name="tarif"
+										class="form-control" id="tarif" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default btnKeluar"
+						data-dismiss="modal">Keluar</button>
+					<input type="hidden" name="id" class="form-control" id="ids" /> <input
+						type="submit" class="btn btn-primary" value="Simpan" />
+				</div>
+
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="tindakan-modal-hapus" tabindex="-1"
+	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Hapus Tindakan</h4>
+			</div>
+			<div class="form-panel">
+				<div class="modal-body">
+					<p>Apakah Anda Yakin Ingin Menghapus ?</p>
+				</div>
+			</div>
+			<form class="form-horizontal style-form formHapus" method="post">
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default btnKeluar"
+						id="keluarModalHapus" data-dismiss="modal">Tidak</button>
+					<input type="hidden" name="id" class="form-control" id="hapusId" />
+					<input type="submit" class="btn btn-danger" value="Hapus" />
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div>
+	<%@ include file="../../layouts/gritter.jsp"%>
+</div>
+
+
+<script>
+	var state = 1;
+	$(document).ready(function() {
+		refresh(1, '');
+
+		$('#btnCari').click(function() {
+			refresh(1, $('#stringCari').val());
+		});
+
+		$('.btnTambah').click(function() {
+			state = 0;
+		});
+
+		$('.btnEdit').click(function() {
+			console.log('edit');
+			state = 1;			
+		});
+		
+		setMaskingUang("#tarif");
+
+		$(".formTambah").validate({
+			rules : {
+				nama : {
+					required : true
+				},
+				Kode : {
+					required : true
+				},
+				tarif : {
+					required : true
+				}
+			},
+			messages : {
+				nama : "Nama Wajib Diisi",
+				kode : "Kode Wajib Diisi",
+				tarif : "Tarif Wajib Diisi"
+			},
+			submitHandler : function(form) {
+				console.log(state);
+				var data = {};
+				data['id'] = $('#ids').val();
+				data['nama'] = $('#nama').val();
+				data['kode'] = $('#kode').val();
+				data['hargaJual'] = $('#tarif').val();
+				console.log(data);
+				if (state == 0) {
+					$.postJSON('${tambah}', data, function() {
+						$('#gritter-tambah-sukses').click();
+						$('.btnKeluar').click();
+						$('#tambahNama').val('');
+						refresh();
+					}, function() {
+						$('#gritter-tambah-gagal').click();
+					});
+				} else if (state == 1) {
+					$.postJSON('${edit}', data, function() {
+						$('#gritter-edit-sukses').click();
+						$('.btnKeluar').click();
+						refresh();
+					}, function() {
+						$('#gritter-edit-gagal').click();
+					});
+				}
+				state = 1;
+			}
+		});
+
+		$(".formHapus").submit(function(e) {
+			e.preventDefault();
+			var data = {};
+			data['id'] = $('#hapusId').val();
+			$.postJSON('${hapus}', data, function(result) {
+				refresh();
+				$('#keluarModalHapus').click();
+				$('#gritter-hapus-sukses').click();
+			}, function(e) {
+				$('#gritter-hapus-sukses').click();
+				$('#keluarModalHapus').click();
+				refresh();
+			});
+		});
+	});
+
+	function getData(ids) {
+		var data = {
+			id : ids
+		};
+		$.getAjax('${dapatkan}', data, function(result) {
+			$('#nama').val(result.nama);
+			$('#kode').val(result.kode);
+			$('#tarif').val(result.detail[0].hargaJual);
+			$('#ids').val(ids);
+		}, null);
+	}
+
+	function setIdUntukHapus(ids) {
+		$('#hapusId').val(ids);
+	}
+
+	function refresh(halaman, find) {
+		var data = {
+			hal : halaman,
+			cari : find
+		};
+
+		$.getAjax('${daftar}', data, function(result) {
+			$('#tabelCoba').empty();
+			$('#tabelCoba').append(result.tabel);
+			$('#nav').empty();
+			$('#nav').append(result.navigasiHalaman);
+		}, null);
+	}
+</script>

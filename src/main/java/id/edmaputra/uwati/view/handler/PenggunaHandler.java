@@ -11,6 +11,7 @@ public class PenggunaHandler {
 	private String role1;
 	private String role2;
 	private String role3;
+	private String karyawan;
 
 	public PenggunaHandler() {
 
@@ -93,6 +94,14 @@ public class PenggunaHandler {
 		return "PenggunaHandler [id=" + id + ", nama=" + nama + ", isAktif=" + isAktif + ", isPertamaKali="
 				+ isPertamaKali + ", countKesalahan=" + countKesalahan + ", role1=" + role1 + ", role2=" + role2
 				+ ", role3=" + role3 + "]";
+	}
+
+	public String getKaryawan() {
+		return karyawan;
+	}
+
+	public void setKaryawan(String karyawan) {
+		this.karyawan = karyawan;
 	}
 
 }

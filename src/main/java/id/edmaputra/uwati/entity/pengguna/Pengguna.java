@@ -12,11 +12,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import id.edmaputra.uwati.config.DBConf;
 import id.edmaputra.uwati.entity.DasarEntity;
+import id.edmaputra.uwati.entity.master.Karyawan;
+import id.edmaputra.uwati.entity.master.obat.Obat;
 
 @Entity
 @Table(name="pengguna", uniqueConstraints = {
@@ -51,24 +56,25 @@ public class Pengguna extends DasarEntity<Integer>{
 			inverseJoinColumns = {@JoinColumn(name="role_id")})
 	private List<Role> roles = new ArrayList<>();
 	
+	@ManyToOne
+	@JoinColumn(name = "id_karyawan", nullable = true)
+	@JsonIgnore
+	private Karyawan karyawan;
+	
 	public Pengguna(){
 		
 	}
-	
-	public Pengguna(String nama, Boolean isAktif, Boolean isPertamaKali, int countKesalahan, List<Role> roles) {	
+
+	public Pengguna(String nama, String kataSandi, Boolean isAktif, Boolean isPertamaKali, int countKesalahan,
+			List<Role> roles, Karyawan karyawan) {
+		super();
 		this.nama = nama;
+		this.kataSandi = kataSandi;
 		this.isAktif = isAktif;
 		this.isPertamaKali = isPertamaKali;
 		this.countKesalahan = countKesalahan;
 		this.roles = roles;
-	}
-
-	public List<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
+		this.karyawan = karyawan;
 	}
 
 	public Integer getId() {
@@ -119,10 +125,20 @@ public class Pengguna extends DasarEntity<Integer>{
 		this.countKesalahan = countKesalahan;
 	}
 
-	@Override
-	public String toString() {
-		return "Pengguna [id=" + id + ", nama=" + nama + ", isAktif=" + isAktif
-				+ ", isPertamaKali=" + isPertamaKali + ", countKesalahan=" + countKesalahan + ", roles=" + roles + "]";
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+
+	public Karyawan getKaryawan() {
+		return karyawan;
+	}
+
+	public void setKaryawan(Karyawan karyawan) {
+		this.karyawan = karyawan;
 	}
 
 }

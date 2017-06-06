@@ -27,10 +27,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mysema.query.types.expr.BooleanExpression;
 
+import id.edmaputra.uwati.entity.master.Karyawan;
 import id.edmaputra.uwati.entity.pengguna.Pengguna;
 import id.edmaputra.uwati.entity.pengguna.Role;
-import id.edmaputra.uwati.service.PenggunaService;
-import id.edmaputra.uwati.service.RoleService;
+import id.edmaputra.uwati.service.KaryawanService;
+import id.edmaputra.uwati.service.pengguna.PenggunaService;
+import id.edmaputra.uwati.service.pengguna.RoleService;
 import id.edmaputra.uwati.specification.PenggunaPredicateBuilder;
 import id.edmaputra.uwati.support.LogSupport;
 import id.edmaputra.uwati.view.Formatter;
@@ -46,10 +48,13 @@ public class PenggunaController {
 
 	@Autowired
 	private PenggunaService penggunaService;
-	
+
 	@Autowired
 	private RoleService roleService;
 	
+	@Autowired
+	private KaryawanService karyawanService;
+
 	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
 	@ModelAttribute("pengguna")
@@ -62,40 +67,40 @@ public class PenggunaController {
 		try {
 			logger.info(LogSupport.load(principal.getName(), request));
 			ModelAndView mav = new ModelAndView("pengguna");			
+			mav.addObject("pengguna", principal.getName());
 			return mav;
 		} catch (Exception e) {
 			logger.info(e.getMessage());
 			return null;
 		}
 	}
-	
+
 	@Transactional
-	@RequestMapping(value="/pengguna/simpan", method = RequestMethod.POST)
+	@RequestMapping(value = "/pengguna/simpan", method = RequestMethod.POST)
 	@ResponseBody
-	public Pengguna simpan(@RequestBody PasswordHandler ph, BindingResult result, Principal principal, HttpServletRequest request){
-		Pengguna p = penggunaService.temukan(principal.getName());		
+	public Pengguna simpan(@RequestBody PasswordHandler ph, BindingResult result, Principal principal,
+			HttpServletRequest request) {
+		Pengguna p = penggunaService.temukan(principal.getName());
 		try {
-			String passwordLama = encoder.encode(ph.getPasswordLama());
-			System.out.println(encoder.matches(p.getKataSandi(), passwordLama));			
-//			if (passwordLama.equals(passwordLamaSaved)){
+			// String passwordLama = encoder.encode(ph.getPasswordLama());
+			if (encoder.matches(ph.getPasswordLama(), p.getKataSandi())){
 				p.setKataSandi(encoder.encode(ph.getPasswordBaru()));
 				p.setTerakhirDirubah(new Date());
 				p.setUserEditor(principal.getName());
 				penggunaService.simpan(p);
-				logger.info(LogSupport.edit(principal.getName(), p.getNama(), request));
-				return p;
-//			} else {
-//				throw new Exception();				
-//			}
-			
+				logger.info(LogSupport.edit(principal.getName(), p.getNama(), request));				
+			} else {
+				p.setInfo("Password Lama Tidak Valid, Harap Isi Password Lama dengan Benar");				
+			}
+			return p;
 		} catch (Exception e) {
 			logger.info(LogSupport.editGagal(principal.getName(), p.getNama(), request));
 			logger.info(e.getMessage());
 			return null;
 		}
-		
+
 	}
-	
+
 	@RequestMapping(value = "/daftarpengguna")
 	public ModelAndView tampilkanDaftarPengguna(Principal principal, HttpServletRequest request) {
 		try {
@@ -112,10 +117,9 @@ public class PenggunaController {
 	@ResponseBody
 	public HtmlElement dapatkanDaftarPengguna(
 			@RequestParam(value = "hal", defaultValue = "1", required = false) Integer halaman,
-			@RequestParam(value = "cari", defaultValue = "", required = false) String cari, 
+			@RequestParam(value = "cari", defaultValue = "", required = false) String cari,
 			@RequestParam(value = "isPertamaKali", required = false) Boolean isPertamaKali,
-			@RequestParam(value = "isAktif", required = false) Boolean isAktif,
-			HttpServletRequest request,
+			@RequestParam(value = "isAktif", required = false) Boolean isAktif, HttpServletRequest request,
 			HttpServletResponse response) {
 		try {
 			HtmlElement el = new HtmlElement();
@@ -124,12 +128,12 @@ public class PenggunaController {
 			if (!StringUtils.isBlank(cari)) {
 				builder.cari(cari);
 			}
-			
-			if (isAktif != null){
+
+			if (isAktif != null) {
 				builder.aktif(isAktif);
 			}
-			
-			if (isPertamaKali != null){
+
+			if (isPertamaKali != null) {
 				builder.aktif(isPertamaKali);
 			}
 
@@ -139,15 +143,15 @@ public class PenggunaController {
 			String tabel = tabelGenerator(page, request);
 			el.setTabel(tabel);
 
-			if (page.hasContent()){
-			int current = page.getNumber() + 1;
-			int next = current + 1;
-			int prev = current - 1;
-			int first = Math.max(1, current - 5);
-			int last = Math.min(first + 10, page.getTotalPages());
+			if (page.hasContent()) {
+				int current = page.getNumber() + 1;
+				int next = current + 1;
+				int prev = current - 1;
+				int first = Math.max(1, current - 5);
+				int last = Math.min(first + 10, page.getTotalPages());
 
-			String h = navigasiHalamanGenerator(first, prev, current, next, last, page.getTotalPages(), cari);
-			el.setNavigasiHalaman(h);
+				String h = navigasiHalamanGenerator(first, prev, current, next, last, page.getTotalPages(), cari);
+				el.setNavigasiHalaman(h);
 			}
 			return el;
 		} catch (Exception e) {
@@ -161,21 +165,23 @@ public class PenggunaController {
 	public Pengguna dapatkanPengguna(@RequestParam("id") String id) {
 		try {
 			Pengguna get = penggunaService.dapatkan(Integer.valueOf(id));
+//			Karyawan karyawan = karyawanService.dapatkan(get.getKaryawan().getNama());
+//			get.setKaryawan(karyawan);
 			return get;
 		} catch (Exception e) {
 			logger.info(e.getMessage());
 			return null;
 		}
 	}
-	
+
 	@RequestMapping(value = "/daftarpengguna/semua", method = RequestMethod.GET)
 	@ResponseBody
-	public List<Pengguna> dapatkanSemua(){
+	public List<Pengguna> dapatkanSemua() {
 		try {
 			List<Pengguna> l = penggunaService.dapatkanSemua();
 			return l;
 		} catch (Exception e) {
-			logger.info(e.getMessage());			
+			logger.info(e.getMessage());
 			return null;
 		}
 	}
@@ -192,7 +198,10 @@ public class PenggunaController {
 			pengguna.setRoles(setListRolesContent(list, ph));
 			pengguna.setUserInput(principal.getName());
 			pengguna.setWaktuDibuat(new Date());
-			pengguna.setTerakhirDirubah(new Date());			
+			pengguna.setTerakhirDirubah(new Date());
+			pengguna.setKaryawan(karyawanService.dapatkan(ph.getKaryawan()));
+			System.out.println("Karyawan : "+ ph.getKaryawan());
+			System.out.println("Karyawan : "+ pengguna.getKaryawan().getNama());
 			penggunaService.simpan(pengguna);
 			logger.info(LogSupport.tambah(principal.getName(), pengguna.toString(), request));
 			return pengguna;
@@ -208,9 +217,8 @@ public class PenggunaController {
 	@ResponseBody
 	public Pengguna editPengguna(@RequestBody PenggunaHandler ph, BindingResult result, Principal principal,
 			HttpServletRequest request) {
-		System.out.println(ph.getId()+" ID");
-		Pengguna edit = penggunaService.dapatkan(ph.getId());
 		
+		Pengguna edit = getPengguna(ph.getId());
 		String entity = edit.toString();
 		try {
 			edit = setPenggunaContent(edit, ph);
@@ -218,6 +226,7 @@ public class PenggunaController {
 			List<Role> editRoles = new ArrayList<>();
 			editRoles = setListRolesContent(editRoles, ph);
 			edit.setRoles(editRoles);
+			edit.setKaryawan(karyawanService.dapatkan(ph.getKaryawan()));
 			edit.setUserEditor(principal.getName());
 			edit.setTerakhirDirubah(new Date());
 			penggunaService.simpan(edit);
@@ -247,15 +256,17 @@ public class PenggunaController {
 			return null;
 		}
 	}
+	
+	private Pengguna getPengguna(Integer id){
+		Pengguna get = penggunaService.dapatkan(id);
+		
+		return get;
+	}
 
 	private String tabelGenerator(Page<Pengguna> list, HttpServletRequest request) {
 		String html = "";
-		String thead = "<thead><tr><th>Id</th>"
-				+ "<th>Pengguna</th>"
-				+ "<th>Aktif</th>"
-				+ "<th>First Time</th>"
-				+ "<th>Kesempatan</th>"
-				+ "<th>Role</th>";
+		String thead = "<thead><tr><th>Id</th>" + "<th>Pengguna</th>" + "<th>Aktif</th>" + "<th>First Time</th>"
+				+ "<th>Kesempatan</th>" + "<th>Role</th>";
 		if (request.isUserInRole("ROLE_ADMIN")) {
 			thead += "<th>User Input</th>" + "<th>Waktu Dibuat</th>" + "<th>User Editor</th>"
 					+ "<th>Terakhir Diubah</th>";
@@ -267,16 +278,16 @@ public class PenggunaController {
 			String btn = "";
 			row += Html.td(p.getId().toString());
 			row += Html.td(p.getNama());
-			row += Html.td(p.getIsAktif()+"");
-			row += Html.td(p.getIsPertamaKali()+"");
-			row += Html.td(p.getCountKesalahan()+"");
+			row += Html.td(p.getIsAktif() + "");
+			row += Html.td(p.getIsPertamaKali() + "");
+			row += Html.td(p.getCountKesalahan() + "");
 			row += Html.td(roleParser(p.getRoles()));
 			if (request.isUserInRole("ROLE_ADMIN")) {
 				row += Html.td(p.getUserInput());
 				row += Html.td(Formatter.formatTanggal(p.getWaktuDibuat()));
 				row += Html.td(p.getUserEditor());
 				row += Html.td(Formatter.formatTanggal(p.getTerakhirDirubah()));
-				btn= Html.button("btn btn-primary btn-xs btnEdit", "modal", "#daftarpengguna-modal-edit", "onClick",
+				btn = Html.button("btn btn-primary btn-xs btnEdit", "modal", "#daftarpengguna-modal-edit", "onClick",
 						"getData(" + p.getId() + ")", 0);
 				btn += Html.button("btn btn-danger btn-xs", "modal", "#daftarpengguna-modal-hapus", "onClick",
 						"setIdUntukHapus(" + p.getId() + ")", 1);
@@ -327,45 +338,45 @@ public class PenggunaController {
 
 		return nav;
 	}
-	
-	private Pengguna setPenggunaContent(Pengguna p, PenggunaHandler ph){
+
+	private Pengguna setPenggunaContent(Pengguna p, PenggunaHandler ph) {
 		p.setNama(ph.getNama());
 		p.setKataSandi(encoder.encode(ph.getKataSandi()));
 		p.setCountKesalahan(ph.getCountKesalahan());
 		p.setIsAktif(ph.getIsAktif());
-		p.setIsPertamaKali(ph.getIsPertamaKali());			
+		p.setIsPertamaKali(ph.getIsPertamaKali());
 		return p;
 	}
-	
-	private List<Role> setListRolesContent(List<Role> list, PenggunaHandler ph){
-		if (StringUtils.isNotEmpty(ph.getRole1())){
+
+	private List<Role> setListRolesContent(List<Role> list, PenggunaHandler ph) {
+		if (StringUtils.isNotEmpty(ph.getRole1())) {
 			Role role = roleService.dapatkanByNama(ph.getRole1());
 			list.add(role);
 		}
-		if (StringUtils.isNotEmpty(ph.getRole2())){
+		if (StringUtils.isNotEmpty(ph.getRole2())) {
 			Role role = roleService.dapatkanByNama(ph.getRole2());
 			list.add(role);
 		}
-		if (StringUtils.isNotEmpty(ph.getRole3())){
+		if (StringUtils.isNotEmpty(ph.getRole3())) {
 			Role role = roleService.dapatkanByNama(ph.getRole3());
 			list.add(role);
 		}
 		return list;
 	}
-	
-	private String roleParser(List<Role> roles){
-		String r = "";			
+
+	private String roleParser(List<Role> roles) {
+		String r = "";
 		try {
-			List<String> listNama  = new ArrayList<>();
-			for (Role role:roles){
+			List<String> listNama = new ArrayList<>();
+			for (Role role : roles) {
 				role.setNama(role.getNama().replaceAll("ROLE_", ""));
 				listNama.add(role.getNama());
 			}
 			r = StringUtils.join(listNama, ",");
-			
+
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-		}		
+		}
 		return r;
 	}
 

@@ -18,6 +18,8 @@ public class QPengguna extends EntityPathBase<Pengguna> {
 
     private static final long serialVersionUID = -1728209741L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QPengguna pengguna = new QPengguna("pengguna");
 
     public final id.edmaputra.uwati.entity.QDasarEntity _super = new id.edmaputra.uwati.entity.QDasarEntity(this);
@@ -32,6 +34,8 @@ public class QPengguna extends EntityPathBase<Pengguna> {
     public final BooleanPath isAktif = createBoolean("isAktif");
 
     public final BooleanPath isPertamaKali = createBoolean("isPertamaKali");
+
+    public final id.edmaputra.uwati.entity.master.QKaryawan karyawan;
 
     public final StringPath kataSandi = createString("kataSandi");
 
@@ -52,15 +56,24 @@ public class QPengguna extends EntityPathBase<Pengguna> {
     public final DateTimePath<java.util.Date> waktuDibuat = _super.waktuDibuat;
 
     public QPengguna(String variable) {
-        super(Pengguna.class, forVariable(variable));
+        this(Pengguna.class, forVariable(variable), INITS);
     }
 
     public QPengguna(Path<? extends Pengguna> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), path.getMetadata().isRoot() ? INITS : PathInits.DEFAULT);
     }
 
     public QPengguna(PathMetadata<?> metadata) {
-        super(Pengguna.class, metadata);
+        this(metadata, metadata.isRoot() ? INITS : PathInits.DEFAULT);
+    }
+
+    public QPengguna(PathMetadata<?> metadata, PathInits inits) {
+        this(Pengguna.class, metadata, inits);
+    }
+
+    public QPengguna(Class<? extends Pengguna> type, PathMetadata<?> metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.karyawan = inits.isInitialized("karyawan") ? new id.edmaputra.uwati.entity.master.QKaryawan(forProperty("karyawan")) : null;
     }
 
 }

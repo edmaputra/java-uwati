@@ -113,6 +113,12 @@ public class SatuanController {
 		}
 	}
 	
+	@RequestMapping(value = "/ada", method = RequestMethod.GET)
+	@ResponseBody
+	public Boolean isAda(@RequestParam("nama") String nama) {
+		return satuanService.dapatkanByNama(nama) != null;
+	}
+	
 	@RequestMapping(value = "/semua", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Satuan> dapatkanSemua(){

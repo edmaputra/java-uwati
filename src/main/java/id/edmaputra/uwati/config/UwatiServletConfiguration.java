@@ -23,10 +23,10 @@ public class UwatiServletConfiguration extends WebMvcConfigurerAdapter {
 		tilesConfigurer.setCheckRefresh(true);
 		return tilesConfigurer;
 	}
-	
+
 	@Bean
 	@Autowired
-	public UrlBasedViewResolver viewResolver(){
+	public UrlBasedViewResolver viewResolver() {
 		UrlBasedViewResolver viewResolver = new UrlBasedViewResolver();
 		viewResolver.setViewClass(TilesView.class);
 		return viewResolver;
@@ -34,7 +34,7 @@ public class UwatiServletConfiguration extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/static/**").addResourceLocations("/RESOURCES/").setCachePeriod(31556926);		
+		registry.addResourceHandler("/static/**").addResourceLocations("/RESOURCES/").setCachePeriod(259200);
 	}
 
 }

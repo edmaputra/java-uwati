@@ -10,6 +10,8 @@
 <c:url var="daftarUrl" value="/daftarpengguna/daftar" />
 <c:url var="roleSemuaUrl" value="/role/semua" />
 <c:url var="roleByNamaUrl" value="/role/nama" />
+<c:url var="suggestKaryawan" value="/karyawan/suggest" />
+<c:url var="isKaryawanAda" value="/karyawan/ada" />
 
 <div class="showback">
 	<div class="row mt">
@@ -128,6 +130,14 @@
 								</div>
 							</div>
 						</div>
+						<div class = "row">
+							<div class="col-md-7">
+								<div class="form-group">
+									<label>Karyawan:</label> 
+									<input class="form-control" id="tambahKaryawan" name="karyawan">
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -217,6 +227,14 @@
 								</div>
 							</div>
 						</div>
+						<div class = "row">
+							<div class="col-md-7">
+								<div class="form-group">
+									<label>Karyawan:</label> 
+									<input class="form-control" id="editKaryawan" name="karyawan">
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -272,8 +290,8 @@
 			$('#editIsAktif').prop('checked', pengguna.isAktif);
 			$('#editIsPertamaKali').prop('checked', pengguna.isPertamaKali);
 			$('#editCountKesalahan').val(pengguna.countKesalahan);
-// 			console.log('Pengguna : '+pengguna.id);
-// 			console.log(pengguna.roles[2].nama);
+// 			$('#editKaryawan').val(pengguna.karyawan.id);
+			console.log(pengguna.karyawan);
 			if ("undefined" !== typeof pengguna.roles[0].nama) {
 				$('#editRole1').val(pengguna.roles[0].nama);	
 			}
@@ -284,9 +302,7 @@
 			
 			if ("undefined" !== typeof pengguna.roles[2].nama) {
 				$('#editRole3').val(pengguna.roles[2].nama);	
-			}
-			
-			
+			}				
 		}, null);
 	}
 
@@ -327,6 +343,8 @@
 		$('#editRole2').val('');
 		$('#tambahRole3').val('');
 		$('#editRole3').val('');
+		$('#tambahKaryawan').val('');
+		$('#editKaryawan').val('');
 	}
 
 	$(document).ready(function() {
@@ -353,6 +371,17 @@
 					number : true,
 					min : 0,
 					required :true
+				},
+				karyawan : {					
+					remote: {
+						url: "${isKaryawanAda}",
+						type: "get",
+						data: {
+							nama: function(){
+								return $("#tambahKaryawan").val();
+							}
+						}
+					}
 				}
 			},
 			messages : {
@@ -369,7 +398,8 @@
 					number : "Harap Isi dengan Angka",
 					min : "Harap Isi Angka Positif",
 					required : "Harap Isi Kesempatan"
-				}				
+				},
+				karyawan : "Karyawan Tidak Ada"
 			},
 			submitHandler : function(form) {
 				var data = {};
@@ -381,6 +411,7 @@
 				data['role1'] = $('#tambahRole1').val();
 				data['role2'] = $('#tambahRole2').val();
 				data['role3'] = $('#tambahRole3').val();
+				data['karyawan'] = $('#tambahKaryawan').val();
 				$.postJSON('${tambahUrl}', data, function() {
 					$('#gritter-tambah-sukses').click();
 					$('.btnKeluar').click();
@@ -407,6 +438,17 @@
 				countKesalahan :{
 					number : true,
 					min : 0
+				},
+				karyawan : {					
+					remote: {
+						url: "${isKaryawanAda}",
+						type: "get",
+						data: {
+							nama: function(){
+								return $("#editKaryawan").val();
+							}
+						}
+					}
 				}
 			},
 			messages : {
@@ -422,7 +464,8 @@
 					number : "Harap Isi dengan Angka",
 					min : "Harap Isi Angka Positif",
 					required : "Harap Isi Kesempatan"
-				}				
+				},
+				karyawan : "Karyawan Tidak Ada"
 			},
 			submitHandler : function(form) {
 				var data = {};
@@ -435,6 +478,7 @@
 				data['role1'] = $('#editRole1').val();
 				data['role2'] = $('#editRole2').val();
 				data['role3'] = $('#editRole3').val();
+				data['karyawan'] = $('#editKaryawan').val();
 				$.postJSON('${editUrl}', data, function() {
 					$('#gritter-edit-sukses').click();
 					$('.btnKeluar').click();
@@ -466,7 +510,8 @@
 		setAutoComplete('#editRole1', '${roleByNamaUrl}');
 		setAutoComplete('#editRole2', '${roleByNamaUrl}');
 		setAutoComplete('#editRole3', '${roleByNamaUrl}');
-		
+		setAutoComplete('#tambahKaryawan', '${suggestKaryawan}');
+		setAutoComplete('#editKaryawan', '${suggestKaryawan}');
 		
 				
 		$('.btnKeluar').click(function(){

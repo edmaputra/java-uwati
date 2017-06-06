@@ -6,31 +6,26 @@
 <c:url var="simpanUrl" value="/pengguna/simpan" />
 <c:url var="dapatkanUrl" value="/pengguna/dapatkan" />
 
+
 <div class="row mt">
 	<div class="col-lg-12">
 		<div class="form-panel">
-			<form:form commandName="pengguna"
-				cssClass="form-horizontal style-form formEdit" method="POST"
-				action="${simpanUrl}">
+			<h3><i class="fa fa-angle-right"></i>Pengguna : ${pengguna}</h3>			
+			<form:form commandName="pengguna" cssClass="form-horizontal style-form formEdit" method="POST" action="${simpanUrl}">
 				<div class="form-group">
-					<label class="col-sm-3 col-sm-3 control-label">Password
-						Lama</label>
+					<label class="col-sm-3 col-sm-3 control-label">Password Lama</label>
 					<div class="col-sm-5">
-						<input type="password" class="form-control" name="passwordLama"
-							id="passwordLama">
+						<input type="password" class="form-control" name="passwordLama" id="passwordLama">
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 col-sm-3 control-label">Password
-						Baru</label>
+					<label class="col-sm-3 col-sm-3 control-label">Password Baru</label>
 					<div class="col-sm-5">
-						<input type="password" class="form-control" name="passwordBaru"
-							id="passwordBaru">
+						<input type="password" class="form-control" name="passwordBaru" id="passwordBaru">
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 col-sm-3 control-label">Konfirmasi
-						Password Baru</label>
+					<label class="col-sm-3 col-sm-3 control-label">Konfirmasi Password Baru</label>
 					<div class="col-sm-5">
 						<input type="password" class="form-control" name="confirmPasswordBaru"
 							id="confirmPasswordBaru">
@@ -87,18 +82,25 @@
 				data['confirmPasswordBaru'] = $('#confirmPasswordBaru').val();
 				$.postJSON('${simpanUrl}', data, function() {
 					$('#gritter-edit-sukses').click();
-					$('#btnReset').click();
+					reset();
 				}, function() {
 					$('#gritter-edit-gagal').click();
+					console.log(p.info);
 				});
 			}
 		});
 
 		$('#btnReset').click(function() {
-			$('#passwordLama').val('');
-			$('#passwordBaru').val('');
-			$('#confirmPasswordBaru').val('');
+			reset();
 		});
+		
+		
 
 	});
+	
+	function reset(){
+		$('#passwordLama').val('');
+		$('#passwordBaru').val('');
+		$('#confirmPasswordBaru').val('');
+	}
 </script>

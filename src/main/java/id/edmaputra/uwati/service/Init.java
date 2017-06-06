@@ -12,7 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import id.edmaputra.uwati.entity.master.Apotek;
-import id.edmaputra.uwati.entity.master.Dokter;
+import id.edmaputra.uwati.entity.master.Karyawan;
 import id.edmaputra.uwati.entity.master.Kategori;
 import id.edmaputra.uwati.entity.master.Pelanggan;
 import id.edmaputra.uwati.entity.master.Satuan;
@@ -25,18 +25,18 @@ import id.edmaputra.uwati.entity.master.obat.RacikanDetail;
 import id.edmaputra.uwati.entity.pengguna.Pengguna;
 import id.edmaputra.uwati.entity.pengguna.Role;
 import id.edmaputra.uwati.repository.ApotekRepository;
-import id.edmaputra.uwati.repository.DokterRepository;
+import id.edmaputra.uwati.repository.KaryawanRepository;
 import id.edmaputra.uwati.repository.KategoriRepository;
-import id.edmaputra.uwati.repository.ObatDetailRepository;
-import id.edmaputra.uwati.repository.ObatExpiredRepository;
-import id.edmaputra.uwati.repository.ObatRepository;
-import id.edmaputra.uwati.repository.ObatStokRepository;
 import id.edmaputra.uwati.repository.PelangganRepository;
-import id.edmaputra.uwati.repository.PenggunaRepository;
-import id.edmaputra.uwati.repository.RacikanDetailRepository;
-import id.edmaputra.uwati.repository.RacikanRepository;
-import id.edmaputra.uwati.repository.RoleRepository;
 import id.edmaputra.uwati.repository.SatuanRepository;
+import id.edmaputra.uwati.repository.obat.ObatDetailRepository;
+import id.edmaputra.uwati.repository.obat.ObatExpiredRepository;
+import id.edmaputra.uwati.repository.obat.ObatRepository;
+import id.edmaputra.uwati.repository.obat.ObatStokRepository;
+import id.edmaputra.uwati.repository.obat.RacikanDetailRepository;
+import id.edmaputra.uwati.repository.obat.RacikanRepository;
+import id.edmaputra.uwati.repository.pengguna.PenggunaRepository;
+import id.edmaputra.uwati.repository.pengguna.RoleRepository;
 
 @Service
 public class Init {
@@ -57,7 +57,7 @@ public class Init {
 	private KategoriRepository kategoriRepo;
 
 	@Autowired
-	private DokterRepository dokterRepo;
+	private KaryawanRepository dokterRepo;
 
 	@Autowired
 	private PelangganRepository pelangganRepo;
@@ -80,7 +80,7 @@ public class Init {
 	@Autowired
 	private RacikanDetailRepository racikanDetailRepository;
 
-//	@PostConstruct
+	@PostConstruct
 	public void mulai() {
 		Role roleAdmin = buatRole("ROLE_ADMIN");
 		roleRepo.save(roleAdmin);
@@ -184,7 +184,7 @@ public class Init {
 	}
 
 	private Pengguna buatPengguna(String nama, boolean isAktif, boolean isPertamaKali, List<Role> roles) {
-		Pengguna pengguna = new Pengguna(nama, true, true, 5, null);
+		Pengguna pengguna = new Pengguna(nama, null, true, true, 5, roles, null);
 		pengguna.setUserInput("admin");
 		pengguna.setWaktuDibuat(new Date());
 		pengguna.setTerakhirDirubah(new Date());
@@ -219,12 +219,12 @@ public class Init {
 		return kategori;
 	}
 
-	private Dokter buatDokter(String nama, String spesialis, String sip, String alamat) {
-		Dokter dokter = new Dokter(nama, spesialis, sip, alamat);
-		dokter.setUserInput("admin");
-		dokter.setWaktuDibuat(new Date());
-		dokter.setTerakhirDirubah(new Date());
-		return dokter;
+	private Karyawan buatDokter(String nama, String spesialis, String sip, String alamat) {
+		Karyawan karyawan = new Karyawan(nama, spesialis, sip, alamat, null, null);
+		karyawan.setUserInput("admin");
+		karyawan.setWaktuDibuat(new Date());
+		karyawan.setTerakhirDirubah(new Date());
+		return karyawan;
 	}
 
 	private Pelanggan buatPelanggan(String nama, String kode, String alamat, String kontak) {

@@ -27,7 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mysema.query.types.expr.BooleanExpression;
 
 import id.edmaputra.uwati.entity.pengguna.Role;
-import id.edmaputra.uwati.service.RoleService;
+import id.edmaputra.uwati.service.pengguna.RoleService;
 import id.edmaputra.uwati.specification.RolePredicateBuilder;
 import id.edmaputra.uwati.support.LogSupport;
 import id.edmaputra.uwati.view.Formatter;

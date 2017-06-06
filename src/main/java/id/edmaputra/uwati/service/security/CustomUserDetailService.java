@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 import id.edmaputra.uwati.entity.pengguna.Pengguna;
 import id.edmaputra.uwati.entity.pengguna.Role;
-import id.edmaputra.uwati.service.PenggunaService;
+import id.edmaputra.uwati.service.pengguna.PenggunaService;
 
 @Service("customUserDetailService")
 public class CustomUserDetailService implements UserDetailsService{

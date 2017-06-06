@@ -41,11 +41,11 @@ public class Obat extends DasarEntity<Long> {
 	private String kode;
 
 	@ManyToOne
-	@JoinColumn(name = "id_satuan", nullable = false)
+	@JoinColumn(name = "id_satuan", nullable = true)
 	private Satuan satuan;
 
 	@ManyToOne
-	@JoinColumn(name = "id_kategori", nullable = false)
+	@JoinColumn(name = "id_kategori", nullable = true)
 	private Kategori kategori;
 
 	@Column(name = "batch", nullable = true, length = DBConf.LENGTH_KODE_OBAT)

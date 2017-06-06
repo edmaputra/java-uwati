@@ -10,42 +10,42 @@
 <c:url var="daftarUrl" value="/obat/daftar" />
 <c:url var="satuanSemua" value="/satuan/nama" />
 <c:url var="kategoriSemua" value="/kategori/nama" />
+<c:url var="kategoriAda" value="/kategori/ada" />
+<c:url var="satuanAda" value="/satuan/ada" />
 
-<div class="showback">
-	<div class="row mt">
-		<div class="col-md-12">
-			<div class="content-panel">
-				<div class="row">
-					<div class="col-md-2 ">
-						<security:authorize access="hasAnyRole('ADMIN')">
-							<button class="btn btn-primary" data-toggle="modal"
-								data-target="#obat-modal">Obat Baru</button>
-						</security:authorize>
-					</div>
-
-					<div class="col-md-10">
-						<form class="form-inline pull-right" id="formCari">
-							<div class="form-group">
-								<input type="text" id="stringCari" class="form-control"
-									placeholder="Pencarian" style="width: 250px" />
-							</div>
-							<div class="form-group">
-								<button type="button" class="btn btn-primary" id="btnCari">Cari</button>
-							</div>
-							<div class="form-group">
-								<button type="button" class="btn btn-default" id="btnReset"
-									onclick="refresh(1,'')">Reset</button>
-							</div>
-						</form>
-					</div>
+<div class="row mt">
+	<div class="col-md-12">
+		<div class="content-panel">
+			<div class="row">
+				<div class="col-md-2 ">
+					<security:authorize access="hasAnyRole('ADMIN')">
+						<button class="btn btn-primary" data-toggle="modal"
+							data-target="#obat-modal">Obat Baru</button>
+					</security:authorize>
 				</div>
-				<br />
 
-				<table class="table table-striped table-advance table-hover"
-					id="tabel">
-				</table>
-				<div id="nav"></div>
+				<div class="col-md-10">
+					<form class="form-inline pull-right" id="formCari">
+						<div class="form-group">
+							<input type="text" id="stringCari" class="form-control"
+								placeholder="Pencarian" style="width: 250px" />
+						</div>
+						<div class="form-group">
+							<button type="button" class="btn btn-primary" id="btnCari">Cari</button>
+						</div>
+						<div class="form-group">
+							<button type="button" class="btn btn-default" id="btnReset"
+								onclick="refresh(1,'')">Reset</button>
+						</div>
+					</form>
+				</div>
 			</div>
+			<br />
+
+			<table class="table table-striped table-advance table-hover"
+				id="tabel">
+			</table>
+			<div id="nav"></div>
 		</div>
 	</div>
 </div>
@@ -270,7 +270,7 @@
 								<div class="form-group">
 									<label>Harga Jual:</label>
 									<form:input path="hargaJual" cssClass="form-control"
-										id="editHargaJual" />									
+										id="editHargaJual" />
 								</div>
 							</div>
 							<div class="col-md-3">
@@ -369,8 +369,6 @@
 
 
 <script>
-	
-
 	function getData(ids) {
 		var data = {
 			id : ids
@@ -422,11 +420,6 @@
 		$('#btnCari').click(function() {
 			refresh(1, $('#stringCari').val());
 		});
-		
-// 		$.validator.addMethod("regex", function(value, element, regexp) {
-// 			var re = new RegExp(regexp);
-// 			return this.optional(element) || re.test(value);
-// 		}, "Masukkan Angka Dengan Benar.");
 
 		$(".formTambah").validate({
 			rules : {
@@ -437,10 +430,28 @@
 					required : true
 				},
 				satuan : {
-					required : true
+					required : true,
+					remote : {
+						url : "${satuanAda}",
+						type : "get",
+						data : {
+							nama : function() {
+								return $("#tambahSatuan").val();
+							}
+						}
+					},
 				},
 				kategori : {
-					required : true
+					required : true,
+					remote : {
+						url : "${kategoriAda}",
+						type : "get",
+						data : {
+							nama : function() {
+								return $("#tambahKategori").val();
+							}
+						}
+					},
 				},
 				stokMinimal : {
 					required : true,
@@ -448,23 +459,13 @@
 					min : 1
 				},
 				hargaJual : {
-					required : true,
-// 					number : true,					
-// 					min : 0
+					required : true
 				},
 				hargaJualResep : {
-					required : true,
-// 					number : true,
-// 					regex : '^(?:0|[1-9][0-9]{0,2}(?:\.[0-9]{3})*)$',
-// 					min : 0
+					required : true
 				},
 				hargaBeli : {
-					required : true,
-// 					number : true,
-// 					min : 0
-				},
-				hargaDiskon : {
-// 					number : true
+					required : true
 				},
 				tanggalExpired : {
 					required : true
@@ -477,8 +478,14 @@
 			messages : {
 				nama : "Masukkan Nama",
 				kode : "Masukkan Kode",
-				satuan : "Pilih Satuan",
-				kategori : "Pilih Kategori",
+				satuan : {
+					required : "Pilih Satuan",
+					remote : "Satuan Tidak Ada, tambahkan pada Data Master"
+				},
+				kategori : {
+					required : "Pilih Kategori",
+					remote : "Kategori Tidak Ada, tambahkan pada Data Master"
+				},
 				stokMinimal : {
 					required : "Masukkan Stok Minimal",
 					number : "Masukkan Angka dengan Benar",
@@ -540,10 +547,28 @@
 					required : true
 				},
 				satuan : {
-					required : true
+					required : true,
+					remote : {
+						url : "${satuanAda}",
+						type : "get",
+						data : {
+							nama : function() {
+								return $("#editSatuan").val();
+							}
+						}
+					},
 				},
 				kategori : {
-					required : true
+					required : true,
+					remote : {
+						url : "${kategoriAda}",
+						type : "get",
+						data : {
+							nama : function() {
+								return $("#editKategori").val();
+							}
+						}
+					},
 				},
 				stokMinimal : {
 					required : true,
@@ -551,22 +576,13 @@
 					min : 1
 				},
 				hargaJual : {
-					required : true,
-// 					number : true,
-// 					min : 0
+					required : true
 				},
 				hargaJualResep : {
-					required : true,
-// 					number : true,
-// 					min : 0
+					required : true
 				},
 				hargaBeli : {
-					required : true,
-// 					number : true,
-// 					min : 0
-				},
-				hargaDiskon : {
-// 					number : true
+					required : true
 				},
 				tanggalExpired : {
 					required : true
@@ -579,8 +595,14 @@
 			messages : {
 				nama : "Masukkan Nama",
 				kode : "Masukkan Kode",
-				satuan : "Pilih Satuan",
-				kategori : "Pilih Kategori",
+				satuan : {
+					required : "Pilih Satuan",
+					remote : "Satuan Tidak Ada, tambahkan pada Data Master"
+				},
+				kategori : {
+					required : "Pilih Kategori",
+					remote : "Kategori Tidak Ada, tambahkan pada Data Master"
+				},
 				stokMinimal : {
 					required : "Masukkan Stok Minimal",
 					number : "Masukkan Angka dengan Benar",
@@ -623,7 +645,7 @@
 				data['hargaDiskon'] = $('#editHargaDiskon').val();
 				data['stok'] = $('#editStok').val();
 				data['tanggalExpired'] = $('#editTanggalExpired').val();
-				data['id'] = $('#editId').val();				
+				data['id'] = $('#editId').val();
 				$.postJSON('${editUrl}', data, function() {
 					$('#gritter-edit-sukses').click();
 					$('.btnKeluar').click();
@@ -653,12 +675,12 @@
 		setAutoComplete('#tambahSatuan', '${satuanSemua}');
 		setAutoComplete('#editKategori', '${kategoriSemua}');
 		setAutoComplete('#editSatuan', '${satuanSemua}');
-		
+
 		setMaskingUang("#tambahHargaJual");
 		setMaskingUang("#tambahHargaJualResep");
 		setMaskingUang("#tambahHargaBeli");
 		setMaskingUang("#tambahHargaDiskon");
-		
+
 		setMaskingUang("#editHargaJual");
 		setMaskingUang("#editHargaJualResep");
 		setMaskingUang("#editHargaBeli");

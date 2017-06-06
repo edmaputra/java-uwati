@@ -33,4 +33,8 @@ public class DBConf {
 
 	public static final int LENGTH_KODE_PELANGGAN = 10;
 
+	public static final int LENGTH_IDENTITAS = 30;
+	
+	public static final int LENGTH_JABATAN = 50;
+
 }

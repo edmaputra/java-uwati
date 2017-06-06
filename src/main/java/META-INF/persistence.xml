@@ -8,7 +8,7 @@
 		<class>id.edmaputra.uwati.entity.master.Satuan</class>
 		<class>id.edmaputra.uwati.entity.master.Apotek</class>
 		<class>id.edmaputra.uwati.entity.master.Kategori</class>
-		<class>id.edmaputra.uwati.entity.master.Dokter</class>
+		<class>id.edmaputra.uwati.entity.master.Karyawan</class>
 		<class>id.edmaputra.uwati.entity.master.Pelanggan</class>
 		<class>id.edmaputra.uwati.entity.master.obat.Obat</class>
 		<class>id.edmaputra.uwati.entity.master.obat.ObatDetail</class>
@@ -26,5 +26,7 @@
 		<class>id.edmaputra.uwati.entity.transaksi.PembelianDetailTemp</class>
 		<class>id.edmaputra.uwati.entity.transaksi.PenjualanDetailTemp</class>
 		<class>id.edmaputra.uwati.entity.transaksi.NomorFaktur</class>
+		<class>id.edmaputra.uwati.entity.master.Pasien</class>
+		<class>id.edmaputra.uwati.entity.master.obat.Tindakan</class>
 	</persistence-unit>
 </persistence>

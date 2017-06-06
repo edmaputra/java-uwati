@@ -42,11 +42,11 @@ import id.edmaputra.uwati.entity.transaksi.PembelianDetail;
 import id.edmaputra.uwati.entity.transaksi.PembelianDetailTemp;
 import id.edmaputra.uwati.reports.Struk;
 import id.edmaputra.uwati.service.ApotekService;
-import id.edmaputra.uwati.service.ObatDetailService;
-import id.edmaputra.uwati.service.ObatExpiredService;
-import id.edmaputra.uwati.service.ObatService;
-import id.edmaputra.uwati.service.ObatStokService;
-import id.edmaputra.uwati.service.PenggunaService;
+import id.edmaputra.uwati.service.obat.ObatDetailService;
+import id.edmaputra.uwati.service.obat.ObatExpiredService;
+import id.edmaputra.uwati.service.obat.ObatService;
+import id.edmaputra.uwati.service.obat.ObatStokService;
+import id.edmaputra.uwati.service.pengguna.PenggunaService;
 import id.edmaputra.uwati.service.transaksi.PembelianDetailService;
 import id.edmaputra.uwati.service.transaksi.PembelianDetailTempService;
 import id.edmaputra.uwati.service.transaksi.PembelianService;
@@ -256,8 +256,7 @@ public class PembelianObatController {
 			
 			for (PembelianDetailTemp t : listTemp) {
 				pdtService.hapus(t);
-			}
-			
+			}	
 			
 			temp.setId(pembelian.getId());
 			logger.info(LogSupport.tambah(principal.getName(), pembelian.toString(), request));

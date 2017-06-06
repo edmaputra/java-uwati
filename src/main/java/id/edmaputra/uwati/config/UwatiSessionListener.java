@@ -8,7 +8,7 @@ public class UwatiSessionListener implements HttpSessionListener {
     @Override
     public void sessionCreated(HttpSessionEvent event) {
         System.out.println("==== Session is created ====");
-        event.getSession().setMaxInactiveInterval(0);
+        event.getSession().setMaxInactiveInterval(5*60*60);
     }
  
     @Override

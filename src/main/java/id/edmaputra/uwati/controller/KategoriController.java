@@ -111,6 +111,12 @@ public class KategoriController {
 		}
 	}
 	
+	@RequestMapping(value = "/ada", method = RequestMethod.GET)
+	@ResponseBody
+	public Boolean isAda(@RequestParam("nama") String nama) {
+		return kategoriService.dapatkanByNama(nama) != null;
+	}
+	
 	@RequestMapping(value = "/semua", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Kategori> dapatkanSemua(){

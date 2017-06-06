@@ -24,20 +24,23 @@
 					<div class="col-md-10">
 						<form class="form-inline pull-right" id="formCari">
 							<div class="form-group">
-								<input type="text" id="stringCari" class="form-control" placeholder="Pencarian" style="width: 250px" />
+								<input type="text" id="stringCari" class="form-control"
+									placeholder="Pencarian" style="width: 250px" />
 							</div>
 							<div class="form-group">
 								<button type="button" class="btn btn-primary" id="btnCari">Cari</button>
 							</div>
 							<div class="form-group">
-								<button type="button" class="btn btn-default" id="btnReset" onclick="refresh(1,'')">Reset</button>
-							</div>						
+								<button type="button" class="btn btn-default" id="btnReset"
+									onclick="refresh(1,'')">Reset</button>
+							</div>
 						</form>
 					</div>
 				</div>
 				<br />
 
-				<table class="table table-striped table-advance table-hover" id="tabelCoba">
+				<table class="table table-striped table-advance table-hover"
+					id="tabelCoba">
 				</table>
 				<div id="nav"></div>
 			</div>
@@ -150,7 +153,9 @@
 
 <script>
 	function getData(ids) {
-		var data = {id:ids};		
+		var data = {
+			id : ids
+		};
 		$.getAjax('${dapatkanUrl}', data, function(result) {
 			$('#editNama').val(result.nama);
 			$('#editId').val(ids);
@@ -162,7 +167,10 @@
 	}
 
 	function refresh(halaman, find) {
-		var data = { hal : halaman, cari : find };
+		var data = {
+			hal : halaman,
+			cari : find
+		};
 
 		$.getAjax('${daftarUrl}', data, function(result) {
 			$('#tabelCoba').empty();

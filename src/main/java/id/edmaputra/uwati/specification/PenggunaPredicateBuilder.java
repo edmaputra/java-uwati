@@ -25,18 +25,20 @@ public class PenggunaPredicateBuilder {
 			hasil = QPengguna.pengguna.isPertamaKali.eq(pertamaKali);
 		} else {
 			hasil = hasil.and(QPengguna.pengguna.isPertamaKali.eq(pertamaKali));
-		}
+		}		
 	}
 	
 	public void cari(String cari){
 		if (hasil == null){
 			hasil = QPengguna.pengguna.nama.containsIgnoreCase(cari)					
 					.or(QPengguna.pengguna.userEditor.containsIgnoreCase(cari))
-					.or(QPengguna.pengguna.userInput.containsIgnoreCase(cari));
+					.or(QPengguna.pengguna.userInput.containsIgnoreCase(cari))
+					.or(QPengguna.pengguna.karyawan.nama.containsIgnoreCase(cari));
 		} else {
-			hasil = hasil.and(QPengguna.pengguna.nama.containsIgnoreCase(cari)
+			hasil = hasil.and(QPengguna.pengguna.nama.containsIgnoreCase(cari)					
 					.or(QPengguna.pengguna.userEditor.containsIgnoreCase(cari))
-					.or(QPengguna.pengguna.userInput.containsIgnoreCase(cari)));
+					.or(QPengguna.pengguna.userInput.containsIgnoreCase(cari))
+					.or(QPengguna.pengguna.karyawan.nama.containsIgnoreCase(cari)));
 		}
 	}
 	
