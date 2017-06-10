@@ -28,12 +28,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mysema.query.types.expr.BooleanExpression;
 
 import id.edmaputra.uwati.entity.master.Karyawan;
-import id.edmaputra.uwati.entity.master.obat.Obat;
 import id.edmaputra.uwati.entity.pengguna.Pengguna;
 import id.edmaputra.uwati.service.KaryawanService;
 import id.edmaputra.uwati.service.pengguna.PenggunaService;
 import id.edmaputra.uwati.specification.KaryawanPredicateBuilder;
-import id.edmaputra.uwati.specification.ObatPredicateBuilder;
 import id.edmaputra.uwati.support.LogSupport;
 import id.edmaputra.uwati.view.Formatter;
 import id.edmaputra.uwati.view.Html;
@@ -219,7 +217,7 @@ public class KaryawanController {
 	private Karyawan getKaryawan(String id){
 		Karyawan get = karyawanService.dapatkan(Integer.valueOf(id));
 
-		List<Pengguna> listPengguna = penggunaService.temukanByKaryawan(get);
+		Pengguna listPengguna = penggunaService.temukanByKaryawan(get);
 		get.setPengguna(listPengguna);
 		Hibernate.initialize(get.getPengguna());
 
@@ -229,7 +227,7 @@ public class KaryawanController {
 	private Karyawan getKaryawan(Integer id){
 		Karyawan get = karyawanService.dapatkan(id);
 
-		List<Pengguna> listPengguna = penggunaService.temukanByKaryawan(get);
+		Pengguna listPengguna = penggunaService.temukanByKaryawan(get);
 		get.setPengguna(listPengguna);
 		Hibernate.initialize(get.getPengguna());
 

@@ -2,15 +2,12 @@ package id.edmaputra.uwati.controller;
 
 import java.math.BigDecimal;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,25 +24,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mysema.query.types.expr.BooleanExpression;
 
-import id.edmaputra.uwati.entity.master.Satuan;
-import id.edmaputra.uwati.entity.master.obat.Obat;
-import id.edmaputra.uwati.entity.master.obat.ObatDetail;
-import id.edmaputra.uwati.entity.master.obat.ObatExpired;
-import id.edmaputra.uwati.entity.master.obat.ObatHandler;
-import id.edmaputra.uwati.entity.master.obat.ObatStok;
-import id.edmaputra.uwati.service.obat.ObatDetailService;
-import id.edmaputra.uwati.service.obat.ObatExpiredService;
-import id.edmaputra.uwati.service.obat.ObatService;
-import id.edmaputra.uwati.service.obat.ObatStokService;
-import id.edmaputra.uwati.specification.ObatPredicateBuilder;
-import id.edmaputra.uwati.specification.SatuanPredicateBuilder;
-import id.edmaputra.uwati.support.Converter;
+import id.edmaputra.uwati.entity.master.obat.Tindakan;
+import id.edmaputra.uwati.service.obat.TindakanService;
+import id.edmaputra.uwati.specification.TindakanPredicateBuilder;
 import id.edmaputra.uwati.support.LogSupport;
 import id.edmaputra.uwati.view.Formatter;
 import id.edmaputra.uwati.view.Html;
 import id.edmaputra.uwati.view.HtmlElement;
-import id.edmaputra.uwati.view.json.JsonReturn;
-import id.edmaputra.uwati.view.json.Suggestion;
 
 @Controller
 @RequestMapping("/tindakan")
@@ -54,21 +39,7 @@ public class TindakanController {
 	private static final Logger logger = LoggerFactory.getLogger(TindakanController.class);
 
 	@Autowired
-	private ObatService obatService;
-
-	@Autowired
-	private ObatDetailService obatDetailService;
-
-	@Autowired
-	private ObatStokService obatStokService;
-
-	@Autowired
-	private ObatExpiredService obatExpiredService;
-
-	// @ModelAttribute("tindakan")
-	// public Satuan constructSatuan() {
-	// return new Satuan();
-	// }
+	private TindakanService tindakanService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView tampilkanPage(Principal principal, HttpServletRequest request) {
@@ -92,15 +63,13 @@ public class TindakanController {
 		try {
 			HtmlElement el = new HtmlElement();
 
-			ObatPredicateBuilder builder = new ObatPredicateBuilder();
+			TindakanPredicateBuilder builder = new TindakanPredicateBuilder();
 			if (!StringUtils.isBlank(cari)) {
 				builder.cari(cari);
 			}
 
-			builder.tipe(2);
-
 			BooleanExpression exp = builder.getExpression();
-			Page<Obat> page = obatService.muatDaftar(halaman, exp);
+			Page<Tindakan> page = tindakanService.muatDaftar(halaman, exp);
 
 			String tabel = tabelGenerator(page, request);
 			el.setTabel(tabel);
@@ -124,9 +93,9 @@ public class TindakanController {
 
 	@RequestMapping(value = "/dapatkan", method = RequestMethod.GET)
 	@ResponseBody
-	public Obat dapatkanEntity(@RequestParam("id") String tindakan) {
+	public Tindakan dapatkanEntity(@RequestParam("id") String tindakan) {
 		try {
-			Obat get = getObat(Long.valueOf(tindakan));
+			Tindakan get = tindakanService.dapatkan(Long.valueOf(tindakan));
 			return get;
 		} catch (Exception e) {
 			logger.info(e.getMessage());
@@ -137,55 +106,26 @@ public class TindakanController {
 	@RequestMapping(value = "/ada", method = RequestMethod.GET)
 	@ResponseBody
 	public Boolean isAda(@RequestParam("nama") String nama) {
-		return obatService.dapatkanByNama(nama) != null;
+		return tindakanService.dapatkanByNama(nama) != null;
 	}
 
-//	@Transactional
+	@Transactional
 	@RequestMapping(value = "/tambah", method = RequestMethod.POST)
 	@ResponseBody
-	public Obat tambah(@RequestBody ObatHandler h, BindingResult result, Principal principal,
+	public Tindakan tambah(@RequestBody Tindakan tindakan, BindingResult result, Principal principal,
 			HttpServletRequest request) {
 		try {
-			Obat obat = new Obat();
-			obat.setKode(h.getKode());
-			obat.setNama(h.getNama());
-			obat.setTipe(2);
-			obat.setStokMinimal(999);
-			
-			List<ObatDetail> details = new ArrayList<>();
-			ObatDetail obatDetail = new ObatDetail();
-			obatDetail = setObatDetailContent(obat, obatDetail, h);	
-			obatDetail.setUserInput(principal.getName());
-			obatDetail.setWaktuDibuat(new Date());					
-			details.add(obatDetail);
-			
-			List<ObatStok> stoks = new ArrayList<>();
-			ObatStok stok = new ObatStok();
-			stok = setObatStokDetailContent(obat, stok, h);
-			stok.setUserInput(principal.getName());
-			stok.setWaktuDibuat(new Date());
-			stoks.add(stok);
-
-			List<ObatExpired> expires = new ArrayList<>();
-			ObatExpired expired = new ObatExpired();
-			expired = setObatExpiredContent(obat, expired, h);
-			expired.setUserInput(principal.getName());
-			expired.setWaktuDibuat(new Date());
-			expires.add(expired);
-			
-			obat.setDetail(details);
-			obat.setStok(stoks);
-			obat.setExpired(expires);
-			
-			obat.setUserInput(principal.getName());
-			obat.setWaktuDibuat(new Date());
-			obat.setTerakhirDirubah(new Date());
-			obatService.simpan(obat);
-			logger.info(LogSupport.tambah(principal.getName(), obat.toString(), request));
-			return obat;
+			String tarif = String.valueOf(tindakan.getTarif()).replaceAll("[.]", "");
+			tindakan.setTarif(new BigDecimal(tarif));
+			tindakan.setUserInput(principal.getName());
+			tindakan.setWaktuDibuat(new Date());
+			tindakan.setTerakhirDirubah(new Date());		
+			tindakanService.simpan(tindakan);
+			logger.info(LogSupport.tambah(principal.getName(), tindakan.toString(), request));
+			return tindakan;
 		} catch (Exception e) {
 			logger.info(e.getMessage());
-			logger.info(LogSupport.tambahGagal(principal.getName(), h.getNama(), request));
+			logger.info(LogSupport.tambahGagal(principal.getName(), tindakan.getNama(), request));
 			return null;
 		}
 	}
@@ -193,17 +133,19 @@ public class TindakanController {
 	@Transactional
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	@ResponseBody
-	public Obat edit(@RequestBody ObatHandler h, BindingResult result, Principal principal,
+	public Tindakan edit(@RequestBody Tindakan tindakan, BindingResult result, Principal principal,
 			HttpServletRequest request) {
-		Obat edit = getObat(h.getId());
+		Tindakan edit = tindakanService.dapatkan(tindakan.getId());
 		String entity = edit.toString();
 		try {
-			edit.setNama(h.getNama());
-			edit.setNama(h.getKode());
-			edit.getDetail().get(0).setHargaJual(new BigDecimal(h.getHargaJual().replaceAll("[.]", "")));
+			edit.setNama(tindakan.getNama());
+			edit.setKode(tindakan.getKode());
+			String tarif = String.valueOf(tindakan.getTarif()).replaceAll("[.]", "");
+			edit.setTarif(new BigDecimal(tarif));
 			edit.setUserEditor(principal.getName());
 			edit.setTerakhirDirubah(new Date());
-			obatService.simpan(edit);
+			edit.setInfo(tindakan.getInfo());
+			tindakanService.simpan(edit);
 			logger.info(LogSupport.edit(principal.getName(), entity, request));
 			return edit;
 		} catch (Exception e) {
@@ -216,12 +158,12 @@ public class TindakanController {
 	@Transactional
 	@RequestMapping(value = "/hapus", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Obat hapus(@RequestBody ObatHandler h, BindingResult result, Principal principal,
+	public Tindakan hapus(@RequestBody Tindakan tindakan, BindingResult result, Principal principal,
 			HttpServletRequest request) {
-		Obat hapus = getObat(h.getId());
+		Tindakan hapus = tindakanService.dapatkan(tindakan.getId());
 		String entity = hapus.toString();
 		try {
-			obatService.hapus(hapus);
+			tindakanService.hapus(hapus);
 			logger.info(LogSupport.hapus(principal.getName(), entity, request));
 			hapus.setInfo("Hapus Berhasil");
 			return hapus;
@@ -232,27 +174,28 @@ public class TindakanController {
 		}
 	}
 
-	private String tabelGenerator(Page<Obat> list, HttpServletRequest request) {
+	private String tabelGenerator(Page<Tindakan> list, HttpServletRequest request) {
 		String html = "";
 		String thead = "<thead><tr>"
 				+ "<th>Id</th>"
 				+ "<th>Tindakan</th>"
 				+ "<th>Kode</th>"
-				+ "<th>Tarif</th>";
+				+ "<th>Tarif</th>"
+				+ "<th>Info</th>";
 		if (request.isUserInRole("ROLE_ADMIN")) {
 			thead += "<th>User Input</th>" + "<th>Waktu Dibuat</th>" + "<th>User Editor</th>"
 					+ "<th>Terakhir Diubah</th>";
 		}
 		thead += "<th></th></tr></thead>";
 		String data = "";
-		for (Obat t : list.getContent()) {
+		for (Tindakan t : list.getContent()) {
 			String row = "";
 			String btn = "";
 			row += Html.td(t.getId().toString());
 			row += Html.td(t.getNama());
 			row += Html.td(t.getKode());
-			List<ObatDetail> detail = obatDetailService.temukanByObat(t);
-			row += Html.td(Formatter.patternCurrency(detail.get(0).getHargaJual()));
+			row += Html.td(Formatter.patternCurrency(t.getTarif()));
+			row += Html.td(t.getInfo());
 			if (request.isUserInRole("ROLE_ADMIN")) {
 				row += Html.td(t.getUserInput());
 				row += Html.td(Formatter.formatTanggal(t.getWaktuDibuat()));
@@ -310,47 +253,6 @@ public class TindakanController {
 		String nav = Html.nav(Html.ul(html, "pagination"));
 
 		return nav;
-	}
-	
-	private Obat getObat(Long id){
-		Obat get = obatService.dapatkan(id);
-
-		List<ObatDetail> lObatDetail = obatDetailService.temukanByObat(get);
-		get.setDetail(lObatDetail);
-		Hibernate.initialize(get.getDetail());
-
-		List<ObatStok> lObatStok = obatStokService.temukanByObats(get);
-		get.setStok(lObatStok);
-		Hibernate.initialize(get.getStok());
-
-		List<ObatExpired> lObatExpired = obatExpiredService.temukanByObats(get);
-		get.setExpired(lObatExpired);
-		Hibernate.initialize(get.getExpired());
-		return get;
-	}
-	
-	private ObatDetail setObatDetailContent(Obat obat, ObatDetail obatDetail, ObatHandler h){
-		obatDetail.setObat(obat);
-		obatDetail.setHargaBeli(BigDecimal.ZERO);		
-		obatDetail.setHargaJual(new BigDecimal(h.getHargaJual().replaceAll("[.]", "")));
-		obatDetail.setHargaJualResep(BigDecimal.ZERO);
-		obatDetail.setHargaDiskon(BigDecimal.ZERO);
-		obatDetail.setTerakhirDirubah(new Date());
-		return obatDetail;
-	}
-	
-	private ObatStok setObatStokDetailContent(Obat obat, ObatStok stok, ObatHandler h){
-		stok.setObat(obat);
-		stok.setStok(9999);
-		stok.setTerakhirDirubah(new Date());
-		return stok;
-	}
-	
-	private ObatExpired setObatExpiredContent(Obat obat, ObatExpired expired, ObatHandler h){	
-		expired.setObat(obat);
-		expired.setTanggalExpired(new Date());		
-		expired.setTerakhirDirubah(new Date());
-		return expired;
 	}
 
 }

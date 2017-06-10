@@ -8,6 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import id.edmaputra.uwati.config.DBConf;
 import id.edmaputra.uwati.entity.DasarEntity;
 
@@ -15,6 +18,7 @@ import id.edmaputra.uwati.entity.DasarEntity;
 @Table(name="kategori", uniqueConstraints = {
 		@UniqueConstraint(columnNames = "id"),
 		@UniqueConstraint(columnNames = "nama") })
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Kategori extends DasarEntity<Integer> {
 
 	private static final long serialVersionUID = 3092154796857130317L;

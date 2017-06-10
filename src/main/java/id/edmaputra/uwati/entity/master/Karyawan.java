@@ -1,16 +1,17 @@
 package id.edmaputra.uwati.entity.master;
 
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import id.edmaputra.uwati.config.DBConf;
 import id.edmaputra.uwati.entity.DasarEntity;
@@ -19,6 +20,7 @@ import id.edmaputra.uwati.entity.pengguna.Pengguna;
 @Entity
 @Table(name="karyawan", uniqueConstraints = {
 		@UniqueConstraint(columnNames = "id")})
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Karyawan extends DasarEntity<Integer>{
 	
 	private static final long serialVersionUID = 4888650963869604003L;
@@ -42,12 +44,12 @@ public class Karyawan extends DasarEntity<Integer>{
 	@Column(name="jabatan", length=DBConf.LENGTH_JABATAN)	
 	private String jabatan;
 	
-	@OneToMany(mappedBy = "karyawan", cascade = CascadeType.ALL)
-	private List<Pengguna> pengguna;
+	@OneToOne(mappedBy = "karyawan", cascade = CascadeType.ALL)
+	private Pengguna pengguna;
 	
 	public Karyawan(){}	
 
-	public Karyawan(String nama, String spesialis, String sip, String alamat, String jabatan, List<Pengguna> pengguna) {
+	public Karyawan(String nama, String spesialis, String sip, String alamat, String jabatan, Pengguna pengguna) {
 		super();
 		this.nama = nama;
 		this.spesialis = spesialis;
@@ -105,11 +107,11 @@ public class Karyawan extends DasarEntity<Integer>{
 		this.jabatan = jabatan;
 	}
 
-	public List<Pengguna> getPengguna() {
+	public Pengguna getPengguna() {
 		return pengguna;
 	}
 
-	public void setPengguna(List<Pengguna> pengguna) {
+	public void setPengguna(Pengguna pengguna) {
 		this.pengguna = pengguna;
 	}
 }

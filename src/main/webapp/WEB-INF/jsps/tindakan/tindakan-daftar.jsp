@@ -8,6 +8,7 @@
 <c:url var="hapus" value="/tindakan/hapus" />
 <c:url var="dapatkan" value="/tindakan/dapatkan" />
 <c:url var="daftar" value="/tindakan/daftar" />
+
 <div class="showback">
 	<div class="row mt">
 		<div class="col-md-12">
@@ -62,7 +63,7 @@
 				<div class="form-panel">
 					<div class="modal-body">
 						<div class="row">
-							<div class="col-md-12">
+							<div class="col-md-9">
 								<div class="form-group">
 									<label>Nama:</label> <input type="text" name="nama"
 										class="form-control" id="nama" />
@@ -79,8 +80,16 @@
 							</div>
 							<div class="col-md-8">
 								<div class="form-group">
-									<label>Tarif/Harga:</label> <input type="text" name="tarif"
-										class="form-control" id="tarif" />
+									<label>Tarif/Harga:</label> 
+									<input type="text" name="tarif" class="form-control" id="tarif" value="0"/>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label>Info/Keterangan:</label> 
+									<input type="text" name="info"	class="form-control" id="info" />
 								</div>
 							</div>
 						</div>
@@ -143,8 +152,11 @@
 		});
 
 		$('.btnEdit').click(function() {
-			console.log('edit');
 			state = 1;			
+		});
+		
+		$('.btnKeluar').click(function() {
+			reset();			
 		});
 		
 		setMaskingUang("#tarif");
@@ -166,19 +178,13 @@
 				kode : "Kode Wajib Diisi",
 				tarif : "Tarif Wajib Diisi"
 			},
-			submitHandler : function(form) {
-				console.log(state);
+			submitHandler : function(form) {				
 				var data = {};
-				data['id'] = $('#ids').val();
-				data['nama'] = $('#nama').val();
-				data['kode'] = $('#kode').val();
-				data['hargaJual'] = $('#tarif').val();
-				console.log(data);
+				data = setTindakan(data);								
 				if (state == 0) {
 					$.postJSON('${tambah}', data, function() {
 						$('#gritter-tambah-sukses').click();
-						$('.btnKeluar').click();
-						$('#tambahNama').val('');
+						$('.btnKeluar').click();						
 						refresh();
 					}, function() {
 						$('#gritter-tambah-gagal').click();
@@ -219,7 +225,8 @@
 		$.getAjax('${dapatkan}', data, function(result) {
 			$('#nama').val(result.nama);
 			$('#kode').val(result.kode);
-			$('#tarif').val(result.detail[0].hargaJual);
+			$('#tarif').val(result.tarif);
+			$('#info').val(result.info);
 			$('#ids').val(ids);
 		}, null);
 	}
@@ -240,5 +247,24 @@
 			$('#nav').empty();
 			$('#nav').append(result.navigasiHalaman);
 		}, null);
+	}
+	
+	function setTindakan(data){
+		if ($('#ids').val() != null && $('#ids').val() != ''){
+			data['id'] = $('#ids').val();	
+		}		
+		data['nama'] = $('#nama').val();
+		data['kode'] = $('#kode').val();
+		data['tarif'] = $('#tarif').val();
+		data['info'] = $('#info').val();
+		return data;
+	}
+	
+	function reset(){
+		$('#ids').val('');
+		$('#nama').val('');
+		$('#kode').val('');
+		$('#tarif').val('0');
+		$('#info').val('');	
 	}
 </script>

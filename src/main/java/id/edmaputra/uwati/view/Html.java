@@ -52,6 +52,27 @@ public class Html {
 		a += ">" + content + "</a>";
 		return a;
 	}
+	
+	public static String a(String content, String clazz, String evt, String eventName, String href, String dataToggle, String dataTarget) {
+		String a = "<a ";
+		if (!StringUtils.isEmpty(clazz) || clazz != null) {
+			a += "class = '" + clazz + "' ";
+		}
+		if (!StringUtils.isEmpty(evt) || evt != null) {
+			a += evt + " = '" + eventName + "' ";
+		}
+		if (!StringUtils.isEmpty(href) || href != null) {
+			a += "href = '" + href + "' ";
+		}
+		if (!StringUtils.isEmpty(dataToggle) || dataToggle != null) {
+			a += "data-toggle = '" + dataToggle + "' ";
+		}
+		if (!StringUtils.isEmpty(dataTarget) || dataTarget != null) {
+			a += "data-target = '" + dataTarget + "' ";
+		}
+		a += ">" + content + "</a>";
+		return a;
+	}
 
 	public static String button(String clazz, String dataToggle, String dataTarget, String evt, String eventName, int tipe) {
 		String btn = "<button ";
@@ -66,6 +87,35 @@ public class Html {
 		}
 		if (!StringUtils.isEmpty(evt) || evt != null) {
 			btn += evt + " = '" + eventName + "' ";
+		}
+		btn += ">";
+		if (tipe == 0) {
+			btn += "<i class='fa fa-pencil'></i>";
+		} else if (tipe == 1) {
+			btn += "<i class='fa fa-trash-o'></i>";
+		} else if (tipe == 2) {
+			btn += "<i class='fa fa-check-square-o'></i>";
+		}
+		btn += "</button>";
+		return btn;
+	}
+	
+	public static String button(String clazz, String dataToggle, String dataTarget, String evt, String eventName, int tipe, String title) {
+		String btn = "<button ";
+		if (!StringUtils.isEmpty(clazz) || clazz != null) {
+			btn += "class = '" + clazz + "' ";
+		}
+		if (!StringUtils.isEmpty(dataToggle) || dataToggle != null) {
+			btn += "data-toggle = '" + dataToggle + "' ";
+		}
+		if (!StringUtils.isEmpty(dataTarget) || dataTarget != null) {
+			btn += "data-target = '" + dataTarget + "' ";
+		}
+		if (!StringUtils.isEmpty(evt) || evt != null) {
+			btn += evt + " = '" + eventName + "' ";
+		}
+		if (!StringUtils.isEmpty(title) || title != null) {
+			btn += "title = '" + title + "' ";
 		}
 		btn += ">";
 		if (tipe == 0) {

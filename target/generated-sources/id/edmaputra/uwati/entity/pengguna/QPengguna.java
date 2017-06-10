@@ -73,7 +73,7 @@ public class QPengguna extends EntityPathBase<Pengguna> {
 
     public QPengguna(Class<? extends Pengguna> type, PathMetadata<?> metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.karyawan = inits.isInitialized("karyawan") ? new id.edmaputra.uwati.entity.master.QKaryawan(forProperty("karyawan")) : null;
+        this.karyawan = inits.isInitialized("karyawan") ? new id.edmaputra.uwati.entity.master.QKaryawan(forProperty("karyawan"), inits.get("karyawan")) : null;
     }
 
 }

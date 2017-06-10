@@ -173,6 +173,12 @@ public class PenggunaController {
 			return null;
 		}
 	}
+	
+	@RequestMapping(value = "/daftarpengguna/tersedia", method = RequestMethod.GET)
+	@ResponseBody
+	public Boolean isAda(@RequestParam("nama") String nama) {
+		return penggunaService.temukan(nama) == null;
+	}
 
 	@RequestMapping(value = "/daftarpengguna/semua", method = RequestMethod.GET)
 	@ResponseBody
@@ -200,8 +206,6 @@ public class PenggunaController {
 			pengguna.setWaktuDibuat(new Date());
 			pengguna.setTerakhirDirubah(new Date());
 			pengguna.setKaryawan(karyawanService.dapatkan(ph.getKaryawan()));
-			System.out.println("Karyawan : "+ ph.getKaryawan());
-			System.out.println("Karyawan : "+ pengguna.getKaryawan().getNama());
 			penggunaService.simpan(pengguna);
 			logger.info(LogSupport.tambah(principal.getName(), pengguna.toString(), request));
 			return pengguna;

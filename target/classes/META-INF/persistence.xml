@@ -26,7 +26,9 @@
 		<class>id.edmaputra.uwati.entity.transaksi.PembelianDetailTemp</class>
 		<class>id.edmaputra.uwati.entity.transaksi.PenjualanDetailTemp</class>
 		<class>id.edmaputra.uwati.entity.transaksi.NomorFaktur</class>
-		<class>id.edmaputra.uwati.entity.master.Pasien</class>
+		<class>id.edmaputra.uwati.entity.pasien.Pasien</class>
 		<class>id.edmaputra.uwati.entity.master.obat.Tindakan</class>
+		<class>id.edmaputra.uwati.entity.pasien.RekamMedis</class>
+		<class>id.edmaputra.uwati.entity.pasien.RekamMedisDetail</class>
 	</persistence-unit>
 </persistence>

@@ -45,4 +45,5 @@ public class ObatService {
 	public List<Obat> dapatkanListByNama(BooleanExpression exp) {
 		return (List<Obat>) obatRepo.findAll(exp);
 	}
+
 }

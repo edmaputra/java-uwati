@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import id.edmaputra.uwati.entity.master.Apotek;
 import id.edmaputra.uwati.service.ApotekService;
 import id.edmaputra.uwati.support.LogSupport;
+import id.edmaputra.uwati.validator.impl.ApotekValidator;
 
 @Controller
 @RequestMapping("/profil")
@@ -31,6 +32,9 @@ public class ApotekController {
 
 	@Autowired
 	private ApotekService apotekService;
+	
+	@Autowired
+	private ApotekValidator apotekValidator;
 
 	@ModelAttribute("apotek")
 	public Apotek constructApotek() {
@@ -75,6 +79,7 @@ public class ApotekController {
 			saved.setTelepon(apotek.getTelepon());
 			saved.setTerakhirDirubah(new Date());
 			saved.setUserEditor(principal.getName());
+			apotekValidator.validate(saved);
 			apotekService.simpan(saved);
 			logger.info(LogSupport.tambah(principal.getName(), saved.toString(), request));
 			return saved;

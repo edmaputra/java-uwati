@@ -49,6 +49,13 @@
 		<!-- <put-attribute name="current" value="home" /> -->
 	</definition>
 	
+	<definition name="pasien-daftar" extends="dasar">
+		<put-attribute name="title" value="UWATI - Pasien" />
+		<put-attribute name="page_title" value="Pasien" />
+		<put-attribute name="body" value="/WEB-INF/jsps/pasien/pasien-daftar.jsp" />
+		<!-- <put-attribute name="current" value="home" /> -->
+	</definition>
+	
 	<definition name="pelanggan-daftar" extends="dasar">
 		<put-attribute name="title" value="UWATI - Pelanggan" />
 		<put-attribute name="page_title" value="Pelanggan" />

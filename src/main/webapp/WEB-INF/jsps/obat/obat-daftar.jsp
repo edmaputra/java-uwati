@@ -13,6 +13,7 @@
 <c:url var="kategoriAda" value="/kategori/ada" />
 <c:url var="satuanAda" value="/satuan/ada" />
 
+<div class="showback">
 <div class="row mt">
 	<div class="col-md-12">
 		<div class="content-panel">
@@ -48,6 +49,7 @@
 			<div id="nav"></div>
 		</div>
 	</div>
+</div>
 </div>
 
 <div class="modal fade" id="obat-modal" tabindex="-1" role="dialog"
@@ -611,8 +613,7 @@
 				hargaJual : {
 					required : "Masukkan Harga Jual Obat",
 					number : "Masukkan Angka dengan Benar",
-					min : "Masukkan Lebih dari 0",
-					regex : "^(?:0|[1-9][0-9]{0,2}(?:\.[0-9]{3})*)$"
+					min : "Masukkan Lebih dari 0"
 				},
 				hargaJualResep : {
 					required : "Masukkan Harga Jual Resep Obat",

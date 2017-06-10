@@ -30,7 +30,7 @@ public class PenggunaService {
 		return repository.findByNama(nama);
 	}
 	
-	public List<Pengguna> temukanByKaryawan(Karyawan karyawan){
+	public Pengguna temukanByKaryawan(Karyawan karyawan){
 		return repository.findByKaryawan(karyawan);
 	}
 	

@@ -31,8 +31,12 @@ public class Tindakan extends DasarEntity<Long>{
 	@Column(name = "nama", nullable = false, length = DBConf.LENGTH_NAMA)
 	private String nama;
 	
-	@Column(name = "biaya", nullable = false)
-	private BigDecimal biaya;
+	@Column(name = "kode", nullable = true, length = DBConf.LENGTH_KODE_OBAT)
+	private String kode;
+	
+	@Column(name = "tarif", nullable = false)
+	private BigDecimal tarif;
+	
 	public Long getId() {
 		return id;
 	}
@@ -49,12 +53,25 @@ public class Tindakan extends DasarEntity<Long>{
 		this.nama = nama;
 	}
 
-	public BigDecimal getBiaya() {
-		return biaya;
+	public BigDecimal getTarif() {
+		return tarif;
 	}
 
-	public void setBiaya(BigDecimal biaya) {
-		this.biaya = biaya;
+	public void setTarif(BigDecimal biaya) {
+		this.tarif = biaya;
+	}
+
+	public String getKode() {
+		return kode;
+	}
+
+	public void setKode(String kode) {
+		this.kode = kode.toUpperCase();
+	}
+
+	@Override
+	public String toString() {
+		return "Tindakan [id=" + id + ", nama=" + nama + ", kode=" + kode + ", tarif=" + tarif + "]";
 	}
 	
 }

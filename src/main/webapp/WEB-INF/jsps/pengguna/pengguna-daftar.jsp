@@ -8,6 +8,7 @@
 <c:url var="hapusUrl" value="/daftarpengguna/hapus" />
 <c:url var="dapatkanUrl" value="/daftarpengguna/dapatkan" />
 <c:url var="daftarUrl" value="/daftarpengguna/daftar" />
+<c:url var="tersedia" value="/daftarpengguna/tersedia" />
 <c:url var="roleSemuaUrl" value="/role/semua" />
 <c:url var="roleByNamaUrl" value="/role/nama" />
 <c:url var="suggestKaryawan" value="/karyawan/suggest" />
@@ -62,7 +63,8 @@
 				<h4 class="modal-title" id="myModalLabel">Pengguna Baru</h4>
 			</div>
 
-			<form:form action="${tambahUrl}" commandName="pengguna" cssClass="form style-form formTambah" method="post">
+			<form:form action="${tambahUrl}" commandName="pengguna"
+				cssClass="form style-form formTambah" method="post">
 				<div class="form-panel">
 					<div class="modal-body">
 						<div class="row">
@@ -84,14 +86,15 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Password Konfirmasi:</label> <input type="password"
-										class="form-control" name="kataSandiKonfirmasi" id="tambahKataSandiKonfirmasi" />
+										class="form-control" name="kataSandiKonfirmasi"
+										id="tambahKataSandiKonfirmasi" />
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>Aktif:</label>									
+									<label>Aktif:</label>
 									<form:checkbox path="isAktif" cssClass="form-control"
 										id="tambahIsAktif" />
 								</div>
@@ -105,16 +108,17 @@
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>Kesempatan:</label>
-									<input type="number" name="countKesalahan" class="form-control" id="tambahCountKesalahan" />									
+									<label>Kesempatan:</label> <input type="number"
+										name="countKesalahan" class="form-control"
+										id="tambahCountKesalahan" />
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>Role 1:</label> 
-									<input class="form-control" id="tambahRole1">
+									<label>Role 1:</label> <input class="form-control"
+										id="tambahRole1">
 								</div>
 							</div>
 							<div class="col-md-4">
@@ -125,16 +129,16 @@
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>Role 3:</label> <input class="form-control autocomplete-text"
-										id="tambahRole3">
+									<label>Role 3:</label> <input
+										class="form-control autocomplete-text" id="tambahRole3">
 								</div>
 							</div>
 						</div>
-						<div class = "row">
+						<div class="row">
 							<div class="col-md-7">
 								<div class="form-group">
-									<label>Karyawan:</label> 
-									<input class="form-control" id="tambahKaryawan" name="karyawan">
+									<label>Karyawan:</label> <input class="form-control"
+										id="tambahKaryawan" name="karyawan">
 								</div>
 							</div>
 						</div>
@@ -161,14 +165,15 @@
 					aria-hidden="true">&times;</button>
 				<h4 class="modal-title" id="myModalLabel">Edit Pengguna</h4>
 			</div>
-			<form:form action="${editUrl}" commandName="pengguna" cssClass="form style-form formEdit" method="post">
+			<form:form action="${editUrl}" commandName="pengguna"
+				cssClass="form style-form formEdit" method="post">
 				<div class="form-panel">
 					<div class="modal-body">
 						<div class="row">
 							<div class="col-md-7">
 								<div class="form-group">
-									<label>Nama:</label>
-									<input class="form-control" name="nama" id="editNama" disabled="disabled"/>									
+									<label>Nama:</label> <input class="form-control" name="nama"
+										id="editNama" disabled="disabled" />
 								</div>
 							</div>
 						</div>
@@ -176,21 +181,24 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Password:</label>
-									<form:password path="kataSandi" cssClass="form-control" id="editKataSandi" />
+									<form:password path="kataSandi" cssClass="form-control"
+										id="editKataSandi" />
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Password Konfirmasi:</label> <input type="password"
-										class="form-control" name="kataSandiKonfirmasi" id="editKataSandiKonfirmasi" />
+										class="form-control" name="kataSandiKonfirmasi"
+										id="editKataSandiKonfirmasi" />
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>Aktif:</label>									
-									<form:checkbox path="isAktif" cssClass="form-control" id="editIsAktif" />
+									<label>Aktif:</label>
+									<form:checkbox path="isAktif" cssClass="form-control"
+										id="editIsAktif" />
 								</div>
 							</div>
 							<div class="col-md-4">
@@ -202,43 +210,45 @@
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>Kesempatan:</label>
-									<input type="number" name="countKesalahan" class="form-control" id="editCountKesalahan" />									
+									<label>Kesempatan:</label> <input type="number"
+										name="countKesalahan" class="form-control"
+										id="editCountKesalahan" />
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>Role 1:</label> 
-									<input class="form-control" id="editRole1">
+									<label>Role 1:</label> <input class="form-control"
+										id="editRole1">
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>Role 2:</label>
-									<input class="form-control" id="editRole2">
+									<label>Role 2:</label> <input class="form-control"
+										id="editRole2">
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>Role 3:</label>
-									<input class="form-control" id="editRole3">
+									<label>Role 3:</label> <input class="form-control"
+										id="editRole3">
 								</div>
 							</div>
 						</div>
-						<div class = "row">
+						<div class="row">
 							<div class="col-md-7">
 								<div class="form-group">
-									<label>Karyawan:</label> 
-									<input class="form-control" id="editKaryawan" name="karyawan">
+									<label>Karyawan:</label> <input class="form-control"
+										id="editKaryawan" name="karyawan">
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default btnKeluar" data-dismiss="modal">Keluar</button>
+					<button type="button" class="btn btn-default btnKeluar"
+						data-dismiss="modal">Keluar</button>
 					<form:hidden path="id" cssClass="form-control" id="editId" />
 					<input type="submit" class="btn btn-primary" value="Simpan" />
 				</div>
@@ -290,8 +300,7 @@
 			$('#editIsAktif').prop('checked', pengguna.isAktif);
 			$('#editIsPertamaKali').prop('checked', pengguna.isPertamaKali);
 			$('#editCountKesalahan').val(pengguna.countKesalahan);
-// 			$('#editKaryawan').val(pengguna.karyawan.id);
-			console.log(pengguna.karyawan);
+			$('#editKaryawan').val(pengguna.karyawan.nama);
 			if ("undefined" !== typeof pengguna.roles[0].nama) {
 				$('#editRole1').val(pengguna.roles[0].nama);	
 			}
@@ -357,7 +366,16 @@
 		$(".formTambah").validate({
 			rules : {
 				nama : {
-					required : true
+					required : true,
+					remote: {
+						url: "${tersedia}",
+						type: "get",
+						data: {
+							nama: function(){
+								return $("#tambahNama").val();
+							}
+						}
+					},
 				},
 				kataSandi : {
 					minlength : 6,
@@ -385,7 +403,10 @@
 				}
 			},
 			messages : {
-				nama : "Nama Wajib Diisi",
+				nama : {
+					required : "Nama Wajib Diisi", 
+					remote : "User Sudah Ada"
+				},
 				kataSandi : {
 					minlength : "Password Harus Lebih dari 5 Karakter",
 					required : "Passord Wajib Diisi"

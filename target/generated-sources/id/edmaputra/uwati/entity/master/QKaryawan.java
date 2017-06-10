@@ -18,6 +18,8 @@ public class QKaryawan extends EntityPathBase<Karyawan> {
 
     private static final long serialVersionUID = -1065625743L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QKaryawan karyawan = new QKaryawan("karyawan");
 
     public final id.edmaputra.uwati.entity.QDasarEntity _super = new id.edmaputra.uwati.entity.QDasarEntity(this);
@@ -33,7 +35,7 @@ public class QKaryawan extends EntityPathBase<Karyawan> {
 
     public final StringPath nama = createString("nama");
 
-    public final ListPath<id.edmaputra.uwati.entity.pengguna.Pengguna, id.edmaputra.uwati.entity.pengguna.QPengguna> pengguna = this.<id.edmaputra.uwati.entity.pengguna.Pengguna, id.edmaputra.uwati.entity.pengguna.QPengguna>createList("pengguna", id.edmaputra.uwati.entity.pengguna.Pengguna.class, id.edmaputra.uwati.entity.pengguna.QPengguna.class, PathInits.DIRECT2);
+    public final id.edmaputra.uwati.entity.pengguna.QPengguna pengguna;
 
     public final StringPath sip = createString("sip");
 
@@ -52,15 +54,24 @@ public class QKaryawan extends EntityPathBase<Karyawan> {
     public final DateTimePath<java.util.Date> waktuDibuat = _super.waktuDibuat;
 
     public QKaryawan(String variable) {
-        super(Karyawan.class, forVariable(variable));
+        this(Karyawan.class, forVariable(variable), INITS);
     }
 
     public QKaryawan(Path<? extends Karyawan> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), path.getMetadata().isRoot() ? INITS : PathInits.DEFAULT);
     }
 
     public QKaryawan(PathMetadata<?> metadata) {
-        super(Karyawan.class, metadata);
+        this(metadata, metadata.isRoot() ? INITS : PathInits.DEFAULT);
+    }
+
+    public QKaryawan(PathMetadata<?> metadata, PathInits inits) {
+        this(Karyawan.class, metadata, inits);
+    }
+
+    public QKaryawan(Class<? extends Karyawan> type, PathMetadata<?> metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.pengguna = inits.isInitialized("pengguna") ? new id.edmaputra.uwati.entity.pengguna.QPengguna(forProperty("pengguna"), inits.get("pengguna")) : null;
     }
 
 }

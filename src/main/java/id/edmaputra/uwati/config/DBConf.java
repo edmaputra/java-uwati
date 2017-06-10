@@ -37,4 +37,6 @@ public class DBConf {
 	
 	public static final int LENGTH_JABATAN = 50;
 
+	public static final int LENGTH_TRANSAKSI_NOMORREKAMMEDIS = 30;
+
 }

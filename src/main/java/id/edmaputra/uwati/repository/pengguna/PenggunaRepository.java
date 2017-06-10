@@ -12,5 +12,5 @@ public interface PenggunaRepository extends JpaRepository<Pengguna, Integer>, Qu
 
 	Pengguna findByNama(String nama);
 
-	List<Pengguna> findByKaryawan(Karyawan karyawan);
+	Pengguna findByKaryawan(Karyawan karyawan);
 }

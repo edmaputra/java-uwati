@@ -12,21 +12,22 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import id.edmaputra.uwati.config.DBConf;
 import id.edmaputra.uwati.entity.DasarEntity;
 import id.edmaputra.uwati.entity.master.Karyawan;
-import id.edmaputra.uwati.entity.master.obat.Obat;
 
 @Entity
 @Table(name="pengguna", uniqueConstraints = {
 		@UniqueConstraint(columnNames = "id"),
 		@UniqueConstraint(columnNames = "nama") })
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Pengguna extends DasarEntity<Integer>{
 
 	private static final long serialVersionUID = 5813445391302629664L;
@@ -56,9 +57,9 @@ public class Pengguna extends DasarEntity<Integer>{
 			inverseJoinColumns = {@JoinColumn(name="role_id")})
 	private List<Role> roles = new ArrayList<>();
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "id_karyawan", nullable = true)
-	@JsonIgnore
+//	@JsonIgnore
 	private Karyawan karyawan;
 	
 	public Pengguna(){

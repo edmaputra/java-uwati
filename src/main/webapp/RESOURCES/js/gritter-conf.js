@@ -2,7 +2,7 @@ var Gritter = function () {
    $('#gritter-tambah-sukses').click(function(){
         $.gritter.add({
             title: 'SUKSES',
-            text: 'Data Berhasil Di   tambahkan Dat a Berhasil Ditambahkan Data Berhasil Ditambahkan Data Berhasil Ditambahkan'
+            text: 'Data Berhasil Ditambahkan'
         });
         return false;
     });

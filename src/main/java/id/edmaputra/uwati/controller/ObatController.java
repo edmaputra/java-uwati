@@ -31,7 +31,6 @@ import com.mysema.query.types.expr.BooleanExpression;
 import id.edmaputra.uwati.entity.master.obat.Obat;
 import id.edmaputra.uwati.entity.master.obat.ObatDetail;
 import id.edmaputra.uwati.entity.master.obat.ObatExpired;
-import id.edmaputra.uwati.entity.master.obat.ObatHandler;
 import id.edmaputra.uwati.entity.master.obat.ObatStok;
 import id.edmaputra.uwati.service.KategoriService;
 import id.edmaputra.uwati.service.SatuanService;
@@ -45,6 +44,7 @@ import id.edmaputra.uwati.support.LogSupport;
 import id.edmaputra.uwati.view.Formatter;
 import id.edmaputra.uwati.view.Html;
 import id.edmaputra.uwati.view.HtmlElement;
+import id.edmaputra.uwati.view.handler.ObatHandler;
 import id.edmaputra.uwati.view.json.JsonReturn;
 import id.edmaputra.uwati.view.json.Suggestion;
 

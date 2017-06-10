@@ -21,14 +21,16 @@ public class QTindakan extends EntityPathBase<Tindakan> {
 
     public final id.edmaputra.uwati.entity.QDasarEntity _super = new id.edmaputra.uwati.entity.QDasarEntity(this);
 
-    public final NumberPath<java.math.BigDecimal> biaya = createNumber("biaya", java.math.BigDecimal.class);
-
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     //inherited
     public final StringPath info = _super.info;
 
+    public final StringPath kode = createString("kode");
+
     public final StringPath nama = createString("nama");
+
+    public final NumberPath<java.math.BigDecimal> tarif = createNumber("tarif", java.math.BigDecimal.class);
 
     //inherited
     public final DateTimePath<java.util.Date> terakhirDirubah = _super.terakhirDirubah;
