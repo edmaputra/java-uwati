@@ -19,8 +19,8 @@
 							<button class="btn btn-primary btnTambah" data-toggle="modal"
 								data-target="#pasien-modal">Pasien Baru</button>
 							<!-- 							<a  href="#" data-toggle="modal" data-target="#pasien-modal-rm">Coba</a> -->
-							<a href='#' data-toggle='modal' data-target='#pasien-modal-rm'>Rekam
-								Medis</a>
+							<a href='#' class="btn btn-primary" data-toggle='modal' data-target='#pasien-modal-rm'><i class='fa fa-address-card'></i></a>
+							
 
 						</security:authorize>
 					</div>

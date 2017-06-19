@@ -105,6 +105,13 @@
 		<!-- <put-attribute name="current" value="home" /> -->
 	</definition>
 	
+	<definition name="rekam-medis-daftar" extends="dasar">
+		<put-attribute name="title" value="UWATI - Rekam Medis" />
+		<put-attribute name="page_title" value="Rekam Medis" />
+		<put-attribute name="body" value="/WEB-INF/jsps/rekam-medis/rekam-medis-daftar.jsp" />
+		<!-- <put-attribute name="current" value="home" /> -->
+	</definition>
+	
 	<definition name="role-daftar" extends="dasar">
 		<put-attribute name="title" value="UWATI - Role" />
 		<put-attribute name="page_title" value="Role" />

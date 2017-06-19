@@ -203,20 +203,19 @@ public class PasienController {
 		String html = "";
 		String thead = "<thead><tr>"
 				+ "<th>Id</th>"
-				+ "<th>Pasien</th>"
-				+ "<th>Rekam Medis</th>";
+				+ "<th>Pasien</th>";				
 		if (request.isUserInRole("ROLE_ADMIN") || request.isUserInRole("ROLE_MEDIS")) {
 			thead += "<th>User Input</th>" + "<th>Waktu Dibuat</th>" + "<th>User Editor</th>"
 					+ "<th>Terakhir Diubah</th>";
 		}
+		thead += "<th>Rekam Medis</th>";
 		thead += "<th></th></tr></thead>";
 		String data = "";
 		for (Pasien t : list.getContent()) {
 			String row = "";
 			String btn = "";
 			row += Html.td(t.getId().toString());
-			row += Html.td(t.getNama());
-			row += Html.td(Html.a("Rekam Medis", null, null, null, "#", "modal", "#pasien-modal-rm"));
+			row += Html.td(t.getNama());			
 			if (request.isUserInRole("ROLE_ADMIN") || request.isUserInRole("ROLE_MEDIS")) {
 				row += Html.td(t.getUserInput());
 				row += Html.td(Formatter.formatTanggal(t.getWaktuDibuat()));
@@ -229,6 +228,7 @@ public class PasienController {
 				btn += Html.button("btn btn-danger btn-xs", "modal", "#pasien-modal-hapus", "onClick",
 						"setIdUntukHapus(" + t.getId() + ")", 1, "Hapus Data");
 			}
+			row += Html.td(Html.a("<i class='fa fa-book'></i>", ", btn btn-primary btn-xs", null, null, "/uwati/rekam-medis/"+t.getId(), null, null));
 			row += Html.td(btn);
 			data += Html.tr(row);
 		}
