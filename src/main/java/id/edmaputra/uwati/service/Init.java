@@ -109,28 +109,28 @@ public class Init {
 //		penggunaRepo.save(apotik);
 //		penggunaRepo.save(medis);
 //
-//		Satuan pcs = buatSatuan("PCS");
-//		satuanRepo.save(pcs);
-//
-//		Satuan botol = buatSatuan("BOTOL");
-//		satuanRepo.save(botol);
-//
-//		Satuan kapsul = buatSatuan("KAPSUL");
-//		satuanRepo.save(kapsul);
-//
-//		Satuan kaplet = buatSatuan("KAPLET");
-//		satuanRepo.save(kaplet);
+		Satuan pcs = buatSatuan("PCS");
+		satuanRepo.save(pcs);
+
+		Satuan botol = buatSatuan("BOTOL");
+		satuanRepo.save(botol);
+
+		Satuan kapsul = buatSatuan("KAPSUL");
+		satuanRepo.save(kapsul);
+
+		Satuan kaplet = buatSatuan("KAPLET");
+		satuanRepo.save(kaplet);
 //
 //		for (int i = 0; i < 50; i++) {
 //			Satuan sat = buatSatuan("SATUAN" + i);
 //			satuanRepo.save(sat);
 //		}
 //
-//		Kategori ok = buatKategori("OBAT KERAS");
-//		kategoriRepo.save(ok);
-//
-//		Kategori ll = buatKategori("LAIN-LAIN");
-//		kategoriRepo.save(ll);
+		Kategori ok = buatKategori("OBAT KERAS");
+		kategoriRepo.save(ok);
+
+		Kategori ll = buatKategori("LAIN-LAIN");
+		kategoriRepo.save(ll);
 //
 //		for (int i = 0; i < 7; i++) {
 //			Dokter d = buatDokter("DOKTER " + i, "SPESIALIS " + i, i + "XXXX", "Jln. " + i);
@@ -142,20 +142,20 @@ public class Init {
 //			pelangganRepo.save(p);
 //		}
 //		//
-//		for (int i = 0; i < 10; i++) {
-//			Obat obat = buatObat("OBAT " + i, "K-" + i, kaplet, ll, null, null, null, null, 50, 0);
-//			obatRepo.save(obat);
-//
-//			ObatDetail obatDetail = buatObatDetail(obat, new BigDecimal(i * 10000), new BigDecimal(i * 9000),
-//					new BigDecimal(i * 1000), new BigDecimal(i * 100));
-//			obatDetailRepo.save(obatDetail);
-//
-//			ObatStok obatStok = buatObatStok(obat, new Integer(i * 100));
-//			obatStokRepo.save(obatStok);
-//
-//			ObatExpired obatExpired = buatObatExpired(obat, new Date());
-//			obatExpiredRepo.save(obatExpired);
-//		}
+		for (int i = 0; i < 10; i++) {
+			Obat obat = buatObat("OBAT " + i, "K-" + i, kaplet, ll, null, null, null, null, 50, 0);
+			obatRepo.save(obat);
+
+			ObatDetail obatDetail = buatObatDetail(obat, new BigDecimal(i * 10000), new BigDecimal(i * 9000),
+					new BigDecimal(i * 1000), new BigDecimal(i * 100));
+			obatDetailRepo.save(obatDetail);
+
+			ObatStok obatStok = buatObatStok(obat, new Integer(i * 100));
+			obatStokRepo.save(obatStok);
+
+			ObatExpired obatExpired = buatObatExpired(obat, new Date());
+			obatExpiredRepo.save(obatExpired);
+		}
 		//
 		Apotek a = buatApotek("APOTEK FERRY", "Jalan Jelarai Tanjung Selor", "0552-12121");
 		apotekRepo.save(a);

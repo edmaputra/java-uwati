@@ -136,12 +136,8 @@ public class PenjualanObatController {
 	public PenjualanDetailTemp tambahObat(@RequestBody PenjualanDetailTemp pdt, BindingResult result,
 			Principal principal, HttpServletRequest request) {
 		try {
-			pdt.setSubTotal(Formatter.patternCurrency(Integer.valueOf(pdt.getSubTotal()).intValue()));
-			pdt.setPengguna(principal.getName());
-			pdt.setWaktuDibuat(new Date());
-			pdt.setTerakhirDirubah(new Date());
 			String nomorFaktur = pdt.getNomorFaktur();
-			if (nomorFaktur == null || StringUtils.isBlank(nomorFaktur)) {
+			if (nomorFaktur == null || StringUtils.isBlank(nomorFaktur)) {				
 				String nF = generateNomorFaktur(pdt.getTanggal());
 				pdt.setNomorFaktur(nF);
 				NomorFaktur newNF = new NomorFaktur();
@@ -152,8 +148,20 @@ public class PenjualanObatController {
 				newNF.setWaktuDibuat(new Date());
 				newNF.setTerakhirDirubah(new Date());
 				nomorFakturService.simpan(newNF);
-			}
-			penjualanDetailTempService.simpan(pdt);
+			}		
+			
+			PenjualanDetailTemp temp = penjualanDetailTempService.dapatkanByObatAndNomorFaktur(pdt.getObat(),nomorFaktur);
+			if (temp != null){
+				temp = updateTemp(pdt, temp, principal.getName());
+				penjualanDetailTempService.simpan(temp);
+			} else {
+				pdt.setSubTotal(Formatter.patternCurrency(Integer.valueOf(pdt.getSubTotal()).intValue()));
+				pdt.setPengguna(principal.getName());
+				pdt.setWaktuDibuat(new Date());
+				pdt.setTerakhirDirubah(new Date());
+				penjualanDetailTempService.simpan(pdt);
+			}			
+			
 			updateStokObat(pdt.getObat(), pdt.getJumlah(), 0);
 			logger.info(LogSupport.tambah(principal.getName(), pdt.toString(), request));
 			return pdt;
@@ -169,10 +177,7 @@ public class PenjualanObatController {
 	public PenjualanDetailTemp tambahRacikanTemp(@RequestBody PenjualanDetailTemp pdt, BindingResult result,
 			Principal principal, HttpServletRequest request) {
 		try {
-			if (cekStokObatFromRacikan(pdt) == "OK") {
-				pdt.setPengguna(principal.getName());
-				pdt.setWaktuDibuat(new Date());
-				pdt.setTerakhirDirubah(new Date());
+			if (cekStokObatFromRacikan(pdt) == "OK") {				
 				String nomorFaktur = pdt.getNomorFaktur();
 				if (nomorFaktur == null || StringUtils.isBlank(nomorFaktur)) {
 					String nF = generateNomorFaktur(pdt.getTanggal());
@@ -186,8 +191,20 @@ public class PenjualanObatController {
 					newNF.setTerakhirDirubah(new Date());
 					nomorFakturService.simpan(newNF);
 				}
-				pdt.setInfo(cekStokObatFromRacikan(pdt));
-				penjualanDetailTempService.simpan(pdt);
+				
+				PenjualanDetailTemp temp = penjualanDetailTempService.dapatkanByObatAndNomorFaktur(pdt.getObat(),nomorFaktur);				
+				if (temp != null){					
+					temp = updateTemp(pdt, temp, principal.getName());
+					pdt.setInfo(cekStokObatFromRacikan(pdt));
+					penjualanDetailTempService.simpan(temp);					
+				} else {
+					pdt.setSubTotal(Formatter.patternCurrency(Integer.valueOf(pdt.getSubTotal()).intValue()));
+					pdt.setInfo(cekStokObatFromRacikan(pdt));
+					pdt.setPengguna(principal.getName());
+					pdt.setWaktuDibuat(new Date());
+					pdt.setTerakhirDirubah(new Date());
+					penjualanDetailTempService.simpan(pdt);
+				}
 				updateStokObat(pdt.getObat(), pdt.getJumlah(), 0);
 				logger.info(LogSupport.tambah(principal.getName(), pdt.toString(), request));
 			} else {
@@ -393,6 +410,20 @@ public class PenjualanObatController {
 			System.out.println(e.getMessage());
 			return null;
 		}		
+	}
+	
+	private PenjualanDetailTemp updateTemp(PenjualanDetailTemp pdt, PenjualanDetailTemp temp, String pengguna){
+		Integer jumlahTersimpan = Integer.valueOf(temp.getJumlah()).intValue();
+		Integer jumlahBaru = jumlahTersimpan + Integer.valueOf(pdt.getJumlah()).intValue();
+		temp.setJumlah(jumlahBaru.toString());
+		BigDecimal harga = new BigDecimal(pdt.getHargaJual().replaceAll("[.,]", ""));
+		BigDecimal subTotalBaru = harga.multiply(new BigDecimal(jumlahBaru));
+		temp.setHargaJual(pdt.getHargaJual());
+		temp.setSubTotal(Formatter.patternCurrency(subTotalBaru));
+		temp.setPengguna(pengguna);
+		temp.setWaktuDibuat(new Date());
+		temp.setTerakhirDirubah(new Date());
+		return temp;
 	}
 
 	private void updateStokObat(String obat, String jumlah, int operasi) {

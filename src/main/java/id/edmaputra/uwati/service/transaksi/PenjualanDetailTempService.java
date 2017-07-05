@@ -33,6 +33,10 @@ public class PenjualanDetailTempService {
 	public PenjualanDetailTemp dapatkan(Long id, String nomorFaktur) {
 		return penjualanDetailTempRepo.findByIdAndNomorFaktur(id, nomorFaktur);
 	}
+	
+	public PenjualanDetailTemp dapatkanByObatAndNomorFaktur(String obat, String nomorFaktur) {
+		return penjualanDetailTempRepo.findByObatAndNomorFaktur(obat, nomorFaktur);
+	}
 
 	public Page<PenjualanDetailTemp> muatDaftar(Integer halaman, BooleanExpression expression) {
 		PageRequest request = new PageRequest(halaman - 1, PAGE_SIZE, Sort.Direction.ASC, "id");
