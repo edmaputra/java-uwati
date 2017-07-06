@@ -31,5 +31,13 @@ public class PasienPredicateBuilder {
 					.or(QPasien.pasien.pekerjaan.containsIgnoreCase(cari)));
 		}
 	}
+	
+	public void id(Long id){
+		if (hasil == null){
+			hasil = QPasien.pasien.id.eq(id);					
+		} else {
+			hasil = hasil.and(QPasien.pasien.id.eq(id));
+		}
+	}
 
 }

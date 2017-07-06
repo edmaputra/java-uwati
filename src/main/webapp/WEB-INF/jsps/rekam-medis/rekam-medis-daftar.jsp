@@ -3,41 +3,81 @@
 
 <%@ include file="../../layouts/taglib.jsp"%>
 
-<c:url var="tambahUrl" value="/role/tambah" />
-<c:url var="editUrl" value="/role/edit" />
-<c:url var="hapusUrl" value="/role/hapus" />
-<c:url var="dapatkanUrl" value="/role/dapatkan" />
-<c:url var="daftarUrl" value="/role/daftar" />
+<c:url var="tambahUrl" value="/rekammedis/tambah" />
+<c:url var="editUrl" value="/rekammedis/edit" />
+<c:url var="hapusUrl" value="/rekammedis/hapus" />
+<c:url var="dapatkanUrl" value="/rekammedis/dapatkan" />
+<c:url var="daftarUrl" value="/rekammedis/daftar" />
 
 <div class="showback">
 	<div class="row mt">
 		<div class="col-md-12">
+			<form class="form-horizontal style-form" method="get">
+				<div class="form-group">
+					<input type="hidden" class="form-control" value="${pasien.id}" id="pasienId">
+					<label class="col-sm-1 control-label">Nama</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" value="${pasien.nama}" readonly="readonly">
+					</div>
+					<label class="col-sm-1 control-label" style="text-align: right;">Gender</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" value="${pasien.jenisKelamin}" readonly="readonly">
+					</div>
+					<label class="col-sm-1 control-label" style="text-align: right;">Usia</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" value="${pasien.jenisKelamin}" readonly="readonly">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-1 control-label">ALamat</label>
+					<div class="col-sm-11">
+						<input type="text" class="form-control" value="${pasien.alamat}" readonly="readonly">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Asuransi Kesehatan</label>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" value="${pasien.jaminanKesehatan}" readonly="readonly">
+					</div>
+					<label class="col-sm-1 control-label">Nomor</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" value="${pasien.nomorJaminan}" readonly="readonly">
+					</div>
+				</div>
+			</form>
 			<div class="content-panel">
 				<div class="row">
 					<div class="col-md-2 ">
-						<security:authorize access="hasAnyRole('ADMIN')">
+						<security:authorize access="hasAnyRole('ADMIN','MEDIS')">
 							<button class="btn btn-primary" data-toggle="modal"
-								data-target="#role-modal">Role Baru</button>
+								data-target="#rm-modal">Rekam Medis Baru</button>
 						</security:authorize>
 					</div>
 
 					<div class="col-md-10">
 						<form class="form-inline pull-right" id="formCari">
 							<div class="form-group">
-								<input type="text" id="stringCari" class="form-control" placeholder="Pencarian" style="width: 250px" />
+								<input type="text" id="stringTanggalCari" class="form-control datePicker"
+									placeholder="Tanggal" style="width: 100px" />
+							</div>
+							<div class="form-group">
+								<input type="text" id="stringCari" class="form-control"
+									placeholder="Pencarian" style="width: 250px" />
 							</div>
 							<div class="form-group">
 								<button type="button" class="btn btn-primary" id="btnCari">Cari</button>
 							</div>
 							<div class="form-group">
-								<button type="button" class="btn btn-default" id="btnReset" onclick="refresh(1,'')">Reset</button>
-							</div>						
+								<button type="button" class="btn btn-default" id="btnReset"
+									onclick="refresh(1,'')">Reset</button>
+							</div>
 						</form>
 					</div>
 				</div>
 				<br />
 
-				<table class="table table-striped table-advance table-hover" id="tabel">
+				<table class="table table-striped table-advance table-hover"
+					id="tabel">
 				</table>
 				<div id="nav"></div>
 			</div>
@@ -45,45 +85,47 @@
 	</div>
 </div>
 
-<div class="modal fade" id="role-modal" tabindex="-1" role="dialog"
+<div class="modal fade" id="rm-modal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-sm">
+	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Role Baru</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Rekam Medis Baru</h4>
 			</div>
-
-			<form:form action="${tambahUrl}" commandName="role"
-				cssClass="form-horizontal style-form formTambah" method="post">
-				<div class="form-panel">
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group">
-									<label>Nama:</label>
-									<form:input path="nama" cssClass="form-control" id="tambahNama" />
-
-									<form:hidden path="id" cssClass="form-control" id="tambahId" />
-								</div>
-							</div>
-						</div>
+			<form class="form style-form formTambah" method="post">
+			<div class="form-panel">
+				<div class="modal-body">
+					<div class="form-group">
+						<label>Tanggal:</label>
+						<input type="text" name="tanggal" class="form-control datePicker" id="tanggal" style="width: 300px"/>
+					</div>
+					<div class="form-group">
+						<label>Anamnesa :</label>
+						<textarea class="form-control" rows="3" name="anamnesa" id="anamnesa"></textarea>						
+					</div>
+					<div class="form-group">
+						<label>Pemeriksaan :</label>
+						<textarea class="form-control" rows="3" name="pemeriksaan" id="pemeriksaan"></textarea>						
+					</div>
+					<div class="form-group">
+						<label>Diagnosa :</label>
+						<textarea class="form-control" rows="3" name="diagnosa" id="diagnosa"></textarea>						
 					</div>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default btnKeluar"
-						data-dismiss="modal">Keluar</button>
+			</div>
+			<div class="modal-footer">
+					<button type="button" class="btn btn-default btnKeluar" data-dismiss="modal">Keluar</button>
+					<input type="hidden" name="id" class="form-control" id="ids" /> 
 					<input type="submit" class="btn btn-primary" value="Simpan" />
 				</div>
-
-			</form:form>
+			</form>
 		</div>
 	</div>
 </div>
 
-<div class="modal fade" id="role-modal-edit" tabindex="-1"
-	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="role-modal-edit" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-sm">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -91,27 +133,17 @@
 					aria-hidden="true">&times;</button>
 				<h4 class="modal-title" id="myModalLabel">Edit Role</h4>
 			</div>
-			<form:form action="${editUrl}" commandName="role"
-				cssClass="form-horizontal style-form formEdit" method="post">
-				<div class="form-panel">
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group">
-									<label>Nama:</label>
-									<form:input path="nama" cssClass="form-control" id="editNama" />
-									<form:hidden path="id" cssClass="form-control" id="editId" />
-								</div>
-							</div>
-						</div>
+			
+			<form class="form style-form formTambah" method="post">
+			<div class="form-panel">
+				<div class="modal-body">
+					<div class="form-group">
+						<label>Anamnesa</label>
+						<textarea class="form-control" rows="5" name="anamnesa" id="anamnesa"></textarea>						
 					</div>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default btnKeluar"
-						data-dismiss="modal">Keluar</button>
-					<input type="submit" class="btn btn-primary" value="Simpan" />
-				</div>
-			</form:form>
+			</div>
+			</form>
 		</div>
 	</div>
 </div>
@@ -123,22 +155,14 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Hapus Role</h4>
+				<h4 class="modal-title" id="myModalLabel">Hapus</h4>
 			</div>
 			<div class="form-panel">
 				<div class="modal-body">
 					<p>Apakah Anda Yakin Ingin Menghapus ?</p>
 				</div>
 			</div>
-			<form:form action="${hapusUrl}" commandName="role"
-				cssClass="form-horizontal style-form formHapus" method="post">
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default btnKeluar"
-						id="keluarModalHapus" data-dismiss="modal">Tidak</button>
-					<form:hidden path="id" cssClass="form-control" id="hapusId" />
-					<input type="submit" class="btn btn-danger" value="Hapus" />
-				</div>
-			</form:form>
+
 		</div>
 	</div>
 </div>
@@ -150,7 +174,9 @@
 
 <script>
 	function getData(ids) {
-		var data = {id:ids};		
+		var data = {
+			id : ids
+		};
 		$.getAjax('${dapatkanUrl}', data, function(result) {
 			$('#editNama').val(result.nama);
 			$('#editId').val(ids);
@@ -161,8 +187,12 @@
 		$('#hapusId').val(ids);
 	}
 
-	function refresh(halaman, find) {
-		var data = { hal : halaman, cari : find };
+	function refresh(halaman, find, tanggal) {
+		var data = {
+			hal : halaman,
+			cari : find,
+			tgl : tanggal
+		};
 
 		$.getAjax('${daftarUrl}', data, function(result) {
 			$('#tabel').empty();
@@ -173,10 +203,10 @@
 	}
 
 	$(document).ready(function() {
-		refresh(1, '');
+		refresh(1, '', '');
 
 		$('#btnCari').click(function() {
-			refresh(1, $('#stringCari').val());
+			refresh(1, $('#stringCari').val(), $('#stringTanggalCari').val());
 		});
 
 		$(".formTambah").validate({

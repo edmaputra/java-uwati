@@ -45,7 +45,7 @@ public class RekamMedis extends DasarEntity<Long>{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date tanggal;
 		
-	@Column(name="nomor", nullable=false, length=DBConf.LENGTH_TRANSAKSI_NOMORREKAMMEDIS)
+	@Column(name="nomor", nullable=true, length=DBConf.LENGTH_TRANSAKSI_NOMORREKAMMEDIS)
 	private String nomor;
 	
 	@Lob
