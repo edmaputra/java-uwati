@@ -37,6 +37,11 @@ public class ObatService {
 		PageRequest request = new PageRequest(halaman - 1, PAGE_SIZE, Sort.Direction.ASC, "id");
 		return obatRepo.findAll(expression, request);
 	}
+	
+	public Page<Obat> muatDaftar(Integer halaman, BooleanExpression expression, int size) {
+		PageRequest request = new PageRequest(halaman - 1, size, Sort.Direction.ASC, "id");
+		return obatRepo.findAll(expression, request);
+	}
 
 	public void hapus(Obat obat) {
 		obatRepo.delete(obat);

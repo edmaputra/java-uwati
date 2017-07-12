@@ -18,11 +18,7 @@
 						<security:authorize access="hasAnyRole('ADMIN','MEDIS')">
 							<button class="btn btn-primary btnTambah" data-toggle="modal"
 								data-target="#pasien-modal">Pasien Baru</button>
-							<!-- 							<a  href="#" data-toggle="modal" data-target="#pasien-modal-rm">Coba</a> -->
-							<a href='#' class="btn btn-primary" data-toggle='modal' data-target='#pasien-modal-rm'><i class='fa fa-address-card'></i></a>
-							
-
-						</security:authorize>
+							</security:authorize>
 					</div>
 
 					<div class="col-md-10">
@@ -153,80 +149,6 @@
 						type="submit" class="btn btn-primary" value="Simpan" />
 				</div>
 
-			</form>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="pasien-modal-rm" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Detail dan Rekam
-					Medis Pasien</h4>
-			</div>
-			<div class="modal-body">
-				<div class="form-panel">
-					<h4 class="mb">
-						<i class="fa fa-angle-right"></i> Pasien
-					</h4>
-					<form class="form-horizontal">
-						<div class="form-group">
-							<label class="col-sm-2 control-label" style="text-align: right;">Nama
-								:</label> <label class="col-sm-6 control-label"><strong>Diar
-									Resti Andari Winangsih</strong></label>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label" style="text-align: right;">Jenis
-								Kelamin :</label> <label class="col-sm-2 control-label"><strong>Perempuan</strong></label>
-							<label class="col-sm-2 control-label" style="text-align: right;">Usia
-								:</label> <label class="col-sm-2 control-label"><strong>31
-									Th 2 bln</strong></label>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label" style="text-align: right;">Alamat
-								:</label> <label class="col-sm-10 control-label"><strong>Jalan
-									Kol. Soetadji No. 36 Tanjung Selor, Kabupaten Bulungan,
-									Kalimantan Utaraaaaaaaaaaaaaaaa</strong></label>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label" style="text-align: right;">Jaminan
-								:</label> <label class="col-sm-3 control-label"><Strong>BPJS</Strong></label>
-							<label class="col-sm-2 control-label" style="text-align: right;">Nomor
-								:</label> <label class="col-sm-3 control-label"><strong>1234567890123456</strong></label>
-						</div>
-					</form>
-
-				</div>
-
-				<div class="form-panel">
-					<h4 class="mb">
-						<i class="fa fa-angle-right"></i> Rekam Medis
-					</h4>
-					<div class="row">
-						<div class="col-md-2 ">
-							<security:authorize access="hasAnyRole('ADMIN','MEDIS')">
-								<button class="btn btn-primary btn-rekam-medis" data-toggle="modal" data-target="#pasien-modal-hapus">Rekam Medis Baru</button>
-							</security:authorize>
-						</div>
-					</div>
-					
-					<table class="table table-striped table-advance table-hover"
-						id="tabel-rekam-medis">
-					</table>
-					<div id="nav-rekam-medis"></div>
-				</div>
-			</div>
-			<form class="form-horizontal style-form formHapus" method="post">
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default btnKeluar"
-						id="keluarModalHapus" data-dismiss="modal">Tidak</button>
-					<input type="hidden" name="id" class="form-control" id="hapusId" />
-					<input type="submit" class="btn btn-danger" value="Hapus" />
-				</div>
 			</form>
 		</div>
 	</div>

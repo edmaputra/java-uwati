@@ -141,8 +141,7 @@ public class ObatController {
 			return null;
 		}
 	}
-	
-	
+
 	@RequestMapping(value = "/nama", method = RequestMethod.GET)
 	@ResponseBody
 	public Obat dapatkanObatByNama(@RequestParam("nama") String nama) {
@@ -159,7 +158,7 @@ public class ObatController {
 	@ResponseBody
 	public Obat tambahObat(@RequestBody ObatHandler h, BindingResult result, Principal principal,
 			HttpServletRequest request) {
-		try {			
+		try {
 			Obat obat = new Obat();
 			obat = setObatContent(obat, h);
 			obat.setUserInput(principal.getName());
@@ -167,7 +166,7 @@ public class ObatController {
 
 			List<ObatDetail> lOD = new ArrayList<>();
 			ObatDetail obatDetail = new ObatDetail();
-			obatDetail = setObatDetailContent(obat, obatDetail, h);		
+			obatDetail = setObatDetailContent(obat, obatDetail, h);
 			obatDetail.setUserInput(principal.getName());
 			obatDetail.setWaktuDibuat(new Date());
 			lOD.add(obatDetail);
@@ -205,7 +204,8 @@ public class ObatController {
 	@Transactional
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	@ResponseBody
-	public Obat editObat(@RequestBody ObatHandler h, BindingResult result, Principal principal, HttpServletRequest request) {
+	public Obat editObat(@RequestBody ObatHandler h, BindingResult result, Principal principal,
+			HttpServletRequest request) {
 		Obat edit = getObat(h.getId());
 		String entity = edit.toString();
 		try {
@@ -213,8 +213,8 @@ public class ObatController {
 			edit = setObatContent(edit, h);
 			edit.setUserEditor(principal.getName());
 			edit.setTerakhirDirubah(new Date());
-						
-			for (ObatDetail od:edit.getDetail()){
+
+			for (ObatDetail od : edit.getDetail()) {
 				od = setObatDetailContent(edit, od, h);
 				od.setUserEditor(principal.getName());
 				od.setTerakhirDirubah(new Date());
@@ -222,30 +222,30 @@ public class ObatController {
 				i++;
 			}
 			i = 0;
-		
-			for(ObatStok stok:edit.getStok()){				
-				stok = setObatStokDetailContent(edit, stok, h);				
-				stok.setUserEditor(principal.getName());				
-				stok.setTerakhirDirubah(new Date());				
+
+			for (ObatStok stok : edit.getStok()) {
+				stok = setObatStokDetailContent(edit, stok, h);
+				stok.setUserEditor(principal.getName());
+				stok.setTerakhirDirubah(new Date());
 				edit.getStok().set(i, stok);
 				i++;
 			}
 			i = 0;
-			
-			for (ObatExpired expired : edit.getExpired()){
+
+			for (ObatExpired expired : edit.getExpired()) {
 				expired = setObatExpiredContent(edit, expired, h);
 				expired.setUserEditor(principal.getName());
 				expired.setTerakhirDirubah(new Date());
 				edit.getExpired().set(i, expired);
 				i++;
-			}			
-			
-			obatService.simpan(edit);			
+			}
+
+			obatService.simpan(edit);
 			logger.info(LogSupport.edit(principal.getName(), entity, request));
 			return edit;
 		} catch (Exception e) {
 			logger.info(e.getMessage());
-			logger.info(LogSupport.editGagal(principal.getName(), entity, request));			
+			logger.info(LogSupport.editGagal(principal.getName(), entity, request));
 			return null;
 		}
 	}
@@ -267,7 +267,7 @@ public class ObatController {
 			return null;
 		}
 	}
-	
+
 	@RequestMapping(value = "/cariobat", method = RequestMethod.GET)
 	@ResponseBody
 	public Suggestion suggestionObatByNama(@RequestParam("query") String nama) {
@@ -276,7 +276,7 @@ public class ObatController {
 			if (!StringUtils.isBlank(nama)) {
 				builder.nama(nama);
 			}
-			
+
 			builder.tipe(0);
 
 			BooleanExpression exp = builder.getExpression();
@@ -296,6 +296,47 @@ public class ObatController {
 			logger.info(e.getMessage());
 			return null;
 		}
+	}
+
+	@RequestMapping(value = "/obat-tindakan", method = RequestMethod.GET)
+	@ResponseBody
+	public HtmlElement dapatkanDaftarForTransaksi(
+			@RequestParam(value = "hal", defaultValue = "1", required = false) Integer halaman,
+			@RequestParam(value = "cari", defaultValue = "", required = false) String cari, HttpServletRequest request,
+			HttpServletResponse response) {
+		try {
+			HtmlElement el = new HtmlElement();
+			Page<Obat> page = getListObatAndTindakan(halaman, cari);
+
+			String button = buttonListGenerator(page, request);
+			el.setButton(button);
+
+			if (page.hasContent()) {
+				int current = page.getNumber() + 1;
+				int next = current + 1;
+				int prev = current - 1;
+
+				String h = navigasiHalamanGenerator(prev, current, next, page.getTotalPages(), cari);
+				el.setNavigasiObat(h);
+			}
+			return el;
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+			return null;
+		}
+	}
+
+	private Page<Obat> getListObatAndTindakan(Integer halaman, String nama) {
+		ObatPredicateBuilder builder = new ObatPredicateBuilder();
+		if (!StringUtils.isBlank(nama)) {
+			builder.nama(nama);
+		}
+
+		builder.tipe(0);
+//		builder.tipe(2);
+
+		BooleanExpression exp = builder.getExpression();
+		return obatService.muatDaftar(halaman, exp, 15);
 	}
 
 	private String tabelGenerator(Page<Obat> list, HttpServletRequest request) {
@@ -374,8 +415,35 @@ public class ObatController {
 
 		return nav;
 	}
+
+	private String navigasiHalamanGenerator(int prev, int current, int next, int totalPage, String cari) {
+		String html = "";
+
+		if (current == 1) {
+			html += Html.aJs("&gt;", "btn btn-primary", "onClick", "refreshObat(" + next + ",\"" + cari + "\")");
+		}
+		if (current == totalPage) {
+			html += Html.aJs("&lt;", "btn btn-primary", "onClick", "refreshObat(" + prev + ",\"" + cari + "\")");
+		} else if (current > 1 && current < totalPage){
+			html += Html.aJs("&lt;", "btn btn-primary", "onClick", "refreshObat(" + prev + ",\"" + cari + "\")");
+			html += Html.aJs("&gt;", "btn btn-primary", "onClick", "refreshObat(" + next + ",\"" + cari + "\")");
+		}
+//		System.out.println(html);
+		return html;
+	}
+
+	private String buttonListGenerator(Page<Obat> list, HttpServletRequest request) {
+		String button = "";
+		button += "<div class='btn-group btn-group-justified'>";
+		for (int i = 0; i < list.getContent().size(); i++) {
+			button += Html.aJs(list.getContent().get(i).getNama(), "btn btn-default", "onClick", "tambahObat(" + list.getContent().get(i).getId() + ")");			
+		}
+		button += "</div>";
 		
-	private Obat getObat(Long id){
+		return button;
+	}
+
+	private Obat getObat(Long id) {
 		Obat get = obatService.dapatkan(id);
 
 		List<ObatDetail> lObatDetail = obatDetailService.temukanByObat(get);
@@ -391,8 +459,8 @@ public class ObatController {
 		Hibernate.initialize(get.getExpired());
 		return get;
 	}
-	
-	private Obat getObat(String nama){
+
+	private Obat getObat(String nama) {
 		Obat get = obatService.dapatkanByNama(nama);
 
 		List<ObatDetail> lObatDetail = obatDetailService.temukanByObat(get);
@@ -408,8 +476,8 @@ public class ObatController {
 		Hibernate.initialize(get.getExpired());
 		return get;
 	}
-	
-	private Obat setObatContent(Obat obat, ObatHandler h){
+
+	private Obat setObatContent(Obat obat, ObatHandler h) {
 		obat.setNama(h.getNama());
 		obat.setKode(h.getKode());
 		obat.setBarcode(h.getBarcode());
@@ -421,37 +489,39 @@ public class ObatController {
 		obat.setTerakhirDirubah(new Date());
 		return obat;
 	}
-	
-	private ObatDetail setObatDetailContent(Obat obat, ObatDetail obatDetail, ObatHandler h){
+
+	private ObatDetail setObatDetailContent(Obat obat, ObatDetail obatDetail, ObatHandler h) {
 		obatDetail.setObat(obat);
 		h = hilangkanTitik(h);
-		obatDetail.setHargaBeli(new BigDecimal(h.getHargaBeli()));		
+		obatDetail.setHargaBeli(new BigDecimal(h.getHargaBeli()));
 		obatDetail.setHargaJual(new BigDecimal(h.getHargaJual()));
 		obatDetail.setHargaJualResep(new BigDecimal(h.getHargaJualResep()));
 		obatDetail.setHargaDiskon(new BigDecimal(h.getHargaDiskon()));
 		obatDetail.setTerakhirDirubah(new Date());
 		return obatDetail;
 	}
-	
-	private ObatStok setObatStokDetailContent(Obat obat, ObatStok stok, ObatHandler h){
+
+	private ObatStok setObatStokDetailContent(Obat obat, ObatStok stok, ObatHandler h) {
 		stok.setObat(obat);
 		stok.setStok(h.getStok());
 		stok.setTerakhirDirubah(new Date());
 		return stok;
 	}
-	
-	private ObatExpired setObatExpiredContent(Obat obat, ObatExpired expired, ObatHandler h){	
+
+	private ObatExpired setObatExpiredContent(Obat obat, ObatExpired expired, ObatHandler h) {
 		expired.setObat(obat);
-		expired.setTanggalExpired(Converter.stringToDate(h.getTanggalExpired()));		
+		expired.setTanggalExpired(Converter.stringToDate(h.getTanggalExpired()));
 		expired.setTerakhirDirubah(new Date());
 		return expired;
 	}
-	
-	private ObatHandler hilangkanTitik(ObatHandler h){
+
+	private ObatHandler hilangkanTitik(ObatHandler h) {
 		try {
-//			NumberFormat format = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
-//			System.out.println("Harga Beli " + h.getHargaBeli().replaceAll("[.]", ""));
-//			h.setHargaBeli(format.parse(h.getHargaBeli()));
+			// NumberFormat format = NumberFormat.getCurrencyInstance(new
+			// Locale("id", "ID"));
+			// System.out.println("Harga Beli " +
+			// h.getHargaBeli().replaceAll("[.]", ""));
+			// h.setHargaBeli(format.parse(h.getHargaBeli()));
 			h.setHargaBeli(h.getHargaBeli().replaceAll("[.]", ""));
 			h.setHargaJual(h.getHargaJual().replaceAll("[.]", ""));
 			h.setHargaJualResep(h.getHargaJualResep().replaceAll("[.]", ""));
@@ -461,7 +531,7 @@ public class ObatController {
 			System.out.println(e.getMessage());
 			return null;
 		}
-		
+
 	}
 
 }

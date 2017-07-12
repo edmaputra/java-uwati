@@ -94,7 +94,16 @@
 									<form:input path="batch" cssClass="form-control"
 										id="tambahBatch" />
 								</div>
-							</div>
+							</div><div class="btn-group btn-group-justified">
+									<a href="#" class="btn btn-default">Apple</a> 
+									<a href="#"	class="btn btn-default">fffffffffff</a> 
+									<a href="#"	class="btn btn-default">Sony</a>
+								</div>
+								<div class="btn-group btn-group-justified">
+									<a href="#" class="btn btn-default">Apple</a> 
+									<a href="#"	class="btn btn-default">Samsung</a> 
+									<a href="#"	class="btn btn-default">Sony</a>
+								</div>
 						</div>
 						<div class="row">
 							<div class="col-md-3">

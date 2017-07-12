@@ -1,6 +1,11 @@
 package id.edmaputra.uwati.controller;
 
 import java.security.Principal;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +16,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,9 +34,9 @@ import id.edmaputra.uwati.service.pasien.RekamMedisService;
 import id.edmaputra.uwati.specification.RekamMedisPredicateBuilder;
 import id.edmaputra.uwati.support.Converter;
 import id.edmaputra.uwati.support.LogSupport;
-import id.edmaputra.uwati.view.Formatter;
 import id.edmaputra.uwati.view.Html;
 import id.edmaputra.uwati.view.HtmlElement;
+import id.edmaputra.uwati.view.handler.PasienHandler;
 
 @Controller
 public class RekamMedisController {
@@ -56,6 +63,15 @@ public class RekamMedisController {
 			logger.info(LogSupport.load(principal.getName(), request));
 			ModelAndView mav = new ModelAndView("rekam-medis-daftar");;
 			pasien = pasienService.dapatkan(new Long(id));
+			if (pasien.getJenisKelamin() == 0){
+				pasien.setInfo("Perempuan");
+			} else if (pasien.getJenisKelamin() == 1){
+				pasien.setInfo("Laki-laki");
+			}
+			Instant instant = pasien.getTanggalLahir().toInstant();
+			LocalDate tanggalLahir = instant.atZone(ZoneId.systemDefault()).toLocalDate();
+			Long usia = ChronoUnit.YEARS.between(tanggalLahir, LocalDate.now());
+			pasien.setJenisKelamin(Long.valueOf(usia).intValue());
 			mav.addObject("pasien", pasien);
 			return mav;
 		} catch (Exception e) {
@@ -128,29 +144,51 @@ public class RekamMedisController {
 //	public Boolean isAda(@RequestParam("identitas") String identitas) {
 //		return pasienService.dapatkanByIdentitas(identitas) != null;
 //	}
-//
-////	@Transactional
-//	@RequestMapping(value = "/tambah", method = RequestMethod.POST)
-//	@ResponseBody
-//	public Pasien tambah(@RequestBody PasienHandler h, BindingResult result, Principal principal, HttpServletRequest request) {
-//		try {		
-//			Pasien pasien = new Pasien();
+	
+	@RequestMapping(value = "/tambah", method = RequestMethod.POST)
+	@ResponseBody
+	public Pasien tambah(@RequestBody PasienHandler h, BindingResult result, Principal principal, HttpServletRequest request) {
+		try {		
+			Pasien pasien = new Pasien();
 //			pasien = setPasien(pasien, h);
-//			
-//			pasien.setUserInput(principal.getName());
-//			pasien.setWaktuDibuat(new Date());	
-//			pasien.setTerakhirDirubah(new Date());
-//			
-//			pasienService.simpan(pasien);
-//			logger.info(LogSupport.tambah(principal.getName(), pasien.toString(), request));
-//			pasien.setInfo("Pasien " + pasien.getNama()+" Berhasil Ditambah");
-//			return pasien;
-//		} catch (Exception e) {
-//			logger.info(e.getMessage());
-//			logger.info(LogSupport.tambahGagal(principal.getName(), h.getNama(), request));
-//			return null;
-//		}
-//	}
+			
+			pasien.setUserInput(principal.getName());
+			pasien.setWaktuDibuat(new Date());	
+			pasien.setTerakhirDirubah(new Date());
+			
+			pasienService.simpan(pasien);
+			logger.info(LogSupport.tambah(principal.getName(), pasien.toString(), request));
+			pasien.setInfo("Pasien " + pasien.getNama()+" Berhasil Ditambah");
+			return pasien;
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+			logger.info(LogSupport.tambahGagal(principal.getName(), h.getNama(), request));
+			return null;
+		}
+	}
+//
+	@RequestMapping(value = "/rekammedis/baru", method = RequestMethod.POST)
+	@ResponseBody
+	public RekamMedis tambah(@RequestBody RekamMedis rm, BindingResult result, Principal principal, HttpServletRequest request) {
+		try {			
+			rm.setUserInput(principal.getName());
+			rm.setWaktuDibuat(new Date());	
+			rm.setTerakhirDirubah(new Date());
+			rm.setInfo("0");
+			rekamMedisService.simpan(rm);
+			logger.info(LogSupport.tambah(principal.getName(), pasien.toString(), request));			
+			return rm;
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+//			logger.info(LogSupport.tambahGagal(principal.getName(), rm, request));
+			return null;
+		}
+	}
+	
+	private void updateNomorRekamMedis(RekamMedis rm){
+		String nomor = "RM";
+		
+	}
 ////
 ////	@Transactional
 //	@RequestMapping(value = "/edit", method = RequestMethod.POST)

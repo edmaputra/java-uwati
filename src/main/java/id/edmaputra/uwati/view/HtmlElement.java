@@ -4,11 +4,15 @@ public class HtmlElement {
 	
 	private String tabel;
 	
+	private String navigasiObat;
+	
 	private String navigasiHalaman;
 	
 	private String grandTotal;
 	
 	private String value1;
+	
+	private String button;
 
 	public String getNavigasiHalaman() {
 		return navigasiHalaman;
@@ -40,6 +44,22 @@ public class HtmlElement {
 
 	public void setValue1(String value1) {
 		this.value1 = value1;
+	}
+
+	public String getButton() {
+		return button;
+	}
+
+	public void setButton(String button) {
+		this.button = button;
+	}
+
+	public String getNavigasiObat() {
+		return navigasiObat;
+	}
+
+	public void setNavigasiObat(String navigasiObat) {
+		this.navigasiObat = navigasiObat;
 	}
 
 }
