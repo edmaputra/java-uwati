@@ -27,8 +27,6 @@ public abstract class AbstractValidator<T> implements Validator<T> {
             throwValidatorException("Terakhir dirubah tidak boleh null");
         } else if (entity.getUserInput() == null){
         	throwValidatorException("User Input tidak boleh null");
-        } else if (entity.getUserEditor() == null){
-        	throwValidatorException("User Editor tidak boleh null");
         }
     }
 

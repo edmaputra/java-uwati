@@ -43,5 +43,13 @@ public class RekamMedisPredicateBuilder {
 			hasil = hasil.and(QRekamMedis.rekamMedis.tanggal.eq(tanggal));
 		}
 	}
+	
+	public void saved(Boolean b){
+		if (hasil == null) {
+			hasil = QRekamMedis.rekamMedis.isSudahDisimpan.eq(b);
+		} else {
+			hasil = hasil.and(QRekamMedis.rekamMedis.isSudahDisimpan.eq(b));
+		}
+	}
 
 }

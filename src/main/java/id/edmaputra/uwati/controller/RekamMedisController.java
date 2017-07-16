@@ -1,16 +1,21 @@
 package id.edmaputra.uwati.controller;
 
+import java.math.BigDecimal;
 import java.security.Principal;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,45 +32,87 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mysema.query.types.expr.BooleanExpression;
 
+import id.edmaputra.uwati.entity.master.obat.Obat;
+import id.edmaputra.uwati.entity.master.obat.ObatDetail;
+import id.edmaputra.uwati.entity.master.obat.ObatExpired;
+import id.edmaputra.uwati.entity.master.obat.ObatStok;
 import id.edmaputra.uwati.entity.pasien.Pasien;
 import id.edmaputra.uwati.entity.pasien.RekamMedis;
+import id.edmaputra.uwati.entity.pasien.RekamMedisDetail;
+import id.edmaputra.uwati.entity.pasien.RekamMedisDetailTemp;
+import id.edmaputra.uwati.entity.pasien.RekamMedisHandler;
+import id.edmaputra.uwati.entity.pengguna.Pengguna;
+import id.edmaputra.uwati.service.obat.ObatDetailService;
+import id.edmaputra.uwati.service.obat.ObatExpiredService;
+import id.edmaputra.uwati.service.obat.ObatService;
+import id.edmaputra.uwati.service.obat.ObatStokService;
 import id.edmaputra.uwati.service.pasien.PasienService;
+import id.edmaputra.uwati.service.pasien.RekamMedisDetailService;
+import id.edmaputra.uwati.service.pasien.RekamMedisDetailTempService;
 import id.edmaputra.uwati.service.pasien.RekamMedisService;
+import id.edmaputra.uwati.service.pengguna.PenggunaService;
 import id.edmaputra.uwati.specification.RekamMedisPredicateBuilder;
 import id.edmaputra.uwati.support.Converter;
 import id.edmaputra.uwati.support.LogSupport;
+import id.edmaputra.uwati.validator.impl.RekamMedisDetailTempValidator;
+import id.edmaputra.uwati.validator.impl.RekamMedisDetailValidator;
+import id.edmaputra.uwati.validator.impl.RekamMedisValidator;
 import id.edmaputra.uwati.view.Html;
 import id.edmaputra.uwati.view.HtmlElement;
-import id.edmaputra.uwati.view.handler.PasienHandler;
 
 @Controller
 public class RekamMedisController {
 
 	private static final Logger logger = LoggerFactory.getLogger(RekamMedisController.class);
+	
+	private final int LENGTH_TEXT = 15;
 
 	@Autowired
 	private PasienService pasienService;
 	
-	private Pasien pasien;
-	
+	@Autowired
+	private PenggunaService penggunaService;
+
 	@Autowired
 	private RekamMedisService rekamMedisService;
-//	
-//	@Autowired
-//	private KaryawanService karyawanService;
-//	
-//	@Autowired
-//	private RekamMedisDetailService rekamMedisDetailService;
-//
-	@RequestMapping(value ="/rekam-medis/{id}", method = RequestMethod.GET) 
-	public ModelAndView tampilkanPage(@PathVariable("id") String id, Principal principal, HttpServletRequest request){
+	
+	@Autowired
+	private RekamMedisValidator rekamMedisValidator;
+
+	@Autowired
+	private ObatService obatService;
+
+	@Autowired
+	private ObatDetailService obatDetailService;
+
+	@Autowired
+	private ObatStokService obatStokService;
+
+	@Autowired
+	private ObatExpiredService obatExpiredService;
+
+	@Autowired
+	private RekamMedisDetailService rekamMedisDetailService;
+	
+	@Autowired
+	private RekamMedisDetailValidator rekamMedisDetailValidator;
+	
+	@Autowired
+	private RekamMedisDetailTempService rekamMedisDetailTempService;
+	
+	@Autowired
+	private RekamMedisDetailTempValidator rekamMedisDetailTempValidator;
+
+	//
+	@RequestMapping(value = "/rekam-medis/{id}", method = RequestMethod.GET)
+	public ModelAndView tampilkanPage(@PathVariable("id") String id, Principal principal, HttpServletRequest request) {
 		try {
 			logger.info(LogSupport.load(principal.getName(), request));
-			ModelAndView mav = new ModelAndView("rekam-medis-daftar");;
-			pasien = pasienService.dapatkan(new Long(id));
-			if (pasien.getJenisKelamin() == 0){
+			ModelAndView mav = new ModelAndView("rekam-medis-daftar");			
+			Pasien pasien = pasienService.dapatkan(new Long(id));
+			if (pasien.getJenisKelamin() == 0) {
 				pasien.setInfo("Perempuan");
-			} else if (pasien.getJenisKelamin() == 1){
+			} else if (pasien.getJenisKelamin() == 1) {
 				pasien.setInfo("Laki-laki");
 			}
 			Instant instant = pasien.getTanggalLahir().toInstant();
@@ -73,6 +120,14 @@ public class RekamMedisController {
 			Long usia = ChronoUnit.YEARS.between(tanggalLahir, LocalDate.now());
 			pasien.setJenisKelamin(Long.valueOf(usia).intValue());
 			mav.addObject("pasien", pasien);
+
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+			Date tanggalHariIni = new Date();
+			mav.addObject("tanggalHariIni", formatter.format(tanggalHariIni));
+			
+//			Pengguna p = penggunaService.temukan(principal.getName());
+//			dokter = karyawanService.dapatkan(p);
+			
 			return mav;
 		} catch (Exception e) {
 			logger.info(e.getMessage());
@@ -87,19 +142,21 @@ public class RekamMedisController {
 			@RequestParam(value = "hal", defaultValue = "1", required = false) Integer halaman,
 			@RequestParam(value = "cari", defaultValue = "", required = false) String cari,
 			@RequestParam(value = "tgl", defaultValue = "", required = false) String tanggal,
-			HttpServletRequest request,
-			HttpServletResponse response) {
+			@RequestParam(value = "id", required = true) String id,
+			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			HtmlElement el = new HtmlElement();
 
 			RekamMedisPredicateBuilder builder = new RekamMedisPredicateBuilder();
-			
-			builder.pasien(pasien.getId());
-			
+			Pasien p = pasienService.dapatkan(Long.valueOf(id).longValue());
+
+			builder.pasien(p.getId());
+			builder.saved(true);
+
 			if (!StringUtils.isBlank(cari)) {
 				builder.cari(cari);
 			}
-			
+
 			if (!StringUtils.isBlank(tanggal)) {
 				builder.tanggal(Converter.stringToDate(tanggal));
 			}
@@ -126,141 +183,285 @@ public class RekamMedisController {
 			return null;
 		}
 	}
-//
-//	@RequestMapping(value = "/rekammedis/dapatkan", method = RequestMethod.GET)
-//	@ResponseBody
-//	public Pasien dapatkanEntity(@RequestParam("id") String pasien) {
-//		try {
-//			Pasien get = getPasien(Long.valueOf(pasien));
-//			return get;
-//		} catch (Exception e) {
-//			logger.info(e.getMessage());
-//			return null;
-//		}
-//	}
-//
-//	@RequestMapping(value = "/ada", method = RequestMethod.GET)
-//	@ResponseBody
-//	public Boolean isAda(@RequestParam("identitas") String identitas) {
-//		return pasienService.dapatkanByIdentitas(identitas) != null;
-//	}
 	
-	@RequestMapping(value = "/tambah", method = RequestMethod.POST)
+	@RequestMapping(value = "/rekammedis/dapatkan", method = RequestMethod.GET)
 	@ResponseBody
-	public Pasien tambah(@RequestBody PasienHandler h, BindingResult result, Principal principal, HttpServletRequest request) {
-		try {		
-			Pasien pasien = new Pasien();
-//			pasien = setPasien(pasien, h);
+	public RekamMedisHandler dapatkan(@RequestParam("id") String id, Principal principal) {
+		try {
+			RekamMedisHandler h = new RekamMedisHandler();
+			RekamMedis rekamMedis = getRekamMedis(Long.valueOf(id));
+			h.setNomor(rekamMedis.getNomor());
+			h.setTanggal(Converter.dateToStringDashSeparator(rekamMedis.getTanggal()));
+			h.setAnamnesa(rekamMedis.getAnamnesa());
+			h.setDiagnosa(rekamMedis.getDiagnosa());
+			h.setPemeriksaan(rekamMedis.getPemeriksaan());
 			
-			pasien.setUserInput(principal.getName());
-			pasien.setWaktuDibuat(new Date());	
-			pasien.setTerakhirDirubah(new Date());
+			rekamMedisDetailTempService.hapusBatch(rekamMedis.getNomor());
 			
-			pasienService.simpan(pasien);
-			logger.info(LogSupport.tambah(principal.getName(), pasien.toString(), request));
-			pasien.setInfo("Pasien " + pasien.getNama()+" Berhasil Ditambah");
-			return pasien;
+			for(RekamMedisDetail rmd : rekamMedis.getRekamMedisDetail()){
+				RekamMedisDetailTemp temp = new RekamMedisDetailTemp();
+				temp.setNomor(rekamMedis.getNomor());
+				temp.setIdObat(obatService.dapatkanByNama(rmd.getTerapi()).getId()+"");
+				temp.setTerapi(rmd.getTerapi());
+				temp.setHargaJual(Converter.patternCurrency(rmd.getHargaJual()));
+				temp.setJumlah(rmd.getJumlah()+"");
+				temp.setHargaTotal(Converter.patternCurrency(rmd.getHargaTotal()));
+				temp.setDiskon(rmd.getDiskon()+"");				
+				temp.setPajak(rmd.getPajak()+"");
+				temp.setTipe(rmd.getTipe());
+				temp.setUserInput(principal.getName());
+				temp.setWaktuDibuat(new Date());
+				temp.setTerakhirDirubah(new Date());
+				rekamMedisDetailTempValidator.validate(temp);
+				rekamMedisDetailTempService.simpan(temp);
+			}
+			List<RekamMedisDetailTemp> list = rekamMedisDetailTempService.muatDaftar(rekamMedis.getNomor());
+			String tabel = tabelTerapiGenerator(list);
+			
+			h.setTabelTerapi(tabel);
+			return h;
 		} catch (Exception e) {
 			logger.info(e.getMessage());
-			logger.info(LogSupport.tambahGagal(principal.getName(), h.getNama(), request));
 			return null;
 		}
 	}
-//
+
 	@RequestMapping(value = "/rekammedis/baru", method = RequestMethod.POST)
 	@ResponseBody
-	public RekamMedis tambah(@RequestBody RekamMedis rm, BindingResult result, Principal principal, HttpServletRequest request) {
-		try {			
+	public RekamMedis baru(@RequestBody RekamMedis rm, BindingResult result, Principal principal,
+			HttpServletRequest request) {
+		try {
+			rm.setTanggal(new Date());
+			Pasien p = pasienService.dapatkan(Long.valueOf(rm.getInfo()).longValue());
+			rm.setPasien(p);
 			rm.setUserInput(principal.getName());
-			rm.setWaktuDibuat(new Date());	
+			rm.setWaktuDibuat(new Date());
 			rm.setTerakhirDirubah(new Date());
-			rm.setInfo("0");
+			rm.setInfo("0");			
+			rekamMedisService.simpan(rm);			
+			rm.setNomor(generateNomorRekamMedis(rm, p));
+//			rekamMedisValidator.validate(rm);
 			rekamMedisService.simpan(rm);
-			logger.info(LogSupport.tambah(principal.getName(), pasien.toString(), request));			
+			logger.info(LogSupport.tambah(principal.getName(), rm.toString(), request));
 			return rm;
 		} catch (Exception e) {
 			logger.info(e.getMessage());
-//			logger.info(LogSupport.tambahGagal(principal.getName(), rm, request));
+			// logger.info(LogSupport.tambahGagal(principal.getName(), rm,
+			// request));
 			return null;
+		}
+	}	
+	
+	@RequestMapping(value = "/rekammedis/tambah", method = RequestMethod.POST)
+	@ResponseBody
+	public RekamMedis tambah(@RequestBody RekamMedisHandler h, BindingResult result, Principal principal, HttpServletRequest request) {		
+		RekamMedis rm = rekamMedisService.dapatkan(h.getNomor());		
+		List<RekamMedisDetail> list = new ArrayList<>();
+		try {
+			rm = setRekamMedisContent(rm, h);
+			
+			rm.setIsResepSudahDiproses(false);		
+			rm.setIsSudahDisimpan(true);
+			
+			Pengguna p = penggunaService.temukan(principal.getName());
+			rm.setDokter(p.getKaryawan());
+			rm.setPasien(pasienService.dapatkan(Long.valueOf(h.getPasien())));
+						
+			rm.setWaktuDibuat(new Date());		
+			rm.setUserInput(principal.getName());	
+						
+			List<RekamMedisDetailTemp> l = rekamMedisDetailTempService.muatDaftar(h.getNomor());			
+			for (RekamMedisDetailTemp t : l){
+				RekamMedisDetail rmd = new RekamMedisDetail();
+				rmd = setRekamMedisDetailContent(rmd, t);
+				rmd.setRekamMedis(rm);
+				rmd.setWaktuDibuat(new Date());
+				rmd.setUserInput(principal.getName());
+				rekamMedisDetailValidator.validate(rmd);
+				list.add(rmd);
+			}
+			
+			rm.setRekamMedisDetail(list);
+			rekamMedisValidator.validate(rm);
+			rekamMedisService.simpan(rm);
+			rekamMedisDetailTempService.hapusBatch(rm.getNomor());
+			logger.info(LogSupport.tambah(principal.getName(), rm.toString(), request));
+			return rm;
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+			logger.info(LogSupport.tambahGagal(principal.getName(), rm.toString() + "", request));
+			rm.setInfo(e.getMessage());
+			return rm;
 		}
 	}
 	
-	private void updateNomorRekamMedis(RekamMedis rm){
-		String nomor = "RM";
-		
+	@RequestMapping(value = "/rekammedis/edit", method = RequestMethod.POST)
+	@ResponseBody
+	public RekamMedis edit(@RequestBody RekamMedisHandler h, BindingResult result, Principal principal, HttpServletRequest request) {		
+		RekamMedis rm = getRekamMedis(h.getNomor());		
+		List<RekamMedisDetail> listEdit = new ArrayList<>();
+		try {						
+			rm = setRekamMedisContent(rm, h);
+			
+			rm.setUserEditor(principal.getName());
+			
+			rekamMedisDetailService.hapusBatch(rm);
+			
+			List<RekamMedisDetailTemp> l = rekamMedisDetailTempService.muatDaftar(rm.getNomor());
+			System.out.println(l.size());
+			for (RekamMedisDetailTemp t : l){
+				RekamMedisDetail rmd = new RekamMedisDetail();
+				rmd = setRekamMedisDetailContent(rmd, t);
+				rmd.setRekamMedis(rm);
+				rmd.setWaktuDibuat(new Date());
+				rmd.setUserInput(principal.getName());
+				rekamMedisDetailValidator.validate(rmd);
+				listEdit.add(rmd);
+			}
+			
+			rm.setRekamMedisDetail(listEdit);
+			rekamMedisValidator.validate(rm);
+			rekamMedisService.simpan(rm);
+			rekamMedisDetailTempService.hapusBatch(rm.getNomor());
+			logger.info(LogSupport.tambah(principal.getName(), rm.toString(), request));
+			return rm;
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+			logger.info(LogSupport.tambahGagal(principal.getName(), rm.toString() + "", request));
+			rm.setInfo(e.getMessage());
+			return rm;
+		}
 	}
-////
-////	@Transactional
-//	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-//	@ResponseBody
-//	public Pasien edit(@RequestBody PasienHandler h, BindingResult result, Principal principal,
-//			HttpServletRequest request) {
-//		Pasien edit = getPasien(h.getId());
-//		String entity = edit.toString();
-//		try {
-//			edit = setPasien(edit, h);
-//			
-//			edit.setUserEditor(principal.getName());
-//			edit.setTerakhirDirubah(new Date());
-//			
-//			pasienService.simpan(edit);
-//			logger.info(LogSupport.edit(principal.getName(), entity, request));
-//			edit.setInfo("Pasien "+edit.getNama()+" Berhasil Diubah");
-//			return edit;
-//		} catch (Exception e) {
-//			logger.info(e.getMessage());
-//			logger.info(LogSupport.editGagal(principal.getName(), entity, request));
-//			return null;
-//		}
-//	}
-////
-////	@Transactional
-//	@RequestMapping(value = "/hapus", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
-//	@ResponseBody
-//	public Pasien hapus(@RequestBody PasienHandler p, BindingResult result, Principal principal,
-//			HttpServletRequest request) {
-//		Pasien hapus = getPasien(p.getId());
-//		String entity = hapus.toString();
-//		try {
-//			pasienService.hapus(hapus);
-//			logger.info(LogSupport.hapus(principal.getName(), entity, request));
-//			hapus.setInfo("Hapus Berhasil");
-//			return hapus;
-//		} catch (Exception e) {
-//			logger.info(e.getMessage());
-//			logger.info(LogSupport.hapusGagal(principal.getName(), entity, request));
-//			return null;
-//		}
-//	}
-//	
-//	@RequestMapping(value = "/{id}/rekam-medis", method = RequestMethod.GET)
-//	@ResponseBody
-//	public Pasien rekamMedis(@PathVariable("id") PasienHandler p, BindingResult result, Principal principal, HttpServletRequest request) {
-//		Pasien pasien = getPasien(p.getId());
-//		return pasien;
-//	}
-//	
+	
+	@RequestMapping(value = "/rekammedis/hapus", method = RequestMethod.POST)
+	@ResponseBody
+	public RekamMedis hapus(@RequestBody RekamMedis temp, BindingResult result, Principal principal,HttpServletRequest request) {
+		RekamMedis rm = rekamMedisService.dapatkan(temp.getId());		
+		try {
+			rekamMedisService.hapus(rm);
+			logger.info(LogSupport.hapus(principal.getName(), temp.getId()+"", request));
+			rm.setInfo(rm.getNomor()+" Terhapus");						
+			return rm;
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+			logger.info(LogSupport.hapusGagal(principal.getName(), rm.toString(), request));
+			rm.setInfo(rm.getNomor()+" Gagal Terhapus : "+e.getMessage());
+			return rm;
+		}
+	}
+
+	@RequestMapping(value = "/rekammedis/daftar-terapi", method = RequestMethod.GET)
+	@ResponseBody
+	public HtmlElement daftarTerapi(@RequestParam(value = "nomor", required = true) String nomor,
+			HttpServletRequest request, HttpServletResponse response) {
+		try {
+			HtmlElement el = new HtmlElement();
+			List<RekamMedisDetailTemp> list = rekamMedisDetailTempService.muatDaftar(nomor);
+
+			String tabel = tabelTerapiGenerator(list);
+			el.setTabelTerapi(tabel);
+		
+			return el;
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+			return null;
+		}
+	}
+
+	@RequestMapping(value = "/rekammedis/tambah-terapi", method = RequestMethod.POST)
+	@ResponseBody
+	public RekamMedisDetailTemp tambahTerapi(@RequestBody RekamMedisDetailTemp temp, BindingResult result, Principal principal,
+			HttpServletRequest request) {
+		try {
+			RekamMedisDetailTemp t = null;
+			RekamMedisDetailTemp tersimpan = rekamMedisDetailTempService.dapatkan(temp.getNomor(), temp.getIdObat()); 
+			if (tersimpan == null){
+				t = new RekamMedisDetailTemp();
+				Obat obat = getObat(Long.valueOf(temp.getIdObat()).longValue());
+				t.setNomor(temp.getNomor());
+				t.setIdObat(temp.getIdObat());
+				t.setTerapi(obat.getNama());
+				t.setHargaJual(Converter.patternCurrency(obat.getDetail().get(0).getHargaJualResep()));
+				t.setDiskon("0");
+				t.setPajak("0");
+				t.setHargaTotal(Converter.patternCurrency(obat.getDetail().get(0).getHargaJualResep()));
+				t.setJumlah("1");
+				t.setTipe(obat.getTipe());
+			} else {
+				t = tersimpan;
+				Integer j = Integer.valueOf(tersimpan.getJumlah()).intValue() + 1;				
+				t.setJumlah(j.toString());
+				BigDecimal h = new BigDecimal(t.getHargaJual().replaceAll("[.,]", ""));
+				BigDecimal total = h.multiply(new BigDecimal(j));
+				t.setHargaTotal(Converter.patternCurrency(total));
+			}			
+			
+			t.setUserInput(principal.getName());			
+			t.setWaktuDibuat(new Date());
+			t.setTerakhirDirubah(new Date());
+			rekamMedisDetailTempValidator.validate(t);
+			rekamMedisDetailTempService.simpan(t);
+			logger.info(LogSupport.tambah(principal.getName(), temp.toString(), request));
+			return temp;
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+			logger.info(LogSupport.tambahGagal(principal.getName(), temp.getId() + "", request));
+			temp.setInfo(e.getMessage());
+			return temp;
+		}
+	}
+	
+	@RequestMapping(value = "/rekammedis/hapus-terapi", method = RequestMethod.POST)
+	@ResponseBody
+	public RekamMedisDetailTemp hapusTerapi(@RequestBody RekamMedisDetailTemp temp, BindingResult result, Principal principal,HttpServletRequest request) {
+		RekamMedisDetailTemp t = rekamMedisDetailTempService.dapatkan(temp.getNomor(), temp.getIdObat());		
+		try {
+			rekamMedisDetailTempService.hapus(t);
+			logger.info(LogSupport.hapus(principal.getName(), temp.getId()+"", request));
+			t.setInfo(t.getTerapi()+" Terhapus");						
+			return t;
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+			logger.info(LogSupport.hapusGagal(principal.getName(), t.toString(), request));
+			t.setInfo(t.getTerapi()+" Gagal Terhapus : "+e.getMessage());
+			return t;
+		}
+	}
+	
+	private String generateNomorRekamMedis(RekamMedis rm, Pasien pasien) {
+		String nomor = "RM-";
+		nomor += pasien.getId() + "-";
+		nomor += generateNomorUrut(rm.getId() + "");
+		return nomor;
+	}
+
+	private String generateNomorUrut(String nomor) {
+		String[] nol = new String[4];
+		nol[0] = "";
+		nol[1] = "0";
+		nol[2] = "00";
+		nol[3] = "000";
+		nomor = nol[4 - nomor.length()] + nomor;
+		return nomor;
+	}
+
 	private String tabelGenerator(Page<RekamMedis> list, HttpServletRequest request) {
 		String html = "";
-		String thead = "<thead><tr>"
-				+ "<th>Id</th>"
-				+ "<th>Nomor</th>"
-				+ "<th>Anamnesa</th>"
-				+ "<th>Pemeriksaan</th>"
-				+ "<th>Diagnosa</th>"
-				+ "<th>Terapi</th>";		
+		String thead = "<thead><tr>" + "<th>Id</th>" + "<th>Nomor</th>" + "<th>Anamnesa</th>" + "<th>Pemeriksaan</th>"
+				+ "<th>Diagnosa</th>" + "<th>Terapi</th>";
 		thead += "<th></th></tr></thead>";
 		String data = "";
-		for (RekamMedis t : list.getContent()) {
+		for (RekamMedis rm : list.getContent()) {
 			String row = "";
 			String btn = "";
-			row += Html.td(t.getId().toString());
-			row += Html.td(t.getNomor());
-			row += Html.td(t.getAnamnesa());
-			row += Html.td(t.getPemeriksaan());
-			row += Html.td(t.getDiagnosa());
-			btn = Html.button("btn btn-primary btn-xs btnEdit", "modal", "#pasien-modal", "onClick", "getData(" + t.getId() + ")", 0, "Edit Data");
-//			btn += Html.button("btn btn-danger btn-xs", "modal", "#pasien-modal-hapus", "onClick","setIdUntukHapus(" + t.getId() + ")", 1, "Hapus Data");			
+			row += Html.td(rm.getId().toString());
+			row += Html.td(rm.getNomor());
+			row += Html.td(ringkas(rm.getAnamnesa(), LENGTH_TEXT));
+			row += Html.td(ringkas(rm.getPemeriksaan(), LENGTH_TEXT));
+			row += Html.td(ringkas(rm.getDiagnosa(), LENGTH_TEXT));		
+			row += Html.td(Html.aJs("Detail", "btn btn-primary btn-xs", null, null));
+			btn += Html.button("btn btn-primary btn-xs btnEdit", "modal", "#rm-modal", "onClick", "getData(" + rm.getId() + ")", 0, "Edit Data");
+			btn += Html.button("btn btn-danger btn-xs", "modal", "#rm-modal-hapus", "onClick","setIdUntukHapus(" + rm.getId() +")", 1, "Hapus Data");
 			row += Html.td(btn);
 			data += Html.tr(row);
 		}
@@ -268,45 +469,25 @@ public class RekamMedisController {
 		html = thead + tbody;
 		return html;
 	}
-//	
-//	private String tabelRekamMedisGenerator(Page<RekamMedis> list, HttpServletRequest request) {
-//		String html = "";
-//		String thead = "<thead><tr>"
-//				+ "<th>Id</th>"
-//				+ "<th>Nomor</th>"
-//				+ "<th>Tanggal</th>"
-//				+ "<th>Anamnesa</th>"
-//				+ "<th>Pemeriksaan</th>"
-//				+ "<th>Diagnosa</th>"
-//				+ "<th>Dokter</th>";	
-//		thead += "<th></th></tr></thead>";
-//		String data = "";
-//		for (RekamMedis t : list.getContent()) {
-//			String row = "";
-//			String btn = "";
-//			row += Html.td(t.getId().toString());
-//			row += Html.td(t.getNomor());
-//			row += Html.td(Converter.dateToStringIndonesianLocale(t.getTanggal()));
-//			row += Html.td(t.getAnamnesa());
-//			row += Html.td(t.getPemeriksaan());
-//			row += Html.td(t.getDiagnosa());
-//			row += Html.td(t.getDokter().getNama());			
-//			if (request.isUserInRole("ROLE_ADMIN") || request.isUserInRole("ROLE_MEDIS")) {
-//
-//				btn = Html.button("btn btn-primary btn-xs btnEdit", "modal", "#pasien-modal", "onClick",
-//						"getData(" + t.getId() + ")", 0, "Edit Data");
-//
-//				btn += Html.button("btn btn-danger btn-xs", "modal", "#pasien-modal-hapus", "onClick",
-//						"setIdUntukHapus(" + t.getId() + ")", 1, "Hapus Data");
-//			}
-//			row += Html.td(btn);
-//			data += Html.tr(row);
-//		}
-//		String tbody = Html.tbody(data);
-//		html = thead + tbody;
-//		return html;
-//	}
-//
+
+	private String tabelTerapiGenerator(List<RekamMedisDetailTemp> list) {
+		String html = "";
+		String data = "";
+		for (RekamMedisDetailTemp t : list) {
+			String row = "";
+			String btn = "";
+			row += Html.td(t.getTerapi());
+			row += Html.td(t.getJumlah() + "");
+			row += Html.td(t.getHargaTotal());
+			btn += Html.aJs("<i class='fa fa-trash-o'></i>", "btn btn-danger btn-xs", "onClick", "hapusObat(" + t.getIdObat() + ")", "Hapus Data");			
+			row += Html.td(btn);
+			data += Html.tr(row);
+		}
+		html = data;		 	
+//		System.out.println(html);
+		return html;
+	}
+	
 	private String navigasiHalamanGenerator(int first, int prev, int current, int next, int last, int totalPage,
 			String cari) {
 		String html = "";
@@ -345,40 +526,78 @@ public class RekamMedisController {
 
 		return nav;
 	}
-//	
-//	private Pasien setPasien(Pasien p, PasienHandler h){		
-//		p.setAgama(h.getAgama());
-//		p.setAlamat(h.getAlamat());
-//		p.setIdentitas(h.getIdentitas());
-//		p.setJaminanKesehatan(h.getJaminanKesehatan());
-//		p.setJenisKelamin(h.getJenisKelamin());
-//		p.setKontak(h.getKontak());
-//		p.setNama(h.getNama());
-//		p.setNomorJaminan(h.getNomorJaminan());
-//		p.setPekerjaan(h.getPekerjaan());
-//		p.setTanggalLahir(Converter.stringToDate(h.getTanggalLahir()));
-//		return p;
-//	}
-//	
-//	private Pasien getPasien(Long id){
-//		Pasien get = pasienService.dapatkan(id);
-//
-//		List<RekamMedis> rekamMedis = rekamMedisService.temukanByPasien(get);
-//		get.setRekamMedis(rekamMedis);
-//		Hibernate.initialize(get.getRekamMedis());
-//
-//		return get;
-//	}
-//	
-//	private RekamMedis getRekamMedis(Long id){
-//		RekamMedis get = rekamMedisService.dapatkan(id);
-//
-//		List<RekamMedisDetail> rekamMedisDetails = rekamMedisDetailService.dapatkan(get);
-//		get.setRekamMedisDetail(rekamMedisDetails);
-//		Hibernate.initialize(get.getRekamMedisDetail());
-//
-//		return get;
-//	}
-//	
+	
+	private RekamMedis setRekamMedisContent(RekamMedis rm, RekamMedisHandler h){
+		rm.setNomor(h.getNomor());
+		rm.setAnamnesa(h.getAnamnesa());			
+		rm.setDiagnosa(h.getDiagnosa());	
+		rm.setPemeriksaan(h.getPemeriksaan());					
+		rm.setTanggal(Converter.stringToDate(h.getTanggal()));
+		rm.setTerakhirDirubah(new Date());
+		return rm;
+	}
+	
+	private RekamMedisDetail setRekamMedisDetailContent(RekamMedisDetail rmd, RekamMedisDetailTemp t){
+		rmd.setDiskon(new BigDecimal(t.getDiskon()));
+		BigDecimal hargaJual = new BigDecimal(Converter.hilangkanTandaTitikKoma(t.getHargaJual()));
+		Integer jumlah = new Integer(t.getJumlah());
+		BigDecimal hargaTotal = hargaJual.multiply(new BigDecimal(jumlah));
+		rmd.setPajak(new BigDecimal(t.getPajak()));
+		rmd.setHargaJual(hargaJual);
+		rmd.setJumlah(jumlah);
+		rmd.setHargaTotal(hargaTotal);
+		rmd.setTipe(t.getTipe());
+		rmd.setTerapi(t.getTerapi());
+		rmd.setTerakhirDirubah(new Date());		
+		return rmd;
+	}
+
+	private Obat getObat(Long id) {
+		Obat get = obatService.dapatkan(id);
+
+		List<ObatDetail> lObatDetail = obatDetailService.temukanByObat(get);
+		get.setDetail(lObatDetail);
+		Hibernate.initialize(get.getDetail());
+
+		List<ObatStok> lObatStok = obatStokService.temukanByObats(get);
+		get.setStok(lObatStok);
+		Hibernate.initialize(get.getStok());
+
+		List<ObatExpired> lObatExpired = obatExpiredService.temukanByObats(get);
+		get.setExpired(lObatExpired);
+		Hibernate.initialize(get.getExpired());
+		return get;
+	}
+	
+	private RekamMedis getRekamMedis(Long id) {
+		RekamMedis get = rekamMedisService.dapatkan(id);
+		
+		List<RekamMedisDetail> listDetail = rekamMedisDetailService.dapatkan(get);
+		get.setRekamMedisDetail(listDetail);
+		Hibernate.initialize(get.getRekamMedisDetail());
+		
+		return get;
+	}
+	
+	private RekamMedis getRekamMedis(String nomor) {
+		RekamMedis get = rekamMedisService.dapatkan(nomor);
+		
+		List<RekamMedisDetail> listDetail = rekamMedisDetailService.dapatkan(get);
+		get.setRekamMedisDetail(listDetail);
+		Hibernate.initialize(get.getRekamMedisDetail());
+		
+		return get;
+	}
+	
+	private String ringkas(String s, int length){
+		String text = "";
+		if (s.length() > length){
+			text += s.substring(0, length);
+			text += " ... ";
+		} else {
+			text = s;
+		}
+		return text;
+	}
 
 }

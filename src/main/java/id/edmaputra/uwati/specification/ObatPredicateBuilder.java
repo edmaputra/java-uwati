@@ -42,8 +42,17 @@ public class ObatPredicateBuilder {
 		if (hasil == null){
 			hasil = QObat.obat.tipe.eq(tipe);
 		} else {
-			hasil = hasil.and(hasil = QObat.obat.tipe.eq(tipe));
+			hasil = hasil.and(QObat.obat.tipe.eq(tipe));
 		}
 	}
+	
+	public void tipe(Integer obat, Integer tindakan){
+		if (hasil == null){
+			hasil = QObat.obat.tipe.eq(obat).or(QObat.obat.tipe.eq(tindakan));
+		} else {
+			hasil = hasil.and(QObat.obat.tipe.eq(obat).or(QObat.obat.tipe.eq(tindakan)));
+		}
+	}
+	
 
 }

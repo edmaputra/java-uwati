@@ -7,8 +7,14 @@
 <c:url var="tambahUrl" value="/rekammedis/tambah" />
 <c:url var="editUrl" value="/rekammedis/edit" />
 <c:url var="hapusUrl" value="/rekammedis/hapus" />
+
 <c:url var="dapatkanUrl" value="/rekammedis/dapatkan" />
 <c:url var="daftarUrl" value="/rekammedis/daftar" />
+
+<c:url var="tambahTerapiUrl" value="/rekammedis/tambah-terapi" />
+<c:url var="daftarTerapiUrl" value="/rekammedis/daftar-terapi" />
+<c:url var="hapusTerapiUrl" value="/rekammedis/hapus-terapi" />
+
 <c:url var="terapiUrl" value="/obat/obat-tindakan" />
 
 <div class="showback">
@@ -16,9 +22,12 @@
 		<div class="col-md-12">
 			<form class="form-horizontal style-form" method="get">
 				<div class="form-group">
-					<input type="hidden" class="form-control" value="${pasien.id}"
-						id="pasienId"> <label class="col-sm-1 control-label">Nama</label>
-					<div class="col-sm-5">
+					<label class="col-sm-1 control-label">ID</label>
+					<div class="col-sm-1">
+						<input type="text" class="form-control" value="${pasien.id}" id="pasienId" readonly="readonly">
+					</div>					
+					<label class="col-sm-1 control-label">Nama</label>
+					<div class="col-sm-3">
 						<input type="text" class="form-control" value="${pasien.nama}"
 							readonly="readonly">
 					</div>
@@ -99,8 +108,6 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">&times;</button>
 				<h4 class="modal-title" id="myModalLabel">Rekam Medis Baru</h4>
 			</div>
 			<form class="form style-form formTambah" method="post">
@@ -110,14 +117,14 @@
 							<div class="col-md-3">
 								<div class="form-group">
 									<label>Nomor:</label> <input type="text" name="nomor"
-										class="form-control" id="nomor" />
+										class="form-control" id="nomor" readonly="readonly" />
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>Tanggal:</label> <input type="text" name="tanggal"
 										class="form-control datePicker" id="tanggal"
-										style="width: 300px" />
+										style="width: 300px" value="${tanggalHariIni}" />
 								</div>
 							</div>
 						</div>
@@ -139,8 +146,7 @@
 						<label>Terapi :</label>
 						<div class="row">
 							<div class="col-md-6">
-								<table class="table table-striped table-advance table-hover"
-									id="tabel-terapi">
+								<table class="table table-striped table-advance table-hover">
 									<thead style="background-color: #68DFF0;">
 										<tr>
 											<th>Terapi</th>
@@ -149,15 +155,16 @@
 											<th>x</th>
 										</tr>
 									</thead>
+									<tbody id="tabel-terapi">
+									</tbody>
 								</table>
 							</div>
 							<div class="col-md-6">
-								<input type="text" name="cari-terapi" class="form-control" id="cari-terapi" placeholder="Pencarian"/>
-								<div id="list-terapi">
-									
-								</div>
+								<input type="text" name="cari-terapi" class="form-control"
+									id="cari-terapi" placeholder="Pencarian" />
+								<div id="list-terapi"></div>
 								<div class="btn-group btn-group-justified" id="navigasi-obat">
-								
+
 								</div>
 							</div>
 						</div>
@@ -166,54 +173,33 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default btnKeluar"
 						data-dismiss="modal">Keluar</button>
-					<input type="hidden" name="id" class="form-control" id="ids" /> <input
-						type="submit" class="btn btn-primary" value="Simpan" />
+					<input type="hidden" name="id" class="form-control" id="ids" /> 
+					<input type="submit" class="btn btn-primary" value="Simpan" />
 				</div>
 			</form>
 		</div>
 	</div>
 </div>
 
-<div class="modal fade" id="role-modal-edit" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="rm-modal-hapus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-sm">
 		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Edit Role</h4>
-			</div>
-
-			<form class="form style-form formTambah" method="post">
-				<div class="form-panel">
-					<div class="modal-body">
-						<div class="form-group">
-							<label>Anamnesa</label>
-							<textarea class="form-control" rows="5" name="anamnesa"
-								id="anamnesa"></textarea>
-						</div>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="role-modal-hapus" tabindex="-1"
-	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-sm">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Hapus</h4>
+			<div class="modal-header">				
+				<h4 class="modal-title" id="myModalLabel">Hapus Rekam Medis</h4>
 			</div>
 			<div class="form-panel">
 				<div class="modal-body">
 					<p>Apakah Anda Yakin Ingin Menghapus ?</p>
 				</div>
 			</div>
-
+			<form class="form style-form formHapus" method="post">
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default btnKeluar"
+						id="keluarModalHapus" data-dismiss="modal">Tidak</button>
+					<form:hidden path="id" cssClass="form-control" id="hapusId" />
+					<input type="submit" class="btn btn-danger" value="Hapus" />
+				</div>
+			</form>
 		</div>
 	</div>
 </div>
@@ -222,15 +208,115 @@
 	<%@ include file="../../layouts/gritter.jsp"%>
 </div>
 
-
 <script>
+	var nomorRM = null;
+	var state = 1;
+	$(document).ready(function() {
+		refresh(1, '', '');		
+
+		$('#btnCari').click(function() {
+			refresh(1, $('#stringCari').val(), $('#stringTanggalCari').val());
+		});
+		
+		$('.btnKeluar').click(function() {
+			state = 1;
+		});
+
+		$('.btnEdit').click(function() {
+			state = 1;			
+		});
+
+		$("#cari-terapi").keyup(function() {
+			refreshObat(1, $('#cari-terapi').val());
+		});
+
+		$('#rm-baru').click(function() {
+			rekamMedisBaru();
+			state = 0;
+			reset();
+			refreshObat(1, '');
+		});
+
+		$(".formTambah").validate({
+			rules : {
+				nomor : {
+					required : true
+				},
+				tanggal : {
+					required : true
+				},
+				anamnesa : {
+					required : true
+				},
+				pemeriksaan : {
+					required : true
+				},
+				diagnosa : {
+					required : true
+				}
+			},
+			messages : {
+				nomor : "Nomor Wajib Diisi",
+				tanggal : "Tanggal Wajib Diisi",
+				anamnesa : "Anamnesa Wajib Diisi",
+				pemeriksaan : "Pemeriksaan Wajib Diisi",
+				diagnosa : "Diagnosa Wajib Diisi"
+			},
+			submitHandler : function(form) {
+				var data = {};
+				data = setRekamMedis(data);
+				if (state == 0){
+					$.postJSON('${tambahUrl}', data, function() {
+						$('#gritter-tambah-sukses').click();
+						$('.btnKeluar').click();
+						reset();
+						refresh();
+					}, function() {
+						$('#gritter-tambah-gagal').click();
+					});
+				} else if (state == 1){
+					$.postJSON('${editUrl}', data, function() {
+						$('#gritter-edit-sukses').click();
+						reset();
+						$('.btnKeluar').click();
+						refresh();
+					}, function() {
+						$('#gritter-edit-gagal').click();
+					});
+				}				
+				state = 1;				
+			}
+		});
+
+		$(".formHapus").submit(function(e) {
+			e.preventDefault();
+			var data = {};
+			data['id'] = $('#hapusId').val();
+			$.postJSON('${hapusUrl}', data, function(result) {
+				refresh();
+				$('#keluarModalHapus').click();
+				$('#gritter-hapus-sukses').click();
+			}, function(e) {
+				$('#gritter-hapus-sukses').click();
+				$('#keluarModalHapus').click();
+				refresh();
+			});
+		});
+	});
+	
 	function getData(ids) {
+		reset();
 		var data = {
 			id : ids
 		};
 		$.getAjax('${dapatkanUrl}', data, function(result) {
-			$('#editNama').val(result.nama);
-			$('#editId').val(ids);
+			$('#anamnesa').val(result.anamnesa);
+			$('#diagnosa').val(result.diagnosa);
+			$('#pemeriksaan').val(result.pemeriksaan);
+			$('#nomor').val(result.nomor);
+			$('#tanggal').val(result.tanggal);
+			$('#tabel-terapi').append(result.tabelTerapi);
+			$('#ids').val(ids);			
 		}, null);
 	}
 
@@ -239,10 +325,12 @@
 	}
 
 	function refresh(halaman, find, tanggal) {
+		ids = $('#pasienId').val();
 		var data = {
 			hal : halaman,
 			cari : find,
-			tgl : tanggal
+			tgl : tanggal,
+			id : ids
 		};
 
 		$.getAjax('${daftarUrl}', data, function(result) {
@@ -252,7 +340,7 @@
 			$('#nav').append(result.navigasiHalaman);
 		}, null);
 	}
-	
+
 	function refreshObat(halaman, find) {
 		var data = {
 			hal : halaman,
@@ -266,91 +354,79 @@
 			$('#navigasi-obat').append(result.navigasiObat);
 		}, null);
 	}
-	
-	function tambahObat(id){
-		console.log('ID Obat : '+id);
+
+	function refreshDaftarTerapi(n) {
+		if (nomorRM != null) {
+			var data = {
+				nomor : n
+			};
+
+			$.getAjax('${daftarTerapiUrl}', data, function(result) {
+				$('#tabel-terapi').empty();
+				$('#tabel-terapi').append(result.tabelTerapi);
+			}, null);
+		}
+
 	}
 
-	$(document).ready(function() {	
-		refresh(1, '', '');
-		refreshObat(1, '');
-
-		$('#btnCari').click(function() {
-			refresh(1, $('#stringCari').val(), $('#stringTanggalCari').val());
+	function tambahObat(id) {
+		var data = {
+			idObat : id,
+			nomor : nomorRM
+		};
+		$.postJSON('${tambahTerapiUrl}', data, function(result) {
+			// 			console.log(result.nomor);
+			refreshDaftarTerapi(nomorRM);
+		}, function() {
+			console.log(result.info);
+			$('#gritter-tambah-gagal').click();
 		});
-		
-		$("#cari-terapi").keyup(function(){
-			refreshObat(1, $('#cari-terapi').val());
-	    });
-		
-		$('#rm-baru').click(function() {
-			data['anamnesa'] = 'a';
-			$.postJSON('${baruUrl}', data, function() {
-			}, function() {
-				$('#gritter-tambah-gagal').click();
-			});
-		});
+	}
 
-		$(".formTambah").validate({
-			rules : {
-				nama : {
-					required : true
-				}
-			},
-			messages : {
-				nama : "Nama Wajib Diisi"
-			},
-			submitHandler : function(form) {
-				var str = {};
-				str['nama'] = $('#tambahNama').val();
-				$.postJSON('${tambahUrl}', str, function() {
-					$('#gritter-tambah-sukses').click();
-					$('.btnKeluar').click();
-					$('#tambahNama').val('');
-					refresh();
-				}, function() {
-					$('#gritter-tambah-gagal').click();
-				});
-			}
+	function hapusObat(id) {
+		var data = {
+			idObat : id,
+			nomor : nomorRM
+		};
+		$.postJSON('${hapusTerapiUrl}', data, function(result) {
+			refreshDaftarTerapi(nomorRM);
+			console.log(result.info);
+		}, function() {
+			console.log(result.info);
 		});
+	}
 
-		$(".formEdit").validate({
-			rules : {
-				nama : {
-					required : true
-				}
-			},
-			messages : {
-				nama : "Nama Wajib Diisi"
-			},
-			submitHandler : function(form) {
-				var str = {};
-				str['nama'] = $('#editNama').val();
-				str['id'] = $('#editId').val();
-				$.postJSON('${editUrl}', str, function() {
-					$('#gritter-edit-sukses').click();
-					$('.btnKeluar').click();
-					refresh();
-				}, function() {
-					$('#gritter-edit-gagal').click();
-				});
-			}
+	function rekamMedisBaru() {
+		var data = {
+			info : $('#pasienId').val()
+		};
+		$.postJSON('${baruUrl}', data, function(result) {
+			$('#nomor').val(result.nomor);
+			nomorRM = result.nomor;
+		}, function() {
+			$('#gritter-tambah-gagal').click();
 		});
-
-		$(".formHapus").submit(function(e) {
-			e.preventDefault();
-			var str = {};
-			str['id'] = $('#hapusId').val();
-			$.postJSON('${hapusUrl}', str, function(result) {
-				refresh();
-				$('#keluarModalHapus').click();
-				$('#gritter-hapus-sukses').click();
-			}, function(e) {
-				$('#gritter-hapus-sukses').click();
-				$('#keluarModalHapus').click();
-				refresh();
-			});
-		});
-
-	});
+	}
+	
+	function setRekamMedis(data){
+		if ($('#ids').val() != null && $('#ids').val() != ''){
+			data['id'] = $('#ids').val();	
+		}		
+		data['nomor'] = $('#nomor').val();
+		data['tanggal'] = $('#tanggal').val();
+		data['anamnesa'] = $('#anamnesa').val();
+		data['pemeriksaan'] = $('#pemeriksaan').val();
+		data['diagnosa'] = $('#diagnosa').val();
+		data['pasien'] = $('#pasienId').val();
+		return data;
+	}
+	
+	function reset(){
+		$('#nomor').val('');
+		$('#tanggal').val(tanggalHariIni());
+		$('#anamnesa').val('');
+		$('#pemeriksaan').val('');
+		$('#diagnosa').val('');
+		$('#tabel-terapi').empty();
+	}
 </script>

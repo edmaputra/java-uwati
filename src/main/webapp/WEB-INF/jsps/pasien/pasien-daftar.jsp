@@ -8,6 +8,7 @@
 <c:url var="hapus" value="/pasien/hapus" />
 <c:url var="dapatkan" value="/pasien/dapatkan" />
 <c:url var="daftar" value="/pasien/daftar" />
+<c:url var="isIdentitasAda" value="/pasien/tersedia" />
 
 <div class="showback">
 	<div class="row mt">
@@ -212,7 +213,16 @@
 					required : true
 				},
 				identitas : {
-					required : true
+					required : true,
+					remote: {
+						url: "${isIdentitasAda}",
+						type: "get",
+						data: {
+							identitas: function(){
+								return $("#identitas").val();
+							}
+						}
+					},
 				},
 				tanggalLahir : {
 					required : true
@@ -223,7 +233,10 @@
 			},
 			messages : {
 				nama : "Nama Wajib Diisi",
-				identitas : "Identitas Wajib Diisi",
+				identitas : {
+					required : "Identitas Wajib Diisi",
+					remote : "Identitas sudah Ada"
+				},
 				tanggalLahir : "Harap Isi Tanggal Lahir",
 				jenisKelamin : "Harap Pilih Jenis Kelamin"
 			},

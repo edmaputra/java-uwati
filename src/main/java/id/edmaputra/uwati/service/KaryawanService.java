@@ -46,4 +46,8 @@ public class KaryawanService {
 	public List<Karyawan> dapatkanListByNama(BooleanExpression exp) {
 		return (List<Karyawan>) karyawanRepository.findAll(exp);
 	}
+
+	public Karyawan dapatkan(Pengguna p) {
+		return karyawanRepository.findByPengguna(p);
+	}
 }

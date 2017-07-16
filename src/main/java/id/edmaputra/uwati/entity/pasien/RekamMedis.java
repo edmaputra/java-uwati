@@ -60,15 +60,22 @@ public class RekamMedis extends DasarEntity<Long>{
 	@Column(name="diagnosa", nullable=true, length = 512)
 	private String diagnosa;
 	
+	@Column(name="status_resep_diproses", nullable = true)
+	private Boolean isResepSudahDiproses;
+	
+	@Column(name="status_simpan", nullable = true)
+	private Boolean isSudahDisimpan;
+	
 	@OneToMany(mappedBy = "rekamMedis", cascade = CascadeType.ALL)	
 	private List<RekamMedisDetail> rekamMedisDetail;	
 	
 	@OneToOne
-	@JoinColumn(name = "id_dokter")
+	@JoinColumn(name = "id_dokter", nullable = true)
+	@JsonIgnore
 	private Karyawan dokter;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_pasien", nullable = false)
+	@JoinColumn(name = "id_pasien", nullable = true)
 	@JsonIgnore
 	private Pasien pasien;
 
@@ -134,6 +141,30 @@ public class RekamMedis extends DasarEntity<Long>{
 
 	public void setDokter(Karyawan dokter) {
 		this.dokter = dokter;
+	}
+
+	public Boolean getIsResepSudahDiproses() {
+		return isResepSudahDiproses;
+	}
+
+	public void setIsResepSudahDiproses(Boolean isResepSudahDiproses) {
+		this.isResepSudahDiproses = isResepSudahDiproses;
+	}
+
+	public Boolean getIsSudahDisimpan() {
+		return isSudahDisimpan;
+	}
+
+	public void setIsSudahDisimpan(Boolean isSudahDisimpan) {
+		this.isSudahDisimpan = isSudahDisimpan;
+	}
+
+	public Pasien getPasien() {
+		return pasien;
+	}
+
+	public void setPasien(Pasien pasien) {
+		this.pasien = pasien;
 	}
 	
 }

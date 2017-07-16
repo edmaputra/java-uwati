@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -44,7 +45,8 @@ public class Karyawan extends DasarEntity<Integer>{
 	@Column(name="jabatan", length=DBConf.LENGTH_JABATAN)	
 	private String jabatan;
 	
-	@OneToOne(mappedBy = "karyawan", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "karyawan", cascade = CascadeType.MERGE)
+	@JoinColumn(name = "id_pengguna", nullable = true)
 	private Pengguna pengguna;
 	
 	public Karyawan(){}	

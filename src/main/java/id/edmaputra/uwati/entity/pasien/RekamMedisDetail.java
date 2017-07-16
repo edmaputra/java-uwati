@@ -33,7 +33,7 @@ public class RekamMedisDetail extends DasarEntity<Long>{
 	private Long id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_rekam_medis", nullable = false)
+	@JoinColumn(name = "id_rekam_medis", nullable = true)
 	@JsonIgnore
 	private RekamMedis rekamMedis;
 		
@@ -46,16 +46,16 @@ public class RekamMedisDetail extends DasarEntity<Long>{
 	@Column(name="harga", nullable=false)
 	private BigDecimal hargaJual;
 	
-	@Column(name="diskon", nullable=false)
+	@Column(name="diskon", nullable=true)
 	private BigDecimal diskon;
 	
-	@Column(name="pajak", nullable=false)
+	@Column(name="pajak", nullable=true)
 	private BigDecimal pajak;
 		
 	@Column(name="harga_total", nullable=false)
 	private BigDecimal hargaTotal;
 	
-	@Column(name="tipe", nullable=false)
+	@Column(name="tipe", nullable=true)
 	private int tipe;
 
 	public Long getId() {

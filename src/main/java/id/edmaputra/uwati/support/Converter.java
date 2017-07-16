@@ -53,6 +53,11 @@ public class Converter {
 		return df.format(date);		
 	}
 	
+	public static String dateToStringDashSeparator(Date date) {
+		DateFormat df = new SimpleDateFormat("dd-MM-yyyy");		
+		return df.format(date);		
+	}
+	
 	public static String patternCurrency(BigDecimal angka) {
 		DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
 		DecimalFormatSymbols dfs = formatter.getDecimalFormatSymbols();
@@ -127,5 +132,9 @@ public class Converter {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd MMMMM yyyy", new Locale("id"));
 		String returnValue = sdf.format(date);
 		return returnValue;
+	}
+	
+	public static String hilangkanTandaTitikKoma(String s){
+		return s.replaceAll("[.,]", "");
 	}
 }

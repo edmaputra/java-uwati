@@ -27,7 +27,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mysema.query.types.expr.BooleanExpression;
 
-import id.edmaputra.uwati.entity.master.Karyawan;
 import id.edmaputra.uwati.entity.pengguna.Pengguna;
 import id.edmaputra.uwati.entity.pengguna.Role;
 import id.edmaputra.uwati.service.KaryawanService;

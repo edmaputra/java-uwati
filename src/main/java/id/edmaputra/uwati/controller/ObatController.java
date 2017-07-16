@@ -305,19 +305,22 @@ public class ObatController {
 			@RequestParam(value = "cari", defaultValue = "", required = false) String cari, HttpServletRequest request,
 			HttpServletResponse response) {
 		try {
-			HtmlElement el = new HtmlElement();
+			HtmlElement el = new HtmlElement();			
+			
 			Page<Obat> page = getListObatAndTindakan(halaman, cari);
 
-			String button = buttonListGenerator(page, request);
+			String button = buttonListGenerator(page, 3, request);
 			el.setButton(button);
 
 			if (page.hasContent()) {
-				int current = page.getNumber() + 1;
-				int next = current + 1;
-				int prev = current - 1;
+				if (page.getTotalPages() > 1) {
+					int current = page.getNumber() + 1;
+					int next = current + 1;
+					int prev = current - 1;
 
-				String h = navigasiHalamanGenerator(prev, current, next, page.getTotalPages(), cari);
-				el.setNavigasiObat(h);
+					String h = navigasiHalamanGenerator(prev, current, next, page.getTotalPages(), cari);
+					el.setNavigasiObat(h);
+				}
 			}
 			return el;
 		} catch (Exception e) {
@@ -332,8 +335,7 @@ public class ObatController {
 			builder.nama(nama);
 		}
 
-		builder.tipe(0);
-//		builder.tipe(2);
+		builder.tipe(0, 2);
 
 		BooleanExpression exp = builder.getExpression();
 		return obatService.muatDaftar(halaman, exp, 15);
@@ -421,25 +423,28 @@ public class ObatController {
 
 		if (current == 1) {
 			html += Html.aJs("&gt;", "btn btn-primary", "onClick", "refreshObat(" + next + ",\"" + cari + "\")");
-		}
-		if (current == totalPage) {
+		} else if (current == totalPage) {
 			html += Html.aJs("&lt;", "btn btn-primary", "onClick", "refreshObat(" + prev + ",\"" + cari + "\")");
-		} else if (current > 1 && current < totalPage){
+		} else if (current > 1 && current < totalPage) {
 			html += Html.aJs("&lt;", "btn btn-primary", "onClick", "refreshObat(" + prev + ",\"" + cari + "\")");
 			html += Html.aJs("&gt;", "btn btn-primary", "onClick", "refreshObat(" + next + ",\"" + cari + "\")");
 		}
-//		System.out.println(html);
+		// System.out.println(html);
 		return html;
 	}
 
-	private String buttonListGenerator(Page<Obat> list, HttpServletRequest request) {
+	private String buttonListGenerator(Page<Obat> list, int jumlahKolom, HttpServletRequest request) {
 		String button = "";
-		button += "<div class='btn-group btn-group-justified'>";
-		for (int i = 0; i < list.getContent().size(); i++) {
-			button += Html.aJs(list.getContent().get(i).getNama(), "btn btn-default", "onClick", "tambahObat(" + list.getContent().get(i).getId() + ")");			
+		String isi = "";
+		int size = list.getContent().size();
+		for (int i = 0; i < size; i++) {
+			isi += Html.aJs(list.getContent().get(i).getNama(), "btn btn-default", "onClick", "tambahObat(" + list.getContent().get(i).getId() + ")");
+			if ((i + 1) % jumlahKolom == 0 || (i + 1) == size) {
+				button += Html.div(isi, "btn-group btn-group-justified");
+				isi = "";
+			}
 		}
-		button += "</div>";
-		
+
 		return button;
 	}
 
@@ -517,11 +522,6 @@ public class ObatController {
 
 	private ObatHandler hilangkanTitik(ObatHandler h) {
 		try {
-			// NumberFormat format = NumberFormat.getCurrencyInstance(new
-			// Locale("id", "ID"));
-			// System.out.println("Harga Beli " +
-			// h.getHargaBeli().replaceAll("[.]", ""));
-			// h.setHargaBeli(format.parse(h.getHargaBeli()));
 			h.setHargaBeli(h.getHargaBeli().replaceAll("[.]", ""));
 			h.setHargaJual(h.getHargaJual().replaceAll("[.]", ""));
 			h.setHargaJualResep(h.getHargaJualResep().replaceAll("[.]", ""));

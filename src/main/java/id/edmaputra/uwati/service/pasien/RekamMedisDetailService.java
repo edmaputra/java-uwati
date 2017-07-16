@@ -43,6 +43,14 @@ public class RekamMedisDetailService {
 	public void hapus(RekamMedisDetail rekamMedisDetail) {
 		rekamMedisDetailRepository.delete(rekamMedisDetail);
 	}
+	
+	public void hapus(RekamMedis rekamMedis) {
+		rekamMedisDetailRepository.deleteByRekamMedis(rekamMedis);
+	}
+	
+	public void hapusBatch(RekamMedis rekamMedis){
+		rekamMedisDetailRepository.deleteInBatch(dapatkan(rekamMedis));
+	}
 
 	public List<RekamMedisDetail> dapatkan(RekamMedis rekamMedis) {
 		return rekamMedisDetailRepository.findByRekamMedis(rekamMedis);

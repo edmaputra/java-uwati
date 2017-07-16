@@ -6,3 +6,4 @@
 <a id="gritter-tambah-gagal" class="btn btn-default btn-sm btnHide" href="javascript:;"></a>
 <a id="gritter-edit-gagal" class="btn btn-default btn-sm btnHide" href="javascript:;"></a>
 <a id="gritter-hapus-gagal" class="btn btn-default btn-sm btnHide" href="javascript:;"></a>
+<a id="gritter-trigger" class="btn btn-default btn-sm btnHide" href="javascript:;"></a>

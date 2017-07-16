@@ -4,6 +4,8 @@ public class HtmlElement {
 	
 	private String tabel;
 	
+	private String tabelTerapi;
+	
 	private String navigasiObat;
 	
 	private String navigasiHalaman;
@@ -60,6 +62,14 @@ public class HtmlElement {
 
 	public void setNavigasiObat(String navigasiObat) {
 		this.navigasiObat = navigasiObat;
+	}
+
+	public String getTabelTerapi() {
+		return tabelTerapi;
+	}
+
+	public void setTabelTerapi(String tabelTerapi) {
+		this.tabelTerapi = tabelTerapi;
 	}
 
 }

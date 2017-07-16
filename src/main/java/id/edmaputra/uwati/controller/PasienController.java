@@ -35,6 +35,7 @@ import id.edmaputra.uwati.service.pasien.RekamMedisService;
 import id.edmaputra.uwati.specification.PasienPredicateBuilder;
 import id.edmaputra.uwati.support.Converter;
 import id.edmaputra.uwati.support.LogSupport;
+import id.edmaputra.uwati.validator.impl.PasienValidator;
 import id.edmaputra.uwati.view.Formatter;
 import id.edmaputra.uwati.view.Html;
 import id.edmaputra.uwati.view.HtmlElement;
@@ -53,7 +54,7 @@ public class PasienController {
 	private RekamMedisService rekamMedisService;
 	
 	@Autowired
-	private KaryawanService karyawanService;
+	private PasienValidator pasienValidator;
 	
 	@Autowired
 	private RekamMedisDetailService rekamMedisDetailService;
@@ -119,25 +120,27 @@ public class PasienController {
 			return null;
 		}
 	}
-
-	@RequestMapping(value = "/ada", method = RequestMethod.GET)
+	
+	@RequestMapping(value = "/tersedia", method = RequestMethod.GET)
 	@ResponseBody
 	public Boolean isAda(@RequestParam("identitas") String identitas) {
-		return pasienService.dapatkanByIdentitas(identitas) != null;
+		return pasienService.dapatkanByIdentitas(identitas) == null;
 	}
 
 //	@Transactional
 	@RequestMapping(value = "/tambah", method = RequestMethod.POST)
 	@ResponseBody
 	public Pasien tambah(@RequestBody PasienHandler h, BindingResult result, Principal principal, HttpServletRequest request) {
-		try {		
-			Pasien pasien = new Pasien();
+		Pasien pasien = null;
+		try {
+			pasien = new Pasien();
 			pasien = setPasien(pasien, h);
 			
 			pasien.setUserInput(principal.getName());
 			pasien.setWaktuDibuat(new Date());	
 			pasien.setTerakhirDirubah(new Date());
 			
+			pasienValidator.validate(pasien);
 			pasienService.simpan(pasien);
 			logger.info(LogSupport.tambah(principal.getName(), pasien.toString(), request));
 			pasien.setInfo("Pasien " + pasien.getNama()+" Berhasil Ditambah");
@@ -145,7 +148,8 @@ public class PasienController {
 		} catch (Exception e) {
 			logger.info(e.getMessage());
 			logger.info(LogSupport.tambahGagal(principal.getName(), h.getNama(), request));
-			return null;
+			pasien.setInfo(e.getMessage());
+			return pasien;
 		}
 	}
 //
@@ -162,6 +166,7 @@ public class PasienController {
 			edit.setUserEditor(principal.getName());
 			edit.setTerakhirDirubah(new Date());
 			
+			pasienValidator.validate(edit);
 			pasienService.simpan(edit);
 			logger.info(LogSupport.edit(principal.getName(), entity, request));
 			edit.setInfo("Pasien "+edit.getNama()+" Berhasil Diubah");
@@ -169,7 +174,8 @@ public class PasienController {
 		} catch (Exception e) {
 			logger.info(e.getMessage());
 			logger.info(LogSupport.editGagal(principal.getName(), entity, request));
-			return null;
+			edit.setInfo(e.getMessage());
+			return edit;
 		}
 	}
 //

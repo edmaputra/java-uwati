@@ -12,4 +12,6 @@ public interface RekamMedisDetailRepository extends JpaRepository<RekamMedisDeta
 
 	List<RekamMedisDetail> findByRekamMedis(RekamMedis rekamMedis);
 
+	void deleteByRekamMedis(RekamMedis rekamMedis);
+
 }

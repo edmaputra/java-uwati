@@ -108,6 +108,14 @@ public class Init {
 		penggunaRepo.save(pengguna);
 //		penggunaRepo.save(apotik);
 //		penggunaRepo.save(medis);
+		
+		Karyawan k = new Karyawan();
+		k = buatDokter("Bangun", "MATA", "1111", "Kota Bangun", "Dokter",null);
+		k.setPengguna(pengguna);
+		dokterRepo.save(k);
+		
+		pengguna.setKaryawan(k);
+		penggunaRepo.save(pengguna);
 //
 		Satuan pcs = buatSatuan("PCS");
 		satuanRepo.save(pcs);
@@ -142,7 +150,7 @@ public class Init {
 //			pelangganRepo.save(p);
 //		}
 //		//
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 70; i++) {
 			Obat obat = buatObat("OBAT " + i, "K-" + i, kaplet, ll, null, null, null, null, 50, 0);
 			obatRepo.save(obat);
 
@@ -219,8 +227,8 @@ public class Init {
 		return kategori;
 	}
 
-	private Karyawan buatDokter(String nama, String spesialis, String sip, String alamat) {
-		Karyawan karyawan = new Karyawan(nama, spesialis, sip, alamat, null, null);
+	private Karyawan buatDokter(String nama, String spesialis, String sip, String alamat, String jabatan, Pengguna pengguna) {
+		Karyawan karyawan = new Karyawan(nama, spesialis, sip, alamat, jabatan, pengguna);
 		karyawan.setUserInput("admin");
 		karyawan.setWaktuDibuat(new Date());
 		karyawan.setTerakhirDirubah(new Date());

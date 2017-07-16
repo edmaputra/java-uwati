@@ -17,38 +17,38 @@ import id.edmaputra.uwati.repository.obat.ObatRepository;
 public class ObatService {
 
 	@Autowired
-	private ObatRepository obatRepo;
+	private ObatRepository obatRepository;
 
 	private static final int PAGE_SIZE = 25;
 
 	public void simpan(Obat obat) {
-		obatRepo.save(obat);
+		obatRepository.save(obat);
 	}
 
 	public Obat dapatkan(Long id) {
-		return obatRepo.findOne(id);
+		return obatRepository.findOne(id);
 	}
 	
 	public Obat dapatkanByNama(String nama){
-		return obatRepo.findByNama(nama);
+		return obatRepository.findByNama(nama);
 	}
 
 	public Page<Obat> muatDaftar(Integer halaman, BooleanExpression expression) {
 		PageRequest request = new PageRequest(halaman - 1, PAGE_SIZE, Sort.Direction.ASC, "id");
-		return obatRepo.findAll(expression, request);
+		return obatRepository.findAll(expression, request);
 	}
 	
 	public Page<Obat> muatDaftar(Integer halaman, BooleanExpression expression, int size) {
 		PageRequest request = new PageRequest(halaman - 1, size, Sort.Direction.ASC, "id");
-		return obatRepo.findAll(expression, request);
+		return obatRepository.findAll(expression, request);
 	}
 
 	public void hapus(Obat obat) {
-		obatRepo.delete(obat);
+		obatRepository.delete(obat);
 	}
 
 	public List<Obat> dapatkanListByNama(BooleanExpression exp) {
-		return (List<Obat>) obatRepo.findAll(exp);
+		return (List<Obat>) obatRepository.findAll(exp);
 	}
 
 }

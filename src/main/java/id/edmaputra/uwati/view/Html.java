@@ -20,6 +20,15 @@ public class Html {
 		return "<nav>" + content + "</nav>";
 	}
 	
+	public static String div(String content, String clazz) {
+		String ul = "<div ";
+		if (!StringUtils.isEmpty(clazz) || clazz != null) {
+			ul += "class = \"" + clazz + "\" ";
+		} 
+		ul += ">" + content + "</div>";
+		return ul;
+	}
+	
 	public static String ul(String content, String clazz) {
 		String ul = "<ul ";
 		if (!StringUtils.isEmpty(clazz) || clazz != null) {
@@ -53,6 +62,21 @@ public class Html {
 		return a;
 	}
 	
+	public static String aJs(String content, String clazz, String evt, String eventName, String title) {
+		String a = "<a href=\"javascript:;\" ";
+		if (!StringUtils.isEmpty(clazz) || clazz != null) {
+			a += "class = '" + clazz + "' ";
+		}
+		if (!StringUtils.isEmpty(evt) || evt != null) {
+			a += evt + " = '" + eventName + "' ";
+		}
+		if (!StringUtils.isEmpty(title) || title != null) {
+			a += "title = '" + title + "' ";
+		}
+		a += ">" + content + "</a>";
+		return a;
+	}
+	
 	public static String a(String content, String clazz, String evt, String eventName, String href, String dataToggle, String dataTarget) {
 		String a = "<a ";
 		if (!StringUtils.isEmpty(clazz) || clazz != null) {
@@ -69,6 +93,30 @@ public class Html {
 		}
 		if (!StringUtils.isEmpty(dataTarget) || dataTarget != null) {
 			a += "data-target = '" + dataTarget + "' ";
+		}
+		a += ">" + content + "</a>";
+		return a;
+	}
+	
+	public static String a(String content, String clazz, String evt, String eventName, String href, String dataToggle, String dataTarget, String title) {
+		String a = "<a ";
+		if (!StringUtils.isEmpty(clazz) || clazz != null) {
+			a += "class = '" + clazz + "' ";
+		}
+		if (!StringUtils.isEmpty(evt) || evt != null) {
+			a += evt + " = '" + eventName + "' ";
+		}
+		if (!StringUtils.isEmpty(href) || href != null) {
+			a += "href = '" + href + "' ";
+		}
+		if (!StringUtils.isEmpty(dataToggle) || dataToggle != null) {
+			a += "data-toggle = '" + dataToggle + "' ";
+		}
+		if (!StringUtils.isEmpty(dataTarget) || dataTarget != null) {
+			a += "data-target = '" + dataTarget + "' ";
+		}
+		if (!StringUtils.isEmpty(title) || title != null) {
+			a += "title = '" + title + "' ";
 		}
 		a += ">" + content + "</a>";
 		return a;
@@ -127,6 +175,45 @@ public class Html {
 		}
 		btn += "</button>";
 		return btn;
+	}
+	
+	public static String navigasiHalamanGenerator(int first, int prev, int current, int next, int last, int totalPage,
+			String cari) {
+		String html = "";
+
+		if (current == 1) {
+			html += Html.li(Html.aJs("&lt;&lt;", null, null, null), "disabled", null, null);
+			html += Html.li(Html.aJs("&lt;", null, null, null), "disabled", null, null);
+		} else {
+			html += Html.li(Html.aJs("&lt;&lt;", null, "onClick", "refresh(" + first + ",\"" + cari + "\")"), null,
+					null, null);
+			html += Html.li(Html.aJs("&lt;", null, "onClick", "refresh(" + prev + ",\"" + cari + "\")"), null, null,
+					null);
+		}
+
+		for (int i = first; i <= last; i++) {
+			if (i == current) {
+				html += Html.li(Html.aJs(i + "", null, "onClick", "refresh(" + i + ",\"" + cari + "\")"), "active",
+						null, null);
+			} else {
+				html += Html.li(Html.aJs(i + "", null, "onClick", "refresh(" + i + ",\"" + cari + "\")"), null, null,
+						null);
+			}
+		}
+
+		if (current == totalPage) {
+			html += Html.li(Html.aJs("&gt;", null, null, null), "disabled", null, null);
+			html += Html.li(Html.aJs("&gt;&gt;", null, null, null), "disabled", null, null);
+		} else {
+			html += Html.li(Html.aJs("&gt;", null, "onClick", "refresh(" + next + ",\"" + cari + "\")"), null, null,
+					null);
+			html += Html.li(Html.aJs("&gt;&gt;", null, "onClick", "refresh(" + last + ",\"" + cari + "\")"), null, null,
+					null);
+		}
+
+		String nav = Html.nav(Html.ul(html, "pagination"));
+
+		return nav;
 	}
 
 }

@@ -16,7 +16,7 @@ public class ApotekValidator extends AbstractValidator<Apotek>{
 			throwValidatorException("Nama Apotek Tidak Boleh Null");
 		} else if (data.getNama().trim().isEmpty()){
 			throwValidatorException("Nama Apotek tidak boleh kosong");
-		} if (data.getAlamat() == null){
+		} else if (data.getAlamat() == null){
 			throwValidatorException("Alamat Apotek Tidak Boleh Null");
 		} else if (data.getAlamat().trim().isEmpty()){
 			throwValidatorException("Alamat Apotek tidak boleh kosong");

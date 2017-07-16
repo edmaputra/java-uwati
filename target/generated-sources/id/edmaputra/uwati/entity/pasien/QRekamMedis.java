@@ -35,6 +35,10 @@ public class QRekamMedis extends EntityPathBase<RekamMedis> {
     //inherited
     public final StringPath info = _super.info;
 
+    public final BooleanPath isResepSudahDiproses = createBoolean("isResepSudahDiproses");
+
+    public final BooleanPath isSudahDisimpan = createBoolean("isSudahDisimpan");
+
     public final StringPath nomor = createString("nomor");
 
     public final QPasien pasien;
