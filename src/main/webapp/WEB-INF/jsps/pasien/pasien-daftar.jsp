@@ -214,15 +214,15 @@
 				},
 				identitas : {
 					required : true,
-					remote: {
-						url: "${isIdentitasAda}",
-						type: "get",
-						data: {
-							identitas: function(){
-								return $("#identitas").val();
-							}
-						}
-					},
+// 					remote: {
+// 						url: "${isIdentitasAda}",
+// 						type: "get",
+// 						data: {
+// 							identitas: function(){
+// 								return $("#identitas").val();
+// 							}
+// 						}
+// 					},
 				},
 				tanggalLahir : {
 					required : true

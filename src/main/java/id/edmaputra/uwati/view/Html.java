@@ -172,6 +172,10 @@ public class Html {
 			btn += "<i class='fa fa-trash-o'></i>";
 		} else if (tipe == 2) {
 			btn += "<i class='fa fa-check-square-o'></i>";
+		} else if (tipe == 3) {
+			btn += "<i class='fa fa-cart-plus'></i>";
+		} else if (tipe == 4) {
+			btn += "<i class='fa fa-print'></i>";
 		}
 		btn += "</button>";
 		return btn;

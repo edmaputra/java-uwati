@@ -31,5 +31,6 @@
 		<class>id.edmaputra.uwati.entity.pasien.RekamMedis</class>
 		<class>id.edmaputra.uwati.entity.pasien.RekamMedisDetail</class>
 		<class>id.edmaputra.uwati.entity.pasien.RekamMedisDetailTemp</class>
+		<class>id.edmaputra.uwati.entity.master.obat.RacikanDetailTemporary</class>
 	</persistence-unit>
 </persistence>

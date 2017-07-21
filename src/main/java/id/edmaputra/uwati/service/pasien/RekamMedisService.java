@@ -52,4 +52,9 @@ public class RekamMedisService {
 	public List<RekamMedis> temukanByPasien(Pasien pasien) {
 		return rekamMedisRepository.findByPasien(pasien);
 	}
+
+	public Page<RekamMedis> muatDaftarResep(Integer halaman, BooleanExpression expression) {
+		PageRequest request = new PageRequest(halaman - 1, PAGE_SIZE, Sort.Direction.DESC, "waktuDibuat");
+		return rekamMedisRepository.findAll(expression, request);
+	}
 }

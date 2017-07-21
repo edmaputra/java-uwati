@@ -2,6 +2,8 @@ package id.edmaputra.uwati.entity.pasien;
 
 public class RekamMedisHandler {
 	
+	private String penjualanId;
+	
 	private String nomor;
 	
 	private String tanggal;
@@ -15,6 +17,120 @@ public class RekamMedisHandler {
 	private String tabelTerapi;
 	
 	private String pasien;
+	
+	private String pasienId;
+	
+	private String dokterId;
+	
+	private String umur;
+	
+	private String gender;
+	
+	private String alamat;
+	
+	private String jaminan;
+	
+	private String nomorJaminan;
+	
+	private String totalPembelian;
+	
+	private String diskon;
+	
+	private String totalBayar;
+	
+	private String bayar;
+	
+	private String kembali;
+	
+	private String id;
+
+	public String getJaminan() {
+		return jaminan;
+	}
+
+	public void setJaminan(String jaminan) {
+		this.jaminan = jaminan;
+	}
+
+	public String getNomorJaminan() {
+		return nomorJaminan;
+	}
+
+	public void setNomorJaminan(String nomorJaminan) {
+		this.nomorJaminan = nomorJaminan;
+	}
+
+	public String getTotalPembelian() {
+		return totalPembelian;
+	}
+
+	public void setTotalPembelian(String totalPembelian) {
+		this.totalPembelian = totalPembelian;
+	}
+
+	public String getDiskon() {
+		return diskon;
+	}
+
+	public void setDiskon(String diskon) {
+		this.diskon = diskon;
+	}
+
+	public String getTotalBayar() {
+		return totalBayar;
+	}
+
+	public void setTotalBayar(String totalBayar) {
+		this.totalBayar = totalBayar;
+	}
+
+	public String getBayar() {
+		return bayar;
+	}
+
+	public void setBayar(String bayar) {
+		this.bayar = bayar;
+	}
+
+	public String getKembali() {
+		return kembali;
+	}
+
+	public void setKembali(String kembali) {
+		this.kembali = kembali;
+	}
+
+	public String getPasienId() {
+		return pasienId;
+	}
+
+	public void setPasienId(String pasienId) {
+		this.pasienId = pasienId;
+	}
+
+	public String getUmur() {
+		return umur;
+	}
+
+	public void setUmur(String umur) {
+		this.umur = umur;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getAlamat() {
+		return alamat;
+	}
+
+	public void setAlamat(String alamat) {
+		this.alamat = alamat;
+	}
 
 	public String getNomor() {
 		return nomor;
@@ -76,6 +192,30 @@ public class RekamMedisHandler {
 
 	public void setPasien(String pasien) {
 		this.pasien = pasien;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getDokterId() {
+		return dokterId;
+	}
+
+	public void setDokterId(String dokterId) {
+		this.dokterId = dokterId;
+	}
+
+	public String getPenjualanId() {
+		return penjualanId;
+	}
+
+	public void setPenjualanId(String penjualanId) {
+		this.penjualanId = penjualanId;
 	}
 
 }

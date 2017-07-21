@@ -41,22 +41,28 @@ import id.edmaputra.uwati.entity.master.obat.ObatExpired;
 import id.edmaputra.uwati.entity.master.obat.ObatStok;
 import id.edmaputra.uwati.entity.master.obat.Racikan;
 import id.edmaputra.uwati.entity.master.obat.RacikanDetail;
+import id.edmaputra.uwati.entity.pasien.RekamMedis;
+import id.edmaputra.uwati.entity.pasien.RekamMedisDetail;
+import id.edmaputra.uwati.entity.pasien.RekamMedisHandler;
 import id.edmaputra.uwati.entity.transaksi.NomorFaktur;
-import id.edmaputra.uwati.entity.transaksi.Pembelian;
-import id.edmaputra.uwati.entity.transaksi.PembelianDetail;
 import id.edmaputra.uwati.entity.transaksi.Penjualan;
 import id.edmaputra.uwati.entity.transaksi.PenjualanDetail;
 import id.edmaputra.uwati.entity.transaksi.PenjualanDetailRacikan;
 import id.edmaputra.uwati.entity.transaksi.PenjualanDetailTemp;
 import id.edmaputra.uwati.reports.Struk;
 import id.edmaputra.uwati.service.ApotekService;
+import id.edmaputra.uwati.service.KaryawanService;
 import id.edmaputra.uwati.service.obat.ObatDetailService;
 import id.edmaputra.uwati.service.obat.ObatExpiredService;
 import id.edmaputra.uwati.service.obat.ObatService;
 import id.edmaputra.uwati.service.obat.ObatStokService;
 import id.edmaputra.uwati.service.obat.RacikanDetailService;
 import id.edmaputra.uwati.service.obat.RacikanService;
+import id.edmaputra.uwati.service.pasien.PasienService;
+import id.edmaputra.uwati.service.pasien.RekamMedisDetailService;
+import id.edmaputra.uwati.service.pasien.RekamMedisService;
 import id.edmaputra.uwati.service.transaksi.NomorFakturService;
+import id.edmaputra.uwati.service.transaksi.PenjualanDetailService;
 import id.edmaputra.uwati.service.transaksi.PenjualanDetailTempService;
 import id.edmaputra.uwati.service.transaksi.PenjualanService;
 import id.edmaputra.uwati.specification.NomorFakturPredicateBuilder;
@@ -98,19 +104,35 @@ public class PenjualanObatController {
 
 	@Autowired
 	private RacikanDetailService racikanDetailService;
-	
+
 	@Autowired
-	private ApotekService apotekService;		
-	
+	private ApotekService apotekService;
+
 	@Autowired
 	private PenjualanService penjualanService;
 	
-	@Autowired 
+	@Autowired
+	private PenjualanDetailService penjualanDetailService;
+
+	@Autowired
+	private KaryawanService karyawanService;
+
+	@Autowired
+	private PasienService pasienService;
+
+	@Autowired
+	private RekamMedisService rekamMedisService;
+
+	@Autowired
+	private RekamMedisDetailService rekamMedisDetailService;
+
+	@Autowired
 	@Qualifier("strukPenjualanPdf")
 	private JasperReportsPdfView strukPenjualan;
 
 	private final String KODE_TRANSAKSI = "A";
-	
+	private final String KODE_TRANSAKSI_RESEP = "B";
+
 	private Penjualan penjualan;
 	private List<PenjualanDetail> listPenjualanDetail;
 	private List<PenjualanDetailRacikan> listPenjualanDetailRacikan;
@@ -137,8 +159,8 @@ public class PenjualanObatController {
 			Principal principal, HttpServletRequest request) {
 		try {
 			String nomorFaktur = pdt.getNomorFaktur();
-			if (nomorFaktur == null || StringUtils.isBlank(nomorFaktur)) {				
-				String nF = generateNomorFaktur(pdt.getTanggal());
+			if (nomorFaktur == null || StringUtils.isBlank(nomorFaktur)) {
+				String nF = generateNomorFaktur(pdt.getTanggal(), KODE_TRANSAKSI);
 				pdt.setNomorFaktur(nF);
 				NomorFaktur newNF = new NomorFaktur();
 				newNF.setNomor(setNomorUrutFaktur(nF));
@@ -148,10 +170,11 @@ public class PenjualanObatController {
 				newNF.setWaktuDibuat(new Date());
 				newNF.setTerakhirDirubah(new Date());
 				nomorFakturService.simpan(newNF);
-			}		
-			
-			PenjualanDetailTemp temp = penjualanDetailTempService.dapatkanByObatAndNomorFaktur(pdt.getObat(),nomorFaktur);
-			if (temp != null){
+			}
+
+			PenjualanDetailTemp temp = penjualanDetailTempService.dapatkanByObatAndNomorFaktur(pdt.getObat(),
+					nomorFaktur);
+			if (temp != null) {
 				temp = updateTemp(pdt, temp, principal.getName());
 				penjualanDetailTempService.simpan(temp);
 			} else {
@@ -160,8 +183,8 @@ public class PenjualanObatController {
 				pdt.setWaktuDibuat(new Date());
 				pdt.setTerakhirDirubah(new Date());
 				penjualanDetailTempService.simpan(pdt);
-			}			
-			
+			}
+
 			updateStokObat(pdt.getObat(), pdt.getJumlah(), 0);
 			logger.info(LogSupport.tambah(principal.getName(), pdt.toString(), request));
 			return pdt;
@@ -177,10 +200,10 @@ public class PenjualanObatController {
 	public PenjualanDetailTemp tambahRacikanTemp(@RequestBody PenjualanDetailTemp pdt, BindingResult result,
 			Principal principal, HttpServletRequest request) {
 		try {
-			if (cekStokObatFromRacikan(pdt) == "OK") {				
+			if (cekStokObatFromRacikan(pdt) == "OK") {
 				String nomorFaktur = pdt.getNomorFaktur();
 				if (nomorFaktur == null || StringUtils.isBlank(nomorFaktur)) {
-					String nF = generateNomorFaktur(pdt.getTanggal());
+					String nF = generateNomorFaktur(pdt.getTanggal(), KODE_TRANSAKSI);
 					pdt.setNomorFaktur(nF);
 					NomorFaktur newNF = new NomorFaktur();
 					newNF.setNomor(setNomorUrutFaktur(nF));
@@ -191,12 +214,13 @@ public class PenjualanObatController {
 					newNF.setTerakhirDirubah(new Date());
 					nomorFakturService.simpan(newNF);
 				}
-				
-				PenjualanDetailTemp temp = penjualanDetailTempService.dapatkanByObatAndNomorFaktur(pdt.getObat(),nomorFaktur);				
-				if (temp != null){					
+
+				PenjualanDetailTemp temp = penjualanDetailTempService.dapatkanByObatAndNomorFaktur(pdt.getObat(),
+						nomorFaktur);
+				if (temp != null) {
 					temp = updateTemp(pdt, temp, principal.getName());
 					pdt.setInfo(cekStokObatFromRacikan(pdt));
-					penjualanDetailTempService.simpan(temp);					
+					penjualanDetailTempService.simpan(temp);
 				} else {
 					pdt.setSubTotal(Formatter.patternCurrency(Integer.valueOf(pdt.getSubTotal()).intValue()));
 					pdt.setInfo(cekStokObatFromRacikan(pdt));
@@ -260,94 +284,196 @@ public class PenjualanObatController {
 			return null;
 		}
 	}
-	
+
 	@RequestMapping(value = "/jual", method = RequestMethod.POST)
 	@ResponseBody
-	public PenjualanDetailTemp jual(@RequestBody PenjualanDetailTemp temp, BindingResult result, Principal principal, HttpServletRequest request) {		
+	public PenjualanDetailTemp jual(@RequestBody PenjualanDetailTemp temp, BindingResult result, Principal principal,
+			HttpServletRequest request) {
 		penjualan = new Penjualan();
 		try {
-			String nomorFaktur = temp.getNomorFaktur();			
-			penjualan.setNomorFaktur(nomorFaktur);			
-			penjualan.setWaktuTransaksi(Converter.stringToDate(temp.getTanggal()));			
-			penjualan.setTipe(Integer.valueOf(temp.getTipe()));			
+			String nomorFaktur = temp.getNomorFaktur();
+			penjualan.setNomorFaktur(nomorFaktur);
+			penjualan.setWaktuTransaksi(Converter.stringToDate(temp.getTanggal()));
+			penjualan.setTipe(Integer.valueOf(temp.getTipe()));
 			penjualan.setDokter(temp.getDokter());
-			penjualan.setPelanggan(temp.getPelanggan());			
-			penjualan.setPengguna(principal.getName());			
-			penjualan.setTotalPembelian(new BigDecimal(Formatter.hilangkanTitik(temp.getTotal())));		
-			penjualan.setDiskon(new BigDecimal(Formatter.hilangkanTitik(temp.getDiskon())));			
-			penjualan.setPajak(new BigDecimal(Formatter.hilangkanTitik(temp.getPajak())));			
-			BigDecimal grandTotal = new BigDecimal(Formatter.hilangkanTitik(temp.getGrandTotal()));	
-			BigDecimal bayar = new BigDecimal(Formatter.hilangkanTitik(temp.getBayar()));		
-			penjualan.setGrandTotal(grandTotal);		
-			penjualan.setBayar(bayar);		
+			penjualan.setPelanggan(temp.getPelanggan());
+			penjualan.setPengguna(principal.getName());
+			penjualan.setTotalPembelian(new BigDecimal(Formatter.hilangkanTitik(temp.getTotal())));
+			penjualan.setDiskon(new BigDecimal(Formatter.hilangkanTitik(temp.getDiskon())));
+			penjualan.setPajak(new BigDecimal(Formatter.hilangkanTitik(temp.getPajak())));
+			BigDecimal grandTotal = new BigDecimal(Formatter.hilangkanTitik(temp.getGrandTotal()));
+			BigDecimal bayar = new BigDecimal(Formatter.hilangkanTitik(temp.getBayar()));
+			penjualan.setGrandTotal(grandTotal);
+			penjualan.setBayar(bayar);
 			penjualan.setKembali(bayar.subtract(grandTotal));
 			penjualan.setWaktuDibuat(new Date());
 			penjualan.setTerakhirDirubah(new Date());
-			
+
 			listPenjualanDetail = new ArrayList<>();
 			listPenjualanDetailRacikan = new ArrayList<>();
-			
-			List<PenjualanDetailTemp> listJualDetailTemp = penjualanDetailTempService.dapatkan(nomorFaktur, principal.getName());			
-			for (PenjualanDetailTemp pdt : listJualDetailTemp){				
-				PenjualanDetail penjualanDetail = new PenjualanDetail();				
-				Obat obat = getObat(pdt.getObat());				
-				penjualanDetail.setObat(obat.getNama());				
-				
-				if (obat.getTipe() == 0){					
-					penjualanDetail.setIsRacikan(false);					
-				} else if (obat.getTipe() == 1){					
-					penjualanDetail.setIsRacikan(true);				
-					Racikan r = getRacikan(obat.getNama());					
-					for (RacikanDetail rd : r.getRacikanDetail()) {						
-						PenjualanDetailRacikan pdr = new PenjualanDetailRacikan();						
-						pdr.setKomposisi(rd.getKomposisi().getNama());						
-						pdr.setHargaJualPerKomposisi(rd.getHargaSatuan());						
-						pdr.setJumlah(rd.getJumlah());											
-						pdr.setTerakhirDirubah(new Date());					
-						pdr.setWaktuDibuat(new Date());					
-						pdr.setPenjualanDetail(penjualanDetail);						
-						listPenjualanDetailRacikan.add(pdr);						
+
+			List<PenjualanDetailTemp> listJualDetailTemp = penjualanDetailTempService.dapatkan(nomorFaktur,
+					principal.getName());
+			for (PenjualanDetailTemp pdt : listJualDetailTemp) {
+				PenjualanDetail penjualanDetail = new PenjualanDetail();
+				Obat obat = getObat(pdt.getObat());
+				penjualanDetail.setObat(obat.getNama());
+
+				if (obat.getTipe() == 0) {
+					penjualanDetail.setIsRacikan(false);
+				} else if (obat.getTipe() == 1) {
+					penjualanDetail.setIsRacikan(true);
+					Racikan r = getRacikan(obat.getNama());
+					for (RacikanDetail rd : r.getRacikanDetail()) {
+						PenjualanDetailRacikan pdr = new PenjualanDetailRacikan();
+						pdr.setKomposisi(rd.getKomposisi().getNama());
+						pdr.setHargaJualPerKomposisi(rd.getHargaSatuan());
+						pdr.setJumlah(rd.getJumlah());
+						pdr.setTerakhirDirubah(new Date());
+						pdr.setWaktuDibuat(new Date());
+						pdr.setPenjualanDetail(penjualanDetail);
+						listPenjualanDetailRacikan.add(pdr);
 					}
 					PenjualanDetailRacikan biayaRacik = new PenjualanDetailRacikan();
 					biayaRacik.setKomposisi("Biaya Racik");
 					biayaRacik.setHargaJualPerKomposisi(r.getBiayaRacik());
 					biayaRacik.setJumlah(1);
-					biayaRacik.setTerakhirDirubah(new Date());					
-					biayaRacik.setWaktuDibuat(new Date());					
+					biayaRacik.setTerakhirDirubah(new Date());
+					biayaRacik.setWaktuDibuat(new Date());
 					biayaRacik.setPenjualanDetail(penjualanDetail);
 					listPenjualanDetailRacikan.add(biayaRacik);
-					
+
 					penjualanDetail.setRacikanDetail(listPenjualanDetailRacikan);
 				}
-				
+
 				BigDecimal hargaJual = new BigDecimal(Formatter.hilangkanTitik(pdt.getHargaJual()));
-				Integer jumlah = new Integer(Formatter.hilangkanTitik(pdt.getJumlah()));			
-				BigDecimal pajak = new BigDecimal(Formatter.hilangkanTitik(pdt.getPajak()));				
-				BigDecimal diskon = new BigDecimal(Formatter.hilangkanTitik(pdt.getDiskon()));				
-				BigDecimal hargaTotal = hargaJual.multiply(new BigDecimal(jumlah));				
-				hargaTotal = hargaTotal.add(pajak);			
-				hargaTotal = hargaTotal.subtract(diskon);				
-				
-				penjualanDetail.setHargaJual(hargaJual);				
-				penjualanDetail.setJumlah(jumlah);				
-				penjualanDetail.setPajak(pajak);				
-				penjualanDetail.setDiskon(diskon);			
-				penjualanDetail.setHargaTotal(hargaTotal);			
-				
-				penjualanDetail.setWaktuDibuat(new Date());			
-				penjualanDetail.setTerakhirDirubah(new Date());			
-				penjualanDetail.setPenjualan(penjualan);			
-				
-				listPenjualanDetail.add(penjualanDetail);				
+				Integer jumlah = new Integer(Formatter.hilangkanTitik(pdt.getJumlah()));
+				BigDecimal pajak = new BigDecimal(Formatter.hilangkanTitik(pdt.getPajak()));
+				BigDecimal diskon = new BigDecimal(Formatter.hilangkanTitik(pdt.getDiskon()));
+				BigDecimal hargaTotal = hargaJual.multiply(new BigDecimal(jumlah));
+				hargaTotal = hargaTotal.add(pajak);
+				hargaTotal = hargaTotal.subtract(diskon);
+
+				penjualanDetail.setHargaJual(hargaJual);
+				penjualanDetail.setJumlah(jumlah);
+				penjualanDetail.setPajak(pajak);
+				penjualanDetail.setDiskon(diskon);
+				penjualanDetail.setHargaTotal(hargaTotal);
+
+				penjualanDetail.setWaktuDibuat(new Date());
+				penjualanDetail.setTerakhirDirubah(new Date());
+				penjualanDetail.setPenjualan(penjualan);
+
+				listPenjualanDetail.add(penjualanDetail);
 			}
-						
+
 			penjualan.setPenjualanDetail(listPenjualanDetail);
 			penjualanService.simpan(penjualan);
-			
+
 			hapusTempDiPenjualanDetailTemp(penjualan.getNomorFaktur(), penjualan.getPengguna());
-			
+
 			logger.info(LogSupport.tambah(principal.getName(), penjualan.toString(), request));
-			return temp;			
+			return temp;
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+			logger.info(LogSupport.tambahGagal(principal.getName(), penjualan.toString(), request));
+			return temp;
+		}
+	}
+
+	@RequestMapping(value = "/resep/jual", method = RequestMethod.POST)
+	@ResponseBody
+	public RekamMedisHandler jualResep(@RequestBody RekamMedisHandler temp, BindingResult result, Principal principal,
+			HttpServletRequest request) {
+		penjualan = new Penjualan();
+		try {
+			String nomorFaktur = "AAAAA";
+			penjualan.setNomorFaktur(nomorFaktur);
+			penjualan.setWaktuTransaksi(new Date());
+			penjualan.setTipe(Integer.valueOf(2));
+			penjualan.setDokter(karyawanService.dapatkan(Integer.valueOf(temp.getDokterId()).intValue()).getNama());
+			penjualan.setPelanggan(pasienService.dapatkan(Long.valueOf(temp.getPasienId())).getNama());
+			penjualan.setPengguna(principal.getName());
+			penjualan.setTotalPembelian(new BigDecimal(Formatter.hilangkanTitik(temp.getTotalPembelian())));
+			penjualan.setDiskon(new BigDecimal(Formatter.hilangkanTitik(temp.getDiskon())));
+			penjualan.setPajak(new BigDecimal(Formatter.hilangkanTitik("0")));
+			BigDecimal grandTotal = new BigDecimal(Formatter.hilangkanTitik(temp.getTotalBayar()));
+			BigDecimal bayar = new BigDecimal(Formatter.hilangkanTitik(temp.getBayar()));
+			penjualan.setGrandTotal(grandTotal);
+			penjualan.setBayar(bayar);
+			penjualan.setKembali(bayar.subtract(grandTotal));
+			penjualan.setWaktuDibuat(new Date());
+			penjualan.setTerakhirDirubah(new Date());
+
+			listPenjualanDetail = new ArrayList<>();
+			listPenjualanDetailRacikan = new ArrayList<>();
+
+			RekamMedis rm = rekamMedisService.dapatkan(Long.valueOf(temp.getId()));
+			List<RekamMedisDetail> list = rekamMedisDetailService.dapatkan(rm);
+			
+			for (RekamMedisDetail rmd : list) {
+				PenjualanDetail penjualanDetail = new PenjualanDetail();
+				Obat obat = getObat(rmd.getTerapi());
+				penjualanDetail.setObat(obat.getNama());
+
+				if (obat.getTipe() == 1) {
+					penjualanDetail.setIsRacikan(true);
+					Racikan r = getRacikan(obat.getNama());
+					for (RacikanDetail rd : r.getRacikanDetail()) {
+						PenjualanDetailRacikan pdr = new PenjualanDetailRacikan();
+						pdr.setKomposisi(rd.getKomposisi().getNama());
+						pdr.setHargaJualPerKomposisi(rd.getHargaSatuan());
+						pdr.setJumlah(rd.getJumlah());
+						pdr.setTerakhirDirubah(new Date());
+						pdr.setWaktuDibuat(new Date());
+						pdr.setPenjualanDetail(penjualanDetail);
+						listPenjualanDetailRacikan.add(pdr);
+					}
+					PenjualanDetailRacikan biayaRacik = new PenjualanDetailRacikan();
+					biayaRacik.setKomposisi("Biaya Racik");
+					biayaRacik.setHargaJualPerKomposisi(r.getBiayaRacik());
+					biayaRacik.setJumlah(1);
+					biayaRacik.setTerakhirDirubah(new Date());
+					biayaRacik.setWaktuDibuat(new Date());
+					biayaRacik.setPenjualanDetail(penjualanDetail);
+					listPenjualanDetailRacikan.add(biayaRacik);
+
+					penjualanDetail.setRacikanDetail(listPenjualanDetailRacikan);
+				} else {					
+					penjualanDetail.setIsRacikan(false);					
+				}
+
+				BigDecimal hargaJual = rmd.getHargaJual();
+				Integer jumlah = rmd.getJumlah();
+				BigDecimal pajak = rmd.getPajak();
+				BigDecimal diskon = rmd.getDiskon();
+				BigDecimal hargaTotal = hargaJual.multiply(new BigDecimal(jumlah));
+				hargaTotal = hargaTotal.add(pajak);
+				hargaTotal = hargaTotal.subtract(diskon);
+
+				penjualanDetail.setHargaJual(hargaJual);
+				penjualanDetail.setJumlah(jumlah);
+				penjualanDetail.setPajak(pajak);
+				penjualanDetail.setDiskon(diskon);
+				penjualanDetail.setHargaTotal(hargaTotal);
+
+				penjualanDetail.setWaktuDibuat(new Date());
+				penjualanDetail.setTerakhirDirubah(new Date());
+				penjualanDetail.setPenjualan(penjualan);
+				
+				updateStokObat(obat.getNama(), jumlah.toString(), 0);				
+				listPenjualanDetail.add(penjualanDetail);
+			}
+			
+			penjualan.setPenjualanDetail(listPenjualanDetail);
+			penjualanService.simpan(penjualan);
+			rm.setIsResepSudahDiproses(true);
+			rm.setUserEditor(principal.getName());
+			rm.setTerakhirDirubah(new Date());
+			rekamMedisService.simpan(rm);
+			logger.info(LogSupport.tambah(principal.getName(), penjualan.toString(), request));
+			temp.setPenjualanId(penjualan.getId().toString());
+			return temp;
 		} catch (Exception e) {
 			logger.info(e.getMessage());
 			logger.info(LogSupport.tambahGagal(principal.getName(), penjualan.toString(), request));
@@ -356,63 +482,121 @@ public class PenjualanObatController {
 	}
 	
 	@RequestMapping(value = "/cetak", method = RequestMethod.POST)
-	public ModelAndView buatResiDanCetak(ModelAndView mav, Principal principal){
+	public ModelAndView buatResiDanCetak(ModelAndView mav, Principal principal) {
 		try {
 			List<Struk> struks = new ArrayList<>();
-			Map<String, Object> parameterMap = new HashMap<String, Object>();						
-			Apotek apotek = apotekService.semua().get(0);			
+			Map<String, Object> parameterMap = new HashMap<String, Object>();
+			Apotek apotek = apotekService.semua().get(0);
 			BigDecimal grandTotal = new BigDecimal(0);
-			
-			for (PenjualanDetail d : listPenjualanDetail){
+
+			for (PenjualanDetail d : listPenjualanDetail) {
 				Struk struk = new Struk();
 				struk.setStrukNamaApotek(apotek.getNama());
-				struk.setStrukAlamatApotek(apotek.getAlamat()+"\n"+apotek.getTelepon());	
+				struk.setStrukAlamatApotek(apotek.getAlamat() + "\n" + apotek.getTelepon());
 				struk.setStrukTanggal(Converter.dateToString(penjualan.getWaktuTransaksi()));
 				struk.setStrukNomorFaktur(penjualan.getNomorFaktur());
 				struk.setStrukOperator(penjualan.getPengguna());
 				struk.setStrukPelanggan(penjualan.getPelanggan());
-				
+
 				struk.setStrukNamaObat(d.getObat());
 				struk.setStrukJumlahObat(d.getJumlah().toString() + " x");
 				struk.setStrukHargaObat(Converter.patternCurrency(d.getHargaJual()));
 				BigDecimal subTotal = d.getHargaTotal();
-				struk.setStrukSubTotalObat(Converter.patternCurrency(subTotal));				
+				struk.setStrukSubTotalObat(Converter.patternCurrency(subTotal));
 				grandTotal = grandTotal.add(subTotal);
-				
+
 				BigDecimal total = penjualan.getGrandTotal().add(penjualan.getDiskon());
 				total = total.subtract(penjualan.getPajak());
-				
-				struk.setStrukTotal(Converter.patternCurrency(total));			
-				
+
+				struk.setStrukTotal(Converter.patternCurrency(total));
+
 				BigDecimal p = penjualan.getPajak();
 				BigDecimal di = penjualan.getDiskon();
 				BigDecimal t = grandTotal.add(p);
 				t = t.subtract(di);
-				
+
 				struk.setStrukPajak(Converter.patternCurrency(p));
-				struk.setStrukDiskon(Converter.patternCurrency(di));				
-				
+				struk.setStrukDiskon(Converter.patternCurrency(di));
+
 				struk.setStrukGrandTotal(Converter.patternCurrency(t));
 				struk.setStrukBayar(Converter.patternCurrency(penjualan.getBayar()));
 				struk.setStrukKembali(Converter.patternCurrency(penjualan.getKembali()));
-				
+
 				struks.add(struk);
 			}
-			
+
 			JRDataSource JRdataSource = new JRBeanCollectionDataSource(struks);
-			
+
 			parameterMap.put("datasource", JRdataSource);
-			
+
 			mav = new ModelAndView(strukPenjualan, parameterMap);
 			return mav;
 		} catch (Exception e) {
 			logger.info(e.getMessage());
 			System.out.println(e.getMessage());
 			return null;
-		}		
+		}
 	}
-	
-	private PenjualanDetailTemp updateTemp(PenjualanDetailTemp pdt, PenjualanDetailTemp temp, String pengguna){
+
+	@RequestMapping(value = "/resep/cetak", method = RequestMethod.POST)
+	public ModelAndView buatResiDanCetakResep(@RequestParam("id") String id, ModelAndView mav, Principal principal) {
+		try {
+			List<Struk> struks = new ArrayList<>();
+			Map<String, Object> parameterMap = new HashMap<String, Object>();
+			Apotek apotek = apotekService.semua().get(0);
+			BigDecimal grandTotal = new BigDecimal(0);
+			Penjualan penjualan = penjualanService.dapatkan(Long.valueOf(id));
+			List<PenjualanDetail> list = penjualanDetailService.dapatkanByPenjualan(penjualan);
+			for (PenjualanDetail d : list) {
+				Struk struk = new Struk();
+				struk.setStrukNamaApotek(apotek.getNama());
+				struk.setStrukAlamatApotek(apotek.getAlamat() + "\n" + apotek.getTelepon());
+				struk.setStrukTanggal(Converter.dateToString(penjualan.getWaktuTransaksi()));
+				struk.setStrukNomorFaktur(penjualan.getNomorFaktur());
+				struk.setStrukOperator(penjualan.getPengguna());
+				struk.setStrukPelanggan(penjualan.getPelanggan());
+
+				struk.setStrukNamaObat(d.getObat());
+				struk.setStrukJumlahObat(d.getJumlah().toString() + " x");
+				struk.setStrukHargaObat(Converter.patternCurrency(d.getHargaJual()));
+				BigDecimal subTotal = d.getHargaTotal();
+				struk.setStrukSubTotalObat(Converter.patternCurrency(subTotal));
+				grandTotal = grandTotal.add(subTotal);
+
+				BigDecimal total = penjualan.getGrandTotal().add(penjualan.getDiskon());
+				total = total.subtract(penjualan.getPajak());
+
+				struk.setStrukTotal(Converter.patternCurrency(total));
+
+				BigDecimal p = penjualan.getPajak();
+				BigDecimal di = penjualan.getDiskon();
+				BigDecimal t = grandTotal.add(p);
+				t = t.subtract(di);
+
+				struk.setStrukPajak(Converter.patternCurrency(p));
+				struk.setStrukDiskon(Converter.patternCurrency(di));
+
+				struk.setStrukGrandTotal(Converter.patternCurrency(t));
+				struk.setStrukBayar(Converter.patternCurrency(penjualan.getBayar()));
+				struk.setStrukKembali(Converter.patternCurrency(penjualan.getKembali()));
+
+				struks.add(struk);
+			}
+
+			JRDataSource JRdataSource = new JRBeanCollectionDataSource(struks);
+
+			parameterMap.put("datasource", JRdataSource);
+
+			mav = new ModelAndView(strukPenjualan, parameterMap);
+			return mav;
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+
+	private PenjualanDetailTemp updateTemp(PenjualanDetailTemp pdt, PenjualanDetailTemp temp, String pengguna) {
 		Integer jumlahTersimpan = Integer.valueOf(temp.getJumlah()).intValue();
 		Integer jumlahBaru = jumlahTersimpan + Integer.valueOf(pdt.getJumlah()).intValue();
 		temp.setJumlah(jumlahBaru.toString());
@@ -462,15 +646,15 @@ public class PenjualanObatController {
 		}
 	}
 
-	private String generateNomorFaktur(String tanggal) {
+	private String generateNomorFaktur(String tanggal, String kode) {
 		String nomorFaktur = "";
 		Date date = Converter.stringToDate(tanggal);
 		List<NomorFaktur> list = dapatkanNomorFaktur(date);
 		if (!list.isEmpty()) {
 			NomorFaktur n = list.get(list.size() - 1);
-			nomorFaktur = setUrutanNomorFaktur(date, n.getNomor());
+			nomorFaktur = setUrutanNomorFaktur(date, n.getNomor(), kode);
 		} else {
-			nomorFaktur = setUrutanNomorFaktur(date, 0);
+			nomorFaktur = setUrutanNomorFaktur(date, 0, kode);
 		}
 		return nomorFaktur;
 	}
@@ -487,7 +671,7 @@ public class PenjualanObatController {
 		return page.getContent();
 	}
 
-	private String setUrutanNomorFaktur(Date tanggal, Integer nomorTerakhir) {
+	private String setUrutanNomorFaktur(Date tanggal, Integer nomorTerakhir, String kode) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(tanggal);
 		int tahun = cal.get(Calendar.YEAR);
@@ -500,7 +684,7 @@ public class PenjualanObatController {
 		String nomor = nomorTerakhir + "";
 
 		nomor = generateNomorUrut(nomor);
-		return KODE_TRANSAKSI + "" + tahun + "" + b + "" + day + "" + nomor;
+		return kode + "" + tahun + "" + b + "" + day + "" + nomor;
 
 	}
 
@@ -547,12 +731,12 @@ public class PenjualanObatController {
 		}
 		return kondisi;
 	}
-	
-	private void hapusTempDiPenjualanDetailTemp(String nomorFaktur, String pengguna){
+
+	private void hapusTempDiPenjualanDetailTemp(String nomorFaktur, String pengguna) {
 		List<PenjualanDetailTemp> list = penjualanDetailTempService.dapatkan(nomorFaktur, pengguna);
-		for (PenjualanDetailTemp t : list){
+		for (PenjualanDetailTemp t : list) {
 			penjualanDetailTempService.hapus(t);
-		}		
+		}
 	}
 
 	private Racikan getRacikan(String nama) {

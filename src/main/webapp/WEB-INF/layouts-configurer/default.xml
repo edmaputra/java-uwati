@@ -101,7 +101,7 @@
 	<definition name="racikan-daftar" extends="dasar">
 		<put-attribute name="title" value="UWATI - Racikan" />
 		<put-attribute name="page_title" value="Racikan" />
-		<put-attribute name="body" value="/WEB-INF/jsps/racikan/racikan-daftar.jsp" />
+		<put-attribute name="body" value="/WEB-INF/jsps/racikan/racikan-daftar-1.jsp" />
 		<!-- <put-attribute name="current" value="home" /> -->
 	</definition>
 	
@@ -109,6 +109,13 @@
 		<put-attribute name="title" value="UWATI - Rekam Medis" />
 		<put-attribute name="page_title" value="Rekam Medis" />
 		<put-attribute name="body" value="/WEB-INF/jsps/rekam-medis/rekam-medis-daftar.jsp" />
+		<!-- <put-attribute name="current" value="home" /> -->
+	</definition>
+	
+	<definition name="resep-daftar" extends="dasar">
+		<put-attribute name="title" value="UWATI - Resep" />
+		<put-attribute name="page_title" value="Resep" />
+		<put-attribute name="body" value="/WEB-INF/jsps/resep/resep-daftar.jsp" />
 		<!-- <put-attribute name="current" value="home" /> -->
 	</definition>
 	

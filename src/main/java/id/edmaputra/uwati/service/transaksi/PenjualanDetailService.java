@@ -48,7 +48,7 @@ public class PenjualanDetailService {
 		return (List<PenjualanDetail>) penjualanDetailRepository.findAll(exp);
 	}
 
-	public List<PenjualanDetail> dapatkanByPembelian(Penjualan penjualan) {
+	public List<PenjualanDetail> dapatkanByPenjualan(Penjualan penjualan) {
 		return penjualanDetailRepository.findByPenjualan(penjualan);
 	}
 }

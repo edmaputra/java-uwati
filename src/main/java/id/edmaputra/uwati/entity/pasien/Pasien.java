@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,6 +19,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import id.edmaputra.uwati.config.DBConf;
@@ -66,13 +68,15 @@ public class Pasien extends DasarEntity<Long>{
 	private String jaminanKesehatan;
 	
 	@Column(name="nomor_jaminan", nullable=true, length = DBConf.LENGTH_JAMINAN)
-	private String nomorJaminan;
+	private String nomorJaminanKesehatan;
 	
 	@OneToOne
 	@JoinColumn(name = "id_pelanggan")
+	@JsonIgnore
 	private Pelanggan pelanggan;
 	
-	@OneToMany(mappedBy = "pasien", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "pasien", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnore
 	private List<RekamMedis> rekamMedis;
 
 	public Long getId() {
@@ -147,12 +151,12 @@ public class Pasien extends DasarEntity<Long>{
 		this.jaminanKesehatan = jaminanKesehatan.toUpperCase();
 	}
 
-	public String getNomorJaminan() {
-		return nomorJaminan;
+	public String getNomorJaminanKesehatan() {
+		return nomorJaminanKesehatan;
 	}
 
-	public void setNomorJaminan(String nomorJaminan) {
-		this.nomorJaminan = nomorJaminan;
+	public void setNomorJaminanKesehatan(String nomorJaminan) {
+		this.nomorJaminanKesehatan = nomorJaminan;
 	}
 
 	public Pelanggan getPelanggan() {

@@ -69,12 +69,12 @@ public class RekamMedis extends DasarEntity<Long>{
 	@OneToMany(mappedBy = "rekamMedis", cascade = CascadeType.ALL)	
 	private List<RekamMedisDetail> rekamMedisDetail;	
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_dokter", nullable = true)
 	@JsonIgnore
 	private Karyawan dokter;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_pasien", nullable = true)
 	@JsonIgnore
 	private Pasien pasien;

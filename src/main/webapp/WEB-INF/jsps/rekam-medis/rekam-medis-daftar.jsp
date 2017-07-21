@@ -58,7 +58,7 @@
 					<label class="col-sm-1 control-label">Nomor</label>
 					<div class="col-sm-5">
 						<input type="text" class="form-control"
-							value="${pasien.nomorJaminan}" readonly="readonly">
+							value="${pasien.nomorJaminanKesehatan}" readonly="readonly">
 					</div>
 				</div>
 			</form>
@@ -87,7 +87,7 @@
 							</div>
 							<div class="form-group">
 								<button type="button" class="btn btn-default" id="btnReset"
-									onclick="refresh(1,'')">Reset</button>
+									onclick="refresh(1, '', '')">Reset</button>
 							</div>
 						</form>
 					</div>
@@ -304,10 +304,11 @@
 		});
 	});
 	
-	function getData(ids) {
+	function getData(ids, s) {
 		reset();
 		var data = {
-			id : ids
+			id : ids,
+			status : s
 		};
 		$.getAjax('${dapatkanUrl}', data, function(result) {
 			$('#anamnesa').val(result.anamnesa);

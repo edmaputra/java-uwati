@@ -51,7 +51,29 @@ public class RekamMedisDetailTemp extends DasarEntity<Long> {
 	
 	@Column(name="tipe", nullable=true)
 	private int tipe;
+	
+	@Column(name="tipe_penggunaan", nullable=true)
+	private int tipePenggunaan;
+	
+	@Column(name="is_sudah_diproses", nullable=true)
+	private Boolean isSudahDiproses;
 		
+	public Boolean getIsSudahDiproses() {
+		return isSudahDiproses;
+	}
+
+	public void setIsSudahDiproses(Boolean isSudahDiproses) {
+		this.isSudahDiproses = isSudahDiproses;
+	}
+
+	public int getTipePenggunaan() {
+		return tipePenggunaan;
+	}
+
+	public void setTipePenggunaan(int tipePenggunaan) {
+		this.tipePenggunaan = tipePenggunaan;
+	}
+
 	public Long getId() {
 		return id;
 	}

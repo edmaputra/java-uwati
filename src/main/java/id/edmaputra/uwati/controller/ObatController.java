@@ -333,9 +333,9 @@ public class ObatController {
 		ObatPredicateBuilder builder = new ObatPredicateBuilder();
 		if (!StringUtils.isBlank(nama)) {
 			builder.nama(nama);
-		}
-
-		builder.tipe(0, 2);
+		}		
+		
+//		builder.stok(1);
 
 		BooleanExpression exp = builder.getExpression();
 		return obatService.muatDaftar(halaman, exp, 15);

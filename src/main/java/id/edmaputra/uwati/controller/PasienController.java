@@ -328,7 +328,7 @@ public class PasienController {
 		p.setJenisKelamin(h.getJenisKelamin());
 		p.setKontak(h.getKontak());
 		p.setNama(h.getNama());
-		p.setNomorJaminan(h.getNomorJaminan());
+		p.setNomorJaminanKesehatan(h.getNomorJaminan());
 		p.setPekerjaan(h.getPekerjaan());
 		p.setTanggalLahir(Converter.stringToDate(h.getTanggalLahir()));
 		return p;

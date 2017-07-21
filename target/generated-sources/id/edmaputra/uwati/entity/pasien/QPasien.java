@@ -43,7 +43,7 @@ public class QPasien extends EntityPathBase<Pasien> {
 
     public final StringPath nama = createString("nama");
 
-    public final StringPath nomorJaminan = createString("nomorJaminan");
+    public final StringPath nomorJaminanKesehatan = createString("nomorJaminanKesehatan");
 
     public final StringPath pekerjaan = createString("pekerjaan");
 

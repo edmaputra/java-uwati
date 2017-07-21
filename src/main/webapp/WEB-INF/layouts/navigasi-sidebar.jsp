@@ -87,6 +87,7 @@
 			</a>
 			<ul class="sub">
 				<li><a href="<spring:url value="/penjualan-obat" />">Penjualan</a></li>
+				<li><a href="<spring:url value="/resep" />">Resep</a></li>
 				<li><a href="<spring:url value="/pembelian-obat" />">Pembelian</a></li>
 			</ul>
 		</li>

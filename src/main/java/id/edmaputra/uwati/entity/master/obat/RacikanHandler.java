@@ -2,7 +2,7 @@ package id.edmaputra.uwati.entity.master.obat;
 
 import java.util.List;
 
-public class RacikanTemp {
+public class RacikanHandler {
 	
 	private Long id;
 	
@@ -10,7 +10,9 @@ public class RacikanTemp {
 	
 	private String biayaRacik;
 	
-	private List<RacikanDetailTemp> komposisi;
+	private String randomId;
+	
+	private List<RacikanDetailHandler> komposisi;
 
 	public String getNama() {
 		return nama;
@@ -28,11 +30,11 @@ public class RacikanTemp {
 		this.biayaRacik = biayaRacik;
 	}
 
-	public List<RacikanDetailTemp> getKomposisi() {
+	public List<RacikanDetailHandler> getKomposisi() {
 		return komposisi;
 	}
 
-	public void setKomposisi(List<RacikanDetailTemp> komposisi) {
+	public void setKomposisi(List<RacikanDetailHandler> komposisi) {
 		this.komposisi = komposisi;
 	}
 
@@ -42,6 +44,14 @@ public class RacikanTemp {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getRandomId() {
+		return randomId;
+	}
+
+	public void setRandomId(String randomId) {
+		this.randomId = randomId;
 	}
 
 }

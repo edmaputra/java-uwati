@@ -19,7 +19,7 @@ public class PasienPredicateBuilder {
 					.or(QPasien.pasien.alamat.containsIgnoreCase(cari))
 					.or(QPasien.pasien.kontak.containsIgnoreCase(cari))
 					.or(QPasien.pasien.jaminanKesehatan.containsIgnoreCase(cari))
-					.or(QPasien.pasien.nomorJaminan.containsIgnoreCase(cari))
+					.or(QPasien.pasien.nomorJaminanKesehatan.containsIgnoreCase(cari))
 					.or(QPasien.pasien.pekerjaan.containsIgnoreCase(cari));
 		} else {
 			hasil = hasil.and(QPasien.pasien.nama.containsIgnoreCase(cari)
@@ -27,7 +27,7 @@ public class PasienPredicateBuilder {
 					.or(QPasien.pasien.alamat.containsIgnoreCase(cari))
 					.or(QPasien.pasien.kontak.containsIgnoreCase(cari))
 					.or(QPasien.pasien.jaminanKesehatan.containsIgnoreCase(cari))
-					.or(QPasien.pasien.nomorJaminan.containsIgnoreCase(cari))
+					.or(QPasien.pasien.nomorJaminanKesehatan.containsIgnoreCase(cari))
 					.or(QPasien.pasien.pekerjaan.containsIgnoreCase(cari)));
 		}
 	}

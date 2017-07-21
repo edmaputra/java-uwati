@@ -42,6 +42,17 @@ public class RacikanDetail extends DasarEntity<Long> {
 	@Column(name = "harga_satuan", nullable = false)
 	private BigDecimal hargaSatuan;
 
+	@Column(name = "harga_total", nullable = false)
+	private BigDecimal hargaTotal;
+
+	public BigDecimal getHargaTotal() {
+		return hargaTotal;
+	}
+
+	public void setHargaTotal(BigDecimal hargaTotal) {
+		this.hargaTotal = hargaTotal;
+	}
+
 	public RacikanDetail() {
 	}
 
@@ -97,5 +108,5 @@ public class RacikanDetail extends DasarEntity<Long> {
 		return "RacikanDetail [racikan=" + racikan + ", komposisi=" + komposisi + ", jumlah=" + jumlah
 				+ ", hargaSatuan=" + hargaSatuan + "]";
 	}
-	
+
 }

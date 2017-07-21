@@ -51,5 +51,13 @@ public class RekamMedisPredicateBuilder {
 			hasil = hasil.and(QRekamMedis.rekamMedis.isSudahDisimpan.eq(b));
 		}
 	}
+	
+	public void sudahDiproses(Boolean b){
+		if (hasil == null) {
+			hasil = QRekamMedis.rekamMedis.isResepSudahDiproses.eq(b);
+		} else {
+			hasil = hasil.and(QRekamMedis.rekamMedis.isResepSudahDiproses.eq(b));
+		}
+	}
 
 }

@@ -48,6 +48,10 @@ public class RekamMedisDetailTempService {
 		return rekamMedisDetailTempRepository.findByNomor(nomor);
 	}
 	
+	public List<RekamMedisDetailTemp> muatDaftar(String nomor, int tipePenggunaan){
+		return rekamMedisDetailTempRepository.findByNomorAndTipePenggunaan(nomor, tipePenggunaan);
+	}
+	
 	public RekamMedisDetailTemp dapatkan(String nomor, String idObat){
 		return rekamMedisDetailTempRepository.findByNomorAndIdObat(nomor, idObat);
 	}

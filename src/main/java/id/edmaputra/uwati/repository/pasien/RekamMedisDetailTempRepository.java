@@ -17,6 +17,8 @@ public interface RekamMedisDetailTempRepository extends JpaRepository<RekamMedis
 
 	void deleteByNomor(String nomor);
 
+	List<RekamMedisDetailTemp> findByNomorAndTipePenggunaan(String nomor, int tipePenggunaan);
+
 	
 
 }
