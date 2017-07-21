@@ -48,33 +48,6 @@
 	</div>
 </div>
 
-<div class="modal fade" id="resep-modal-cetak" tabindex="-1"
-	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-sm">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Resep Terproses</h4>
-			</div>
-			<div class="form-panel">
-				<div class="modal-body">
-					<p>Apakah Anda Ingin Mencetak Resi ?</p>
-				</div>
-			</div>
-			<form action="${cetakResiUrl}"
-				class="form-horizontal style-form formCetak" method="POST"
-				target="_blank">
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default btnKeluar" id="keluarModalHapus" data-dismiss="modal">Tidak</button>
-					<input type="hidden" name="id" class="form-control" id="penjualanId" /> 
-					<input type="submit" class="btn btn-danger" value="Cetak" />
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-
 <div class="modal fade" id="resep-modal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
@@ -141,7 +114,7 @@
 									<div class="col-md-7">
 										<div class="form-group">
 											<label class="lb-sm">Total Pembelian</label> <input
-												name="totalpembelian" type="text" id="total-pembelian"
+												name="totalpembelian" type="text" id="totalPembelian"
 												class="form-control input-lg" readonly="readonly" value="0">
 										</div>
 									</div>
@@ -155,7 +128,7 @@
 								</div>
 								<div class="form-group">
 									<label class="lb-sm">Total Pembayaran</label> <input
-										name="totalbayar" type="text" id="total-bayar"
+										name="totalbayar" type="text" id="totalBayar"
 										class="form-control input-lg" value="0" readonly="readonly">
 								</div>
 								<div class="row">
@@ -189,94 +162,124 @@
 	</div>
 </div>
 
+<div class="modal fade" id="resep-modal-cetak" tabindex="-1"
+	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Resep Terproses</h4>
+			</div>
+			<div class="form-panel">
+				<div class="modal-body">
+					<p>Apakah Anda Ingin Mencetak Resi ?</p>
+				</div>
+			</div>
+			<form action="${cetakResiUrl}"
+				class="form-horizontal style-form formCetak" method="POST"
+				target="_blank">
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default btnKeluar"
+						id="keluarModalHapus" data-dismiss="modal">Tidak</button>
+					<input type="hidden" name="id" class="form-control"
+						id="penjualanId" /> <input type="submit" class="btn btn-danger"
+						value="Cetak" />
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
 <div>
 	<%@ include file="../../layouts/gritter.jsp"%>
 </div>
 
 <script>
 	$(document).ready(function() {
-		refresh(1, '', '');
-		
-		$('#btnCari').click(function() {
-			refresh(1, $('#stringCari').val(), $('#stringTanggalCari').val());
-		});
+				refresh(1, '', '');
 
-		$('#diskon').keyup(function() {
-			$('#total-bayar').val(hitungGrandTotalBayar('#total-pembelian','#diskon'));
-		});
+				$('#btnCari').click(function() {
+					refresh(1, $('#stringCari').val(), $('#stringTanggalCari').val());
+				});
 
-		$('#bayar').keyup(function() {
-			$('#kembali').val(hitungKembalian('#total-bayar', '#bayar'));
-		});
+				$('#diskon').keyup(function() {
+					$('#totalBayar').val(hitungGrandTotalBayar('#totalPembelian','#diskon'));
+				});
 
-		$(".formTambah").validate({
-			rules : {
-				totalpembelian : {
-					required : true,
-					min : 0
-				},
-				diskon : {
-					required : true,
-					min : 0
-				},
-				totalbayar : {
-					required : true,
-					min : 0
-				},
-				bayar : {
-					required : true,
-					min : 0
-				},
-				kembali : {
-					required : true,
-					min : 0
-				}
-			},
-			messages : {
-				totalpembelian : {
-					required : "Total Pembelian Harus Diisi",
-					min : "Isi Total Pembelian dengan Benar"
-				},
-				diskon : {
-					required : "Diskon Harus Diisi",
-					min : "Isi Diskon dengan Benar"
-				},
-				totalbayar : {
-					required : "Total Pembayaran Harus Terisi",
-					min : "Isi Total Pembelian dengan Benar"
-				},
-				bayar : {
-					required : "Pembayaran Harus Diisi",
-					min : "Isi Pembayaran dengan Benar"
-				},
-				kembali : {
-					required : "Kembalian Harus Terisi",
-					min : "Isi Kembalian Tidak Tepat"
-				}
-			},
-			submitHandler : function(form) {
-				var data = {};
-				data = setResep(data);				
-					$.postJSON('${jualUrl}', data, function(result) {
-// 						$('#gritter-tambah-sukses').click();
-// 						$('.btnKeluar').click();
-						reset();
-						refresh();
-						$('#penjualanId').val(result.id);
-						$('#resep-modal-cetak').modal('show');								
-					}, function() {
-						$('#gritter-tambah-gagal').click();
-					});
-				 
-			}
-		});
-				
-		setMaskingUang("#total-pembelian");
-		setMaskingUang("#diskon");
-		setMaskingUang("#total-bayar");
-		setMaskingUang("#bayar");
-		setMaskingUang("#kembali");
-	});
+				$('#bayar').keyup(function() {
+					$('#kembali').val(hitungKembalian('#totalBayar', '#bayar'));
+				});
+
+				$(".formTambah").validate({
+					rules : {
+						totalpembelian : {
+							required : true,
+							min : 0
+						},
+						diskon : {
+							required : true,
+							min : 0
+						},
+						totalbayar : {
+							required : true,
+							min : 0
+						},
+						bayar : {
+							required : true,
+							min : 0
+						},
+						kembali : {
+							required : true,
+							min : 0
+						}
+					},
+					messages : {
+						totalpembelian : {
+							required : "Total Pembelian Harus Diisi",
+							min : "Isi Total Pembelian dengan Benar"
+						},
+						diskon : {
+							required : "Diskon Harus Diisi",
+							min : "Isi Diskon dengan Benar"
+						},
+						totalbayar : {
+							required : "Total Pembayaran Harus Terisi",
+							min : "Isi Total Pembelian dengan Benar"
+						},
+						bayar : {
+							required : "Pembayaran Harus Diisi",
+							min : "Isi Pembayaran dengan Benar"
+						},
+						kembali : {
+							required : "Kembalian Harus Terisi",
+							min : "Isi Kembalian Tidak Tepat"
+						}
+					},
+					submitHandler : function(form) {
+						var data = {};
+						data = setResep(data);
+						$.postJSON('${jualUrl}', data, function(result) {
+							// 						$('#gritter-tambah-sukses').click();
+							// 						$('.btnKeluar').click();
+							reset();
+							refresh();
+							$('#penjualanId').val(result.id);
+							$('#resep-modal').modal('hide');
+							$('#resep-modal-cetak').modal('show');
+						}, function() {
+							$('#gritter-tambah-gagal').click();
+						});
+
+					}
+				});
+
+				setMaskingUang("#totalPembelian");
+				setMaskingUang("#diskon");
+				setMaskingUang("#totalBayar");
+				setMaskingUang("#bayar");
+				setMaskingUang("#kembali");
+			});
 
 	function getData(ids, s) {
 		reset();
@@ -291,10 +294,10 @@
 			$('#usia').val(result.usia);
 			$('#jaminan').val(result.jaminan);
 			$('#nomor-jaminan').val(result.nomorJaminan);
-			$('#total-pembelian').val(result.totalPembelian);
-			$('#total-bayar').val(result.totalPembelian);
+			$('#totalPembelian').val(result.totalPembelian);
+			$('#totalBayar').val(result.totalPembelian);
 			$('#tabel-terapi').append(result.tabelTerapi);
-			$('#ids').val(ids);			
+			$('#ids').val(ids);
 		}, null);
 	}
 
@@ -316,86 +319,19 @@
 		}, null);
 	}
 
-	// 	function refreshObat(halaman, find) {
-	// 		var data = {
-	// 			hal : halaman,
-	// 			cari : find
-	// 		};
-
-	// 		$.getAjax('${terapiUrl}', data, function(result) {
-	// 			$('#list-terapi').empty();
-	// 			$('#list-terapi').append(result.button);
-	// 			$('#navigasi-obat').empty();
-	// 			$('#navigasi-obat').append(result.navigasiObat);
-	// 		}, null);
-	// 	}
-
-	// 	function refreshDaftarTerapi(n) {
-	// 		if (nomorRM != null) {
-	// 			var data = {
-	// 				nomor : n
-	// 			};
-
-	// 			$.getAjax('${daftarTerapiUrl}', data, function(result) {
-	// 				$('#tabel-terapi').empty();
-	// 				$('#tabel-terapi').append(result.tabelTerapi);
-	// 			}, null);
-	// 		}
-
-	// 	}
-
-	// 	function tambahObat(id) {
-	// 		var data = {
-	// 			idObat : id,
-	// 			nomor : nomorRM
-	// 		};
-	// 		$.postJSON('${tambahTerapiUrl}', data, function(result) {
-	// 			// 			console.log(result.nomor);
-	// 			refreshDaftarTerapi(nomorRM);
-	// 		}, function() {
-	// 			console.log(result.info);
-	// 			$('#gritter-tambah-gagal').click();
-	// 		});
-	// 	}
-
-	// 	function hapusObat(id) {
-	// 		var data = {
-	// 			idObat : id,
-	// 			nomor : nomorRM
-	// 		};
-	// 		$.postJSON('${hapusTerapiUrl}', data, function(result) {
-	// 			refreshDaftarTerapi(nomorRM);
-	// 			console.log(result.info);
-	// 		}, function() {
-	// 			console.log(result.info);
-	// 		});
-	// 	}
-
-	// 	function rekamMedisBaru() {
-	// 		var data = {
-	// 			info : $('#pasienId').val()
-	// 		};
-	// 		$.postJSON('${baruUrl}', data, function(result) {
-	// 			$('#nomor').val(result.nomor);
-	// 			nomorRM = result.nomor;
-	// 		}, function() {
-	// 			$('#gritter-tambah-gagal').click();
-	// 		});
-	// 	}
-
-		function setResep(data) {
-			if ($('#ids').val() != null && $('#ids').val() != '') {
-				data['id'] = $('#ids').val();
-			}
-			data['pasienId'] = $('#pasienId').val();
-			data['dokterId'] = $('#dokterId').val();
-			data['totalPembelian'] = $('#total-pembelian').val();
-			data['diskon'] = $('#diskon').val();
-			data['totalBayar'] = $('#total-bayar').val();
-			data['bayar'] = $('#bayar').val();
-			data['kembali'] = $('#kembali').val();
-			return data;
+	function setResep(data) {
+		if ($('#ids').val() != null && $('#ids').val() != '') {
+			data['id'] = $('#ids').val();
 		}
+		data['pasienId'] = $('#pasienId').val();
+		data['dokterId'] = $('#dokterId').val();
+		data['totalPembelian'] = $('#totalPembelian').val();
+		data['diskon'] = $('#diskon').val();
+		data['totalBayar'] = $('#totalBayar').val();
+		data['bayar'] = $('#bayar').val();
+		data['kembali'] = $('#kembali').val();
+		return data;
+	}
 
 	function hitungGrandTotalBayar(t, d) {
 		var total = parseFloat($(t).val().replace(/\./g, ''), 10);
@@ -420,9 +356,9 @@
 		$('#usia').val('');
 		$('#jaminan').val('');
 		$('#nomor-jaminan').val('');
-		$('#total-pembelian').val('0');
+		$('#totalPembelian').val('0');
 		$('#diskon').val('0');
-		$('#total-bayar').val('0');
+		$('#totalBayar').val('0');
 		$('#bayar').val('0');
 		$('#kembali').val('0');
 		$('#tabel-terapi').empty();

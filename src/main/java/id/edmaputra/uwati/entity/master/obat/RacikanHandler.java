@@ -12,6 +12,8 @@ public class RacikanHandler {
 	
 	private String randomId;
 	
+	private String info;
+	
 	private List<RacikanDetailHandler> komposisi;
 
 	public String getNama() {
@@ -52,6 +54,14 @@ public class RacikanHandler {
 
 	public void setRandomId(String randomId) {
 		this.randomId = randomId;
+	}
+
+	public String getInfo() {
+		return info;
+	}
+
+	public void setInfo(String info) {
+		this.info = info;
 	}
 
 }

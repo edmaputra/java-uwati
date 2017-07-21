@@ -221,9 +221,12 @@ public class RacikanController {
 				temp.setRandomId(r.getId().toString());
 				temp.setKomposisi(d.getKomposisi().getNama());
 				temp.setIdObat(d.getKomposisi().getId().toString());
-				temp.setHargaSatuan(String.valueOf(d.getHargaSatuan()));
-				temp.setHargaTotal(String.valueOf(d.getHargaTotal()));
-				temp.setJumlah(String.valueOf(d.getJumlah()));
+				BigDecimal hargaSatuan = d.getHargaSatuan();
+				Integer jumlah = d.getJumlah();
+				BigDecimal hargaTotal = d.getHargaTotal();
+				temp.setHargaSatuan(Converter.patternCurrency(hargaSatuan));
+				temp.setHargaTotal(Converter.patternCurrency(hargaTotal));
+				temp.setJumlah(jumlah.toString());
 				temp.setWaktuDibuat(new Date());
 				temp.setTerakhirDirubah(new Date());
 				temp.setUserInput(principal.getName());
@@ -234,7 +237,7 @@ public class RacikanController {
 			
 			String tabel = tabelTerapiGenerator(listTemporary);
 			h.setRacikan(r.getNama());
-			h.setBiayaRacik(String.valueOf(r.getBiayaRacik()));
+			h.setBiayaRacik(Converter.patternCurrency(r.getBiayaRacik()));
 			h.setHargaRacikan(String.valueOf(total));
 			h.setTabel(tabel);
 			h.setInfo(String.valueOf(r.getId()));
@@ -283,60 +286,62 @@ public class RacikanController {
 		}
 	}
 
-//	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-//	@ResponseBody
-//	public RekamMedis edit(@RequestBody RekamMedisHandler h, BindingResult result, Principal principal, HttpServletRequest request) {		
-//		RekamMedis rm = getRekamMedis(h.getNomor());		
-//		List<RekamMedisDetail> listEdit = new ArrayList<>();
-//		try {						
-//			rm = setRekamMedisContent(rm, h);
-//			
-//			rm.setUserEditor(principal.getName());
-//			
-//			rekamMedisDetailService.hapusBatch(rm);
-//			
-//			List<RekamMedisDetailTemp> l = rekamMedisDetailTempService.muatDaftar(rm.getNomor(), STAT_REKAMMEDIS_BARU);
-//			
-//			for (RekamMedisDetailTemp t : l){
-//				RekamMedisDetail rmd = new RekamMedisDetail();
-//				rmd = setRekamMedisDetailContent(rmd, t);
-//				rmd.setRekamMedis(rm);
-//				rmd.setWaktuDibuat(new Date());
-//				rmd.setUserInput(principal.getName());
-//				rekamMedisDetailValidator.validate(rmd);
-//				listEdit.add(rmd);
-//			}
-//			
-//			rm.setRekamMedisDetail(listEdit);
-//			rekamMedisValidator.validate(rm);
-//			rekamMedisService.simpan(rm);
-//			rekamMedisDetailTempService.hapusBatch(rm.getNomor());
-//			logger.info(LogSupport.tambah(principal.getName(), rm.toString(), request));
-//			return rm;
-//		} catch (Exception e) {
-//			logger.info(e.getMessage());
-//			logger.info(LogSupport.tambahGagal(principal.getName(), rm.toString() + "", request));
-//			rm.setInfo(e.getMessage());
-//			return rm;
-//		}
-//	}
-//	
-//	@RequestMapping(value = "/hapus", method = RequestMethod.POST)
-//	@ResponseBody
-//	public RekamMedis hapus(@RequestBody RekamMedis temp, BindingResult result, Principal principal,HttpServletRequest request) {
-//		RekamMedis rm = rekamMedisService.dapatkan(temp.getId());		
-//		try {
-//			rekamMedisService.hapus(rm);
-//			logger.info(LogSupport.hapus(principal.getName(), temp.getId()+"", request));
-//			rm.setInfo(rm.getNomor()+" Terhapus");						
-//			return rm;
-//		} catch (Exception e) {
-//			logger.info(e.getMessage());
-//			logger.info(LogSupport.hapusGagal(principal.getName(), rm.toString(), request));
-//			rm.setInfo(rm.getNomor()+" Gagal Terhapus : "+e.getMessage());
-//			return rm;
-//		}
-//	}
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	@ResponseBody
+	public RacikanHandler edit(@RequestBody RacikanHandler h, BindingResult result, Principal principal, HttpServletRequest request) {		
+		Racikan r = getRacikan(Long.valueOf(h.getId()));
+		Obat obat = getObat(h.getNama());
+		List<RacikanDetail> l = new ArrayList<>();
+		try {
+			obat = setObatContent(obat, h, principal);			
+			r = setRacikanContent(r, h, principal);
+			
+			BigDecimal harga = new BigDecimal(0);
+		
+			racikanDetailService.hapusBatch(r);
+			
+			List<RacikanDetailTemporary> list = racikanDetailTempService.dapatkanListByRandomId(h.getRandomId());
+			for (RacikanDetailTemporary temp : list){
+				RacikanDetail rd = new RacikanDetail();
+				rd = setRacikanDetailContent(rd, temp, r, principal);
+				l.add(rd);
+				harga = harga.add(hitungSubTotal(rd.getHargaSatuan(), rd.getJumlah()));				
+			}			
+			r.setHargaJual(harga);
+			r.setRacikanDetail(l);	
+			
+			obatService.simpan(obat);
+			racikanService.simpan(r);
+			
+			logger.info(LogSupport.edit(principal.getName(), r.getId().toString(), request));
+			logger.info(LogSupport.edit(principal.getName(), obat.getNama(), request));
+			racikanDetailTempService.hapusBatch(h.getRandomId());
+			return h;
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+			logger.info(LogSupport.tambahGagal(principal.getName(), r.getId() + "", request));
+			h.setInfo(e.getMessage());
+			return h;
+		}
+	}
+	
+	@RequestMapping(value = "/hapus", method = RequestMethod.POST)
+	@ResponseBody
+	public RacikanHandler hapus(@RequestBody RacikanHandler temp, BindingResult result, Principal principal,HttpServletRequest request) {
+		Racikan racikan = getRacikan(Long.valueOf(temp.getId()));		
+		try {
+			racikanService.hapus(racikan);
+			obatService.hapus(getObat(racikan.getNama()));
+			logger.info(LogSupport.hapus(principal.getName(), temp.getId()+"", request));
+			temp.setInfo(temp.getId()+" Terhapus");						
+			return temp;
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+			logger.info(LogSupport.hapusGagal(principal.getName(), temp.toString(), request));
+			temp.setInfo(temp.getId()+" Gagal Terhapus : "+e.getMessage());
+			return temp;
+		}
+	}
 	
 	@RequestMapping(value = "/tambah-obat", method = RequestMethod.POST)
 	@ResponseBody

@@ -31,12 +31,12 @@ public class RacikanService {
 	}
 
 	public Page<Racikan> muatDaftar(Integer halaman, BooleanExpression expression) {
-		PageRequest request = new PageRequest(halaman - 1, PAGE_SIZE, Sort.Direction.ASC, "id");
+		PageRequest request = new PageRequest(halaman - 1, PAGE_SIZE, Sort.Direction.ASC, "nama");
 		return racikanRepository.findAll(expression, request);
 	}
 	
 	public Page<Racikan> muatDaftar(Integer halaman, BooleanExpression expression, Integer pageSize) {
-		PageRequest request = new PageRequest(halaman - 1, pageSize, Sort.Direction.ASC, "id");
+		PageRequest request = new PageRequest(halaman - 1, pageSize, Sort.Direction.ASC, "nama");
 		return racikanRepository.findAll(expression, request);
 	}
 	

@@ -3,16 +3,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles-extras"
 	prefix="tilesx"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
 <spring:url value="/static/css/bootstrap.min.css" var="bootstrapMinCss" />
 <spring:url value="/static/css/bootstrap-theme.min.css" var="bootstrapThemeMinCss" />
 <spring:url value="/static/css/uwati.css" var="uwatiCss" />
@@ -21,10 +17,7 @@
 <spring:url value="/static/css/jquery.gritter.css" var="gritterCss" />
 <spring:url value="/static/css/bootstrap-datepicker3.min.css" var="bootstrapDatePickerCss" />
 <spring:url value="/static/css/jquery.autocomplete.styles.css" var="autoCompleteThemesCss" />
-
 <spring:url value="/static/fonts/font-awesome/css/font-awesome.css" var="fontawesomeCss" />
-
-
 <spring:url value="/static/js/jquery-2.1.1.min.js" var="jQuery2" />
 <spring:url value="/static/js/bootstrap.min.js" var="bootstrapJs" />
 <spring:url value="/static/js/uwati.js" var="uwatiJs" />
@@ -42,8 +35,6 @@
 <spring:url value="/static/js/date.format.js" var="dateFormatJs" />
 <spring:url value="/static/js/jquery.autocomplete.min.js" var="jqueryautocompleteJs" />
 <spring:url value="/static/js/jquery.maskMoney.min.js" var="maskMoney" />
-
-
 <link href="${bootstrapMinCss}" rel="stylesheet" />
 <link href="${bootstrapThemeMinCss}" rel="stylesheet" />
 <link href="${fontawesomeCss}" rel="stylesheet" />
@@ -53,17 +44,8 @@
 <link href="${gritterCss}" rel="stylesheet" />
 <link href="${bootstrapDatePickerCss}" rel="stylesheet" />
 <link href="${autoCompleteThemesCss}" rel="stylesheet" />
-
 <script type="text/javascript" src="${jQuery2}"></script>
 <script type="text/javascript" src="${uwatiJs}"></script>
-
-
-<!-- <script> 
-		$(function() {
-			$('select.styled').customSelect();
-		});
-</script> -->
-
 <title><tiles:getAsString name="title" /></title>
 </head>
 <body>
@@ -73,9 +55,7 @@
 				<div class="fa fa-bars tooltips" data-placement="right"
 					data-original-title="Toggle Navigation"></div>
 			</div>
-
 			<a href="<spring:url value="/" />" class="logo"><b>UWATI</b></a>
-
 			<div class="nav notify-row" id="top_menu">
 				<ul class="nav top-menu">
 					<tiles:insertAttribute name="notifikasi" />
@@ -86,30 +66,23 @@
 				<tiles:insertAttribute name="navigasi-top-menu" />
 			</div>
 		</header>
-
 		<aside>
 			<tiles:insertAttribute name="navigasi-sidebar" />
 		</aside>
-
 		<section id="main-content">
 			<section class="wrapper site-min-height">
 				<h3>
 					<i class="fa fa-angle-right"></i>
 					<tiles:getAsString name="page_title" />
 				</h3>
-
 				<tiles:insertAttribute name="body" />
 			</section>
 		</section>
-
 		<footer class="site-footer">
 			<tiles:insertAttribute name="footer" />
 		</footer>
-
 	</section>
-
 	<script type="text/javascript" src="${bootstrapJs}"></script>
-	
 	<script type="text/javascript" src="${jqueryUiCustom}"></script>
 	<script src="${touchPunch}"></script>
 	<script class="include" type="text/javascript" src="${dcjAccordion}"></script>
@@ -124,9 +97,5 @@
 	<script type="text/javascript" src="${dateFormatJs}" ></script>
 	<script type="text/javascript" src="${jqueryautocompleteJs}" ></script>	
 	<script type="text/javascript" src="${maskMoney}" ></script>	
-
 </body>
-
-
-
 </html>

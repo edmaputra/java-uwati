@@ -404,7 +404,7 @@ public class RekamMedisController {
 			
 			rm.setUserEditor(principal.getName());
 			
-//			rekamMedisDetailService.hapusBatch(rm);
+			rekamMedisDetailService.hapusBatch(rm);
 			
 			List<RekamMedisDetailTemp> l = rekamMedisDetailTempService.muatDaftar(rm.getNomor(), STAT_REKAMMEDIS_BARU);
 			

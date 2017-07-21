@@ -51,4 +51,8 @@ public class RacikanDetailService {
 	public List<RacikanDetail> dapatkanByRacikan(Racikan racikan) {		
 		return racikanDetailRepository.findByRacikan(racikan);
 	}
+
+	public void hapusBatch(Racikan r) {
+		racikanDetailRepository.deleteInBatch(dapatkanByRacikan(r));		
+	}
 }

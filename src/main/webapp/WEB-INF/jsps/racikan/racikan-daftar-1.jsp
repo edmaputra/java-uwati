@@ -104,17 +104,15 @@
 								</table>
 							</div>
 							<div class="col-md-6">
-								<input type="text" name="cariObat" class="form-control"
-									id="cariObat" placeholder="Pencarian" />
+								<input type="text" name="cariObat" class="form-control" id="cariObat" placeholder="Pencarian" />
 								<div id="list-obat"></div>
-								<div class="btn-group btn-group-justified" id="navigasi-obat">
-								</div>
+								<div class="btn-group btn-group-justified" id="navigasi-obat"></div>
 							</div>
 						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default btnKeluar" data-dismiss="modal">Keluar</button>
-						<input type="hidden" name="id" class="form-control" id="ids" /> 
+						<input type="hidden" name="ids" class="form-control" id="ids" /> 
 						<input type="submit" class="btn btn-primary" value="Simpan" />
 					</div>
 				</div>
@@ -123,32 +121,30 @@
 	</div>
 </div>
 
-<!-- <div class="modal fade" id="pelanggan-modal-hapus" tabindex="-1" -->
-<!-- 	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> -->
-<!-- 	<div class="modal-dialog modal-sm"> -->
-<!-- 		<div class="modal-content"> -->
-<!-- 			<div class="modal-header"> -->
-<!-- 				<button type="button" class="close" data-dismiss="modal" -->
-<!-- 					aria-hidden="true">&times;</button> -->
-<!-- 				<h4 class="modal-title" id="myModalLabel">Hapus Pelanggan</h4> -->
-<!-- 			</div> -->
-<!-- 			<div class="form-panel"> -->
-<!-- 				<div class="modal-body"> -->
-<!-- 					<p>Apakah Anda Yakin Ingin Menghapus ?</p> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<%-- 			<form:form action="${hapusUrl}" commandName="pelanggan" --%>
-<%-- 				cssClass="form-horizontal style-form formHapus" method="post"> --%>
-<!-- 				<div class="modal-footer"> -->
-<!-- 					<button type="button" class="btn btn-default btnKeluar" -->
-<!-- 						id="keluarModalHapus" data-dismiss="modal">Tidak</button> -->
-<%-- 					<form:hidden path="id" cssClass="form-control" id="hapusId" /> --%>
-<!-- 					<input type="submit" class="btn btn-danger" value="Hapus" /> -->
-<!-- 				</div> -->
-<%-- 			</form:form> --%>
-<!-- 		</div> -->
-<!-- 	</div> -->
-<!-- </div> -->
+<div class="modal fade" id="racikan-modal-hapus" tabindex="-1"
+	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Hapus Pelanggan</h4>
+			</div>
+			<div class="form-panel">
+				<div class="modal-body">
+					<p>Apakah Anda Yakin Ingin Menghapus ?</p>
+				</div>
+			</div>
+			<form action="${hapusUrl}"class="form-horizontal style-form formHapus" method="post">
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default btnKeluar" id="keluarModalHapus" data-dismiss="modal">Tidak</button>
+					<input type="hidden" class="form-control" name="hapusId" id="hapusId" /> 
+					<input type="submit" class="btn btn-danger" value="Hapus" /> 
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
 
 <div>
 	<%@ include file="../../layouts/gritter.jsp"%>
@@ -164,10 +160,6 @@ var state = 1;
 
 	$(document).ready(function() {
 		
-		$("#racikan-modal").on("hide.bs.modal", function(){
-			   alert("hiding");
-		});
-		
 		refresh(1, '');		
 
 		$('#btnCari').click(function() {
@@ -179,10 +171,16 @@ var state = 1;
 			refreshObat(halamanObat, cariObat);
 			refreshDaftarObat(randomId);
 			state = 0;
+			console.log(randomId);
 		});
 		
 		$("#cariObat").keyup(function() {
 			refreshObat(1, $('#cariObat').val());
+		});
+		
+		$("#racikan-modal").on("hide.bs.modal", function(){
+			randomId = Math.floor(Math.random() * 1000000);
+			console.log(randomId);
 		});
 		
 		$(".formTambah").validate({
@@ -204,9 +202,7 @@ var state = 1;
 			},
 			submitHandler : function(form) {							
 				var data = {};
-				data['nama'] = $('#nama').val();
-				data['biayaRacik'] = $('#biayaRacik').val();
-				data['randomId'] = randomId;
+				data = setRacikanData(data);
 				
 				if (state == 0){
 					$.postJSON('${tambahUrl}', data, function() {
@@ -214,7 +210,6 @@ var state = 1;
 						$('.btnKeluar').click();
 						reset();
 						refresh();
-						randomId = Math.floor(Math.random() * 1000000);
 						console.log(randomId);
 					}, function() {
 						$('#gritter-tambah-gagal').click();
@@ -225,7 +220,6 @@ var state = 1;
 						$('.btnKeluar').click();
 						reset();
 						refresh();
-						randomId = Math.floor(Math.random() * 1000000);
 						console.log(randomId);
 					}, function() {
 						$('#gritter-tambah-gagal').click();
@@ -238,9 +232,9 @@ var state = 1;
 
 		$(".formHapus").submit(function(e) {
 			e.preventDefault();
-			var str = {};
-			str['id'] = $('#hapusId').val();
-			$.postJSON('${hapusUrl}', str, function(result) {
+			var data = {};
+			data['id'] = $('#hapusId').val();
+			$.postJSON('${hapusUrl}', data, function(result) {
 				refresh();
 				$('#keluarModalHapus').click();
 				$('#gritter-hapus-sukses').click();
@@ -344,6 +338,16 @@ var state = 1;
 		}, function() {
 			console.log(result.info);
 		});
+	}
+	
+	function setRacikanData(data){
+		if ($('#ids').val() != null && $('#ids').val() != ''){
+			data['id'] = $('#ids').val();	
+		}		
+		data['nama'] = $('#nama').val();
+		data['biayaRacik'] = $('#biayaRacik').val();
+		data['randomId'] = randomId;
+		return data;
 	}
 		
 	function reset(){
