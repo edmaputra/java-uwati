@@ -170,8 +170,7 @@ var state = 1;
 			reset();
 			refreshObat(halamanObat, cariObat);
 			refreshDaftarObat(randomId);
-			state = 0;
-			console.log(randomId);
+			state = 0;			
 		});
 		
 		$("#cariObat").keyup(function() {
@@ -225,8 +224,7 @@ var state = 1;
 						$('#gritter-tambah-gagal').click();
 					});
 				}
-				state = 1;
-				
+				state = 1;				
 			}
 		});
 
@@ -285,7 +283,8 @@ var state = 1;
 	function refreshObat(halaman, find) {
 		var data = {
 			hal : halaman,
-			cari : find
+			cari : find,
+			n : 15
 		};
 
 		$.getAjax('${obatListUrl}', data, function(result) {

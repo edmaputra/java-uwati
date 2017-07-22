@@ -302,12 +302,14 @@ public class ObatController {
 	@ResponseBody
 	public HtmlElement dapatkanDaftarForTransaksi(
 			@RequestParam(value = "hal", defaultValue = "1", required = false) Integer halaman,
-			@RequestParam(value = "cari", defaultValue = "", required = false) String cari, HttpServletRequest request,
+			@RequestParam(value = "cari", defaultValue = "", required = false) String cari,
+			@RequestParam(value = "n", defaultValue = "", required = false) String n,
+			HttpServletRequest request,
 			HttpServletResponse response) {
 		try {
 			HtmlElement el = new HtmlElement();			
 			
-			Page<Obat> page = getListObatAndTindakan(halaman, cari);
+			Page<Obat> page = getListObatAndTindakan(halaman, cari, Integer.valueOf(n));
 
 			String button = buttonListGenerator(page, 3, request);
 			el.setButton(button);
@@ -329,16 +331,16 @@ public class ObatController {
 		}
 	}
 
-	private Page<Obat> getListObatAndTindakan(Integer halaman, String nama) {
+	private Page<Obat> getListObatAndTindakan(Integer halaman, String nama, Integer n) {
 		ObatPredicateBuilder builder = new ObatPredicateBuilder();
 		if (!StringUtils.isBlank(nama)) {
 			builder.nama(nama);
 		}		
 		
-//		builder.stok(1);
+		builder.stok(1);
 
 		BooleanExpression exp = builder.getExpression();
-		return obatService.muatDaftar(halaman, exp, 15);
+		return obatService.muatDaftar(halaman, exp, n);
 	}
 
 	private String tabelGenerator(Page<Obat> list, HttpServletRequest request) {

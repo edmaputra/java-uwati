@@ -14,6 +14,8 @@ public class HtmlElement {
 	
 	private String value1;
 	
+	private String value2;
+	
 	private String button;
 
 	public String getNavigasiHalaman() {
@@ -70,6 +72,14 @@ public class HtmlElement {
 
 	public void setTabelTerapi(String tabelTerapi) {
 		this.tabelTerapi = tabelTerapi;
+	}
+
+	public String getValue2() {
+		return value2;
+	}
+
+	public void setValue2(String value2) {
+		this.value2 = value2;
 	}
 
 }

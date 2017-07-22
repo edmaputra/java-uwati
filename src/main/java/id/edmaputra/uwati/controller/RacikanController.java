@@ -31,6 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mysema.query.types.expr.BooleanExpression;
 
+import id.edmaputra.uwati.controller.support.ObatControllerSupport;
 import id.edmaputra.uwati.entity.master.obat.Obat;
 import id.edmaputra.uwati.entity.master.obat.ObatDetail;
 import id.edmaputra.uwati.entity.master.obat.ObatExpired;
@@ -78,10 +79,7 @@ public class RacikanController {
 
 	@Autowired
 	private ObatService obatService;
-
-	@Autowired
-	private ObatExpiredService obatExpiredService;
-
+	
 	@Autowired
 	private ObatDetailService obatDetailService;
 
@@ -89,15 +87,13 @@ public class RacikanController {
 	private ObatStokService obatStokService;
 
 	@Autowired
+	private ObatExpiredService obatExpiredService;
+
+	@Autowired
 	private KategoriService kategoriService;
 
 	@Autowired
 	private SatuanService satuanService;
-
-	@ModelAttribute("racikan")
-	public Racikan constructRacikan() {
-		return new Racikan();
-	}
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView tampilkanSatuan(Principal principal, HttpServletRequest request) {
@@ -367,7 +363,6 @@ public class RacikanController {
 				BigDecimal total = h.multiply(new BigDecimal(j));
 				t.setHargaTotal(Converter.patternCurrency(total));
 			}			
-			
 			t.setIsSudahDiproses(false);
 			t.setUserInput(principal.getName());			
 			t.setWaktuDibuat(new Date());
@@ -388,7 +383,7 @@ public class RacikanController {
 	@ResponseBody
 	public RacikanDetailTemporary hapusObat(@RequestBody RacikanDetailHandler temp, BindingResult result, Principal principal,HttpServletRequest request) {
 		RacikanDetailTemporary tersimpan = racikanDetailTempService.dapatkan(temp.getRandomId(), temp.getIdObat());		
-		try {
+		try {			
 			racikanDetailTempService.hapus(tersimpan);
 			logger.info(LogSupport.hapus(principal.getName(), tersimpan.getId()+"", request));
 			tersimpan.setInfo(tersimpan.getKomposisi()+" Terhapus");						
@@ -664,6 +659,26 @@ public class RacikanController {
 		BigDecimal subTotal = harga.multiply(jml);
 		return subTotal;
 	}
+	
+	private Racikan getRacikan(String nama) {
+		Racikan racikan = racikanService.dapatkanByNama(nama);
+
+		List<RacikanDetail> listRacikanDetail = racikanDetailService.dapatkanByRacikan(racikan);
+		racikan.setRacikanDetail(listRacikanDetail);
+		Hibernate.initialize(racikan.getRacikanDetail());
+
+		return racikan;
+	}
+	
+	private Racikan getRacikan(Long id) {
+		Racikan racikan = racikanService.dapatkan(id);
+
+		List<RacikanDetail> listRacikanDetail = racikanDetailService.dapatkanByRacikan(racikan);
+		racikan.setRacikanDetail(listRacikanDetail);
+		Hibernate.initialize(racikan.getRacikanDetail());
+
+		return racikan;
+	}
 
 	private Obat getObat(String nama) {
 		Obat get = obatService.dapatkanByNama(nama);
@@ -681,7 +696,7 @@ public class RacikanController {
 		Hibernate.initialize(get.getExpired());
 		return get;
 	}
-	
+
 	private Obat getObat(Long id) {
 		Obat get = obatService.dapatkan(id);
 
@@ -698,15 +713,41 @@ public class RacikanController {
 		Hibernate.initialize(get.getExpired());
 		return get;
 	}
-	
-	private Racikan getRacikan(Long id) {
-		Racikan racikan = racikanService.dapatkan(id);
-		
-		List<RacikanDetail> listRacikanDetail = racikanDetailService.dapatkanByRacikan(racikan);
-		racikan.setRacikanDetail(listRacikanDetail);
-		Hibernate.initialize(racikan.getRacikanDetail());
-		
-		return racikan;
+
+	private void updateStokObat(String obat, String jumlah, int operasi) {
+		Obat o = getObat(obat);
+		if (o.getTipe() == 0) {
+			Integer stokLama = o.getStok().get(0).getStok();
+			Integer stokBaru = null;
+			// pengurangan stok
+			if (operasi == 0) {
+				stokBaru = stokLama - Integer.valueOf(jumlah).intValue();
+			}
+			// penambahan stok
+			else if (operasi == 1) {
+				stokBaru = stokLama + Integer.valueOf(jumlah).intValue();
+			}
+			o.getStok().get(0).setStok(stokBaru);
+			obatService.simpan(o);
+		} else if (o.getTipe() == 1) {
+			Racikan r = getRacikan(obat);
+			for (RacikanDetail rd : r.getRacikanDetail()) {
+				Obat or = getObat(rd.getKomposisi().getNama());
+				Integer jumlahBeli = Integer.valueOf(jumlah) * rd.getJumlah();
+				Integer stokLama = or.getStok().get(0).getStok();
+				Integer stokBaru = null;
+				// pengurangan stok
+				if (operasi == 0) {
+					stokBaru = stokLama - jumlahBeli;
+				}
+				// penambahan stok
+				else if (operasi == 1) {
+					stokBaru = stokLama + jumlahBeli;
+				}
+				or.getStok().get(0).setStok(stokBaru);
+				obatService.simpan(or);
+			}
+		}
 	}
 
 }

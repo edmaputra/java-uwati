@@ -345,7 +345,8 @@
 	function refreshObat(halaman, find) {
 		var data = {
 			hal : halaman,
-			cari : find
+			cari : find,
+			n : 15
 		};
 
 		$.getAjax('${terapiUrl}', data, function(result) {

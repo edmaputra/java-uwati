@@ -77,6 +77,8 @@ $(document).ready(
 				}
 				return parseInt(value) <= parseInt($min.val());
 			}, "Max must be less or equal than min");
+			
+			
 		});
 
 $.postJSON = function(url, data, callback, error) {
@@ -138,15 +140,26 @@ function setMaskingUang(e) {
 	});
 }
 
-function tanggalHariIni(){
+function tanggalHariIni() {
 	var d = new Date();
 
-	var month = d.getMonth()+1;
+	var month = d.getMonth() + 1;
 	var day = d.getDate();
 
-	var output = (day<10 ? '0' : '') + day  + '-' +
-	    (month<10 ? '0' : '') + month + '-' +
-	    d.getFullYear();
-	
+	var output = (day < 10 ? '0' : '') + day + '-' + (month < 10 ? '0' : '')
+			+ month + '-' + d.getFullYear();
+
 	return output;
+}
+
+function tambahTitik(nStr) {
+    nStr += '';
+    var x = nStr.split('.');
+    var x1 = x[0];
+    var x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + '.' + '$2');
+    }
+    return x1 + x2;
 }

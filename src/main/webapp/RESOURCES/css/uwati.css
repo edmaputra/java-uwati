@@ -1,95 +1,102 @@
 @CHARSET "UTF-8";
+
 body {
-  background: #e9e9e9;
-  color: #666666;
-  font-family: 'RobotoDraft', 'Roboto', sans-serif;
-  font-size: 14px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	background: #e9e9e9;
+	color: #666666;
+	font-family: 'RobotoDraft', 'Roboto', sans-serif;
+	font-size: 14px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
-.halamanlogin{
+.halamanlogin {
 	display: none;
 }
 
 .judul {
-  padding: 50px 0;
-  text-align: center;
-  letter-spacing: 2px;  
+	padding: 50px 0;
+	text-align: center;
+	letter-spacing: 2px;
 }
+
 .judul h1 {
-  margin: 0 0 20px;
-  font-size: 48px;
-  font-weight: 300;
+	margin: 0 0 20px;
+	font-size: 48px;
+	font-weight: 300;
 }
+
 .judul span {
-  font-size: 12px;
+	font-size: 12px;
 }
 
 .loginform-modul {
-  position: relative;
-  background: #ffffff;
-  max-width: 390px;
-  width: 100%;
-  border-top: 5px solid #FFD777;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
-  margin: 0 auto;
+	position: relative;
+	background: #ffffff;
+	max-width: 390px;
+	width: 100%;
+	border-top: 5px solid #FFD777;
+	box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+	margin: 0 auto;
 }
 
-.loginform-modul .loginform { 
-  padding: 40px;
+.loginform-modul .loginform {
+	padding: 40px;
 }
 
 .loginform-modul h2 {
-  margin: 0 0 20px;
-  color: #33b5e5;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1;
+	margin: 0 0 20px;
+	color: #33b5e5;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 1;
 }
+
 .loginform-modul input {
-  outline: none;
-  display: block;
-  width: 100%;
-  border: 1px solid #d9d9d9;
-  margin: 0 0 20px;
-  padding: 10px 15px;
-  box-sizing: border-box;
-  font-wieght: 400;
-  -webkit-transition: 0.3s ease;
-  transition: 0.3s ease;
+	outline: none;
+	display: block;
+	width: 100%;
+	border: 1px solid #d9d9d9;
+	margin: 0 0 20px;
+	padding: 10px 15px;
+	box-sizing: border-box;
+	font-wieght: 400;
+	-webkit-transition: 0.3s ease;
+	transition: 0.3s ease;
 }
+
 .loginform-modul input:focus {
-  border: 1px solid #33b5e5;
-  color: #333333;
+	border: 1px solid #33b5e5;
+	color: #333333;
 }
+
 .loginform-modul .tombol {
-  cursor: pointer;
-  background: #FFD777;
-  width: 100%;
-  border: 0;
-  padding: 10px 15px;
-  color: #797272;
-  -webkit-transition: 0.3s ease;
-  transition: 0.3s ease;
+	cursor: pointer;
+	background: #FFD777;
+	width: 100%;
+	border: 0;
+	padding: 10px 15px;
+	color: #797272;
+	-webkit-transition: 0.3s ease;
+	transition: 0.3s ease;
 }
 
 .loginform-modul .tombol:hover {
-  background: #c4a000;
+	background: #c4a000;
 }
 
 .loginform-modul .judulapp {
-  background: #f2f2f2;
-  width: 100%;
-  padding: 15px 40px;
-  box-sizing: border-box;
-  color: #666666;
-  font-size: 8px;
-  text-align: right;
+	background: #f2f2f2;
+	width: 100%;
+	padding: 15px 40px;
+	box-sizing: border-box;
+	color: #666666;
+	font-size: 8px;
+	text-align: right;
 }
+
 .loginform-modul .judulapp a {
-  color: #333333;
-  text-decoration: none;
+	color: #333333;
+	text-decoration: none;
 }
 
 .btnHide {
@@ -97,8 +104,27 @@ body {
 }
 
 .lb-sm {
-  font-size: 10px;
+	font-size: 10px;
 }
 
+.kolom-keterangan {
+	background-color: green;
+	color: white;
+}
 
+table.tabel-keterangan tr td {
+	font-size: 12pt;
+}
 
+table.tabel-keterangan tr td input {
+	text-align: right;	
+	color: white;
+	font-size: 12pt;
+	background-color: green;
+	border: none;
+	border-color: transparent;
+}
+
+input.input-angka {
+	text-align: right;
+}

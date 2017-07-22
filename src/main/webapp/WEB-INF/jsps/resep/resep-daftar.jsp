@@ -260,8 +260,6 @@
 						var data = {};
 						data = setResep(data);
 						$.postJSON('${jualUrl}', data, function(result) {
-							// 						$('#gritter-tambah-sukses').click();
-							// 						$('.btnKeluar').click();
 							reset();
 							refresh();
 							$('#penjualanId').val(result.id);

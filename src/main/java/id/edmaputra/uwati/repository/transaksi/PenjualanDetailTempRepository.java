@@ -18,5 +18,9 @@ public interface PenjualanDetailTempRepository extends JpaRepository<PenjualanDe
 	List<PenjualanDetailTemp> findByNomorFakturAndPengguna(String nomorFaktur, String pengguna);
 
 	PenjualanDetailTemp findByObatAndNomorFaktur(String obat, String nomorFaktur);
+
+	PenjualanDetailTemp findByRandomIdAndIdObat(String randomId, String idObat);
+
+	List<PenjualanDetailTemp> findByRandomId(String randomId);
 	
 }

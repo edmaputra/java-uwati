@@ -33,6 +33,8 @@ public class QPenjualanDetailTemp extends EntityPathBase<PenjualanDetailTemp> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final StringPath idObat = createString("idObat");
+
     public final StringPath info = createString("info");
 
     public final StringPath jumlah = createString("jumlah");
@@ -48,6 +50,8 @@ public class QPenjualanDetailTemp extends EntityPathBase<PenjualanDetailTemp> {
     public final StringPath pelanggan = createString("pelanggan");
 
     public final StringPath pengguna = createString("pengguna");
+
+    public final StringPath randomId = createString("randomId");
 
     public final StringPath subTotal = createString("subTotal");
 

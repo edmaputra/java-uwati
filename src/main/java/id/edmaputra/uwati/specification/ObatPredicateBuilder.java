@@ -56,9 +56,9 @@ public class ObatPredicateBuilder {
 	
 	public void stok(int stok){
 		if (hasil == null){
-			hasil = QObat.obat.stok.get(0).stok.between(stok, 100000000);
+			hasil = QObat.obat.stok.any().stok.goe(stok);
 		} else {
-			hasil = hasil.and(QObat.obat.stok.get(0).stok.between(stok, 100000000));
+			hasil = hasil.and(QObat.obat.stok.any().stok.goe(stok));
 		}
 	}
 	

@@ -32,10 +32,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mysema.query.types.expr.BooleanExpression;
 
+import id.edmaputra.uwati.controller.support.ObatControllerSupport;
 import id.edmaputra.uwati.entity.master.obat.Obat;
 import id.edmaputra.uwati.entity.master.obat.ObatDetail;
 import id.edmaputra.uwati.entity.master.obat.ObatExpired;
 import id.edmaputra.uwati.entity.master.obat.ObatStok;
+import id.edmaputra.uwati.entity.master.obat.Racikan;
+import id.edmaputra.uwati.entity.master.obat.RacikanDetail;
 import id.edmaputra.uwati.entity.pasien.Pasien;
 import id.edmaputra.uwati.entity.pasien.RekamMedis;
 import id.edmaputra.uwati.entity.pasien.RekamMedisDetail;
@@ -46,6 +49,8 @@ import id.edmaputra.uwati.service.obat.ObatDetailService;
 import id.edmaputra.uwati.service.obat.ObatExpiredService;
 import id.edmaputra.uwati.service.obat.ObatService;
 import id.edmaputra.uwati.service.obat.ObatStokService;
+import id.edmaputra.uwati.service.obat.RacikanDetailService;
+import id.edmaputra.uwati.service.obat.RacikanService;
 import id.edmaputra.uwati.service.pasien.PasienService;
 import id.edmaputra.uwati.service.pasien.RekamMedisDetailService;
 import id.edmaputra.uwati.service.pasien.RekamMedisDetailTempService;
@@ -105,6 +110,12 @@ public class RekamMedisController {
 	
 	@Autowired
 	private RekamMedisDetailTempValidator rekamMedisDetailTempValidator;
+	
+	@Autowired
+	private RacikanService racikanService;
+
+	@Autowired
+	private RacikanDetailService racikanDetailService;
 
 	//
 	@RequestMapping(value = "/rekam-medis/{id}", method = RequestMethod.GET)
@@ -515,7 +526,7 @@ public class RekamMedisController {
 	@ResponseBody
 	public RekamMedisDetailTemp hapusTerapi(@RequestBody RekamMedisDetailTemp temp, BindingResult result, Principal principal,HttpServletRequest request) {
 		RekamMedisDetailTemp t = rekamMedisDetailTempService.dapatkan(temp.getNomor(), temp.getIdObat());		
-		try {
+		try {			
 			rekamMedisDetailTempService.hapus(t);
 			logger.info(LogSupport.hapus(principal.getName(), temp.getId()+"", request));
 			t.setInfo(t.getTerapi()+" Terhapus");						
@@ -526,7 +537,8 @@ public class RekamMedisController {
 			t.setInfo(t.getTerapi()+" Gagal Terhapus : "+e.getMessage());
 			return t;
 		}
-	}	
+	}
+	
 	
 	private String generateNomorRekamMedis(RekamMedis rm, Pasien pasien) {
 		String nomor = "RM-";
@@ -688,23 +700,6 @@ public class RekamMedisController {
 		rmd.setTerakhirDirubah(new Date());		
 		return rmd;
 	}
-
-	private Obat getObat(Long id) {
-		Obat get = obatService.dapatkan(id);
-
-		List<ObatDetail> lObatDetail = obatDetailService.temukanByObat(get);
-		get.setDetail(lObatDetail);
-		Hibernate.initialize(get.getDetail());
-
-		List<ObatStok> lObatStok = obatStokService.temukanByObats(get);
-		get.setStok(lObatStok);
-		Hibernate.initialize(get.getStok());
-
-		List<ObatExpired> lObatExpired = obatExpiredService.temukanByObats(get);
-		get.setExpired(lObatExpired);
-		Hibernate.initialize(get.getExpired());
-		return get;
-	}
 	
 	private RekamMedis getRekamMedis(Long id) {
 		RekamMedis get = rekamMedisService.dapatkan(id);
@@ -740,6 +735,40 @@ public class RekamMedisController {
 			text = s;
 		}
 		return text;
+	}
+	
+	private Obat getObat(String nama) {
+		Obat get = obatService.dapatkanByNama(nama);
+
+		List<ObatDetail> lObatDetail = obatDetailService.temukanByObat(get);
+		get.setDetail(lObatDetail);
+		Hibernate.initialize(get.getDetail());
+
+		List<ObatStok> lObatStok = obatStokService.temukanByObats(get);
+		get.setStok(lObatStok);
+		Hibernate.initialize(get.getStok());
+
+		List<ObatExpired> lObatExpired = obatExpiredService.temukanByObats(get);
+		get.setExpired(lObatExpired);
+		Hibernate.initialize(get.getExpired());
+		return get;
+	}
+
+	private Obat getObat(Long id) {
+		Obat get = obatService.dapatkan(id);
+
+		List<ObatDetail> lObatDetail = obatDetailService.temukanByObat(get);
+		get.setDetail(lObatDetail);
+		Hibernate.initialize(get.getDetail());
+
+		List<ObatStok> lObatStok = obatStokService.temukanByObats(get);
+		get.setStok(lObatStok);
+		Hibernate.initialize(get.getStok());
+
+		List<ObatExpired> lObatExpired = obatExpiredService.temukanByObats(get);
+		get.setExpired(lObatExpired);
+		Hibernate.initialize(get.getExpired());
+		return get;
 	}
 
 }

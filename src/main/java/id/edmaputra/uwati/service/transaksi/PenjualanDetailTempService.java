@@ -70,4 +70,12 @@ public class PenjualanDetailTempService {
 	public List<PenjualanDetailTemp> dapatkan(String nomorFaktur, String pengguna) {
 		return penjualanDetailTempRepo.findByNomorFakturAndPengguna(nomorFaktur, pengguna);
 	}
+	
+	public PenjualanDetailTemp dapatkanByRandomIdAndIdObat(String randomId, String idObat){
+		return penjualanDetailTempRepo.findByRandomIdAndIdObat(randomId, idObat);
+	}
+
+	public List<PenjualanDetailTemp> dapatkanListByRandomId(String randomId) {
+		return penjualanDetailTempRepo.findByRandomId(randomId);
+	}
 }

@@ -1,112 +1,46 @@
 package id.edmaputra.uwati.entity.transaksi;
 
-import java.math.BigDecimal;
+public class PenjualanDetailHandler {
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+	private String id;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
-import id.edmaputra.uwati.entity.DasarTransaksiEntity;
-
-@Entity
-@Table(name = "penjualan_detail_temp", uniqueConstraints = { @UniqueConstraint(columnNames = "id")},
-		indexes = {@Index(name = "iPenjualanDetailTemp_nomorFaktur_pengguna", columnList = "nomorFaktur,pengguna")})
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class PenjualanDetailTemp extends DasarTransaksiEntity<Long>{
-
-	private static final long serialVersionUID = -2093256738213786669L;
-
-	@Id
-	@GeneratedValue
-	private Long id;
-
-	@Column(length = 30, name = "nomorFaktur")
-	private String nomorFaktur;
-	
-	@Column(length = 12)
-	private String tanggal;	
-	
-	@Column
-	private Integer tipe;
-	
-	@Column(length = 150)
-	private String dokter;
-	
-	@Column(length = 150)
-	private String pelanggan;
-	
-	@Column(length = 15)
 	private String idObat;
-	
-	public String getIdObat() {
-		return idObat;
-	}
 
-	public void setIdObat(String idObat) {
-		this.idObat = idObat;
-	}
+	private String randomId;
 
-	@Column(length = 150)
+	private String nomorFaktur;
+
+	private String tanggal;
+
+	private Integer tipe;
+
+	private String dokter;
+
+	private String pelanggan;
+
 	private String obat;
-	
-	@Column(length = 6)
-	private String jumlah;
-	
-	@Column(length = 15)
-	private String hargaJual;		
 
-	@Column(length = 15)
+	private String jumlah;
+
+	private String hargaJual;
+
 	private String diskon;
 
-	@Column(length = 15)
 	private String pajak;
 
-	@Column(length = 15)
 	private String subTotal;
-	
-	@Column(length = 50)
+
 	private String pengguna;
-	
-	@Column(length = 50)
+
 	private String info;
-	
-	@Column(length = 20)
+
 	private String total;
-	
-	@Column(length = 20)
+
 	private String grandTotal;
-	
-	@Column(length = 20)
+
 	private String bayar;
-	
-	@Column(length = 20)
+
 	private String kembali;
-	
-	@Column(length = 20)
-	private String randomId;
-	
-	public String getRandomId() {
-		return randomId;
-	}
-
-	public void setRandomId(String randomId) {
-		this.randomId = randomId;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getObat() {
 		return obat;
@@ -243,5 +177,29 @@ public class PenjualanDetailTemp extends DasarTransaksiEntity<Long>{
 	public void setKembali(String kembali) {
 		this.kembali = kembali;
 	}
-	
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getRandomId() {
+		return randomId;
+	}
+
+	public void setRandomId(String randomId) {
+		this.randomId = randomId;
+	}
+
+	public String getIdObat() {
+		return idObat;
+	}
+
+	public void setIdObat(String idObat) {
+		this.idObat = idObat;
+	}
+
 }

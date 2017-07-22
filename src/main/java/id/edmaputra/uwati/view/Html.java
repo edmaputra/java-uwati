@@ -77,6 +77,27 @@ public class Html {
 		return a;
 	}
 	
+	public static String aJs(String content, String clazz, String evt, String eventName, String title, String dataToggle, String dataTarget) {
+		String a = "<a href=\"javascript:;\" ";
+		if (!StringUtils.isEmpty(clazz) || clazz != null) {
+			a += "class = '" + clazz + "' ";
+		}
+		if (!StringUtils.isEmpty(evt) || evt != null) {
+			a += evt + " = '" + eventName + "' ";
+		}
+		if (!StringUtils.isEmpty(title) || title != null) {
+			a += "title = '" + title + "' ";
+		}
+		if (!StringUtils.isEmpty(dataToggle) || dataToggle != null) {
+			a += "data-toggle = '" + dataToggle + "' ";
+		}
+		if (!StringUtils.isEmpty(dataTarget) || dataTarget != null) {
+			a += "data-target = '" + dataTarget + "' ";
+		}
+		a += ">" + content + "</a>";
+		return a;
+	}
+	
 	public static String a(String content, String clazz, String evt, String eventName, String href, String dataToggle, String dataTarget) {
 		String a = "<a ";
 		if (!StringUtils.isEmpty(clazz) || clazz != null) {
