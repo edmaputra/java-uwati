@@ -539,7 +539,7 @@
 		var data = {
 			hal : halaman,
 			cari : find,
-			n : 24
+			n : 14
 		};
 		$.getAjax('${obatListUrl}', data, function(result) {
 			$('#list-obat').empty();

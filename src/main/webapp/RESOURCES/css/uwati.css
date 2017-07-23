@@ -128,3 +128,7 @@ table.tabel-keterangan tr td input {
 input.input-angka {
 	text-align: right;
 }
+
+button.btn-wrap{
+	white-space: normal;
+}

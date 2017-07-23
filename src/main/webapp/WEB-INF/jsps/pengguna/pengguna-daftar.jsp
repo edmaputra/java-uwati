@@ -454,23 +454,23 @@
 				},
 				kataSandiKonfirmasi : {
 					minlength : 6,
-					equalTo : "#tambahKataSandi"
+// 					equalTo : "#tambahKataSandi"
 				},
 				countKesalahan :{
 					number : true,
 					min : 0
 				},
-				karyawan : {					
-					remote: {
-						url: "${isKaryawanAda}",
-						type: "get",
-						data: {
-							nama: function(){
-								return $("#editKaryawan").val();
-							}
-						}
-					}
-				}
+// 				karyawan : {					
+// 					remote: {
+// 						url: "${isKaryawanAda}",
+// 						type: "get",
+// 						data: {
+// 							nama: function(){
+// 								return $("#editKaryawan").val();
+// 							}
+// 						}
+// 					}
+// 				}
 			},
 			messages : {
 				nama : "Nama Wajib Diisi",
@@ -479,14 +479,14 @@
 				},
 				kataSandiKonfirmasi : {
 					minlength : "Password Harus Lebih dari 5 Karakter",
-					equalTo : "Password Tidak Sama"
+// 					equalTo : "Password Tidak Sama"
 				},
 				countKesalahan :{
 					number : "Harap Isi dengan Angka",
 					min : "Harap Isi Angka Positif",
 					required : "Harap Isi Kesempatan"
 				},
-				karyawan : "Karyawan Tidak Ada"
+// 				karyawan : "Karyawan Tidak Ada"
 			},
 			submitHandler : function(form) {
 				var data = {};

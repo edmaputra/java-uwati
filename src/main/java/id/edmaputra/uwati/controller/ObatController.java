@@ -311,7 +311,7 @@ public class ObatController {
 			
 			Page<Obat> page = getListObatAndTindakan(halaman, cari, Integer.valueOf(n));
 
-			String button = buttonListGenerator(page, 3, request);
+			String button = buttonListGenerator(page, 2, request);
 			el.setButton(button);
 
 			if (page.hasContent()) {
@@ -345,7 +345,7 @@ public class ObatController {
 
 	private String tabelGenerator(Page<Obat> list, HttpServletRequest request) {
 		String html = "";
-		String thead = "<thead><tr>" + "<th>Id</th>" + "<th>Obat</th>" + "<th>Kode</th>" + "<th>Satuan</th>"
+		String thead = "<thead><tr>" + "<th>Obat</th>" + "<th>Kode</th>" + "<th>Satuan</th>"
 				+ "<th>Kategori</th>";
 		if (request.isUserInRole("ROLE_ADMIN")) {
 			thead += "<th>User Input</th>" + "<th>Waktu Dibuat</th>" + "<th>User Editor</th>"
@@ -356,7 +356,7 @@ public class ObatController {
 		for (Obat o : list.getContent()) {
 			String row = "";
 			String btn = "";
-			row += Html.td(o.getId().toString());
+			
 			row += Html.td(o.getNama());
 			row += Html.td(o.getKode());
 			row += Html.td(o.getSatuan().getNama());
@@ -440,7 +440,7 @@ public class ObatController {
 		String isi = "";
 		int size = list.getContent().size();
 		for (int i = 0; i < size; i++) {
-			isi += Html.aJs(list.getContent().get(i).getNama(), "btn btn-default", "onClick", "tambahObat(" + list.getContent().get(i).getId() + ")");
+			isi += Html.aJs(list.getContent().get(i).getNama(), "btn btn-default btn-wrapword", "onClick", "tambahObat(" + list.getContent().get(i).getId() + ")");
 			if ((i + 1) % jumlahKolom == 0 || (i + 1) == size) {
 				button += Html.div(isi, "btn-group btn-group-justified");
 				isi = "";

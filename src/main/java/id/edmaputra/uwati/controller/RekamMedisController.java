@@ -490,13 +490,19 @@ public class RekamMedisController {
 				Obat obat = getObat(Long.valueOf(temp.getIdObat()).longValue());
 				t.setNomor(temp.getNomor());
 				t.setIdObat(temp.getIdObat());
-				t.setTerapi(obat.getNama());
-				t.setHargaJual(Converter.patternCurrency(obat.getDetail().get(0).getHargaJualResep()));
+				t.setTerapi(obat.getNama());				
 				t.setDiskon("0");
-				t.setPajak("0");
-				t.setHargaTotal(Converter.patternCurrency(obat.getDetail().get(0).getHargaJualResep()));
+				t.setPajak("0");				
 				t.setJumlah("1");
 				t.setTipe(obat.getTipe());
+				if (obat.getTipe() == 1) {
+					Racikan r = racikanService.dapatkanByNama(obat.getNama());
+					t.setHargaJual(Converter.patternCurrency(r.getBiayaRacik().add(r.getHargaJual())));
+					t.setHargaTotal(Converter.patternCurrency(r.getBiayaRacik().add(r.getHargaJual())));
+				} else {
+					t.setHargaJual(Converter.patternCurrency(obat.getDetail().get(0).getHargaJual()));
+					t.setHargaTotal(Converter.patternCurrency(obat.getDetail().get(0).getHargaJual()));
+				}
 				t.setTipePenggunaan(0);
 			} else {
 				t = tersimpan;
