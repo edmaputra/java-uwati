@@ -78,4 +78,9 @@ public class PenjualanDetailTempService {
 	public List<PenjualanDetailTemp> dapatkanListByRandomId(String randomId) {
 		return penjualanDetailTempRepo.findByRandomId(randomId);
 	}
+
+	public void hapusBatch(String randomId) {
+		penjualanDetailTempRepo.deleteInBatch(dapatkanListByRandomId(randomId));
+		
+	}
 }

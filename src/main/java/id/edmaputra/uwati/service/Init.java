@@ -80,7 +80,7 @@ public class Init {
 	@Autowired
 	private RacikanDetailRepository racikanDetailRepository;
 
-	@PostConstruct
+//	@PostConstruct
 	public void mulai() {
 		Role roleAdmin = buatRole("ROLE_ADMIN");
 		roleRepo.save(roleAdmin);

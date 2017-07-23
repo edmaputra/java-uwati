@@ -227,7 +227,8 @@
 						},
 						bayar : {
 							required : true,
-							min : 0
+							min : 0,
+							greaterEqualThan : '#totalBayar'
 						},
 						kembali : {
 							required : true,
@@ -249,7 +250,8 @@
 						},
 						bayar : {
 							required : "Pembayaran Harus Diisi",
-							min : "Isi Pembayaran dengan Benar"
+							min : "Isi Pembayaran dengan Benar",
+							greaterEqualThan : 'Pembayaran Kurang'
 						},
 						kembali : {
 							required : "Kembalian Harus Terisi",
@@ -262,7 +264,7 @@
 						$.postJSON('${jualUrl}', data, function(result) {
 							reset();
 							refresh();
-							$('#penjualanId').val(result.id);
+							$('#penjualanId').val(result.penjualanId);
 							$('#resep-modal').modal('hide');
 							$('#resep-modal-cetak').modal('show');
 						}, function() {
@@ -272,11 +274,11 @@
 					}
 				});
 
-				setMaskingUang("#totalPembelian");
-				setMaskingUang("#diskon");
-				setMaskingUang("#totalBayar");
-				setMaskingUang("#bayar");
-				setMaskingUang("#kembali");
+// 				setMaskingUang("#totalPembelian");
+// 				setMaskingUang("#diskon");
+// 				setMaskingUang("#totalBayar");
+// 				setMaskingUang("#bayar");
+// 				setMaskingUang("#kembali");
 			});
 
 	function getData(ids, s) {

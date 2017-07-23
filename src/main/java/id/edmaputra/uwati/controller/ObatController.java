@@ -337,7 +337,7 @@ public class ObatController {
 			builder.nama(nama);
 		}		
 		
-		builder.stok(1);
+//		builder.stok(1);
 
 		BooleanExpression exp = builder.getExpression();
 		return obatService.muatDaftar(halaman, exp, n);

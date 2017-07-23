@@ -34,13 +34,77 @@ public class PenjualanDetailHandler {
 
 	private String info;
 
-	private String total;
+	private String totalPembelian;
 
-	private String grandTotal;
+	private String totalPembelianFinal;
 
-	private String bayar;
+	private String totalPembayaran;
 
 	private String kembali;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getIdObat() {
+		return idObat;
+	}
+
+	public void setIdObat(String idObat) {
+		this.idObat = idObat;
+	}
+
+	public String getRandomId() {
+		return randomId;
+	}
+
+	public void setRandomId(String randomId) {
+		this.randomId = randomId;
+	}
+
+	public String getNomorFaktur() {
+		return nomorFaktur;
+	}
+
+	public void setNomorFaktur(String nomorFaktur) {
+		this.nomorFaktur = nomorFaktur;
+	}
+
+	public String getTanggal() {
+		return tanggal;
+	}
+
+	public void setTanggal(String tanggal) {
+		this.tanggal = tanggal;
+	}
+
+	public Integer getTipe() {
+		return tipe;
+	}
+
+	public void setTipe(Integer tipe) {
+		this.tipe = tipe;
+	}
+
+	public String getDokter() {
+		return dokter;
+	}
+
+	public void setDokter(String dokter) {
+		this.dokter = dokter;
+	}
+
+	public String getPelanggan() {
+		return pelanggan;
+	}
+
+	public void setPelanggan(String pelanggan) {
+		this.pelanggan = pelanggan;
+	}
 
 	public String getObat() {
 		return obat;
@@ -98,46 +162,6 @@ public class PenjualanDetailHandler {
 		this.pengguna = pengguna;
 	}
 
-	public String getNomorFaktur() {
-		return nomorFaktur;
-	}
-
-	public void setNomorFaktur(String nomorFaktur) {
-		this.nomorFaktur = nomorFaktur;
-	}
-
-	public String getTanggal() {
-		return tanggal;
-	}
-
-	public void setTanggal(String tanggal) {
-		this.tanggal = tanggal;
-	}
-
-	public Integer getTipe() {
-		return tipe;
-	}
-
-	public void setTipe(Integer tipe) {
-		this.tipe = tipe;
-	}
-
-	public String getDokter() {
-		return dokter;
-	}
-
-	public void setDokter(String dokter) {
-		this.dokter = dokter;
-	}
-
-	public String getPelanggan() {
-		return pelanggan;
-	}
-
-	public void setPelanggan(String pelanggan) {
-		this.pelanggan = pelanggan;
-	}
-
 	public String getInfo() {
 		return info;
 	}
@@ -146,28 +170,28 @@ public class PenjualanDetailHandler {
 		this.info = info;
 	}
 
-	public String getTotal() {
-		return total;
+	public String getTotalPembelian() {
+		return totalPembelian;
 	}
 
-	public void setTotal(String total) {
-		this.total = total;
+	public void setTotalPembelian(String totalPembelian) {
+		this.totalPembelian = totalPembelian;
 	}
 
-	public String getGrandTotal() {
-		return grandTotal;
+	public String getTotalPembelianFinal() {
+		return totalPembelianFinal;
 	}
 
-	public void setGrandTotal(String grandTotal) {
-		this.grandTotal = grandTotal;
+	public void setTotalPembelianFinal(String totalPembelianFinal) {
+		this.totalPembelianFinal = totalPembelianFinal;
 	}
 
-	public String getBayar() {
-		return bayar;
+	public String getTotalPembayaran() {
+		return totalPembayaran;
 	}
 
-	public void setBayar(String bayar) {
-		this.bayar = bayar;
+	public void setTotalPembayaran(String bayar) {
+		this.totalPembayaran = bayar;
 	}
 
 	public String getKembali() {
@@ -176,30 +200,6 @@ public class PenjualanDetailHandler {
 
 	public void setKembali(String kembali) {
 		this.kembali = kembali;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getRandomId() {
-		return randomId;
-	}
-
-	public void setRandomId(String randomId) {
-		this.randomId = randomId;
-	}
-
-	public String getIdObat() {
-		return idObat;
-	}
-
-	public void setIdObat(String idObat) {
-		this.idObat = idObat;
 	}
 
 }

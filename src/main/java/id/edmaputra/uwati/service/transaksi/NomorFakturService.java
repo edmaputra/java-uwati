@@ -41,6 +41,10 @@ public class NomorFakturService {
 		return nomorFakturRepository.findAll(new Sort(Direction.ASC, "id"));
 	}
 	
+	public List<NomorFaktur> dapatkanSemua(BooleanExpression expression){
+		return (List<NomorFaktur>) nomorFakturRepository.findAll(expression);
+	}
+	
 	public void hapus(NomorFaktur nomorFaktur) {
 		nomorFakturRepository.delete(nomorFaktur);
 	}

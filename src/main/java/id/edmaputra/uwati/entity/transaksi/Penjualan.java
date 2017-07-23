@@ -60,7 +60,8 @@ public class Penjualan extends DasarTransaksiEntity<Long> {
 	private BigDecimal kembali;
 	
 	private BigDecimal pajak;
-		
+
+	@Column(name="tipe", nullable = false)
 	private Integer tipe;
 	
 	@Column(length=DBConf.LENGTH_TRANSAKSI_NOMORRESEP, nullable = true)

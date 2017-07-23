@@ -9,7 +9,7 @@
 <c:url var="tambahKeListObatUrl" value="/penjualan-obat/tambahTemp" />
 <c:url var="hapusObatUrl" value="/penjualan-obat/hapusTemp" />
 <c:url var="daftarTempUrl" value="/penjualan-obat/daftarTemp" />
-<c:url var="jualUrl" value="/penjualan-obat/jual" />
+
 <c:url var="tersediaUrl" value="/penjualan-obat/tersedia" />
 <c:url var="cetakUrl" value="/penjualan-obat/cetak" />
 <c:url var="racikanListUrl" value="/racikan/list" />
@@ -22,8 +22,9 @@
 <c:url var="listObatTerpilihUrl" value="/penjualan-obat/list-obat" />
 <c:url var="editObatTerpilihUrl" value="/penjualan-obat/edit-obat" />
 <c:url var="hapusObatTerpilihUrl" value="/penjualan-obat/hapus-obat" />
-<c:url var="dapatkanObatTerpilihUrl"
-	value="/penjualan-obat/dapatkan-obat" />
+<c:url var="dapatkanObatTerpilihUrl" value="/penjualan-obat/dapatkan-obat" />
+<c:url var="cekStokListObatUrl" value="/penjualan-obat/cek-stok" />
+<c:url var="penjualanUrl" value="/penjualan-obat/jual" />
 
 <div class="row mt">
 	<div class="col-md-12">
@@ -108,16 +109,14 @@
 							</tr>
 						</table>
 					</div>
-					<div class="col-md-2">
-						<div class="form-group">
-							<button class="form-control btn btn-default" id="btnBatal">Batal</button>
+					<div class="col-md-6">
+						<div class="form-group">							
+							<a href="#" class="form control btn btn-primary" style="width: 100%; height: 100%;"  id="button-bayar">BAYAR</a>
 						</div>
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-1">
 						<div class="form-group">
-							<!-- 							<button class="form-control btn btn-primary" id="btnBayar">BAYAR</button> -->
-							<a href="#" class="form control btn btn-primary"
-								data-toggle="modal" data-target="#bayar-modal" id="button-bayar">BAYAR</a>
+							<a href="#" class="form control btn btn-default" style="height: 100%;" id="button-batal" onclick="resetAll()">Batal</a>							
 						</div>
 					</div>
 				</div>
@@ -235,9 +234,9 @@
 	</div>
 </div>
 
-<div class="modal fade" id="pesanModal" tabindex="-1" role="dialog"
+<div class="modal fade" id="pesan-modal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
+	<div class="modal-dialog modal-sm">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
@@ -255,7 +254,7 @@
 <div class="modal fade" id="bayar-modal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
-		<form class="form-horizontal formBayar" method="POST">
+		<form class="form-horizontal form-bayar" method="POST">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
@@ -267,37 +266,65 @@
 						<label class="col-sm-4 control-label">Total Pembelian</label>
 						<div class="col-sm-8">
 							<input type="text" class="form-control input-lg input-angka"
-								id="totalPembelianFinal" readonly="readonly" value="0">
+								id="totalPembelianFinal" readonly="readonly" value="0" name="totalPembelianFinal">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-4 control-label">Jumlah Pembelian</label>
 						<div class="col-sm-8">
 							<input type="text" class="form-control input-lg input-angka"
-								id="jumlahPembelianFinal" readonly="readonly" value="0">
+								id="jumlahPembelianFinal" readonly="readonly" value="0" name="jumlahPembelianFinal">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-4 control-label">Total Pembayaran</label>
 						<div class="col-sm-8">
 							<input type="text" class="form-control input-lg input-angka"
-								id="totalPembayaran" value="0">
+								id="totalPembayaran" value="0" name="totalPembayaran">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-4 control-label">Kembalian</label>
 						<div class="col-sm-8">
-							<input type="text" class="form-control input-lg input-angka" id="kembalian" readonly="readonly" value="0">
+							<input type="text" class="form-control input-lg input-angka" id="kembalian" readonly="readonly" value="0" name="kembalian">
 						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default btnKeluar"
-						data-dismiss="modal">Keluar</button>
+					<button type="button" class="btn btn-default btnKeluar" data-dismiss="modal">Keluar</button>
 					<input type="submit" class="btn btn-primary" value="JUAL" id="button-jual" style="width: 65%" />
 				</div>
 			</div>
 		</form>
+	</div>
+</div>
+
+<div class="modal fade" id="cetak-modal" tabindex="-1"
+	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Pesan</h4>
+			</div>
+			<div class="form-panel">
+				<div class="modal-body">
+					<div id="pesan-penjualan"></div>
+				</div>
+			</div>
+			<form action="${cetakUrl}"
+				class="form-horizontal style-form formCetak" method="POST"
+				target="_blank">
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default btnKeluar"
+						id="keluarModalHapus" data-dismiss="modal">Tidak</button>
+					<input type="hidden" name="id" class="form-control"
+						id="penjualanId" /> 
+						<input type="submit" class="btn btn-danger" id="button-cetak" value="Cetak" />
+				</div>
+			</form>
+		</div>
 	</div>
 </div>
 
@@ -332,8 +359,11 @@
 		});
 		
 		$("#button-bayar").click(function() {
-			$("#totalPembelianFinal").val($("#totalBayar").val());
-			$("#jumlahPembelianFinal").val($("#barang").val());
+			cekStokPerObat(randomId);			
+		});
+		
+		$("#button-cetak").click(function() {
+			$("#cetak-modal").modal('hide');			
 		});
 
 		hitungHargaTotalOnKeyUp("#editJumlah", "#editHargaTotal");
@@ -394,15 +424,80 @@
 				});
 			}
 		});
+		
+		$(".form-bayar").validate({
+			rules : {
+				 totalPembelianFinal : {
+					required : true,
+					min : 1,
+					number : true
+				},
+				jumlahPembelianFinal : {
+					required : true,
+					min : 1,
+					number : true
+				},
+				totalPembayaran : {
+					required : true,
+					min : 1,
+					number : true,
+					greaterEqualThan : '#totalPembelianFinal'
+				},
+				kembalian : {
+					required : true,
+					min : 0,
+					number : true
+				}				
+			},
+			messages : {
+				totalPembelianFinal : {
+					required : "Total Pembelian Wajib Terisi",
+					min : "Total Pembelian Tidak Boleh 0",
+					number : "Masukkan Angka"
+				}, 					
+				jumlahPembelianFinal : {
+					required : "Jumlah Pembelian Wajib Diisi",
+					min : "Jumlah Pembelian Tidak Boleh 0",
+					number : "Masukkan Angka"
+				},				
+				totalPembayaran : {
+					required : "Harga Wajib Diisi",
+					min : "Total Pembayaran Tidak Boleh 0",
+					number : "Masukkan Angka",
+					greaterEqualThan : "Jumlah Bayar Kurang"
+				},
+				kembalian : {
+					required : "Kembalian Wajib Terisi",
+					min : "Kembalian Tidak Boleh lebih Kecil dari 0",
+					number : "Masukkan Angka"
+				}
+			},
+			submitHandler : function(form) {				
+				var data = {};
+				data = setPenjualanData(data);
+				$.postJSON('${penjualanUrl}', data, function(result) {
+					$('.btnKeluar').click();
+					$('#penjualanId').val(result.id);
+					$('#pesan-penjualan').empty();
+					$('#pesan-penjualan').append(result.info);
+					console.log(result.info);
+					$('#cetak-modal').modal('show');					
+					resetEditObatData();
+					resetAll();
+					randomId = Math.floor(Math.random() * 1000000);
+				}, function(result) {
+					$('#gritter-edit-gagal').click();
+					console.log(result.info);
+				});
+			}
+		});
+		
 		setMaskingUang("#input-diskon");
 		setMaskingUang("#input-pajak");
 		setMaskingUang("#editJumlah");
 		setMaskingUang("#editHarga");
 		setMaskingUang("#editHargaTotal");
 		setMaskingUang("#editDiskon");
-		setMaskingUang("#totalPembelianFinal");
-		setMaskingUang("#totalPembayaran");
-		setMaskingUang("#kembalian");
 	});
 
 	function tambahObat(id) {
@@ -471,6 +566,25 @@
 			$('#editId').val(result.idObat);
 		}, null);
 	}
+	
+	function cekStokPerObat(rid) {		
+		var data = {			
+			randomId : rid
+		};
+		$.getAjax('${cekStokListObatUrl}', data, function(result) {
+			if (result.info != "OKE"){
+				$('#pesan').empty();
+				$('#pesan').append(result.info);
+				console.log(result.info);
+				$('#pesan-modal').modal('show');
+			} else {
+				$("#totalPembelianFinal").val($("#totalBayar").val().replace(/\./g, ''));
+				$("#jumlahPembelianFinal").val($("#barang").val().replace(/\./g, ''));
+				$('#bayar-modal').modal('show');
+				$('#totalPembayaran').focus();
+			}			
+		}, null);
+	}
 
 	function hapusObat(id) {
 		var data = {
@@ -495,7 +609,7 @@
 		if ($(hrg).val() != '' && $(dsk).val() != '' && $(jum).val() != '') {
 			var hargaBeli = parseFloat($(hrg).val().replace(/\./g, ''));
 			var diskon = parseFloat($(dsk).val().replace(/\./g, ''));
-			var jumlah = parseInt($(jum).val(), 10);
+			var jumlah = parseInt($(jum).val().replace(/\./g, ''), 10);
 			var hargaTotal = hargaBeli * jumlah;
 			hargaTotal = hargaTotal - diskon;
 			return hargaTotal;
@@ -541,6 +655,19 @@
 		data['randomId'] = randomId;
 		return data;
 	}
+	
+	function setPenjualanData(data) {		
+		data['randomId'] = randomId;
+		data['tanggal'] = $('#tanggal').val();
+		data['pelanggan'] = $('#pelanggan').val();
+		data['tanggal'] = $('#tanggal').val();
+		data['totalPembelian'] = $('#total').val();
+		data['pajak'] = $('#pajak').val();
+		data['diskon'] = $('#diskon').val();
+		data['totalPembelianFinal'] = $('#totalPembelianFinal').val();
+		data['totalPembayaran'] = $('#totalPembayaran').val();
+		return data;
+	}
 
 	function resetEditObatData() {
 		$('#editId').val('');
@@ -549,5 +676,27 @@
 		$('#editHarga').val('0');
 		$('#editHargaTotal').val('0');
 		$('#editDiskon').val('0');
+	}
+	
+	function resetAll(){
+		$('#pelanggan').val('');							
+		halamanObat = 1;
+		cariObat = '';
+		diskonTotal = "0";
+		pajakTotal = "0";
+		refreshObat(halamanObat, cariObat);
+		$('#tabel-obat').empty();		
+		$('#barang').val('0');		
+		$('#total').val('0');		
+		$('#diskon').val('0');
+		$('#pajak').val('0');
+		$('#input-diskon').val('0');
+		$('#input-pajak').val('0');
+		$('#totalBayar').val('0')
+		$('#totalPembayaran').val('0');
+		$('#totalPembelian').val('0');
+		$('#jumlahPembelian').val('0');
+		$('#kembalian').val('0');
+		$('#cariObat').val('');
 	}
 </script>
