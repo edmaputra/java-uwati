@@ -28,12 +28,12 @@ public class PasienService {
 	}
 
 	public Page<Pasien> muatDaftar(Integer halaman, BooleanExpression expression) {
-		PageRequest request = new PageRequest(halaman - 1, PAGE_SIZE, Sort.Direction.ASC, "id");
+		PageRequest request = new PageRequest(halaman - 1, PAGE_SIZE, Sort.Direction.ASC, "nama");
 		return pasienRepository.findAll(expression, request);
 	}
 	
 	public Page<Pasien> muatDaftar(Integer halaman, Integer size, BooleanExpression expression) {
-		PageRequest request = new PageRequest(halaman - 1, size, Sort.Direction.ASC, "id");
+		PageRequest request = new PageRequest(halaman - 1, size, Sort.Direction.ASC, "nama");
 		return pasienRepository.findAll(expression, request);
 	}
 

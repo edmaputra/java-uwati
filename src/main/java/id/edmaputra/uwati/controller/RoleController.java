@@ -212,7 +212,7 @@ public class RoleController {
 
 	private String tabelGenerator(Page<Role> list, HttpServletRequest request) {
 		String html = "";
-		String thead = "<thead><tr><th>Id</th><th>Role</th>";
+		String thead = "<thead><tr><th>Role</th>";
 		if (request.isUserInRole("ROLE_ADMIN")) {
 			thead += "<th>User Input</th>" + "<th>Waktu Dibuat</th>" + "<th>User Editor</th>"
 					+ "<th>Terakhir Diubah</th>";
@@ -221,8 +221,7 @@ public class RoleController {
 		String data = "";
 		for (Role r : list.getContent()) {
 			String row = "";
-			String btn = "";
-			row += Html.td(r.getId().toString());
+			String btn = "";			
 			row += Html.td(r.getNama());
 			if (request.isUserInRole("ROLE_ADMIN")) {
 				row += Html.td(r.getUserInput());

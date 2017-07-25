@@ -208,7 +208,6 @@ public class PasienController {
 	private String tabelGenerator(Page<Pasien> list, HttpServletRequest request) {
 		String html = "";
 		String thead = "<thead><tr>"
-				+ "<th>Id</th>"
 				+ "<th>Pasien</th>";				
 		if (request.isUserInRole("ROLE_ADMIN") || request.isUserInRole("ROLE_MEDIS")) {
 			thead += "<th>User Input</th>" + "<th>Waktu Dibuat</th>" + "<th>User Editor</th>"
@@ -220,7 +219,6 @@ public class PasienController {
 		for (Pasien t : list.getContent()) {
 			String row = "";
 			String btn = "";
-			row += Html.td(t.getId().toString());
 			row += Html.td(t.getNama());			
 			if (request.isUserInRole("ROLE_ADMIN") || request.isUserInRole("ROLE_MEDIS")) {
 				row += Html.td(t.getUserInput());

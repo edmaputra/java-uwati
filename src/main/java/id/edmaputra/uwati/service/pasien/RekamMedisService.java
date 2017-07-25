@@ -32,7 +32,7 @@ public class RekamMedisService {
 	}
 
 	public Page<RekamMedis> muatDaftar(Integer halaman, BooleanExpression expression) {
-		PageRequest request = new PageRequest(halaman - 1, PAGE_SIZE, Sort.Direction.ASC, "id");
+		PageRequest request = new PageRequest(halaman - 1, PAGE_SIZE, Sort.Direction.ASC, "waktuDibuat");
 		return rekamMedisRepository.findAll(expression, request);
 	}
 	

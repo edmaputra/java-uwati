@@ -61,8 +61,7 @@
 					aria-hidden="true">&times;</button>
 				<h4 class="modal-title" id="myModalLabel">Obat Baru</h4>
 			</div>
-			<form:form action="${tambahUrl}" commandName="obat"
-				cssClass="form style-form formTambah" method="post">
+			<form class="form style-form formTambah" method="post">
 				<div class="modal-body">
 					<div class="form-panel">
 						<h4 class="mb">
@@ -72,58 +71,45 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>Nama:</label>
-									<form:input path="nama" cssClass="form-control" id="tambahNama" />
+									<input type="text" name="nama" class="form-control" id="tambahNama" autocomplete="off" />									
 								</div>
 							</div>
 							<div class="col-md-2">
 								<div class="form-group">
 									<label>Kode:</label>
-									<form:input path="kode" cssClass="form-control" id="tambahKode" />
+									<input type="text" name="kode" class="form-control" id="tambahKode" autocomplete="off" />									
 								</div>
 							</div>
 							<div class="col-md-3">
 								<div class="form-group">
 									<label>Barcode:</label>
-									<form:input path="barcode" cssClass="form-control"
-										id="tambahBarcode" />
+									<input type="text" name="barcode" class="form-control" id="tambahBarcode" autocomplete="off" />									
 								</div>
 							</div>
 							<div class="col-md-3">
 								<div class="form-group">
 									<label>Batch:</label>
-									<form:input path="batch" cssClass="form-control"
-										id="tambahBatch" />
+									<input type="text" name="batch" class="form-control" id="tambahBatch" autocomplete="off" />									
 								</div>
-							</div><div class="btn-group btn-group-justified">
-									<a href="#" class="btn btn-default">Apple</a> 
-									<a href="#"	class="btn btn-default">fffffffffff</a> 
-									<a href="#"	class="btn btn-default">Sony</a>
-								</div>
-								<div class="btn-group btn-group-justified">
-									<a href="#" class="btn btn-default">Apple</a> 
-									<a href="#"	class="btn btn-default">Samsung</a> 
-									<a href="#"	class="btn btn-default">Sony</a>
-								</div>
+							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-3">
 								<div class="form-group">
 									<label>Satuan:</label>
-									<form:input path="satuan" cssClass="form-control"
-										id="tambahSatuan" />
+									<input type="text" name="satuan" class="form-control" id="tambahSatuan" autocomplete="off" />									
 								</div>
 							</div>
 							<div class="col-md-3">
 								<div class="form-group">
 									<label>Kategori:</label>
-									<form:input path="kategori" cssClass="form-control"
-										id="tambahKategori" />
+									<input type="text" name="kategori" class="form-control" id="tambahKategori" autocomplete="off" />									
 								</div>
 							</div>
 							<div class="col-md-2">
 								<div class="form-group">
-									<label>Stok Minimal:</label> <input type="number"
-										class="form-control" id="tambahStokMinimal" name="stokMinimal" />
+									<label>Stok Minimal:</label>									
+									<input type="number" name="stokMinimal" class="form-control" id="tambahStokMinimal" autocomplete="off" />										
 								</div>
 							</div>
 						</div>
@@ -135,30 +121,26 @@
 						<div class="row">
 							<div class="col-md-3">
 								<div class="form-group">
-									<label>Harga Jual:</label>
-									<form:input path="hargaJual" cssClass="form-control"
-										id="tambahHargaJual" />
+									<label>Harga Jual:</label>									
+									<input type="text" name="hargaJual" class="form-control" id="tambahHargaJual" autocomplete="off" />
 								</div>
 							</div>
 							<div class="col-md-3">
 								<div class="form-group">
 									<label>Harga Jual Resep:</label>
-									<form:input path="hargaJualResep" cssClass="form-control"
-										id="tambahHargaJualResep" />
+									<input type="text" name="hargaJualResep" class="form-control" id="tambahHargaJualResep" autocomplete="off" />									
 								</div>
 							</div>
 							<div class="col-md-3">
-								<div class="form-group">
+								<div class="form-group">									
 									<label>Harga Beli:</label>
-									<form:input path="hargaBeli" cssClass="form-control"
-										id="tambahHargaBeli" />
+									<input type="text" name="hargaBeli" class="form-control" id="tambahHargaBeli" autocomplete="off" />									
 								</div>
 							</div>
 							<div class="col-md-3">
 								<div class="form-group">
 									<label>Harga Diskon:</label>
-									<form:input path="hargaDiskon" cssClass="form-control"
-										id="tambahHargaDiskon" />
+									<input type="text" name="hargaDiskon" class="form-control" id="tambahHargaDiskon" autocomplete="off" />
 								</div>
 							</div>
 						</div>
@@ -170,9 +152,8 @@
 						<div class="row">
 							<div class="col-md-3">
 								<div class="form-group">
-									<label>Stok:</label> <input type="number" name="stok"
-										class="form-control" id="tambahStok" disabled="disabled"
-										value="0">
+									<label>Stok:</label> 
+									<input type="number" name="stok" class="form-control" id="tambahStok" disabled="disabled" value="0">
 								</div>
 							</div>
 						</div>
@@ -187,7 +168,7 @@
 								<div class="form-group">
 									<label>Tanggal Kadaluarsa:</label> <input type="text"
 										name="tanggalExpired" class="form-control datePicker"
-										id="tambahTanggalExpired">
+										id="tambahTanggalExpired" autocomplete="off">
 								</div>
 							</div>
 						</div>
@@ -197,11 +178,10 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default btnKeluar"
 						data-dismiss="modal">Keluar</button>
-					<form:hidden path="id" cssClass="form-control" id="tambahId" />
+					<input type="hidden" name="id" class="form-control" id="tambahId" autocomplete="off" />					
 					<input type="submit" class="btn btn-primary" value="Simpan" />
 				</div>
-
-			</form:form>
+			</form>
 		</div>
 	</div>
 </div>
@@ -215,8 +195,7 @@
 					aria-hidden="true">&times;</button>
 				<h4 class="modal-title" id="myModalLabel">Edit Obat</h4>
 			</div>
-			<form:form action="${editUrl}" commandName="obat"
-				cssClass="form style-form formEdit" method="post">
+			<form class="form style-form formEdit" method="post">
 				<div class="modal-body">
 					<div class="form-panel">
 						<h4 class="mb">
@@ -226,26 +205,25 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>Nama:</label>
-									<form:input path="nama" cssClass="form-control" id="editNama" />
+									<input type="text" name="nama" class="form-control" id="editNama" autocomplete="off" />																		
 								</div>
 							</div>
 							<div class="col-md-2">
 								<div class="form-group">
 									<label>Kode:</label>
-									<form:input path="kode" cssClass="form-control" id="editKode" />
+									<input type="text" name="kode" class="form-control" id="editKode" autocomplete="off" />									
 								</div>
 							</div>
 							<div class="col-md-3">
 								<div class="form-group">
 									<label>Barcode:</label>
-									<form:input path="barcode" cssClass="form-control"
-										id="editBarcode" />
+									<input type="text" name="barcode" class="form-control" id="editBarcode" autocomplete="off" />									
 								</div>
 							</div>
 							<div class="col-md-3">
 								<div class="form-group">
 									<label>Batch:</label>
-									<form:input path="batch" cssClass="form-control" id="editBatch" />
+									<input type="text" name="batch" class="form-control" id="editBatch" autocomplete="off" />									
 								</div>
 							</div>
 						</div>
@@ -253,21 +231,19 @@
 							<div class="col-md-3">
 								<div class="form-group">
 									<label>Satuan:</label>
-									<form:input path="satuan" cssClass="form-control"
-										id="editSatuan" />
+									<input type="text" name="satuan" class="form-control" id="editSatuan" autocomplete="off" />									
 								</div>
 							</div>
 							<div class="col-md-3">
 								<div class="form-group">
 									<label>Kategori:</label>
-									<form:input path="kategori" cssClass="form-control"
-										id="editKategori" />
+									<input type="text" name="kategori" class="form-control" id="editKategori" autocomplete="off" />									
 								</div>
 							</div>
 							<div class="col-md-2">
 								<div class="form-group">
-									<label>Stok Minimal:</label> <input type="number"
-										class="form-control" id="editStokMinimal" name="stokMinimal" />
+									<label>Stok Minimal:</label> 
+									<input type="number" class="form-control" id="editStokMinimal" name="stokMinimal" autocomplete="off"/>
 								</div>
 							</div>
 						</div>
@@ -280,29 +256,25 @@
 							<div class="col-md-3">
 								<div class="form-group">
 									<label>Harga Jual:</label>
-									<form:input path="hargaJual" cssClass="form-control"
-										id="editHargaJual" />
+									<input type="text" name="hargaJual" class="form-control" id="editHargaJual" autocomplete="off" />									
 								</div>
 							</div>
 							<div class="col-md-3">
 								<div class="form-group">
 									<label>Harga Jual Resep:</label>
-									<form:input path="hargaJualResep" cssClass="form-control"
-										id="editHargaJualResep" />
+									<input type="text" name="hargaJualResep" class="form-control" id="editHargaJualResep" autocomplete="off" />									
 								</div>
 							</div>
 							<div class="col-md-3">
 								<div class="form-group">
 									<label>Harga Beli:</label>
-									<form:input path="hargaBeli" cssClass="form-control"
-										id="editHargaBeli" />
+									<input type="text" name="hargaBeli" class="form-control" id="editHargaBeli" autocomplete="off" />									
 								</div>
 							</div>
 							<div class="col-md-3">
 								<div class="form-group">
 									<label>Harga Diskon:</label>
-									<form:input path="hargaDiskon" cssClass="form-control"
-										id="editHargaDiskon" />
+									<input type="text" name="hargaDiskon" class="form-control" id="editHargaDiskon" autocomplete="off" />
 								</div>
 							</div>
 						</div>
@@ -330,7 +302,7 @@
 								<div class="form-group">
 									<label>Tanggal Kadaluarsa:</label> <input type="text"
 										name="tanggalExpired" class="form-control datePicker"
-										id="editTanggalExpired">
+										id="editTanggalExpired" autocomplete="off">
 								</div>
 							</div>
 						</div>
@@ -339,10 +311,10 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default btnKeluar"
 						data-dismiss="modal">Keluar</button>
-					<form:hidden path="id" cssClass="form-control" id="editId" />
+					<input type="hidden" class="form-control" id="editId" name="id" />					
 					<input type="submit" class="btn btn-primary" value="Simpan" />
 				</div>
-			</form:form>
+			</form>
 		</div>
 	</div>
 </div>
@@ -361,15 +333,14 @@
 					<p>Apakah Anda Yakin Ingin Menghapus ?</p>
 				</div>
 			</div>
-			<form:form action="${hapusUrl}" commandName="obat"
-				cssClass="form-horizontal style-form formHapus" method="post">
+			<form class="form-horizontal style-form formHapus" method="post">
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default btnKeluar"
-						id="keluarModalHapus" data-dismiss="modal">Tidak</button>
-					<form:hidden path="id" cssClass="form-control" id="hapusId" />
+						id="keluarModalHapus" data-dismiss="modal">Tidak</button>					
+					<input type="hidden" class="form-control" id="hapusId" name="id" />
 					<input type="submit" class="btn btn-danger" value="Hapus" />
 				</div>
-			</form:form>
+			</form>
 		</div>
 	</div>
 </div>

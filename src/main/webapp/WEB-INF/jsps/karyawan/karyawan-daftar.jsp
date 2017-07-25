@@ -55,15 +55,14 @@
 				<h4 class="modal-title" id="myModalLabel">Karyawan Baru</h4>
 			</div>
 
-			<form:form action="${tambahUrl}" commandName="karyawan"
-				cssClass="form style-form formTambah" method="post">
+			<form class="form style-form formTambah" method="post">
 				<div class="form-panel">
 					<div class="modal-body">
 						<div class="row">
 							<div class="col-md-8">
 								<div class="form-group">
 									<label>Nama:</label>
-									<form:input path="nama" cssClass="form-control" id="tambahNama" />
+									<input type="text" name="nama" class="form-control" id="tambahNama" autocomplete="off"  />									
 								</div>
 							</div>
 						</div>
@@ -71,13 +70,13 @@
 							<div class="col-md-5">
 								<div class="form-group">
 									<label>Jabatan:</label>
-									<form:input path="jabatan" cssClass="form-control" id="tambahJabatan" />									
+									<input type="text" name="jabatan" class="form-control" id="tambahJabatan" autocomplete="off"  />
 								</div>
 							</div>
 							<div class="col-md-7">
 								<div class="form-group">
 									<label>Spesialis:</label>
-									<form:input path="spesialis" cssClass="form-control" id="tambahSpesialis" />										
+									<input type="text" name="spesialis" class="form-control" id="tambahSpesialis" autocomplete="off"  />
 								</div>
 							</div>
 						</div>
@@ -85,7 +84,7 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<label>SIP:</label>
-									<form:input path="sip" cssClass="form-control" id="tambahSip" />										
+									<input type="text" name="sip" class="form-control" id="tambahSip" autocomplete="off"  />										
 								</div>
 							</div>
 						</div>
@@ -93,9 +92,9 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<label>Alamat:</label>
-									<form:input path="alamat" cssClass="form-control" id="tambahAlamat" />										
+									<input type="text" name="alamat" class="form-control" id="tambahAlamat" autocomplete="off"  />
 								</div>
-								<form:hidden path="id" cssClass="form-control" id="tambahId" />
+								<input type="hidden" name="id" class="form-control" id="tambahId" autocomplete="off"  />								
 							</div>
 						</div>
 					</div>
@@ -105,8 +104,7 @@
 						data-dismiss="modal">Keluar</button>
 					<input type="submit" class="btn btn-primary" value="Simpan" />
 				</div>
-
-			</form:form>
+			</form>
 		</div>
 	</div>
 </div>
@@ -120,14 +118,14 @@
 					aria-hidden="true">&times;</button>
 				<h4 class="modal-title" id="myModalLabel">Edit Karyawan</h4>
 			</div>
-			<form:form action="${editUrl}" commandName="karyawan" cssClass="form style-form formEdit" method="post">
+			<form class="form style-form formEdit" method="post">
 				<div class="form-panel">
 					<div class="modal-body">
 						<div class="row">
 							<div class="col-md-8">
 								<div class="form-group">
 									<label>Nama:</label>
-									<form:input path="nama" cssClass="form-control" id="editNama" />
+									<input type="text" name="nama" class="form-control" id="editNama" autocomplete="off"  />
 								</div>
 							</div>
 						</div>
@@ -135,13 +133,13 @@
 							<div class="col-md-5">
 								<div class="form-group">
 									<label>Jabatan:</label>
-									<form:input path="jabatan" cssClass="form-control" id="editJabatan" />									
+									<input type="text" name="jabatan" class="form-control" id="editJabatan" autocomplete="off"  />									
 								</div>
 							</div>
 							<div class="col-md-7">
 								<div class="form-group">
 									<label>Spesialis:</label>
-									<form:input path="spesialis" cssClass="form-control" id="editSpesialis" />									
+									<input type="text" name="spesialis" class="form-control" id="editSpesialis" autocomplete="off"  />									
 								</div>
 							</div>
 						</div>
@@ -149,7 +147,7 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<label>SIP:</label>
-									<form:input path="sip" cssClass="form-control" id="editSip" />									
+									<input type="text" name="sip" class="form-control" id="editSip" autocomplete="off"  />
 								</div>
 							</div>
 						</div>
@@ -157,9 +155,9 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<label>Alamat:</label>
-									<form:input path="alamat" cssClass="form-control" id="editAlamat" />									
+									<input type="text" name="alamat" class="form-control" id="editAlamat" autocomplete="off"  />
 								</div>
-								<form:hidden path="id" cssClass="form-control" id="editId" />
+								<input type="hidden" name="id" class="form-control" id="editId" autocomplete="off"  />							
 							</div>
 						</div>						
 					</div>
@@ -169,7 +167,7 @@
 						data-dismiss="modal">Keluar</button>
 					<input type="submit" class="btn btn-primary" value="Simpan" />
 				</div>
-			</form:form>
+			</form>
 		</div>
 	</div>
 </div>
@@ -188,15 +186,14 @@
 					<p>Apakah Anda Yakin Ingin Menghapus ?</p>
 				</div>
 			</div>
-			<form:form action="${hapusUrl}" commandName="karyawan"
-				cssClass="form-horizontal style-form formHapus" method="post">
+			<form class="form-horizontal style-form formHapus" method="post">
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default btnKeluar"
 						id="keluarModalHapus" data-dismiss="modal">Tidak</button>
-					<form:hidden path="id" cssClass="form-control" id="hapusId" />
+					<input type="hidden" class="form-control" id="hapusId" />					
 					<input type="submit" class="btn btn-danger" value="Hapus" />
 				</div>
-			</form:form>
+			</form>
 		</div>
 	</div>
 </div>

@@ -171,7 +171,6 @@ public class PelangganController {
 	private String tabelGenerator(Page<Pelanggan> list, HttpServletRequest request) {
 		String html = "";
 		String thead = "<thead><tr>"
-				+ "<th>Id</th>"
 				+ "<th>Kode</th>"
 				+ "<th>Pelanggan</th>"
 				+ "<th>Alamat</th>"
@@ -187,7 +186,6 @@ public class PelangganController {
 		for (Pelanggan p : list.getContent()) {
 			String row = "";
 			String btn = "";
-			row += Html.td(p.getId().toString());
 			row += Html.td(p.getKode());
 			row += Html.td(p.getNama());
 			row += Html.td(p.getAlamat());

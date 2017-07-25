@@ -425,7 +425,7 @@ public class RacikanController {
 
 	private String tabelGenerator(Page<Racikan> list, HttpServletRequest request) {
 		String html = "";
-		String thead = "<thead><tr><th>Id</th><th>Nama</th>";
+		String thead = "<thead><tr><th>Nama</th>";
 		thead += "<th>Harga Racikan</th>";
 		thead += "<th>Biaya Racik</th>";
 		if (request.isUserInRole("ROLE_ADMIN") || request.isUserInRole("ROLE_APOTEK")) {
@@ -437,7 +437,6 @@ public class RacikanController {
 		for (Racikan s : list.getContent()) {
 			String row = "";
 			String btn = "";
-			row += Html.td(s.getId().toString());
 			row += Html.td(s.getNama());
 			row += Html.td(Formatter.patternCurrency(s.getHargaJual()));
 			row += Html.td(Formatter.patternCurrency(s.getBiayaRacik()));

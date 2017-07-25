@@ -16,21 +16,21 @@
 					<label class="col-sm-2 col-sm-2 control-label">Nama</label>
 					<div class="col-sm-6">
 						<input type="text" class="form-control" name="nama"
-							id="tambahNama" value="${apotek.nama}">
+							id="tambahNama" value="${apotek.nama}" autocomplete="off">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 col-sm-2 control-label">Alamat</label>
 					<div class="col-sm-10">
 						<input type="text" class="form-control" name="alamat"
-							id="tambahAlamat" value="${apotek.alamat}">
+							id="tambahAlamat" value="${apotek.alamat}" autocomplete="off">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 col-sm-2 control-label">Telepon</label>
 					<div class="col-sm-4">
 						<input type="text" class="form-control" name="telepon"
-							id="tambahTelepon" value="${apotek.telepon}">
+							id="tambahTelepon" value="${apotek.telepon}" autocomplete="off">
 					</div>
 				</div>
 				<div class="form-group">

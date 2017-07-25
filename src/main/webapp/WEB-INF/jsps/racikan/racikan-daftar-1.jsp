@@ -71,13 +71,13 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>Nama Racikan:</label> <input type="text"
-										class="form-control" name="nama" id="nama">
+										class="form-control" name="nama" id="nama" autocomplete="off">
 								</div>
 							</div>
 							<div class="col-md-3">
 								<div class="form-group">
 									<label>Biaya Racik</label> <input type="text"
-										class="form-control" name="biayaRacik" id="biayaRacik">
+										class="form-control" name="biayaRacik" id="biayaRacik" autocomplete="off">
 								</div>
 							</div>
 							<div class="col-md-5">
@@ -104,7 +104,7 @@
 								</table>
 							</div>
 							<div class="col-md-6">
-								<input type="text" name="cariObat" class="form-control" id="cariObat" placeholder="Pencarian" />
+								<input type="text" name="cariObat" class="form-control" id="cariObat" placeholder="Pencarian" autocomplete="off" />
 								<div id="list-obat"></div>
 								<div class="btn-group btn-group-justified" id="navigasi-obat"></div>
 							</div>

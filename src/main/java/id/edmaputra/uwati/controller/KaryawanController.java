@@ -17,7 +17,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -50,11 +49,6 @@ public class KaryawanController {
 	
 	@Autowired
 	private PenggunaService penggunaService;
-	
-	@ModelAttribute("karyawan")
-	public Karyawan constructKaryawan() {
-		return new Karyawan();
-	}
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView tampilkanHalamanListKaryawan(Principal principal, HttpServletRequest request) {
@@ -237,7 +231,6 @@ public class KaryawanController {
 	private String tabelGenerator(Page<Karyawan> list, HttpServletRequest request) {
 		String html = "";
 		String thead = "<thead><tr>"
-				+ "<th>Id</th>"
 				+ "<th>Nama</th>"
 				+ "<th>Jabatan</th>"
 				+ "<th>Spesialis</th>"
@@ -254,7 +247,6 @@ public class KaryawanController {
 		for (Karyawan d : list.getContent()) {
 			String row = "";
 			String btn = "";
-			row += Html.td(d.getId().toString());
 			row += Html.td(d.getNama());
 			row += Html.td(d.getJabatan());
 			row += Html.td(d.getSpesialis());

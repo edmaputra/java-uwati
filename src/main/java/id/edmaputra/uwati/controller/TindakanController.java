@@ -89,33 +89,6 @@ public class TindakanController {
 			@RequestParam(value = "cari", defaultValue = "", required = false) String cari, HttpServletRequest request,
 			HttpServletResponse response) {
 		try {
-			// HtmlElement el = new HtmlElement();
-			//
-			// TindakanPredicateBuilder builder = new
-			// TindakanPredicateBuilder();
-			// if (!StringUtils.isBlank(cari)) {
-			// builder.cari(cari);
-			// }
-			//
-			// BooleanExpression exp = builder.getExpression();
-			// Page<Tindakan> page = tindakanService.muatDaftar(halaman, exp);
-			//
-			// String tabel = tabelGenerator(page, request);
-			// el.setTabel(tabel);
-			//
-			// if (page.hasContent()) {
-			// int current = page.getNumber() + 1;
-			// int next = current + 1;
-			// int prev = current - 1;
-			// int first = Math.max(1, current - 5);
-			// int last = Math.min(first + 10, page.getTotalPages());
-			//
-			// String h = navigasiHalamanGenerator(first, prev, current, next,
-			// last, page.getTotalPages(), cari);
-			// el.setNavigasiHalaman(h);
-			// }
-			// return el;
-
 			HtmlElement el = new HtmlElement();
 
 			ObatPredicateBuilder builder = new ObatPredicateBuilder();
@@ -284,7 +257,7 @@ public class TindakanController {
 
 	private String tabelGenerator(Page<Obat> list, HttpServletRequest request) {
 		String html = "";
-		String thead = "<thead><tr>" + "<th>Id</th>" + "<th>Tindakan</th>" + "<th>Kode</th>" + "<th>Harga/Tarif</th>";
+		String thead = "<thead><tr>" +  "<th>Tindakan</th>" + "<th>Kode</th>" + "<th>Harga/Tarif</th>";
 		if (request.isUserInRole("ROLE_ADMIN")) {
 			thead += "<th>User Input</th>" + "<th>Waktu Dibuat</th>" + "<th>User Editor</th>"
 					+ "<th>Terakhir Diubah</th>";
@@ -295,7 +268,6 @@ public class TindakanController {
 			String row = "";
 			String btn = "";
 			Obat obat = getObatDetail(o.getId());
-			row += Html.td(obat.getId().toString());
 			row += Html.td(obat.getNama());
 			row += Html.td(obat.getKode());
 			row += Html.td(Converter.patternCurrency(obat.getDetail().get(0).getHargaJualResep()));

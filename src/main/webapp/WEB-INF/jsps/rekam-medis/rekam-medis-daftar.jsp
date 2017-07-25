@@ -124,7 +124,7 @@
 								<div class="form-group">
 									<label>Tanggal:</label> <input type="text" name="tanggal"
 										class="form-control datePicker" id="tanggal"
-										style="width: 300px" value="${tanggalHariIni}" />
+										style="width: 300px" value="${tanggalHariIni}" autocomplete="off"/>
 								</div>
 							</div>
 						</div>
@@ -161,7 +161,7 @@
 							</div>
 							<div class="col-md-6">
 								<input type="text" name="cari-terapi" class="form-control"
-									id="cari-terapi" placeholder="Pencarian" />
+									id="cari-terapi" placeholder="Pencarian" autocomplete="off" />
 								<div id="list-terapi"></div>
 								<div class="btn-group btn-group-justified" id="navigasi-obat">
 

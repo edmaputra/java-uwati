@@ -13,12 +13,12 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -142,7 +142,6 @@ public class PenjualanObatController {
 	private final String KODE_TRANSAKSI_JUAL = "A";
 	private final String KODE_TRANSAKSI_JUAL_RESEP = "B";
 
-	private Penjualan penjualan;
 	private List<PenjualanDetail> listPenjualanDetail;
 	private List<PenjualanDetailRacikan> listPenjualanDetailRacikan;
 
@@ -541,7 +540,7 @@ public class PenjualanObatController {
 			PenjualanDetailTemp tersimpan = penjualanDetailTempService.dapatkanByRandomIdAndIdObat(h.getRandomId(),
 					h.getIdObat());
 			if (tersimpan != null) {
-				Integer jumlahLama = new Integer(Converter.hilangkanTandaTitikKoma(tersimpan.getJumlah()));
+//				Integer jumlahLama = new Integer(Converter.hilangkanTandaTitikKoma(tersimpan.getJumlah()));
 				Integer jumlah = new Integer(Converter.hilangkanTandaTitikKoma(h.getJumlah()));
 				BigDecimal harga = new BigDecimal(Converter.hilangkanTandaTitikKoma(h.getHargaJual()));
 				BigDecimal diskon = new BigDecimal(Converter.hilangkanTandaTitikKoma(h.getDiskon()));
@@ -631,7 +630,7 @@ public class PenjualanObatController {
 			return null;
 		}
 	}
-
+	
 	@RequestMapping(value = "/cek-stok", method = RequestMethod.GET)
 	@ResponseBody
 	private PenjualanDetailHandler cekStokObat(@RequestParam(value = "randomId", required = true) String randomId,
@@ -639,31 +638,38 @@ public class PenjualanObatController {
 		try {
 			PenjualanDetailHandler h = new PenjualanDetailHandler();
 			List<PenjualanDetailTemp> list = penjualanDetailTempService.dapatkanListByRandomId(randomId);
+			List<PenjualanDetailTemp> listTemp = new ArrayList<>();
 			String returnStatusStok = "OKE";
 			String statusStokPerObat = "";
-			Integer marker = 0;
+			Integer marker = 0;			
 			for (PenjualanDetailTemp temp : list) {
 				Obat obat = getObat(Long.valueOf(temp.getIdObat()));
-				if (obat.getTipe() == 1){
+				if (obat.getTipe() == 1){					
 					Racikan r = getRacikan(obat.getNama());
 					for (RacikanDetail rd : r.getRacikanDetail()){
+						PenjualanDetailTemp t = new PenjualanDetailTemp();
 						Obat detail = getObat(rd.getKomposisi().getNama());
-						Integer stokTersimpan = detail.getStok().get(0).getStok();
+						t.setIdObat(detail.getId().toString());
+						t.setObat(detail.getNama());						
 						Integer jumlahBeli = new Integer(Converter.hilangkanTandaTitikKoma(temp.getJumlah()));
 						jumlahBeli = jumlahBeli * rd.getJumlah();
-						if (jumlahBeli > stokTersimpan) {
-							marker = 1;
-							statusStokPerObat += "<p>" + rd.getKomposisi().getNama() + " : " + stokTersimpan + "</p>";
-						}
+						t.setJumlah(jumlahBeli.toString());
+						appendList(listTemp, t);						
 					}
 				} else {
-					Integer stokTersimpan = obat.getStok().get(0).getStok();
-					Integer jumlahBeli = new Integer(Converter.hilangkanTandaTitikKoma(temp.getJumlah()));
-					if (jumlahBeli > stokTersimpan) {
-						marker = 1;
-						statusStokPerObat += "<p>" + temp.getObat() + " : " + stokTersimpan + "</p>";
-					}
+					appendList(listTemp, temp);					
 				}				
+			}
+			
+			for (PenjualanDetailTemp d : listTemp){
+				Obat obat = getObat(d.getObat());
+				Integer stokTersimpan = obat.getStok().get(0).getStok();
+				Integer jumlahJual = new Integer(Converter.hilangkanTandaTitikKoma(d.getJumlah()));
+				if (jumlahJual > stokTersimpan) {
+					marker = 1;
+					statusStokPerObat += "<p>" + obat.getNama() + " : Tersisa " + stokTersimpan + " "+obat.getSatuan().getNama()+"</p>";
+				}
+//				System.out.println(obat.getNama()+" : "+jumlahJual);
 			}
 
 			if (marker == 1) {
@@ -671,12 +677,83 @@ public class PenjualanObatController {
 				returnStatusStok = returnStatusStok + statusStokPerObat;
 			}
 			h.setInfo(returnStatusStok);
+			listTemp.clear();
 			return h;
 		} catch (Exception e) {
 			logger.info(e.getMessage());
 			return null;
 		}
 	}
+	
+	private List<PenjualanDetailTemp> appendList(List<PenjualanDetailTemp> list, PenjualanDetailTemp e){
+		System.out.println("Size "+list.size());
+		if (list.size() == 0){
+			System.out.println("LIST PERTAMA "+e.getObat()+e.getJumlah());
+			list.add(e);
+		} else if (list.size() > 0){			
+			for (int i = 0; i < list.size(); i++){				
+				if (StringUtils.equalsIgnoreCase(e.getIdObat(), list.get(i).getIdObat())){
+//					Integer jumlahLama = new Integer(Converter.hilangkanTandaTitikKoma(list.get(i).getJumlah()));
+//					Integer jumlahMasuk = new Integer(Converter.hilangkanTandaTitikKoma(e.getJumlah()));
+//					Integer jumlahBaru = jumlahLama + jumlahMasuk;
+//					e.setJumlah(jumlahBaru.toString());
+					list.set(i, e);
+					System.out.println(e.getObat()+" EDIT LIST "+list.get(i).getObat()+" "+list.get(i).getJumlah());
+				} else {
+					System.out.println("TAMBAH LIST "+e.getObat()+" "+e.getJumlah());
+					list.add(e);
+				}
+			}
+		}
+		System.out.println("Size After : "+list.size());
+		return list;
+	}
+
+//	@RequestMapping(value = "/cek-stok", method = RequestMethod.GET)
+//	@ResponseBody
+//	private PenjualanDetailHandler cekStokObat(@RequestParam(value = "randomId", required = true) String randomId,
+//			HttpServletRequest request, HttpServletResponse response) {
+//		try {
+//			PenjualanDetailHandler h = new PenjualanDetailHandler();
+//			List<PenjualanDetailTemp> list = penjualanDetailTempService.dapatkanListByRandomId(randomId);
+//			String returnStatusStok = "OKE";
+//			String statusStokPerObat = "";
+//			Integer marker = 0;
+//			for (PenjualanDetailTemp temp : list) {
+//				Obat obat = getObat(Long.valueOf(temp.getIdObat()));
+//				if (obat.getTipe() == 1){
+//					Racikan r = getRacikan(obat.getNama());
+//					for (RacikanDetail rd : r.getRacikanDetail()){
+//						Obat detail = getObat(rd.getKomposisi().getNama());
+//						Integer stokTersimpan = detail.getStok().get(0).getStok();
+//						Integer jumlahBeli = new Integer(Converter.hilangkanTandaTitikKoma(temp.getJumlah()));
+//						jumlahBeli = jumlahBeli * rd.getJumlah();
+//						if (jumlahBeli > stokTersimpan) {
+//							marker = 1;
+//							statusStokPerObat += "<p>" + rd.getKomposisi().getNama() + " : " + stokTersimpan + "</p>";
+//						}
+//					}
+//				} else {
+//					Integer stokTersimpan = obat.getStok().get(0).getStok();
+//					Integer jumlahBeli = new Integer(Converter.hilangkanTandaTitikKoma(temp.getJumlah()));
+//					if (jumlahBeli > stokTersimpan) {
+//						marker = 1;
+//						statusStokPerObat += "<p>" + temp.getObat() + " : " + stokTersimpan + "</p>";
+//					}
+//				}				
+//			}
+//
+//			if (marker == 1) {
+//				returnStatusStok = "<p>Jumlah Beli Melebihi Stok Obat yang Ada : </p>";
+//				returnStatusStok = returnStatusStok + statusStokPerObat;
+//			}
+//			h.setInfo(returnStatusStok);
+//			return h;
+//		} catch (Exception e) {
+//			logger.info(e.getMessage());
+//			return null;
+//		}
+//	}
 
 	private String tabelTerapiGenerator(List<PenjualanDetailTemp> list) {
 		String html = "";
@@ -715,20 +792,6 @@ public class PenjualanObatController {
 			t = t + totalItems;
 		}
 		return t;
-	}
-
-	private PenjualanDetailTemp updateTemp(PenjualanDetailTemp pdt, PenjualanDetailTemp temp, String pengguna) {
-		Integer jumlahTersimpan = Integer.valueOf(temp.getJumlah()).intValue();
-		Integer jumlahBaru = jumlahTersimpan + Integer.valueOf(pdt.getJumlah()).intValue();
-		temp.setJumlah(jumlahBaru.toString());
-		BigDecimal harga = new BigDecimal(pdt.getHargaJual().replaceAll("[.,]", ""));
-		BigDecimal subTotalBaru = harga.multiply(new BigDecimal(jumlahBaru));
-		temp.setHargaJual(pdt.getHargaJual());
-		temp.setSubTotal(Formatter.patternCurrency(subTotalBaru));
-		temp.setPengguna(pengguna);
-		temp.setWaktuDibuat(new Date());
-		temp.setTerakhirDirubah(new Date());
-		return temp;
 	}
 	
 	private String nomorFakturGenerator(String tanggal, String kodeTransaksi){
@@ -808,53 +871,6 @@ public class PenjualanObatController {
 		String nomor = nomorFaktur.substring(nomorFaktur.length() - 4, nomorFaktur.length());
 		Integer returnValue = Integer.valueOf(nomor).intValue();
 		return returnValue;
-	}
-
-	private String cekStokObatFromRacikan(PenjualanDetailTemp pdt) {
-		String kondisi = "OK";
-		String temp = "";
-		Integer c = 0;
-		Racikan r = getRacikan(pdt.getObat());
-		for (RacikanDetail rd : r.getRacikanDetail()) {
-			Obat obat = getObat(rd.getKomposisi().getNama());
-			Integer jumlahBeli = Integer.valueOf(pdt.getJumlah()) * rd.getJumlah();
-			Integer stok = obat.getStok().get(0).getStok();
-			if (jumlahBeli > stok) {
-				temp += obat.getNama() + ", ";
-				c = 1;
-			}
-		}
-		if (c == 1) {
-			kondisi = "Obat yang kurang stoknya : " + temp;
-		}
-		return kondisi;
-	}
-
-	private void hapusTempDiPenjualanDetailTemp(String nomorFaktur, String pengguna) {
-		List<PenjualanDetailTemp> list = penjualanDetailTempService.dapatkan(nomorFaktur, pengguna);
-		for (PenjualanDetailTemp t : list) {
-			penjualanDetailTempService.hapus(t);
-		}
-	}
-
-	private String tabelGenerator(List<PenjualanDetailTemp> list, HttpServletRequest request) {
-		String html = "";
-		String data = "";
-		for (PenjualanDetailTemp pdt : list) {
-			String row = "";
-			String btn = "";
-			row += Html.td(pdt.getObat());
-			row += Html.td(pdt.getJumlah());
-			row += Html.td(pdt.getHargaJual());
-			row += Html.td(pdt.getPajak());
-			row += Html.td(pdt.getDiskon());
-			row += Html.td(pdt.getSubTotal());
-			btn += Html.button("btn btn-danger btn-xs", null, null, "onClick", "hapus(" + pdt.getId() + ")", 1);
-			row += Html.td(btn);
-			data += Html.tr(row);
-		}
-		html = data;
-		return html;
 	}
 
 	private Racikan getRacikan(String nama) {

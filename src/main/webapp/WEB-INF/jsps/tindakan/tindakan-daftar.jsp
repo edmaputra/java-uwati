@@ -66,7 +66,7 @@
 							<div class="col-md-9">
 								<div class="form-group">
 									<label>Nama:</label> <input type="text" name="nama"
-										class="form-control" id="nama" />
+										class="form-control" id="nama" autocomplete="off" />
 
 								</div>
 							</div>
@@ -75,13 +75,13 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>Kode:</label> <input type="text" name="kode"
-										class="form-control" id="kode" />
+										class="form-control" id="kode" autocomplete="off" />
 								</div>
 							</div>
 							<div class="col-md-8">
 								<div class="form-group">
 									<label>Tarif/Harga:</label> 
-									<input type="text" name="tarif" class="form-control" id="tarif" value="0"/>
+									<input type="text" name="tarif" class="form-control" id="tarif" value="0" autocomplete="off"/>
 								</div>
 							</div>
 						</div>
@@ -89,7 +89,7 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<label>Info/Keterangan:</label> 
-									<input type="text" name="info"	class="form-control" id="info" />
+									<input type="text" name="info"	class="form-control" id="info" autocomplete="off"/>
 								</div>
 							</div>
 						</div>

@@ -35,7 +35,7 @@ public class PenggunaService {
 	}
 	
 	public Page<Pengguna> muatDaftar(Integer halaman, BooleanExpression expression) {
-		PageRequest request = new PageRequest(halaman - 1, PAGE_SIZE, Sort.Direction.ASC, "id");
+		PageRequest request = new PageRequest(halaman - 1, PAGE_SIZE, Sort.Direction.ASC, "nama");
 		return repository.findAll(expression, request);
 	}
 

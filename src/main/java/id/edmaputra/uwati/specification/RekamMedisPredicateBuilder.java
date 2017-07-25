@@ -19,12 +19,16 @@ public class RekamMedisPredicateBuilder {
 			hasil = QRekamMedis.rekamMedis.nomor.containsIgnoreCase(cari)
 					.or(QRekamMedis.rekamMedis.anamnesa.containsIgnoreCase(cari))
 					.or(QRekamMedis.rekamMedis.pemeriksaan.containsIgnoreCase(cari))
-					.or(QRekamMedis.rekamMedis.diagnosa.containsIgnoreCase(cari));
+					.or(QRekamMedis.rekamMedis.diagnosa.containsIgnoreCase(cari))
+					.or(QRekamMedis.rekamMedis.dokter.nama.containsIgnoreCase(cari))
+					.or(QRekamMedis.rekamMedis.pasien.nama.containsIgnoreCase(cari));
 		} else {
 			hasil = hasil.and(QRekamMedis.rekamMedis.nomor.containsIgnoreCase(cari)
 					.or(QRekamMedis.rekamMedis.anamnesa.containsIgnoreCase(cari))
 					.or(QRekamMedis.rekamMedis.pemeriksaan.containsIgnoreCase(cari))
-					.or(QRekamMedis.rekamMedis.diagnosa.containsIgnoreCase(cari)));
+					.or(QRekamMedis.rekamMedis.diagnosa.containsIgnoreCase(cari))
+					.or(QRekamMedis.rekamMedis.dokter.nama.containsIgnoreCase(cari))
+					.or(QRekamMedis.rekamMedis.pasien.nama.containsIgnoreCase(cari)));
 		}
 	}
 

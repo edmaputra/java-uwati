@@ -219,7 +219,7 @@ public class SatuanController {
 
 	private String tabelGenerator(Page<Satuan> list, HttpServletRequest request) {
 		String html = "";
-		String thead = "<thead><tr><th>Id</th><th>Satuan</th>";
+		String thead = "<thead><tr><th>Satuan</th>";
 		if (request.isUserInRole("ROLE_ADMIN")) {
 			thead += "<th>User Input</th>" + "<th>Waktu Dibuat</th>" + "<th>User Editor</th>"
 					+ "<th>Terakhir Diubah</th>";
@@ -229,7 +229,6 @@ public class SatuanController {
 		for (Satuan s : list.getContent()) {
 			String row = "";
 			String btn = "";
-			row += Html.td(s.getId().toString());
 			row += Html.td(s.getNama());
 			if (request.isUserInRole("ROLE_ADMIN")) {
 				row += Html.td(s.getUserInput());

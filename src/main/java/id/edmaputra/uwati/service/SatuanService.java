@@ -31,7 +31,7 @@ public class SatuanService {
 	}
 
 	public Page<Satuan> muatDaftar(Integer halaman, BooleanExpression expression) {
-		PageRequest request = new PageRequest(halaman - 1, PAGE_SIZE, Sort.Direction.ASC, "id");
+		PageRequest request = new PageRequest(halaman - 1, PAGE_SIZE, Sort.Direction.ASC, "nama");
 		return satuanRepo.findAll(expression, request);
 	}
 	

@@ -34,7 +34,7 @@ public class ObatService {
 	}
 
 	public Page<Obat> muatDaftar(Integer halaman, BooleanExpression expression) {
-		PageRequest request = new PageRequest(halaman - 1, PAGE_SIZE, Sort.Direction.ASC, "id");
+		PageRequest request = new PageRequest(halaman - 1, PAGE_SIZE, Sort.Direction.ASC, "nama");
 		return obatRepository.findAll(expression, request);
 	}
 	

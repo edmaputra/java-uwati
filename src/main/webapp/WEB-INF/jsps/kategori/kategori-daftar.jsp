@@ -58,17 +58,15 @@
 				<h4 class="modal-title" id="myModalLabel">Kategori Baru</h4>
 			</div>
 
-			<form:form action="${tambahUrl}" commandName="kategori"
-				cssClass="form-horizontal style-form formTambah" method="post">
+			<form class="form-horizontal style-form formTambah" method="post">
 				<div class="form-panel">
 					<div class="modal-body">
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group">
-									<label>Nama:</label>
-									<form:input path="nama" cssClass="form-control" id="tambahNama" />
-
-									<form:hidden path="id" cssClass="form-control" id="tambahId" />
+									<label>Nama:</label>									
+									<input type="text" class="form-control" id="tambahNama" autocomplete="off" name="tambahNama"/>
+									<input type="hidden" class="form-control" id="tambahId" />									
 								</div>
 							</div>
 						</div>
@@ -79,8 +77,7 @@
 						data-dismiss="modal">Keluar</button>
 					<input type="submit" class="btn btn-primary" value="Simpan" />
 				</div>
-
-			</form:form>
+			</form>
 		</div>
 	</div>
 </div>
@@ -94,16 +91,15 @@
 					aria-hidden="true">&times;</button>
 				<h4 class="modal-title" id="myModalLabel">Edit Kategori</h4>
 			</div>
-			<form:form action="${editUrl}" commandName="kategori"
-				cssClass="form-horizontal style-form formEdit" method="post">
+			<form class="form-horizontal style-form formEdit" method="post">
 				<div class="form-panel">
 					<div class="modal-body">
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group">
 									<label>Nama:</label>
-									<form:input path="nama" cssClass="form-control" id="editNama" />
-									<form:hidden path="id" cssClass="form-control" id="editId" />
+									<input type="text" class="form-control" id="editNama" autocomplete="off" name="editNama"/>
+									<input type="hidden" class="form-control" id="editId" autocomplete="off"/>									
 								</div>
 							</div>
 						</div>
@@ -114,7 +110,7 @@
 						data-dismiss="modal">Keluar</button>
 					<input type="submit" class="btn btn-primary" value="Simpan" />
 				</div>
-			</form:form>
+			</form>
 		</div>
 	</div>
 </div>
@@ -133,15 +129,13 @@
 					<p>Apakah Anda Yakin Ingin Menghapus ?</p>
 				</div>
 			</div>
-			<form:form action="${hapusUrl}" commandName="kategori"
-				cssClass="form-horizontal style-form formHapus" method="post">
+			<form class="form-horizontal style-form formHapus" method="post">
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default btnKeluar"
-						id="keluarModalHapus" data-dismiss="modal">Tidak</button>
-					<form:hidden path="id" cssClass="form-control" id="hapusId" />
+					<button type="button" class="btn btn-default btnKeluar" id="keluarModalHapus" data-dismiss="modal">Tidak</button>
+					<input type="hidden" class="form-control" id="hapusId"/>					
 					<input type="submit" class="btn btn-danger" value="Hapus" />
 				</div>
-			</form:form>
+			</form>
 		</div>
 	</div>
 </div>
@@ -189,17 +183,17 @@
 
 		$(".formTambah").validate({
 			rules : {
-				nama : {
+				tambahNama : {
 					required : true
 				}
 			},
 			messages : {
-				nama : "Nama Wajib Diisi"
+				tambahNama : "Nama Wajib Diisi"
 			},
 			submitHandler : function(form) {
-				var str = {};
-				str['nama'] = $('#tambahNama').val();
-				$.postJSON('${tambahUrl}', str, function() {
+				var data = {};
+				data['nama'] = $('#tambahNama').val();
+				$.postJSON('${tambahUrl}', data, function() {
 					$('#gritter-tambah-sukses').click();
 					$('.btnKeluar').click();
 					$('#tambahNama').val('');
@@ -212,18 +206,18 @@
 
 		$(".formEdit").validate({
 			rules : {
-				nama : {
+				editNama : {
 					required : true
 				}
 			},
 			messages : {
-				nama : "Nama Wajib Diisi"
+				editNama : "Nama Wajib Diisi"
 			},
 			submitHandler : function(form) {
-				var str = {};
-				str['nama'] = $('#editNama').val();
-				str['id'] = $('#editId').val();
-				$.postJSON('${editUrl}', str, function() {
+				var data = {};
+				data['nama'] = $('#editNama').val();
+				data['id'] = $('#editId').val();
+				$.postJSON('${editUrl}', data, function() {
 					$('#gritter-edit-sukses').click();
 					$('.btnKeluar').click();
 					refresh();
@@ -235,9 +229,9 @@
 
 		$(".formHapus").submit(function(e) {
 			e.preventDefault();
-			var str = {};
-			str['id'] = $('#hapusId').val();
-			$.postJSON('${hapusUrl}', str, function(result) {
+			var data = {};
+			data['id'] = $('#hapusId').val();
+			$.postJSON('${hapusUrl}', data, function(result) {
 				refresh();
 				$('#keluarModalHapus').click();
 				$('#gritter-hapus-sukses').click();
@@ -247,6 +241,5 @@
 				refresh();
 			});
 		});
-
 	});
 </script>

@@ -35,18 +35,18 @@
 						<div class="form-group">
 							<input name="tanggal" type="text" id="tanggal"
 								class="form-control datePicker" placeholder="Tanggal Transaksi"
-								value="${tanggalHariIni}" />
+								value="${tanggalHariIni}" autocomplete="off" />
 						</div>
 					</div>
 					<div class="col-md-3">
 						<div class="form-group">
 							<input name="pelanggan" type="text" id="pelanggan"
-								class="form-control" placeholder="Pelanggan" />
+								class="form-control" placeholder="Pelanggan" autocomplete="off" />
 						</div>
 					</div>
 					<div class="col-md-7">
 						<input type="text" name="cariObat" class="form-control"
-							id="cariObat" placeholder="Pencarian" />
+							id="cariObat" placeholder="Pencarian" autocomplete="off"/>
 					</div>
 				</div>
 
@@ -141,14 +141,14 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Obat:</label> <input type="text" class="form-control"
-									name="editOobat" id="editObat" readonly="readonly">
+									name="editOobat" id="editObat" readonly="readonly" autocomplete="off">
 							</div>
 						</div>
 						<div class="col-md-2">
 							<div class="form-group">
 								<label>Jumlah:</label> <input type="text"
 									class="form-control input-angka" name="editJumlah"
-									id="editJumlah">
+									id="editJumlah" autocomplete="off">
 							</div>
 						</div>
 					</div>
@@ -157,21 +157,21 @@
 							<div class="form-group">
 								<label>Harga Satuan:</label> <input type="text"
 									class="form-control input-angka" name="editHarga"
-									id="editHarga">
+									id="editHarga" autocomplete="off">
 							</div>
 						</div>
 						<div class="col-md-5">
 							<div class="form-group">
 								<label>Harga Total:</label> <input type="text"
 									class="form-control input-angka" name="editHargaTotal"
-									id="editHargaTotal" readonly="readonly">
+									id="editHargaTotal" readonly="readonly" autocomplete="off">
 							</div>
 						</div>
 						<div class="col-md-3">
 							<div class="form-group">
 								<label>Diskon:</label> <input type="text"
 									class="form-control input-angka" name="editDiskon"
-									id="editDiskon">
+									id="editDiskon" autocomplete="off">
 							</div>
 						</div>
 					</div>
@@ -200,7 +200,7 @@
 			<div class="modal-body">
 				<div class="form-group">
 					<label>Pajak:</label> <input type="text"
-						class="form-control input-angka" id="input-pajak" value="0" />
+						class="form-control input-angka" id="input-pajak" value="0" autocomplete="off"/>
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -223,7 +223,7 @@
 			<div class="modal-body">
 				<div class="form-group">
 					<label>Diskon:</label> <input type="text"
-						class="form-control input-angka" id="input-diskon" value="0" />
+						class="form-control input-angka" id="input-diskon" value="0" autocomplete="off"/>
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -280,13 +280,13 @@
 						<label class="col-sm-4 control-label">Total Pembayaran</label>
 						<div class="col-sm-8">
 							<input type="text" class="form-control input-lg input-angka"
-								id="totalPembayaran" value="0" name="totalPembayaran">
+								id="totalPembayaran" value="0" name="totalPembayaran" autocomplete="off">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-4 control-label">Kembalian</label>
 						<div class="col-sm-8">
-							<input type="text" class="form-control input-lg input-angka" id="kembalian" readonly="readonly" value="0" name="kembalian">
+							<input type="text" class="form-control input-lg input-angka" id="kembalian" readonly="readonly" value="0" name="kembalian" autocomplete="off">
 						</div>
 					</div>
 				</div>

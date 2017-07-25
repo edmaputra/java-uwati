@@ -67,14 +67,14 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Nama:</label> <input type="text" name="nama"
-										class="form-control" id="nama" />
+										class="form-control" id="nama" autocomplete="off" />
 
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>Nomor Identitas:</label> <input type="text"
-										name="identitas" class="form-control" id="identitas" />
+										name="identitas" class="form-control" id="identitas" autocomplete="off"/>
 
 								</div>
 							</div>
@@ -82,7 +82,7 @@
 								<div class="form-group">
 									<label>Tanggal Lahir:</label> <input type="text"
 										name="tanggalLahir" class="form-control datePicker"
-										id="tanggalLahir" />
+										id="tanggalLahir" autocomplete="off"/>
 
 								</div>
 							</div>
@@ -101,13 +101,13 @@
 							<div class="col-md-3">
 								<div class="form-group">
 									<label>Agama:</label> <input type="text" name="agama"
-										class="form-control" id="agama" />
+										class="form-control" id="agama" autocomplete="off"/>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Pekerjaan:</label> <input type="text" name="pekerjaan"
-										class="form-control" id="pekerjaan" />
+										class="form-control" id="pekerjaan" autocomplete="off"/>
 								</div>
 							</div>
 						</div>
@@ -116,13 +116,13 @@
 							<div class="col-md-9">
 								<div class="form-group">
 									<label>Alamat:</label> <input type="text" name="alamat"
-										class="form-control" id="alamat" />
+										class="form-control" id="alamat" autocomplete="off"/>
 								</div>
 							</div>
 							<div class="col-md-3">
 								<div class="form-group">
 									<label>Telepon:</label> <input type="text" name="kontak"
-										class="form-control" id="kontak" />
+										class="form-control" id="kontak" autocomplete="off"/>
 								</div>
 							</div>
 						</div>
@@ -131,13 +131,13 @@
 								<div class="form-group">
 									<label>Jaminan:</label> <input type="text"
 										name="jaminanKesehatan" class="form-control"
-										id="jaminanKesehatan" />
+										id="jaminanKesehatan" autocomplete="off"/>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Nomor Jaminan:</label> <input type="text"
-										name="nomorJaminan" class="form-control" id="nomorJaminan" />
+										name="nomorJaminan" class="form-control" id="nomorJaminan" autocomplete="off"/>
 								</div>
 							</div>
 						</div>

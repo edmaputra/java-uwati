@@ -571,8 +571,8 @@ public class RekamMedisController {
 		for (RekamMedis rm : list.getContent()) {
 			String row = "";
 			String btn = "";
-			row += Html.td(rm.getId().toString());
 			row += Html.td(rm.getNomor());
+			row += Html.td(Converter.dateToString(rm.getTanggal()));
 			row += Html.td(ringkas(rm.getAnamnesa(), LENGTH_TEXT));
 			row += Html.td(ringkas(rm.getPemeriksaan(), LENGTH_TEXT));
 			row += Html.td(ringkas(rm.getDiagnosa(), LENGTH_TEXT));		
@@ -593,8 +593,8 @@ public class RekamMedisController {
 		for (RekamMedis rm : list.getContent()) {
 			String row = "";
 			String btn = "";
-			row += Html.td(rm.getId().toString());
 			row += Html.td(rm.getNomor());
+			row += Html.td(Converter.dateToString(rm.getTanggal()));
 			row += Html.td(rm.getPasien().getNama());
 			row += Html.td(rm.getDokter().getNama());		
 			

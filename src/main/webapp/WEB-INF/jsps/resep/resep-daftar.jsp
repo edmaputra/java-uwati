@@ -122,7 +122,7 @@
 										<div class="form-group">
 											<label class="lb-sm">Diskon</label> <input name="diskon"
 												type="text" id="diskon" class="form-control input-lg"
-												value="0">
+												value="0" autocomplete="off">
 										</div>
 									</div>
 								</div>
@@ -136,14 +136,14 @@
 										<div class="form-group">
 											<label class="lb-sm">Bayar</label> <input name="bayar"
 												type="text" id="bayar" class="form-control input-lg"
-												value="0">
+												value="0" autocomplete="off">
 										</div>
 									</div>
 									<div class="col-md-5">
 										<div class="form-group">
 											<label class="lb-sm">Kembali</label> <input name="kembali"
 												type="text" id="kembali" class="form-control input-lg"
-												value="0" readonly="readonly">
+												value="0" readonly="readonly" autocomplete="off">
 										</div>
 									</div>
 								</div>

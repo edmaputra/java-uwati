@@ -268,7 +268,7 @@ public class PenggunaController {
 
 	private String tabelGenerator(Page<Pengguna> list, HttpServletRequest request) {
 		String html = "";
-		String thead = "<thead><tr><th>Id</th>" + "<th>Pengguna</th>" + "<th>Aktif</th>" + "<th>First Time</th>"
+		String thead = "<thead><tr>" + "<th>Pengguna</th>" + "<th>Aktif</th>" + "<th>First Time</th>"
 				+ "<th>Kesempatan</th>" + "<th>Role</th>";
 		if (request.isUserInRole("ROLE_ADMIN")) {
 			thead += "<th>User Input</th>" + "<th>Waktu Dibuat</th>" + "<th>User Editor</th>"
@@ -278,8 +278,7 @@ public class PenggunaController {
 		String data = "";
 		for (Pengguna p : list.getContent()) {
 			String row = "";
-			String btn = "";
-			row += Html.td(p.getId().toString());
+			String btn = "";			
 			row += Html.td(p.getNama());
 			row += Html.td(p.getIsAktif() + "");
 			row += Html.td(p.getIsPertamaKali() + "");

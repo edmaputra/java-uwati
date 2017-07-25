@@ -45,11 +45,6 @@ public class KategoriController {
 	@Autowired
 	private KategoriService kategoriService;
 
-	@ModelAttribute("kategori")
-	public Kategori constructKategori() {
-		return new Kategori();
-	}
-
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView tampilkanKategori(Principal principal, HttpServletRequest request) {
 		try {
@@ -217,7 +212,7 @@ public class KategoriController {
 
 	private String tabelGenerator(Page<Kategori> list, HttpServletRequest request) {
 		String html = "";
-		String thead = "<thead><tr><th>Id</th><th>Kategori</th>";
+		String thead = "<thead><tr><th>Kategori</th>";
 		if (request.isUserInRole("ROLE_ADMIN")) {
 			thead += "<th>User Input</th>" + "<th>Waktu Dibuat</th>" + "<th>User Editor</th>"
 					+ "<th>Terakhir Diubah</th>";
@@ -227,7 +222,6 @@ public class KategoriController {
 		for (Kategori k : list.getContent()) {
 			String row = "";
 			String btn = "";
-			row += Html.td(k.getId().toString());
 			row += Html.td(k.getNama());
 			if (request.isUserInRole("ROLE_ADMIN")) {
 				row += Html.td(k.getUserInput());
