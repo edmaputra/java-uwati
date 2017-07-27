@@ -36,5 +36,9 @@ public class Formatter {
 	public static String hilangkanTitik(String angka){
 		return angka.replaceAll("[.]", "");
 	}
+	
+	public static String hilangkanTitikKoma(String angka){
+		return angka.replaceAll("[.,]", "");
+	}
 
 }

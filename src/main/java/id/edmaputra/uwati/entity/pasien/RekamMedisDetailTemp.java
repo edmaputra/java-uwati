@@ -28,7 +28,7 @@ public class RekamMedisDetailTemp extends DasarEntity<Long> {
 	@Column(name="id_obat", nullable=true, length=DBConf.LENGTH_TRANSAKSI_NOMORFAKTUR)
 	private String idObat;
 	
-	@Column(name="nomor", nullable=false, length=DBConf.LENGTH_TRANSAKSI_NOMORFAKTUR)
+	@Column(name="nomor", nullable=true, length=DBConf.LENGTH_TRANSAKSI_NOMORFAKTUR)
 	private String nomor;
 	
 	@Column(name="terapi", nullable=false, length=DBConf.LENGTH_NAMA)
@@ -57,7 +57,29 @@ public class RekamMedisDetailTemp extends DasarEntity<Long> {
 	
 	@Column(name="is_sudah_diproses", nullable=true)
 	private Boolean isSudahDiproses;
-		
+	
+	@Column(name="randomId", nullable=true)
+	private String randomId;
+	
+	@Column(name="dokter_id", nullable=true)
+	private Integer dokterId;
+
+	public Integer getDokterId() {
+		return dokterId;
+	}
+
+	public void setDokterId(Integer dokterId) {
+		this.dokterId = dokterId;
+	}
+
+	public String getRandomId() {
+		return randomId;
+	}
+
+	public void setRandomId(String randomId) {
+		this.randomId = randomId;
+	}
+
 	public Boolean getIsSudahDiproses() {
 		return isSudahDiproses;
 	}

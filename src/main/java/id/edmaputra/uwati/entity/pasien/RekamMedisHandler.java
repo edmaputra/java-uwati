@@ -43,6 +43,16 @@ public class RekamMedisHandler {
 	private String kembali;
 	
 	private String id;
+	
+	private int kunjungan;
+	
+	private String randomId;
+	
+	private String idObat;
+	
+	private String info;
+	
+	private Boolean isMasukResepList;
 
 	public String getJaminan() {
 		return jaminan;
@@ -216,6 +226,46 @@ public class RekamMedisHandler {
 
 	public void setPenjualanId(String penjualanId) {
 		this.penjualanId = penjualanId;
+	}
+
+	public int getKunjungan() {
+		return kunjungan;
+	}
+
+	public void setKunjungan(int kunjungan) {
+		this.kunjungan = kunjungan;
+	}
+
+	public String getRandomId() {
+		return randomId;
+	}
+
+	public void setRandomId(String randomId) {
+		this.randomId = randomId;
+	}
+
+	public String getIdObat() {
+		return idObat;
+	}
+
+	public void setIdObat(String idObat) {
+		this.idObat = idObat;
+	}
+
+	public String getInfo() {
+		return info;
+	}
+
+	public void setInfo(String info) {
+		this.info = info;
+	}
+
+	public Boolean getIsMasukResepList() {
+		return isMasukResepList;
+	}
+
+	public void setIsMasukResepList(Boolean isMasukResepList) {
+		this.isMasukResepList = isMasukResepList;
 	}
 
 }

@@ -66,7 +66,13 @@ public class RekamMedis extends DasarEntity<Long>{
 	@Column(name="status_simpan", nullable = true)
 	private Boolean isSudahDisimpan;
 	
-	@OneToMany(mappedBy = "rekamMedis", cascade = CascadeType.ALL)	
+	@Column(name="status_masuk_list_resep", nullable = true)
+	private Boolean isMasukListResep;
+	
+	@Column(name="kunjungan", nullable = false)
+	private Integer kunjungan;
+	
+	@OneToMany(mappedBy = "rekamMedis", cascade = CascadeType.ALL, fetch = FetchType.LAZY)	
 	private List<RekamMedisDetail> rekamMedisDetail;	
 	
 	@OneToOne(fetch = FetchType.EAGER)
@@ -165,6 +171,22 @@ public class RekamMedis extends DasarEntity<Long>{
 
 	public void setPasien(Pasien pasien) {
 		this.pasien = pasien;
+	}
+
+	public Boolean isMasukListResep() {
+		return isMasukListResep;
+	}
+
+	public void setIsMasukListResep(Boolean isSudahTerjual) {
+		this.isMasukListResep = isSudahTerjual;
+	}
+
+	public Integer getKunjungan() {
+		return kunjungan;
+	}
+
+	public void setKunjungan(Integer kunjungan) {
+		this.kunjungan = kunjungan;
 	}
 	
 }

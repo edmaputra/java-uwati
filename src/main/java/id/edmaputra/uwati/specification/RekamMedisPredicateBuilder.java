@@ -63,5 +63,21 @@ public class RekamMedisPredicateBuilder {
 			hasil = hasil.and(QRekamMedis.rekamMedis.isResepSudahDiproses.eq(b));
 		}
 	}
+	
+	public void resepList(Boolean b){
+		if (hasil == null) {
+			hasil = QRekamMedis.rekamMedis.isMasukListResep.eq(b);
+		} else {
+			hasil = hasil.and(QRekamMedis.rekamMedis.isMasukListResep.eq(b));
+		}
+	}
+	
+//	public void kunjunganMax(){
+//		if (hasil == null) {
+//			hasil = QRekamMedis.rekamMedis.kunjungan.max();
+//		} else {
+//			hasil = hasil.and(QRekamMedis.rekamMedis.isResepSudahDiproses.eq(b));
+//		}
+//	}
 
 }

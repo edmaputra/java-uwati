@@ -287,17 +287,25 @@
 			id : ids
 		};
 		$.getAjax('${dapatkanUrl}', data, function(result) {
-			$('#pasienId').val(result.pasienId);
-			$('#dokterId').val(result.dokterId);
-			$('#nama').val(result.pasien);
-			$('#gender').val(result.gender);
-			$('#usia').val(result.usia);
-			$('#jaminan').val(result.jaminan);
-			$('#nomor-jaminan').val(result.nomorJaminan);
-			$('#totalPembelian').val(result.totalPembelian);
-			$('#totalBayar').val(result.totalPembelian);
-			$('#tabel-terapi').append(result.tabelTerapi);
-			$('#ids').val(ids);
+			if (result.isMasukResepList == false){
+				$('#pesan').empty();
+				$('#pesan').append("Resep Tidak Dapat Diproses karena Revisi, Hubungi Dokter Bersangkutan");				
+				$('#pesan-modal').modal('show');
+				$('#resep-modal').modal('hide');
+				reset();
+			} else {				
+				$('#pasienId').val(result.pasienId);
+				$('#dokterId').val(result.dokterId);
+				$('#nama').val(result.pasien);
+				$('#gender').val(result.gender);
+				$('#usia').val(result.usia);
+				$('#jaminan').val(result.jaminan);
+				$('#nomor-jaminan').val(result.nomorJaminan);
+				$('#totalPembelian').val(result.totalPembelian);
+				$('#totalBayar').val(result.totalPembelian);
+				$('#tabel-terapi').append(result.tabelTerapi);
+				$('#ids').val(ids);
+			}
 		}, null);
 	}
 

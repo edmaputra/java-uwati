@@ -9,11 +9,18 @@
 <c:url var="hapusUrl" value="/rekammedis/hapus" />
 
 <c:url var="dapatkanUrl" value="/rekammedis/dapatkan" />
+<c:url var="kunjunganUrl" value="/rekammedis/kunjungan" />
 <c:url var="daftarUrl" value="/rekammedis/daftar" />
 
 <c:url var="tambahTerapiUrl" value="/rekammedis/tambah-terapi" />
 <c:url var="daftarTerapiUrl" value="/rekammedis/daftar-terapi" />
 <c:url var="hapusTerapiUrl" value="/rekammedis/hapus-terapi" />
+<c:url var="hapusTempUrl" value="/rekammedis/hapus-temp" />
+
+<c:url var="prosesResepUrl" value="/rekammedis/resep-kirim" />
+<c:url var="batalProsesResepUrl" value="/rekammedis/resep-batal" />
+
+<c:url var="cekStokListObatUrl" value="/rekammedis/cek-stok" />
 
 <c:url var="terapiUrl" value="/obat/obat-tindakan" />
 
@@ -108,23 +115,29 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title" id="myModalLabel">Rekam Medis Baru</h4>
+				<h4 class="modal-title" id="myModalLabel">Rekam Medis</h4>
 			</div>
-			<form class="form style-form formTambah" method="post">
+			<form class="form style-form formTambah" method="post" id="formRekamMedis">
 				<div class="form-panel">
 					<div class="modal-body">
-						<div class="row">
+						<div class="row">							
 							<div class="col-md-3">
 								<div class="form-group">
-									<label>Nomor:</label> <input type="text" name="nomor"
-										class="form-control" id="nomor" readonly="readonly" />
+									<label>Kunjungan:</label> 
+									<input type="text" name="kunjungan"	class="form-control" id="kunjungan" readonly="readonly" />
 								</div>
 							</div>
-							<div class="col-md-4">
+							<div class="col-md-3">
 								<div class="form-group">
-									<label>Tanggal:</label> <input type="text" name="tanggal"
-										class="form-control datePicker" id="tanggal"
-										style="width: 300px" value="${tanggalHariIni}" autocomplete="off"/>
+									<label>Tanggal:</label> 
+									<input type="text" name="tanggal" class="form-control datePicker" id="tanggal" autocomplete="off" />
+								</div>
+							</div>
+							
+							<div class="col-md-3">
+								<div class="form-group">
+									<label>Nomor:</label> 
+									<input type="text" name="nomor"	class="form-control" id="nomor" readonly="readonly" />
 								</div>
 							</div>
 						</div>
@@ -162,7 +175,7 @@
 							<div class="col-md-6">
 								<input type="text" name="cari-terapi" class="form-control"
 									id="cari-terapi" placeholder="Pencarian" autocomplete="off" />
-								<div id="list-terapi"></div>
+								<div id="button-terapi"></div>
 								<div class="btn-group btn-group-justified" id="navigasi-obat">
 
 								</div>
@@ -171,10 +184,11 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default btnKeluar"
+					<button type="button" class="btn btn-default btnKeluar" id="button-keluar-modal"
 						data-dismiss="modal">Keluar</button>
-					<input type="hidden" name="id" class="form-control" id="ids" /> 
-					<input type="submit" class="btn btn-primary" value="Simpan" />
+					<input type="hidden" name="id" class="form-control" id="ids" />
+					<a href="#" class="btn btn-primary" id="button-cek-stok">Simpan</a>
+					<input type="submit" class="btn btn-primary btnHide" id="button-simpan" value="Simpan" />
 				</div>
 			</form>
 		</div>
@@ -204,15 +218,24 @@
 	</div>
 </div>
 
+
+
 <div>
 	<%@ include file="../../layouts/gritter.jsp"%>
 </div>
 
 <script>
+	var randomId = Math.floor(Math.random() * 1000000);
 	var nomorRM = null;
 	var state = 1;
+	var findObat = '';
+	var halamanObat = 1;
+	
 	$(document).ready(function() {
-		refresh(1, '', '');		
+		refresh(1, '', '');
+		
+		$('#tanggal').val("${tanggalHariIni}");
+		
 
 		$('#btnCari').click(function() {
 			refresh(1, $('#stringCari').val(), $('#stringTanggalCari').val());
@@ -225,21 +248,35 @@
 		$('.btnEdit').click(function() {
 			state = 1;			
 		});
+		
+		$('#button-cek-stok').click(function() {
+			cekStokPerObat($("#nomor").val());			
+		});
 
 		$("#cari-terapi").keyup(function() {
 			refreshObat(1, $('#cari-terapi').val());
 		});
 
 		$('#rm-baru').click(function() {
-			rekamMedisBaru();
+// 			rekamMedisBaru();
+			var idPasien = $('#pasienId').val();
+			getKunjungan(idPasien);
 			state = 0;
 			reset();
 			refreshObat(1, '');
+		});
+		
+		$('#button-keluar-modal').click(function(){			
+			hapusTempObat($('#nomor').val());
+			reset();			
 		});
 
 		$(".formTambah").validate({
 			rules : {
 				nomor : {
+					required : true
+				},
+				kunjungan : {
 					required : true
 				},
 				tanggal : {
@@ -257,6 +294,7 @@
 			},
 			messages : {
 				nomor : "Nomor Wajib Diisi",
+				kunjungan : "Kunjungan Wajib Diisi",
 				tanggal : "Tanggal Wajib Diisi",
 				anamnesa : "Anamnesa Wajib Diisi",
 				pemeriksaan : "Pemeriksaan Wajib Diisi",
@@ -271,6 +309,7 @@
 						$('.btnKeluar').click();
 						reset();
 						refresh();
+						randomId = Math.floor(Math.random() * 1000000);
 					}, function() {
 						$('#gritter-tambah-gagal').click();
 					});
@@ -294,9 +333,11 @@
 			data['id'] = $('#hapusId').val();
 			$.postJSON('${hapusUrl}', data, function(result) {
 				refresh();
+				console.log(result.info);
 				$('#keluarModalHapus').click();
 				$('#gritter-hapus-sukses').click();
 			}, function(e) {
+				console.log(result.info);
 				$('#gritter-hapus-sukses').click();
 				$('#keluarModalHapus').click();
 				refresh();
@@ -306,6 +347,7 @@
 	
 	function getData(ids, s) {
 		reset();
+		refreshObat(1, '');
 		var data = {
 			id : ids,
 			status : s
@@ -316,8 +358,19 @@
 			$('#pemeriksaan').val(result.pemeriksaan);
 			$('#nomor').val(result.nomor);
 			$('#tanggal').val(result.tanggal);
-			$('#tabel-terapi').append(result.tabelTerapi);
-			$('#ids').val(ids);			
+			$('#kunjungan').val(result.kunjungan);		
+			$('#tabel-terapi').append(result.tabelTerapi);			
+			$('#ids').val(ids);
+		}, null);
+	}
+	
+	function getKunjungan(ids) {		
+		var data = {
+			id : ids
+		};
+		$.getAjax('${kunjunganUrl}', data, function(result) {
+			$('#kunjungan').val(result.kunjungan);
+			$('#nomor').val(result.nomor);
 		}, null);
 	}
 
@@ -350,19 +403,18 @@
 		};
 
 		$.getAjax('${terapiUrl}', data, function(result) {
-			$('#list-terapi').empty();
-			$('#list-terapi').append(result.button);
+			$('#button-terapi').empty();
+			$('#button-terapi').append(result.button);
 			$('#navigasi-obat').empty();
 			$('#navigasi-obat').append(result.navigasiObat);
 		}, null);
 	}
 
 	function refreshDaftarTerapi(n) {
-		if (nomorRM != null) {
+		if (n != null) {
 			var data = {
 				nomor : n
 			};
-
 			$.getAjax('${daftarTerapiUrl}', data, function(result) {
 				$('#tabel-terapi').empty();
 				$('#tabel-terapi').append(result.tabelTerapi);
@@ -374,11 +426,23 @@
 	function tambahObat(id) {
 		var data = {
 			idObat : id,
-			nomor : nomorRM
+			nomor : $("#nomor").val(),
+			randomId : randomId
 		};
 		$.postJSON('${tambahTerapiUrl}', data, function(result) {
 			// 			console.log(result.nomor);
-			refreshDaftarTerapi(nomorRM);
+			refreshDaftarTerapi($('#nomor').val());
+		}, function() {
+			console.log(result.info);
+			$('#gritter-tambah-gagal').click();
+		});
+	}
+	
+	function hapusTempObat(nomor) {
+		var data = {
+			nomor : nomor
+		};
+		$.postJSON('${hapusTempUrl}', data, function(result) {
 		}, function() {
 			console.log(result.info);
 			$('#gritter-tambah-gagal').click();
@@ -388,14 +452,31 @@
 	function hapusObat(id) {
 		var data = {
 			idObat : id,
-			nomor : nomorRM
+			nomor : $('#nomor').val()
 		};
 		$.postJSON('${hapusTerapiUrl}', data, function(result) {
-			refreshDaftarTerapi(nomorRM);
+			refreshDaftarTerapi(data.nomor);
 			console.log(result.info);
 		}, function() {
 			console.log(result.info);
 		});
+	}
+	
+	function cekStokPerObat(rid) {		
+		var data = {			
+			nomor : rid
+		};
+		$.getAjax('${cekStokListObatUrl}', data, function(result) {
+			if (result.info != "OKE"){
+				$('#pesan').empty();
+				$('#pesan').append(result.info);
+				console.log(result.info);
+				$('#pesan-modal').modal('show');
+			} else {
+// 				document.getElementById('formRekamMedis').submit();
+				$("#button-simpan").click();
+			}			
+		}, null);
 	}
 
 	function rekamMedisBaru() {
@@ -410,11 +491,36 @@
 		});
 	}
 	
+	function prosesResep(n) {
+		console.log("proses resep");
+		var data = {			
+			id : n			
+		};
+		$.postJSON('${prosesResepUrl}', data, function(result) {			
+			refresh(1, '', '');
+		}, function() {
+			refresh(1, '', '');
+		});
+	}
+	
+	function batalProsesResep(n) {
+		console.log("batal proses resep");
+		var data = {			
+			id : n			
+		};
+		$.postJSON('${batalProsesResepUrl}', data, function(result) {			
+			refresh(1, '', '');
+		}, function() {
+			refresh(1, '', '');
+		});
+	}
+	
 	function setRekamMedis(data){
 		if ($('#ids').val() != null && $('#ids').val() != ''){
 			data['id'] = $('#ids').val();	
 		}		
 		data['nomor'] = $('#nomor').val();
+		data['kunjungan'] = $('#kunjungan').val();
 		data['tanggal'] = $('#tanggal').val();
 		data['anamnesa'] = $('#anamnesa').val();
 		data['pemeriksaan'] = $('#pemeriksaan').val();
@@ -425,6 +531,7 @@
 	
 	function reset(){
 		$('#nomor').val('');
+		$('#kunjungan').val('');
 		$('#tanggal').val(tanggalHariIni());
 		$('#anamnesa').val('');
 		$('#pemeriksaan').val('');

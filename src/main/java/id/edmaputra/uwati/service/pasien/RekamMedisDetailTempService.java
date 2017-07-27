@@ -48,12 +48,20 @@ public class RekamMedisDetailTempService {
 		return rekamMedisDetailTempRepository.findByNomor(nomor);
 	}
 	
-	public List<RekamMedisDetailTemp> muatDaftar(String nomor, int tipePenggunaan){
+	public List<RekamMedisDetailTemp> muatDaftarByNomorAndTipePenggunaan(String nomor, int tipePenggunaan){
 		return rekamMedisDetailTempRepository.findByNomorAndTipePenggunaan(nomor, tipePenggunaan);
 	}
 	
-	public RekamMedisDetailTemp dapatkan(String nomor, String idObat){
+	public List<RekamMedisDetailTemp> muatDaftarByRandomIdAndTipePenggunaan(String randomId, int tipePenggunaan){
+		return rekamMedisDetailTempRepository.findByRandomIdAndTipePenggunaan(randomId, tipePenggunaan);
+	}
+	
+	public RekamMedisDetailTemp dapatkanByNomorAndIdObat(String nomor, String idObat){
 		return rekamMedisDetailTempRepository.findByNomorAndIdObat(nomor, idObat);
+	}
+	
+	public RekamMedisDetailTemp dapatkanByRandomIdAndIdObat(String randomId, String idObat){
+		return rekamMedisDetailTempRepository.findByRandomIdAndIdObat(randomId, idObat);
 	}
 	
 	public void hapus(String nomor, String idObat){
@@ -64,7 +72,16 @@ public class RekamMedisDetailTempService {
 		rekamMedisDetailTempRepository.deleteByNomor(nomor);		
 	}
 	
-	public void hapusBatch(String nomor) {
+	public void hapusBatchByNomor(String nomor) {
 		rekamMedisDetailTempRepository.deleteInBatch(muatDaftar(nomor));		
+	}
+	
+	public void hapusBatchByRandomId(String randomId) {
+		rekamMedisDetailTempRepository.deleteInBatch(muatDaftarByRandomId(randomId));		
+	}
+
+	private List<RekamMedisDetailTemp> muatDaftarByRandomId(String randomId) {
+		// TODO Auto-generated method stub
+		return rekamMedisDetailTempRepository.findByRandomId(randomId);
 	}
 }

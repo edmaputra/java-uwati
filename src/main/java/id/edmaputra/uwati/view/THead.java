@@ -11,12 +11,13 @@ public class THead {
 			+ "</tr></thead>";
 	
 	public static String THEAD_REKAMMEDIS = "<thead><tr>" 
-			+ "<th>Nomor</th>"
+			+ "<th>Kunjungan</th>"
 			+ "<th>Tanggal</th>"
+			+ "<th>Dokter</th>"
 			+ "<th>Anamnesa</th>"
 			+ "<th>Pemeriksaan</th>" 
 			+ "<th>Diagnosa</th>" 
-			+ "<th>Terapi</th>"
+			+ "<th>Proses</th>"
 			+ "<th></th>"
 			+ "</tr></thead>";
 

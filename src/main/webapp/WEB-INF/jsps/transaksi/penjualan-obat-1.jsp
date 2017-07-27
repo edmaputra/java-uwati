@@ -116,7 +116,7 @@
 					</div>
 					<div class="col-md-1">
 						<div class="form-group">
-							<a href="#" class="form control btn btn-default" style="height: 100%;" id="button-batal" onclick="resetAll()">Batal</a>							
+<!-- 							<a href="#" class="form control btn btn-default" style="height: 100%;" id="button-batal" onclick="resetAll()">Batal</a>							 -->
 						</div>
 					</div>
 				</div>
@@ -230,23 +230,6 @@
 				<button type="button" class="btn btn-primary btnKeluar"
 					data-dismiss="modal" id="btnDiskon">UPDATE</button>
 			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="pesan-modal" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-sm">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Pesan</h4>
-			</div>
-			<div class="modal-body">
-				<div id="pesan"></div>
-			</div>
-			<div class="modal-footer"></div>
 		</div>
 	</div>
 </div>

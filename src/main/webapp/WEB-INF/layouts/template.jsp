@@ -10,30 +10,42 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <spring:url value="/static/css/bootstrap.min.css" var="bootstrapMinCss" />
-<spring:url value="/static/css/bootstrap-theme.min.css" var="bootstrapThemeMinCss" />
+<spring:url value="/static/css/bootstrap-theme.min.css"
+	var="bootstrapThemeMinCss" />
 <spring:url value="/static/css/uwati.css" var="uwatiCss" />
 <spring:url value="/static/css/style.css" var="styleCss" />
-<spring:url value="/static/css/style-responsive.css" var="styleResponsiveCss" />
+<spring:url value="/static/css/style-responsive.css"
+	var="styleResponsiveCss" />
 <spring:url value="/static/css/jquery.gritter.css" var="gritterCss" />
-<spring:url value="/static/css/bootstrap-datepicker3.min.css" var="bootstrapDatePickerCss" />
-<spring:url value="/static/css/jquery.autocomplete.styles.css" var="autoCompleteThemesCss" />
-<spring:url value="/static/fonts/font-awesome/css/font-awesome.css" var="fontawesomeCss" />
+<spring:url value="/static/css/bootstrap-datepicker3.min.css"
+	var="bootstrapDatePickerCss" />
+<spring:url value="/static/css/jquery.autocomplete.styles.css"
+	var="autoCompleteThemesCss" />
+<spring:url value="/static/fonts/font-awesome/css/font-awesome.css"
+	var="fontawesomeCss" />
 <spring:url value="/static/js/jquery-2.1.1.min.js" var="jQuery2" />
 <spring:url value="/static/js/bootstrap.min.js" var="bootstrapJs" />
 <spring:url value="/static/js/uwati.js" var="uwatiJs" />
-<spring:url value="/static/js/jquery-ui-1.9.2.custom.min.js" var="jqueryUiCustom" />
+<spring:url value="/static/js/jquery-ui-1.9.2.custom.min.js"
+	var="jqueryUiCustom" />
 <spring:url value="/static/js/jquery.scrollTo.min.js" var="scrollTo" />
 <spring:url value="/static/js/jquery.nicescroll.js" var="niceScroll" />
-<spring:url value="/static/js/jquery.dcjqaccordion.2.7.js" var="dcjAccordion" />
-<spring:url value="/static/js/jquery.ui.touch-punch.min.js" var="touchPunch" />
+<spring:url value="/static/js/jquery.dcjqaccordion.2.7.js"
+	var="dcjAccordion" />
+<spring:url value="/static/js/jquery.ui.touch-punch.min.js"
+	var="touchPunch" />
 <spring:url value="/static/js/common-scripts.js" var="common" />
 <spring:url value="/static/js/jquery.gritter.js" var="jqueryGritter" />
 <spring:url value="/static/js/gritter-conf.js" var="jqueryGritterConf" />
-<spring:url value="/static/js/jquery.validate.min.js" var="jqueryValidate" />
-<spring:url value="/static/js/bootstrap-datepicker.min.js" var="bootstrapDatePicker" />
-<spring:url value="/static/js/bootstrap-datepicker.id.min.js" var="indonesiaLocaleDatePicker" />
+<spring:url value="/static/js/jquery.validate.min.js"
+	var="jqueryValidate" />
+<spring:url value="/static/js/bootstrap-datepicker.min.js"
+	var="bootstrapDatePicker" />
+<spring:url value="/static/js/bootstrap-datepicker.id.min.js"
+	var="indonesiaLocaleDatePicker" />
 <spring:url value="/static/js/date.format.js" var="dateFormatJs" />
-<spring:url value="/static/js/jquery.autocomplete.min.js" var="jqueryautocompleteJs" />
+<spring:url value="/static/js/jquery.autocomplete.min.js"
+	var="jqueryautocompleteJs" />
 <spring:url value="/static/js/jquery.maskMoney.min.js" var="maskMoney" />
 <link href="${bootstrapMinCss}" rel="stylesheet" />
 <link href="${bootstrapThemeMinCss}" rel="stylesheet" />
@@ -82,6 +94,22 @@
 			<tiles:insertAttribute name="footer" />
 		</footer>
 	</section>
+	<div class="modal fade" id="pesan-modal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Pesan</h4>
+				</div>
+				<div class="modal-body">
+					<div id="pesan"></div>
+				</div>
+				<div class="modal-footer"></div>
+			</div>
+		</div>
+	</div>
 	<script type="text/javascript" src="${bootstrapJs}"></script>
 	<script type="text/javascript" src="${jqueryUiCustom}"></script>
 	<script src="${touchPunch}"></script>
@@ -94,8 +122,8 @@
 	<script type="text/javascript" src="${jqueryValidate}"></script>
 	<script type="text/javascript" src="${bootstrapDatePicker}"></script>
 	<script type="text/javascript" src="${indonesiaLocaleDatePicker}"></script>
-	<script type="text/javascript" src="${dateFormatJs}" ></script>
-	<script type="text/javascript" src="${jqueryautocompleteJs}" ></script>	
-	<script type="text/javascript" src="${maskMoney}" ></script>	
+	<script type="text/javascript" src="${dateFormatJs}"></script>
+	<script type="text/javascript" src="${jqueryautocompleteJs}"></script>
+	<script type="text/javascript" src="${maskMoney}"></script>
 </body>
 </html>

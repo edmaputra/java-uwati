@@ -13,7 +13,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +31,7 @@ import org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView;
 import com.mysema.query.types.expr.BooleanExpression;
 
 import id.edmaputra.uwati.entity.master.Apotek;
+import id.edmaputra.uwati.entity.master.obat.CekStok;
 import id.edmaputra.uwati.entity.master.obat.Obat;
 import id.edmaputra.uwati.entity.master.obat.ObatDetail;
 import id.edmaputra.uwati.entity.master.obat.ObatExpired;
@@ -50,6 +50,7 @@ import id.edmaputra.uwati.entity.transaksi.PenjualanDetailTemp;
 import id.edmaputra.uwati.reports.Struk;
 import id.edmaputra.uwati.service.ApotekService;
 import id.edmaputra.uwati.service.KaryawanService;
+import id.edmaputra.uwati.service.obat.CekStokService;
 import id.edmaputra.uwati.service.obat.ObatDetailService;
 import id.edmaputra.uwati.service.obat.ObatExpiredService;
 import id.edmaputra.uwati.service.obat.ObatService;
@@ -125,6 +126,9 @@ public class PenjualanObatController {
 
 	@Autowired
 	private RekamMedisDetailService rekamMedisDetailService;
+	
+	@Autowired
+	private CekStokService cekStokService;
 
 	@Autowired
 	private PenjualanValidator penjualanValidator;
@@ -637,39 +641,36 @@ public class PenjualanObatController {
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			PenjualanDetailHandler h = new PenjualanDetailHandler();
-			List<PenjualanDetailTemp> list = penjualanDetailTempService.dapatkanListByRandomId(randomId);
-			List<PenjualanDetailTemp> listTemp = new ArrayList<>();
+			List<PenjualanDetailTemp> list = penjualanDetailTempService.dapatkanListByRandomId(randomId);			
 			String returnStatusStok = "OKE";
 			String statusStokPerObat = "";
-			Integer marker = 0;			
-			for (PenjualanDetailTemp temp : list) {
-				Obat obat = getObat(Long.valueOf(temp.getIdObat()));
+			Integer marker = 0;
+			CekStok cekStok = null;
+			for (PenjualanDetailTemp temp : list) {				
+				Obat obat = getObat(Long.valueOf(temp.getIdObat()));				
 				if (obat.getTipe() == 1){					
 					Racikan r = getRacikan(obat.getNama());
-					for (RacikanDetail rd : r.getRacikanDetail()){
-						PenjualanDetailTemp t = new PenjualanDetailTemp();
-						Obat detail = getObat(rd.getKomposisi().getNama());
-						t.setIdObat(detail.getId().toString());
-						t.setObat(detail.getNama());						
+					for (RacikanDetail rd : r.getRacikanDetail()){						
+						Obat detail = getObat(rd.getKomposisi().getNama());												
 						Integer jumlahBeli = new Integer(Converter.hilangkanTandaTitikKoma(temp.getJumlah()));
 						jumlahBeli = jumlahBeli * rd.getJumlah();
-						t.setJumlah(jumlahBeli.toString());
-						appendList(listTemp, t);						
+						cekStok = periksaEntityCekStok(cekStok, detail, temp, jumlahBeli);
+						cekStokService.simpan(cekStok);									
 					}
-				} else {
-					appendList(listTemp, temp);					
+				} else if (obat.getTipe() == 0){
+					cekStok = periksaEntityCekStok(cekStok, obat, temp, new Integer(Formatter.hilangkanTitikKoma(temp.getJumlah())));
+					cekStokService.simpan(cekStok);
 				}				
 			}
 			
-			for (PenjualanDetailTemp d : listTemp){
-				Obat obat = getObat(d.getObat());
+			List<CekStok> cekStoks = cekStokService.dapatkanListByRandomId(randomId);
+			for (CekStok c : cekStoks){
+				Obat obat = getObat(new Long(c.getIdObat()));
 				Integer stokTersimpan = obat.getStok().get(0).getStok();
-				Integer jumlahJual = new Integer(Converter.hilangkanTandaTitikKoma(d.getJumlah()));
-				if (jumlahJual > stokTersimpan) {
+				if (c.getJumlah() > stokTersimpan){
 					marker = 1;
-					statusStokPerObat += "<p>" + obat.getNama() + " : Tersisa " + stokTersimpan + " "+obat.getSatuan().getNama()+"</p>";
+					statusStokPerObat += "<p>" + obat.getNama() + " :: Stok Tersisa " + stokTersimpan + "</p>";
 				}
-//				System.out.println(obat.getNama()+" : "+jumlahJual);
 			}
 
 			if (marker == 1) {
@@ -677,7 +678,8 @@ public class PenjualanObatController {
 				returnStatusStok = returnStatusStok + statusStokPerObat;
 			}
 			h.setInfo(returnStatusStok);
-			listTemp.clear();
+			
+			cekStokService.hapusBatch(randomId);
 			return h;
 		} catch (Exception e) {
 			logger.info(e.getMessage());
@@ -685,28 +687,24 @@ public class PenjualanObatController {
 		}
 	}
 	
-	private List<PenjualanDetailTemp> appendList(List<PenjualanDetailTemp> list, PenjualanDetailTemp e){
-		System.out.println("Size "+list.size());
-		if (list.size() == 0){
-			System.out.println("LIST PERTAMA "+e.getObat()+e.getJumlah());
-			list.add(e);
-		} else if (list.size() > 0){			
-			for (int i = 0; i < list.size(); i++){				
-				if (StringUtils.equalsIgnoreCase(e.getIdObat(), list.get(i).getIdObat())){
-//					Integer jumlahLama = new Integer(Converter.hilangkanTandaTitikKoma(list.get(i).getJumlah()));
-//					Integer jumlahMasuk = new Integer(Converter.hilangkanTandaTitikKoma(e.getJumlah()));
-//					Integer jumlahBaru = jumlahLama + jumlahMasuk;
-//					e.setJumlah(jumlahBaru.toString());
-					list.set(i, e);
-					System.out.println(e.getObat()+" EDIT LIST "+list.get(i).getObat()+" "+list.get(i).getJumlah());
-				} else {
-					System.out.println("TAMBAH LIST "+e.getObat()+" "+e.getJumlah());
-					list.add(e);
-				}
-			}
+	private CekStok periksaEntityCekStok(CekStok cekStok, Obat obat, PenjualanDetailTemp temp, Integer jumlah){		
+		cekStok = cekStokService.dapatkanByRandomIdAndIdObat(temp.getRandomId(), obat.getId().toString());
+		if (cekStok == null){
+			cekStok = new CekStok();
+			cekStok.setRandomId(temp.getRandomId());
+			cekStok.setIdObat(obat.getId().toString());
+			cekStok.setObat(obat.getNama());
+			cekStok.setJumlah(jumlah);			
+		} else {
+			Integer jumlahTersimpan = cekStok.getJumlah();
+			Integer jumlahBaru = jumlahTersimpan + jumlah;
+			cekStok.setJumlah(jumlahBaru);		
 		}
-		System.out.println("Size After : "+list.size());
-		return list;
+		cekStok.setWaktuDibuat(new Date());
+		cekStok.setTerakhirDirubah(new Date());
+		cekStok.setUserInput("");
+		System.out.println("Cek Stok : " +cekStok.getObat()+". Jumlah :"+cekStok.getJumlah());
+		return cekStok;
 	}
 
 //	@RequestMapping(value = "/cek-stok", method = RequestMethod.GET)

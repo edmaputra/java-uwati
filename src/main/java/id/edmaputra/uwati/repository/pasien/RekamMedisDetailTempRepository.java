@@ -19,6 +19,12 @@ public interface RekamMedisDetailTempRepository extends JpaRepository<RekamMedis
 
 	List<RekamMedisDetailTemp> findByNomorAndTipePenggunaan(String nomor, int tipePenggunaan);
 
+	List<RekamMedisDetailTemp> findByRandomIdAndTipePenggunaan(String randomId, int tipePenggunaan);
+
+	RekamMedisDetailTemp findByRandomIdAndIdObat(String randomId, String idObat);
+
+	List<RekamMedisDetailTemp> findByRandomId(String randomId);
+
 	
 
 }
