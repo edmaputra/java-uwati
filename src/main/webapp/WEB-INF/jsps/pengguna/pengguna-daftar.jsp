@@ -6,11 +6,14 @@
 <c:url var="tambahUrl" value="/daftarpengguna/tambah" />
 <c:url var="editUrl" value="/daftarpengguna/edit" />
 <c:url var="hapusUrl" value="/daftarpengguna/hapus" />
+
 <c:url var="dapatkanUrl" value="/daftarpengguna/dapatkan" />
 <c:url var="daftarUrl" value="/daftarpengguna/daftar" />
 <c:url var="tersedia" value="/daftarpengguna/tersedia" />
+
 <c:url var="roleSemuaUrl" value="/role/semua" />
 <c:url var="roleByNamaUrl" value="/role/nama" />
+
 <c:url var="suggestKaryawan" value="/karyawan/suggest" />
 <c:url var="isKaryawanAda" value="/karyawan/ada" />
 
@@ -22,7 +25,8 @@
 					<div class="col-md-2 ">
 						<security:authorize access="hasAnyRole('ADMIN')">
 							<button class="btn btn-primary" data-toggle="modal"
-								data-target="#daftarpengguna-modal">Pengguna Baru</button>
+								data-target="#modal-pengguna" id="button-baru">Pengguna
+								Baru</button>
 						</security:authorize>
 					</div>
 
@@ -53,92 +57,87 @@
 	</div>
 </div>
 
-<div class="modal fade" id="daftarpengguna-modal" tabindex="-1"
-	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-pengguna" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Pengguna Baru</h4>
+				<h4 class="modal-title" id="myModalLabel">Pengguna</h4>
 			</div>
 
-			<form:form action="${tambahUrl}" commandName="pengguna"
-				cssClass="form style-form formTambah" method="post">
+			<form class="form style-form" method="post" id="tambah-pengguna">
 				<div class="form-panel">
 					<div class="modal-body">
 						<div class="row">
-							<div class="col-md-7">
+							<div class="col-md-5">
 								<div class="form-group">
-									<label>Nama:</label>
-									<form:input path="nama" cssClass="form-control" id="tambahNama" />
+									<label>Nama:</label> <input type="text" name="nama" id="nama"
+										class="form-control" autocomplete="off" />
+								</div>
+							</div>
+							<div class="col-md-5">
+								<div class="form-group">
+									<label>Karyawan:</label> <input type="text"
+										class="form-control" id="karyawan" name="karyawan"
+										autocomplete="off">
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label>Password:</label>
-									<form:password path="kataSandi" cssClass="form-control"
-										id="tambahKataSandi" />
+									<label>Password:</label> <input type="password" name="password"
+										id="password" class="form-control" autocomplete="off" />
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Password Konfirmasi:</label> <input type="password"
-										class="form-control" name="kataSandiKonfirmasi"
-										id="tambahKataSandiKonfirmasi" />
+										class="form-control" name="passwordKonfirmasi"
+										id="passwordKonfirmasi" autocomplete="off" />
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>Aktif:</label>
-									<form:checkbox path="isAktif" cssClass="form-control"
-										id="tambahIsAktif" />
+									<label>Aktif:</label> <input type="checkbox" name="isAktif"
+										class="form-control" id="isAktif" />
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>First Time:</label>
-									<form:checkbox path="isPertamaKali" cssClass="form-control"
-										id="tambahIsPertamaKali" />
+									<label>First Time:</label> <input type="checkbox"
+										name="isPertamaKali" class="form-control" id="isPertamaKali" />
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>Kesempatan:</label> <input type="number"
-										name="countKesalahan" class="form-control"
-										id="tambahCountKesalahan" />
+										name="countKesalahan" class="form-control" id="countKesalahan"
+										autocomplete="off" />
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>Role 1:</label> <input class="form-control"
-										id="tambahRole1">
+									<label>Role 1:</label> <input type="text" name="role1"
+										class="form-control" id="role1">
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>Role 2:</label> <input class="form-control"
-										id="tambahRole2">
+									<label>Role 2:</label> <input type="text" name="role2"
+										class="form-control" id="role2">
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>Role 3:</label> <input
-										class="form-control autocomplete-text" id="tambahRole3">
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-7">
-								<div class="form-group">
-									<label>Karyawan:</label> <input class="form-control"
-										id="tambahKaryawan" name="karyawan">
+									<label>Role 3:</label> <input type="text" name="role3"
+										class="form-control" id="role3">
 								</div>
 							</div>
 						</div>
@@ -147,100 +146,95 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default btnKeluar"
 						data-dismiss="modal">Keluar</button>
-					<form:hidden path="id" cssClass="form-control" id="tambahId" />
 					<input type="submit" class="btn btn-primary" value="Simpan" />
 				</div>
-
-			</form:form>
+			</form>
 		</div>
 	</div>
 </div>
 
-<div class="modal fade" id="daftarpengguna-modal-edit" tabindex="-1"
-	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-pengguna-edit" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Edit Pengguna</h4>
+				<h4 class="modal-title" id="myModalLabel">Pengguna</h4>
 			</div>
-			<form:form action="${editUrl}" commandName="pengguna"
-				cssClass="form style-form formEdit" method="post">
+
+			<form class="form style-form" method="post" id="edit-pengguna">
 				<div class="form-panel">
 					<div class="modal-body">
 						<div class="row">
-							<div class="col-md-7">
+							<div class="col-md-5">
 								<div class="form-group">
-									<label>Nama:</label> <input class="form-control" name="nama"
-										id="editNama" disabled="disabled" />
+									<label>Nama:</label> <input type="text" name="nama"
+										id="namaEdit" class="form-control" autocomplete="off" readonly="readonly"/>
+								</div>
+							</div>
+							<div class="col-md-5">
+								<div class="form-group">
+									<label>Karyawan:</label> <input type="text"
+										class="form-control" id="karyawanEdit" name="karyawan"
+										autocomplete="off">
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label>Password:</label>
-									<form:password path="kataSandi" cssClass="form-control"
-										id="editKataSandi" />
+									<label>Password:</label> <input type="password" name="password"
+										id="passwordEdit" class="form-control" autocomplete="off" />
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Password Konfirmasi:</label> <input type="password"
-										class="form-control" name="kataSandiKonfirmasi"
-										id="editKataSandiKonfirmasi" />
+										class="form-control" name="passwordKonfirmasi"
+										id="passwordKonfirmasiEdit" autocomplete="off" />
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>Aktif:</label>
-									<form:checkbox path="isAktif" cssClass="form-control"
-										id="editIsAktif" />
+									<label>Aktif:</label> <input type="checkbox" name="isAktif"
+										class="form-control" id="isAktifEdit" />
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>First Time:</label>
-									<form:checkbox path="isPertamaKali" cssClass="form-control"
-										id="editIsPertamaKali" />
+									<label>First Time:</label> <input type="checkbox"
+										name="isPertamaKali" class="form-control"
+										id="isPertamaKaliEdit" />
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>Kesempatan:</label> <input type="number"
 										name="countKesalahan" class="form-control"
-										id="editCountKesalahan" />
+										id="countKesalahanEdit" autocomplete="off" />
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>Role 1:</label> <input class="form-control"
-										id="editRole1">
+									<label>Role 1:</label> <input type="text" name="role1"
+										class="form-control" id="role1Edit">
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>Role 2:</label> <input class="form-control"
-										id="editRole2">
+									<label>Role 2:</label> <input type="text" name="role2"
+										class="form-control" id="role2Edit">
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>Role 3:</label> <input class="form-control"
-										id="editRole3">
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-7">
-								<div class="form-group">
-									<label>Karyawan:</label> <input class="form-control"
-										id="editKaryawan" name="karyawan">
+									<label>Role 3:</label> <input type="text" name="role3"
+										class="form-control" id="role3Edit">
 								</div>
 							</div>
 						</div>
@@ -249,15 +243,16 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default btnKeluar"
 						data-dismiss="modal">Keluar</button>
-					<form:hidden path="id" cssClass="form-control" id="editId" />
-					<input type="submit" class="btn btn-primary" value="Simpan" />
+					<input type="hidden" name="id" class="form-control" id="ids" /> <input
+						type="submit" class="btn btn-primary" value="Simpan" />
 				</div>
-			</form:form>
+			</form>
 		</div>
 	</div>
 </div>
 
-<div class="modal fade" id="daftarpengguna-modal-hapus" tabindex="-1"
+
+<div class="modal fade" id="modal-pengguna-hapus" tabindex="-1"
 	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-sm">
 		<div class="modal-content">
@@ -271,15 +266,14 @@
 					<p>Apakah Anda Yakin Ingin Menghapus ?</p>
 				</div>
 			</div>
-			<form:form action="${hapusUrl}" commandName="pengguna"
-				cssClass="form-horizontal style-form formHapus" method="post">
+			<form class="form-horizontal style-form formHapus" method="post">
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default btnKeluar"
 						id="keluarModalHapus" data-dismiss="modal">Tidak</button>
-					<form:hidden path="id" cssClass="form-control" id="hapusId" />
+					<input type="hidden" name="id" class="form-control" id="hapusId" />
 					<input type="submit" class="btn btn-danger" value="Hapus" />
 				</div>
-			</form:form>
+			</form>
 		</div>
 	</div>
 </div>
@@ -290,28 +284,197 @@
 
 
 <script>
+	$(document).ready(function() {
+		refresh(1, '');
+
+		$('#btnCari').click(function() {
+			refresh(1, $('#stringCari').val());
+		});
+
+		$('#button-baru').click(function() {
+			clear();
+		});
+
+		$("#tambah-pengguna").validate({
+			rules : {
+				nama : {
+					required : true,
+					remote : {
+						url : "${tersedia}",
+						type : "get",
+						data : {
+							nama : function() {
+								return $("#nama").val();
+							}
+						}
+					}
+				},
+				password : {
+					minlength : 6,
+					required : true
+				},
+				passwordKonfirmasi : {
+					minlength : 6,
+					equalTo : "#password"
+				},
+				countKesalahan : {
+					number : true,
+					min : 0,
+					required : true
+				},
+				karyawan : {
+					remote : {
+						url : "${isKaryawanAda}",
+						type : "get",
+						data : {
+							nama : function() {
+								return $("#karyawan").val();
+							}
+						}
+					}
+				}
+			},
+			messages : {
+				nama : {
+					required : "Nama Wajib Diisi",
+					remote : "User Sudah Ada"
+				},
+				password : {
+					minlength : "Password Harus Lebih dari 5 Karakter",
+					required : "Passord Wajib Diisi"
+				},
+				passwordKonfirmasi : {
+					minlength : "Password Harus Lebih dari 5 Karakter",
+					equalTo : "Password Tidak Sama"
+				},
+				countKesalahan : {
+					number : "Harap Isi dengan Angka",
+					min : "Harap Isi Angka Positif",
+					required : "Harap Isi Kesempatan"
+				},
+				karyawan : {
+					remote : "Karyawan Tidak Ada"
+				}
+			},
+			submitHandler : function(form) {
+				var data = {};
+				data = setDataContent(data);
+				$.postJSON('${tambahUrl}', data, function() {
+					$('#gritter-tambah-sukses').click();
+					$('.btnKeluar').click();
+					clear();
+					refresh();
+				}, function() {
+					$('#gritter-tambah-gagal').click();
+				});
+			}
+		});
+
+		$("#edit-pengguna").validate({
+			rules : {
+				nama : {
+					required : true
+				},
+				passwordKonfirmasi : {
+					minlength : 6,
+					equalTo : "#passwordEdit"
+				},
+				countKesalahan : {
+					number : true,
+					min : 0,
+					required : true
+				},
+				karyawan : {
+					remote : {
+						url : "${isKaryawanAda}",
+						type : "get",
+						data : {
+							nama : function() {
+								return $("#karyawanEdit").val();
+							}
+						}
+					}
+				}
+			},
+			messages : {
+				nama : {
+					required : "Nama Wajib Diisi"
+				},
+				passwordKonfirmasi : {
+					minlength : "Password Harus Lebih dari 5 Karakter",
+					equalTo : "Password Tidak Sama"
+				},
+				countKesalahan : {
+					number : "Harap Isi dengan Angka",
+					min : "Harap Isi Angka Positif",
+					required : "Harap Isi Kesempatan"
+				},
+				karyawan : {
+					remote : "Karyawan Tidak Ada"
+				}
+			},
+			submitHandler : function(form) {
+				var data = {};
+				data = setDataEdit(data);
+				data['id'] = $('#ids').val();
+				$.postJSON('${editUrl}', data, function() {
+					$('#gritter-edit-sukses').click();
+					$('.btnKeluar').click();
+					clear();
+					refresh();
+				}, function() {
+					$('#gritter-edit-gagal').click();
+				});
+			}
+		});
+
+		$(".formHapus").submit(function(e) {
+			e.preventDefault();
+			var data = {};
+			data['id'] = $('#hapusId').val();
+			$.postJSON('${hapusUrl}', data, function(result) {
+				refresh();
+				$('#keluarModalHapus').click();
+				$('#gritter-hapus-sukses').click();
+			}, function(e) {
+				$('#gritter-hapus-sukses').click();
+				$('#keluarModalHapus').click();
+				refresh();
+			});
+		});
+
+		setAutoComplete('#role1', '${roleByNamaUrl}');
+		setAutoComplete('#role2', '${roleByNamaUrl}');
+		setAutoComplete('#role3', '${roleByNamaUrl}');
+		setAutoComplete('#role1Edit', '${roleByNamaUrl}');
+		setAutoComplete('#role2Edit', '${roleByNamaUrl}');
+		setAutoComplete('#role3Edit', '${roleByNamaUrl}');
+		setAutoComplete('#karyawan', '${suggestKaryawan}');
+		setAutoComplete('#karyawanEdit', '${suggestKaryawan}');
+
+	});
+
 	function getData(ids) {
 		var data = {
 			id : ids
 		};
 		$.getAjax('${dapatkanUrl}', data, function(pengguna) {
-			$('#editId').val(ids);
-			$('#editNama').val(pengguna.nama);			
-			$('#editIsAktif').prop('checked', pengguna.isAktif);
-			$('#editIsPertamaKali').prop('checked', pengguna.isPertamaKali);
-			$('#editCountKesalahan').val(pengguna.countKesalahan);
-			$('#editKaryawan').val(pengguna.karyawan.nama);
-			if ("undefined" !== typeof pengguna.roles[0].nama) {
-				$('#editRole1').val(pengguna.roles[0].nama);	
+			clearEdit();
+			$('#ids').val(ids);
+			$('#namaEdit').val(pengguna.nama);
+			$('#isAktifEdit').prop('checked', pengguna.isAktif);
+			$('#isPertamaKaliEdit').prop('checked', pengguna.isPertamaKali);
+			$('#countKesalahanEdit').val(pengguna.countKesalahan);
+			$('#karyawanEdit').val(pengguna.karyawan.nama);
+			if (pengguna.roles[0].nama){
+				$('#role1Edit').val(pengguna.roles[0].nama);
 			}
-			
-			if ("undefined" !== typeof pengguna.roles[1].nama) {
-				$('#editRole2').val(pengguna.roles[1].nama);	
+			if (pengguna.roles[1].nama){
+				$('#role2Edit').val(pengguna.roles[1].nama);
 			}
-			
-			if ("undefined" !== typeof pengguna.roles[2].nama) {
-				$('#editRole3').val(pengguna.roles[2].nama);	
-			}				
+			if (pengguna.roles[2].nama){
+				$('#role3Edit').val(pengguna.roles[2].nama);
+			}
 		}, null);
 	}
 
@@ -331,212 +494,70 @@
 			$('#nav').empty();
 			$('#nav').append(result.navigasiHalaman);
 		}, null);
-	}	
-	
-	function clear(){
-		$('#tambahNama').val('');
-		$('#editNama').val('');
-		$('#tambahKataSandi').val('');
-		$('#tambahKataSandiKonfirmasi').val('');
-		$('#editKataSandi').val('');
-		$('#editKataSandiKonfirmasi').val('');
-		$('#tambahIsAktif').prop('checked', false);
-		$('#tambahIsPertamaKali').prop('checked', false);
-		$('#editIsAktif').prop('checked', false);
-		$('#editIsPertamaKali').prop('checked', false);
-		$('#tambahCountKesalahan').val('');
-		$('#editCountKesalahan').val('');
-		$('#tambahRole1').val('');
-		$('#editRole1').val('');
-		$('#tambahRole2').val('');
-		$('#editRole2').val('');
-		$('#tambahRole3').val('');
-		$('#editRole3').val('');
-		$('#tambahKaryawan').val('');
-		$('#editKaryawan').val('');
 	}
 
-	$(document).ready(function() {
-		refresh(1, '');
+	function setDataContent(data) {
+		data['nama'] = $('#nama').val();
+		data['kataSandi'] = $('#password').val();
+		data['isAktif'] = $('#isAktif').is(":checked");
+		data['isPertamaKali'] = $('#isPertamaKali').is(":checked");
+		data['countKesalahan'] = $('#countKesalahan').val();
+		data['role1'] = $('#role1').val();
+		data['role2'] = $('#role2').val();
+		data['role3'] = $('#role3').val();
+		data['karyawan'] = $('#karyawan').val();
+		return data;
+	}
 
-		$('#btnCari').click(function() {
-			refresh(1, $('#stringCari').val());
-		});
+	function setDataEdit(data) {
+		data['nama'] = $('#namaEdit').val();
+		data['kataSandi'] = $('#passwordEdit').val();
+		data['isAktif'] = $('#isAktifEdit').is(":checked");
+		data['isPertamaKali'] = $('#isPertamaKaliEdit').is(":checked");
+		data['countKesalahan'] = $('#countKesalahanEdit').val();
+		data['role1'] = $('#role1Edit').val();
+		data['role2'] = $('#role2Edit').val();
+		data['role3'] = $('#role3Edit').val();
+		data['karyawan'] = $('#karyawanEdit').val();
+		return data;
+	}
 
-		$(".formTambah").validate({
-			rules : {
-				nama : {
-					required : true,
-					remote: {
-						url: "${tersedia}",
-						type: "get",
-						data: {
-							nama: function(){
-								return $("#tambahNama").val();
-							}
-						}
-					},
-				},
-				kataSandi : {
-					minlength : 6,
-					required : true
-				},
-				kataSandiKonfirmasi : {
-					minlength : 6,
-					equalTo : "#tambahKataSandi"
-				},
-				countKesalahan :{
-					number : true,
-					min : 0,
-					required :true
-				},
-				karyawan : {					
-					remote: {
-						url: "${isKaryawanAda}",
-						type: "get",
-						data: {
-							nama: function(){
-								return $("#tambahKaryawan").val();
-							}
-						}
-					}
-				}
-			},
-			messages : {
-				nama : {
-					required : "Nama Wajib Diisi", 
-					remote : "User Sudah Ada"
-				},
-				kataSandi : {
-					minlength : "Password Harus Lebih dari 5 Karakter",
-					required : "Passord Wajib Diisi"
-				},
-				kataSandiKonfirmasi : {
-					minlength : "Password Harus Lebih dari 5 Karakter",
-					equalTo : "Password Tidak Sama"
-				},
-				countKesalahan :{
-					number : "Harap Isi dengan Angka",
-					min : "Harap Isi Angka Positif",
-					required : "Harap Isi Kesempatan"
-				},
-				karyawan : "Karyawan Tidak Ada"
-			},
-			submitHandler : function(form) {
-				var data = {};
-				data['nama'] = $('#tambahNama').val();
-				data['kataSandi'] = $('#tambahKataSandi').val();
-				data['isAktif'] = $('#tambahIsAktif').is(":checked");
-				data['isPertamaKali'] = $('#tambahIsPertamaKali').is(":checked");
-				data['countKesalahan'] = $('#tambahCountKesalahan').val();
-				data['role1'] = $('#tambahRole1').val();
-				data['role2'] = $('#tambahRole2').val();
-				data['role3'] = $('#tambahRole3').val();
-				data['karyawan'] = $('#tambahKaryawan').val();
-				$.postJSON('${tambahUrl}', data, function() {
-					$('#gritter-tambah-sukses').click();
-					$('.btnKeluar').click();
-					clear();
-					refresh();
-				}, function() {
-					$('#gritter-tambah-gagal').click();
-				});
-			}
-		});
+	function clear() {
+		$('#nama').val('');
+		$('#passwordKonfirmasi').val('');
+		$('#password').val('');
+		$('#isAktif').prop('checked', false);
+		$('#isPertamaKali').prop('checked', false);
+		$('#countKesalahan').val('0');
+		$('#role1').val('');
+		$('#role2').val('');
+		$('#role3').val('');
+		$('#karyawan').val('');
+	}
 
-		$(".formEdit").validate({
-			rules : {
-				nama : {
-					required : true
-				},
-				kataSandi : {
-					minlength : 6,					
-				},
-				kataSandiKonfirmasi : {
-					minlength : 6,
-// 					equalTo : "#tambahKataSandi"
-				},
-				countKesalahan :{
-					number : true,
-					min : 0
-				},
-// 				karyawan : {					
-// 					remote: {
-// 						url: "${isKaryawanAda}",
-// 						type: "get",
-// 						data: {
-// 							nama: function(){
-// 								return $("#editKaryawan").val();
-// 							}
-// 						}
-// 					}
-// 				}
-			},
-			messages : {
-				nama : "Nama Wajib Diisi",
-				kataSandi : {
-					minlength : "Password Harus Lebih dari 5 Karakter"
-				},
-				kataSandiKonfirmasi : {
-					minlength : "Password Harus Lebih dari 5 Karakter",
-// 					equalTo : "Password Tidak Sama"
-				},
-				countKesalahan :{
-					number : "Harap Isi dengan Angka",
-					min : "Harap Isi Angka Positif",
-					required : "Harap Isi Kesempatan"
-				},
-// 				karyawan : "Karyawan Tidak Ada"
-			},
-			submitHandler : function(form) {
-				var data = {};
-				data['id'] = $('#editId').val();
-				data['nama'] = $('#editNama').val();
-				data['kataSandi'] = $('#editKataSandi').val();
-				data['isAktif'] = $('#editIsAktif').is(':checked');
-				data['isPertamaKali'] = $('#editIsPertamaKali').is(':checked');
-				data['countKesalahan'] = $('#editCountKesalahan').val();
-				data['role1'] = $('#editRole1').val();
-				data['role2'] = $('#editRole2').val();
-				data['role3'] = $('#editRole3').val();
-				data['karyawan'] = $('#editKaryawan').val();
-				$.postJSON('${editUrl}', data, function() {
-					$('#gritter-edit-sukses').click();
-					$('.btnKeluar').click();
-					refresh();
-				}, function() {
-					$('#gritter-edit-gagal').click();
-				});
-			}
-		});
+	function clearEdit() {
+		$('#namaEdit').val('');
+		$('#passwordKonfirmasiEdit').val('');
+		$('#passwordEdit').val('');
+		$('#isAktifEdit').prop('checked', false);
+		$('#isPertamaKaliEdit').prop('checked', false);
+		$('#countKesalahanEdit').val('0');
+		$('#role1Edit').val('');
+		$('#role2Edit').val('');
+		$('#role3Edit').val('');
+		$('#karyawanEdit').val('');
+	}
 
-		$(".formHapus").submit(function(e) {
-			e.preventDefault();
-			var str = {};
-			str['id'] = $('#hapusId').val();
-			$.postJSON('${hapusUrl}', str, function(result) {
-				refresh();
-				$('#keluarModalHapus').click();
-				$('#gritter-hapus-sukses').click();
-			}, function(e) {
-				$('#gritter-hapus-sukses').click();
-				$('#keluarModalHapus').click();
-				refresh();
-			});
-		});
-		
-		setAutoComplete('#tambahRole1', '${roleByNamaUrl}');
-		setAutoComplete('#tambahRole2', '${roleByNamaUrl}');
-		setAutoComplete('#tambahRole3', '${roleByNamaUrl}');
-		setAutoComplete('#editRole1', '${roleByNamaUrl}');
-		setAutoComplete('#editRole2', '${roleByNamaUrl}');
-		setAutoComplete('#editRole3', '${roleByNamaUrl}');
-		setAutoComplete('#tambahKaryawan', '${suggestKaryawan}');
-		setAutoComplete('#editKaryawan', '${suggestKaryawan}');
-		
-				
-		$('.btnKeluar').click(function(){
-			clear();
-		});
-	});
+	//		karyawan : {					
+	//		remote: {
+	//			url: "${isKaryawanAda}",
+	//			type: "get",
+	//			data: {
+	//				nama: function(){
+	//					return $("#tambahKaryawan").val();
+	//				}
+	//			}
+	//		}
+	//	}
+	//},
 </script>

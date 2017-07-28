@@ -1,4 +1,4 @@
-package id.edmaputra.uwati.controller;
+package id.edmaputra.uwati.controller.pengguna;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -191,7 +191,7 @@ public class PenggunaController {
 		}
 	}
 
-	@Transactional
+	
 	@RequestMapping(value = "/daftarpengguna/tambah", method = RequestMethod.POST)
 	@ResponseBody
 	public Pengguna tambahPengguna(@RequestBody PenggunaHandler ph, BindingResult result, Principal principal,
@@ -219,8 +219,7 @@ public class PenggunaController {
 	@RequestMapping(value = "/daftarpengguna/edit", method = RequestMethod.POST)
 	@ResponseBody
 	public Pengguna editPengguna(@RequestBody PenggunaHandler ph, BindingResult result, Principal principal,
-			HttpServletRequest request) {
-		
+			HttpServletRequest request) {		
 		Pengguna edit = getPengguna(ph.getId());
 		String entity = edit.toString();
 		try {
@@ -289,10 +288,10 @@ public class PenggunaController {
 				row += Html.td(Formatter.formatTanggal(p.getWaktuDibuat()));
 				row += Html.td(p.getUserEditor());
 				row += Html.td(Formatter.formatTanggal(p.getTerakhirDirubah()));
-				btn = Html.button("btn btn-primary btn-xs btnEdit", "modal", "#daftarpengguna-modal-edit", "onClick",
-						"getData(" + p.getId() + ")", 0);
-				btn += Html.button("btn btn-danger btn-xs", "modal", "#daftarpengguna-modal-hapus", "onClick",
-						"setIdUntukHapus(" + p.getId() + ")", 1);
+				btn = Html.button("btn btn-primary btn-xs btnEdit", "modal", "#modal-pengguna-edit", "onClick",
+						"getData(" + p.getId() + ")", 0, "Edit "+p.getNama());
+				btn += Html.button("btn btn-danger btn-xs", "modal", "#modal-pengguna-hapus", "onClick",
+						"setIdUntukHapus(" + p.getId() + ")", 1, "Hapus "+p.getNama());
 			}
 			row += Html.td(btn);
 			data += Html.tr(row);
@@ -343,7 +342,9 @@ public class PenggunaController {
 
 	private Pengguna setPenggunaContent(Pengguna p, PenggunaHandler ph) {
 		p.setNama(ph.getNama());
-		p.setKataSandi(encoder.encode(ph.getKataSandi()));
+		if (StringUtils.isNotBlank(ph.getKataSandi()) || !StringUtils.isNotBlank(ph.getKaryawan())){
+			p.setKataSandi(encoder.encode(ph.getKataSandi()));
+		}		
 		p.setCountKesalahan(ph.getCountKesalahan());
 		p.setIsAktif(ph.getIsAktif());
 		p.setIsPertamaKali(ph.getIsPertamaKali());

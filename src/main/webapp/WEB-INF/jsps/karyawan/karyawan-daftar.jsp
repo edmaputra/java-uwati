@@ -156,7 +156,7 @@
 								<div class="form-group">
 									<label>Alamat:</label>
 									<input type="text" name="alamat" class="form-control" id="editAlamat" autocomplete="off"  />
-								</div>
+								</div>submitHandler : function(form) {
 								<input type="hidden" name="id" class="form-control" id="editId" autocomplete="off"  />							
 							</div>
 						</div>						
