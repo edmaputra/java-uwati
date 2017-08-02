@@ -1,4 +1,4 @@
-package id.edmaputra.uwati.entity.pasien;
+package id.edmaputra.uwati.view.handler;
 
 public class RekamMedisHandler {
 	
@@ -53,6 +53,8 @@ public class RekamMedisHandler {
 	private String info;
 	
 	private Boolean isMasukResepList;
+	
+	private String pajak;
 
 	public String getJaminan() {
 		return jaminan;
@@ -266,6 +268,14 @@ public class RekamMedisHandler {
 
 	public void setIsMasukResepList(Boolean isMasukResepList) {
 		this.isMasukResepList = isMasukResepList;
+	}
+
+	public String getPajak() {
+		return pajak;
+	}
+
+	public void setPajak(String pajak) {
+		this.pajak = pajak;
 	}
 
 }

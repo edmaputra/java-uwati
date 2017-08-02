@@ -31,7 +31,6 @@ import id.edmaputra.uwati.entity.master.obat.Obat;
 import id.edmaputra.uwati.entity.master.obat.ObatDetail;
 import id.edmaputra.uwati.entity.master.obat.ObatExpired;
 import id.edmaputra.uwati.entity.master.obat.ObatStok;
-import id.edmaputra.uwati.entity.master.obat.TindakanHandler;
 import id.edmaputra.uwati.service.KategoriService;
 import id.edmaputra.uwati.service.SatuanService;
 import id.edmaputra.uwati.service.obat.ObatDetailService;
@@ -44,6 +43,7 @@ import id.edmaputra.uwati.support.LogSupport;
 import id.edmaputra.uwati.view.Formatter;
 import id.edmaputra.uwati.view.Html;
 import id.edmaputra.uwati.view.HtmlElement;
+import id.edmaputra.uwati.view.handler.TindakanHandler;
 
 @Controller
 @RequestMapping("/tindakan")

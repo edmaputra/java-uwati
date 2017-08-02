@@ -38,14 +38,11 @@ import id.edmaputra.uwati.entity.master.obat.ObatExpired;
 import id.edmaputra.uwati.entity.master.obat.ObatStok;
 import id.edmaputra.uwati.entity.master.obat.Racikan;
 import id.edmaputra.uwati.entity.master.obat.RacikanDetail;
-import id.edmaputra.uwati.entity.master.obat.RacikanDetailHandler;
 import id.edmaputra.uwati.entity.master.obat.RacikanDetailTemporary;
-import id.edmaputra.uwati.entity.master.obat.RacikanHandler;
 import id.edmaputra.uwati.entity.pasien.Pasien;
 import id.edmaputra.uwati.entity.pasien.RekamMedis;
 import id.edmaputra.uwati.entity.pasien.RekamMedisDetail;
 import id.edmaputra.uwati.entity.pasien.RekamMedisDetailTemp;
-import id.edmaputra.uwati.entity.pasien.RekamMedisHandler;
 import id.edmaputra.uwati.service.KategoriService;
 import id.edmaputra.uwati.service.SatuanService;
 import id.edmaputra.uwati.service.obat.ObatDetailService;
@@ -61,6 +58,9 @@ import id.edmaputra.uwati.support.LogSupport;
 import id.edmaputra.uwati.view.Formatter;
 import id.edmaputra.uwati.view.Html;
 import id.edmaputra.uwati.view.HtmlElement;
+import id.edmaputra.uwati.view.handler.RacikanDetailHandler;
+import id.edmaputra.uwati.view.handler.RacikanHandler;
+import id.edmaputra.uwati.view.handler.RekamMedisHandler;
 
 @Controller
 @RequestMapping("/racikan")

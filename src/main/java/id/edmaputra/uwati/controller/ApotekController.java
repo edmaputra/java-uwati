@@ -1,5 +1,6 @@
 package id.edmaputra.uwati.controller;
 
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.Date;
 
@@ -23,6 +24,8 @@ import id.edmaputra.uwati.entity.master.Apotek;
 import id.edmaputra.uwati.service.ApotekService;
 import id.edmaputra.uwati.support.LogSupport;
 import id.edmaputra.uwati.validator.impl.ApotekValidator;
+import id.edmaputra.uwati.view.Formatter;
+import id.edmaputra.uwati.view.handler.ApotekHandler;
 
 @Controller
 @RequestMapping("/profil")
@@ -70,13 +73,14 @@ public class ApotekController {
 	@Transactional
 	@RequestMapping(value="/simpan", method = RequestMethod.POST)
 	@ResponseBody
-	public Apotek simpan(@RequestBody Apotek apotek, BindingResult result, Principal principal, HttpServletRequest request){
+	public Apotek simpan(@RequestBody ApotekHandler apotek, BindingResult result, Principal principal, HttpServletRequest request){
 		Page<Apotek> apoteks = apotekService.muatDaftar(1, null);
 		Apotek saved = apoteks.getContent().get(0);
 		try {			
 			saved.setAlamat(apotek.getAlamat());
 			saved.setNama(apotek.getNama());
 			saved.setTelepon(apotek.getTelepon());
+			saved.setBiayaResep(new BigDecimal(Formatter.hilangkanTitikKoma(apotek.getBiayaResep())));
 			saved.setTerakhirDirubah(new Date());
 			saved.setUserEditor(principal.getName());
 			apotekValidator.validate(saved);

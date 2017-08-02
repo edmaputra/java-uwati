@@ -15,7 +15,8 @@
 			</div>
 		</a>
 	</div>
-	
+</security:authorize>
+<security:authorize access="hasAnyRole('ADMIN') and isAuthenticated()">	
 	<div class="col-md-4 col-sm-4 mb">
 		<a href="<spring:url value="/pembelian-obat" />">
 			<div class="jualObat pn">

@@ -36,6 +36,13 @@
 		<!-- <put-attribute name="current" value="home" /> -->
 	</definition>
 	
+	<definition name="laporan-penjualan" extends="dasar">
+		<put-attribute name="title" value="UWATI - Laporan Penjualan" />
+		<put-attribute name="page_title" value="Laporan Penjualan" />
+		<put-attribute name="body" value="/WEB-INF/jsps/laporan/laporan-penjualan.jsp" />
+		<!-- <put-attribute name="current" value="home" /> -->
+	</definition>
+	
 	<definition name="masuk" extends="login-dasar">
 		<put-attribute name="title" value="UWATI - Login" />
 		<put-attribute name="body" value="/WEB-INF/jsps/login/login.jsp" />

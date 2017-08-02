@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -49,7 +50,7 @@ public class PenjualanDetail extends DasarTransaksiEntity<Long> {
 	
 	private Boolean isRacikan;
 	
-	@OneToMany(mappedBy="penjualanDetail", cascade=CascadeType.ALL, orphanRemoval=true)
+	@OneToMany(mappedBy="penjualanDetail", cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.EAGER)
 	private List<PenjualanDetailRacikan> racikanDetail;	
 	
 	public List<PenjualanDetailRacikan> getRacikanDetail() {
@@ -60,7 +61,7 @@ public class PenjualanDetail extends DasarTransaksiEntity<Long> {
 		this.racikanDetail = racikanDetail;
 	}
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="id_penjualan")
 	@JsonIgnore
 	private Penjualan penjualan;

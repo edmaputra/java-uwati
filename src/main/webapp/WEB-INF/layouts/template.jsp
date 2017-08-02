@@ -82,7 +82,7 @@
 			<tiles:insertAttribute name="navigasi-sidebar" />
 		</aside>
 		<section id="main-content">
-			<section class="wrapper site-min-height">
+			<section class="wrapper">
 				<h3>
 					<i class="fa fa-angle-right"></i>
 					<tiles:getAsString name="page_title" />

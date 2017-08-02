@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -67,7 +68,7 @@ public class Penjualan extends DasarTransaksiEntity<Long> {
 	@Column(length=DBConf.LENGTH_TRANSAKSI_NOMORRESEP, nullable = true)
 	private String nomorResep;
 		
-	@OneToMany(mappedBy="penjualan", cascade=CascadeType.ALL, orphanRemoval=true)
+	@OneToMany(mappedBy="penjualan", cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.LAZY)
 	private List<PenjualanDetail> penjualanDetail;
 	
 	public Date getWaktuTransaksi() {

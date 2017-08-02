@@ -1,4 +1,4 @@
-package id.edmaputra.uwati.entity.transaksi;
+package id.edmaputra.uwati.view.handler;
 
 public class PenjualanDetailHandler {
 

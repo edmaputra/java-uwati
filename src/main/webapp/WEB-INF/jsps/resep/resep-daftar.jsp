@@ -126,11 +126,23 @@
 										</div>
 									</div>
 								</div>
-								<div class="form-group">
-									<label class="lb-sm">Total Pembayaran</label> <input
-										name="totalbayar" type="text" id="totalBayar"
-										class="form-control input-lg" value="0" readonly="readonly">
+								<div class="row">
+									<div class="col-md-5">
+										<div class="form-group">
+											<label class="lb-sm">PPN</label> <input name="pajak"
+												type="text" id="pajak" class="form-control input-lg"
+												value="0">
+										</div>
+									</div>
+									<div class="col-md-7">
+										<div class="form-group">
+											<label class="lb-sm">Total Pembayaran</label> <input
+												name="totalbayar" type="text" id="totalBayar"
+												class="form-control input-lg" value="0" readonly="readonly">
+										</div>
+									</div>								
 								</div>
+
 								<div class="row">
 									<div class="col-md-7">
 										<div class="form-group">
@@ -196,20 +208,28 @@
 </div>
 
 <script>
-	$(document).ready(function() {
+	$(document).ready(
+			function() {
 				refresh(1, '', '');
 
-				$('#btnCari').click(function() {
-					refresh(1, $('#stringCari').val(), $('#stringTanggalCari').val());
-				});
+				$('#btnCari').click(
+						function() {
+							refresh(1, $('#stringCari').val(), $(
+									'#stringTanggalCari').val());
+						});
 
-				$('#diskon').keyup(function() {
-					$('#totalBayar').val(hitungGrandTotalBayar('#totalPembelian','#diskon'));
-				});
+				$('#diskon').keyup(
+					function() {	
+						$('#totalBayar').val(
+									hitungGrandTotalBayar('#totalPembelian',
+											'#diskon', '#pajak'));
+						});
 
-				$('#bayar').keyup(function() {
-					$('#kembali').val(hitungKembalian('#totalBayar', '#bayar'));
-				});
+				$('#bayar').keyup(
+						function() {
+							$('#kembali').val(
+									hitungKembalian('#totalBayar', '#bayar'));
+						});
 
 				$(".formTambah").validate({
 					rules : {
@@ -274,11 +294,11 @@
 					}
 				});
 
-// 				setMaskingUang("#totalPembelian");
-// 				setMaskingUang("#diskon");
-// 				setMaskingUang("#totalBayar");
-// 				setMaskingUang("#bayar");
-// 				setMaskingUang("#kembali");
+				// 				setMaskingUang("#totalPembelian");
+				// 				setMaskingUang("#diskon");
+				// 				setMaskingUang("#totalBayar");
+				// 				setMaskingUang("#bayar");
+				// 				setMaskingUang("#kembali");
 			});
 
 	function getData(ids, s) {
@@ -286,27 +306,31 @@
 		var data = {
 			id : ids
 		};
-		$.getAjax('${dapatkanUrl}', data, function(result) {
-			if (result.isMasukResepList == false){
-				$('#pesan').empty();
-				$('#pesan').append("Resep Tidak Dapat Diproses karena Revisi, Hubungi Dokter Bersangkutan");				
-				$('#pesan-modal').modal('show');
-				$('#resep-modal').modal('hide');
-				reset();
-			} else {				
-				$('#pasienId').val(result.pasienId);
-				$('#dokterId').val(result.dokterId);
-				$('#nama').val(result.pasien);
-				$('#gender').val(result.gender);
-				$('#usia').val(result.usia);
-				$('#jaminan').val(result.jaminan);
-				$('#nomor-jaminan').val(result.nomorJaminan);
-				$('#totalPembelian').val(result.totalPembelian);
-				$('#totalBayar').val(result.totalPembelian);
-				$('#tabel-terapi').append(result.tabelTerapi);
-				$('#ids').val(ids);
-			}
-		}, null);
+		$.getAjax('${dapatkanUrl}',	data, function(result) {
+							if (result.isMasukResepList == false) {
+								$('#pesan').empty();
+								$('#pesan').append("Resep Tidak Dapat Diproses karena Revisi, Hubungi Dokter Bersangkutan");
+								$('#pesan-modal').modal('show');
+								$('#resep-modal').modal('hide');
+								reset();
+							} else {
+								$('#pasienId').val(result.pasienId);
+								$('#dokterId').val(result.dokterId);
+								$('#nama').val(result.pasien);
+								$('#gender').val(result.gender);
+								$('#usia').val(result.usia);
+								$('#jaminan').val(result.jaminan);
+								$('#nomor-jaminan').val(result.nomorJaminan);
+								$('#totalPembelian').val(result.totalPembelian);
+								$('#totalBayar').val(result.totalPembelian);
+								$('#pajak').val(result.pajak);
+								$('#tabel-terapi').append(result.tabelTerapi);
+								$('#ids').val(ids);
+								$('#totalBayar').val(
+										hitungGrandTotalBayar('#totalPembelian',
+												'#diskon', '#pajak'));
+							}
+						}, null);
 	}
 
 	// 	function setIdUntukHapus(ids) {
@@ -335,6 +359,7 @@
 		data['dokterId'] = $('#dokterId').val();
 		data['totalPembelian'] = $('#totalPembelian').val();
 		data['diskon'] = $('#diskon').val();
+		data['pajak'] = $('#pajak').val();
 		data['totalBayar'] = $('#totalBayar').val();
 		data['bayar'] = $('#bayar').val();
 		data['kembali'] = $('#kembali').val();
@@ -344,7 +369,16 @@
 	function hitungGrandTotalBayar(t, d) {
 		var total = parseFloat($(t).val().replace(/\./g, ''), 10);
 		var diskon = parseFloat($(d).val().replace(/\./g, ''), 10);
+		var grandTotal = total - diskon;			
+		return grandTotal;
+	}
+	
+	function hitungGrandTotalBayar(t, d, p) {
+		var total = parseFloat($(t).val().replace(/\./g, ''), 10);
+		var diskon = parseFloat($(d).val().replace(/\./g, ''), 10);
+		var pajak = parseFloat($(p).val().replace(/\./g, ''), 10);
 		var grandTotal = total - diskon;
+		grandTotal = grandTotal + pajak;
 		return grandTotal;
 	}
 
@@ -369,6 +403,7 @@
 		$('#totalBayar').val('0');
 		$('#bayar').val('0');
 		$('#kembali').val('0');
+		$('#pajak').val('0');
 		$('#tabel-terapi').empty();
 	}
 </script>

@@ -9,6 +9,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import id.edmaputra.uwati.config.DBConf;
+import id.edmaputra.uwati.view.Table;
 
 @MappedSuperclass
 public abstract class DasarEntity<T> implements Serializable {
@@ -32,8 +33,8 @@ public abstract class DasarEntity<T> implements Serializable {
 	@Column(name = "info", nullable = true, length = DBConf.LENGTH_NAMA)
 	private String info;
 
-	public String getUserInput() {
-		return userInput;
+	public String getUserInput() {		
+		return Table.nullCell(userInput);
 	}
 
 	public void setUserInput(String userInput) {
@@ -41,7 +42,7 @@ public abstract class DasarEntity<T> implements Serializable {
 	}
 
 	public String getUserEditor() {
-		return userEditor;
+		return Table.nullCell(userEditor);
 	}
 
 	public void setUserEditor(String userEditor) {
@@ -65,7 +66,7 @@ public abstract class DasarEntity<T> implements Serializable {
 	}
 
 	public String getInfo() {
-		return info;
+		return Table.nullCell(info);
 	}
 
 	public void setInfo(String info) {

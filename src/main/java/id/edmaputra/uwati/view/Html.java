@@ -3,7 +3,7 @@ package id.edmaputra.uwati.view;
 import org.apache.commons.lang3.StringUtils;
 
 public class Html {
-	
+
 	public static String tbody(String content) {
 		return "<tbody>" + content + "</tbody>";
 	}
@@ -15,29 +15,38 @@ public class Html {
 	public static String td(String content) {
 		return "<td>" + content + "</td>";
 	}
-	
+
 	public static String nav(String content) {
 		return "<nav>" + content + "</nav>";
 	}
-	
+
 	public static String div(String content, String clazz) {
 		String ul = "<div ";
 		if (!StringUtils.isEmpty(clazz) || clazz != null) {
 			ul += "class = \"" + clazz + "\" ";
-		} 
+		}
 		ul += ">" + content + "</div>";
 		return ul;
 	}
 	
+	public static String snap(String content, String clazz) {
+		String ul = "<snap ";
+		if (!StringUtils.isEmpty(clazz) || clazz != null) {
+			ul += "class = \"" + clazz + "\" ";
+		}
+		ul += ">" + content + "</snap>";
+		return ul;
+	}
+
 	public static String ul(String content, String clazz) {
 		String ul = "<ul ";
 		if (!StringUtils.isEmpty(clazz) || clazz != null) {
 			ul += "class = \"" + clazz + "\" ";
-		} 
+		}
 		ul += ">" + content + "</ul>";
 		return ul;
 	}
-	
+
 	public static String li(String content, String clazz, String evt, String eventName) {
 		String li = "<li ";
 		if (!StringUtils.isEmpty(clazz) || clazz != null) {
@@ -49,7 +58,7 @@ public class Html {
 		li += ">" + content + "</li>";
 		return li;
 	}
-	
+
 	public static String aJs(String content, String clazz, String evt, String eventName) {
 		String a = "<a href=\"javascript:;\" ";
 		if (!StringUtils.isEmpty(clazz) || clazz != null) {
@@ -61,7 +70,7 @@ public class Html {
 		a += ">" + content + "</a>";
 		return a;
 	}
-	
+
 	public static String aJs(String content, String clazz, String evt, String eventName, String title) {
 		String a = "<a href=\"javascript:;\" ";
 		if (!StringUtils.isEmpty(clazz) || clazz != null) {
@@ -76,8 +85,9 @@ public class Html {
 		a += ">" + content + "</a>";
 		return a;
 	}
-	
-	public static String aJs(String content, String clazz, String evt, String eventName, String title, String dataToggle, String dataTarget) {
+
+	public static String aJs(String content, String clazz, String evt, String eventName, String title,
+			String dataToggle, String dataTarget) {
 		String a = "<a href=\"javascript:;\" ";
 		if (!StringUtils.isEmpty(clazz) || clazz != null) {
 			a += "class = '" + clazz + "' ";
@@ -97,8 +107,9 @@ public class Html {
 		a += ">" + content + "</a>";
 		return a;
 	}
-	
-	public static String a(String content, String clazz, String evt, String eventName, String href, String dataToggle, String dataTarget) {
+
+	public static String a(String content, String clazz, String evt, String eventName, String href, String dataToggle,
+			String dataTarget) {
 		String a = "<a ";
 		if (!StringUtils.isEmpty(clazz) || clazz != null) {
 			a += "class = '" + clazz + "' ";
@@ -118,8 +129,9 @@ public class Html {
 		a += ">" + content + "</a>";
 		return a;
 	}
-	
-	public static String a(String content, String clazz, String evt, String eventName, String href, String dataToggle, String dataTarget, String title) {
+
+	public static String a(String content, String clazz, String evt, String eventName, String href, String dataToggle,
+			String dataTarget, String title) {
 		String a = "<a ";
 		if (!StringUtils.isEmpty(clazz) || clazz != null) {
 			a += "class = '" + clazz + "' ";
@@ -143,7 +155,8 @@ public class Html {
 		return a;
 	}
 
-	public static String button(String clazz, String dataToggle, String dataTarget, String evt, String eventName, int tipe) {
+	public static String button(String clazz, String dataToggle, String dataTarget, String evt, String eventName,
+			int tipe) {
 		String btn = "<button ";
 		if (!StringUtils.isEmpty(clazz) || clazz != null) {
 			btn += "class = '" + clazz + "' ";
@@ -168,8 +181,9 @@ public class Html {
 		btn += "</button>";
 		return btn;
 	}
-	
-	public static String button(String clazz, String dataToggle, String dataTarget, String evt, String eventName, int tipe, String title) {
+
+	public static String button(String clazz, String dataToggle, String dataTarget, String evt, String eventName,
+			int tipe, String title) {
 		String btn = "<button ";
 		if (!StringUtils.isEmpty(clazz) || clazz != null) {
 			btn += "class = '" + clazz + "' ";
@@ -202,6 +216,14 @@ public class Html {
 		return btn;
 	}
 	
+	public static String desc(int urutan, String namaObat){
+		String desc = "";
+		String thumb = snap("<h4>"+urutan+"</h4>", "badge bg-theme");
+		String details = div("<h5>"+namaObat+"</h5>", "details");
+		desc += div(thumb+details, "desc");
+		return desc;
+	}
+
 	public static String navigasiHalamanGenerator(int first, int prev, int current, int next, int last, int totalPage,
 			String cari) {
 		String html = "";
@@ -233,6 +255,46 @@ public class Html {
 			html += Html.li(Html.aJs("&gt;", null, "onClick", "refresh(" + next + ",\"" + cari + "\")"), null, null,
 					null);
 			html += Html.li(Html.aJs("&gt;&gt;", null, "onClick", "refresh(" + last + ",\"" + cari + "\")"), null, null,
+					null);
+		}
+
+		String nav = Html.nav(Html.ul(html, "pagination"));
+
+		return nav;
+	}
+
+	public static String navigasiHalamanGenerator(int first, int prev, int current, int next, int last, int totalPage,
+			int tipe, String tanggalAwal, String tanggalAkhir, String cari) {
+		String html = "";
+
+		if (current == 1) {
+			html += Html.li(Html.aJs("&lt;&lt;", null, null, null), "disabled", null, null);
+			html += Html.li(Html.aJs("&lt;", null, null, null), "disabled", null, null);
+		} else {
+			html += Html.li(Html.aJs("&lt;&lt;", null, "onClick", "refresh(" + first + "," + tipe + "," + tanggalAwal + "," + tanggalAkhir + ",\"" + cari + "\")"), null,
+					null, null);
+			html += Html.li(Html.aJs("&lt;", null, "onClick", "refresh(" + prev + "," + tipe + "," + tanggalAwal + "," + tanggalAkhir + ",\"" + cari + "\")"), null, null,
+					null);
+		}
+
+		for (int i = first; i <= last; i++) {
+			if (i == current) {
+				html += Html.li(Html.aJs(i + "", null, "onClick", "refresh(" + i + "," + tipe + "," + tanggalAwal + "," + tanggalAkhir + ",\"" + cari + "\")"), "active",
+						null, null);
+			} else {
+				html += Html.li(Html.aJs(i + "", null, "onClick", "refresh(" + i + "," + tipe + "," + tanggalAwal + "," + tanggalAkhir + ",\"" + cari + "\")"), null, null,
+						null);
+			}
+		}
+
+		if (current == totalPage) {
+			html += Html.li(Html.aJs("&gt;", null, null, null), "disabled", null, null);
+			html += Html.li(Html.aJs("&gt;&gt;", null, null, null), "disabled", null, null);
+		} else {
+			html += Html.li(Html.aJs("&gt;", null, "onClick",
+					"refresh(" + next + "," + tipe + "," + tanggalAwal + "," + tanggalAkhir + ",\"" + cari + "\")"),
+					null, null, null);
+			html += Html.li(Html.aJs("&gt;&gt;", null, "onClick", "refresh(" + last + "," + tipe + "," + tanggalAwal + "," + tanggalAkhir + ",\"" + cari + "\")"), null, null,
 					null);
 		}
 

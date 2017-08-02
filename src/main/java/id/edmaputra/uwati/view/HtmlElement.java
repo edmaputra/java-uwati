@@ -17,6 +17,8 @@ public class HtmlElement {
 	private String value2;
 	
 	private String button;
+	
+	private String daftar;
 
 	public String getNavigasiHalaman() {
 		return navigasiHalaman;
@@ -80,6 +82,14 @@ public class HtmlElement {
 
 	public void setValue2(String value2) {
 		this.value2 = value2;
+	}
+
+	public String getDaftar() {
+		return daftar;
+	}
+
+	public void setDaftar(String daftar) {
+		this.daftar = daftar;
 	}
 
 }

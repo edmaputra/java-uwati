@@ -10,7 +10,7 @@ public class THead {
 			+ "<th></th>"
 			+ "</tr></thead>";
 	
-	public static String THEAD_REKAMMEDIS = "<thead><tr>" 
+	public static final String THEAD_REKAMMEDIS = "<thead><tr>" 
 			+ "<th>Kunjungan</th>"
 			+ "<th>Tanggal</th>"
 			+ "<th>Dokter</th>"
@@ -18,6 +18,16 @@ public class THead {
 			+ "<th>Pemeriksaan</th>" 
 			+ "<th>Diagnosa</th>" 
 			+ "<th>Proses</th>"
+			+ "<th></th>"
+			+ "</tr></thead>";
+	
+	public static final String THEAD_PENJUALAN = "<thead><tr>" 
+			+ "<th>Tanggal</th>"
+			+ "<th>Nomor Faktur</th>"
+			+ "<th>Pelanggan</th>"
+			+ "<th>Kasir</th>"
+			+ "<th>Dokter</th>"
+			+ "<th>Total Pembelian</th>"
 			+ "<th></th>"
 			+ "</tr></thead>";
 

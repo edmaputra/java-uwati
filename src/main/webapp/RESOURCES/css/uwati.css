@@ -112,6 +112,10 @@ body {
 	color: white;
 }
 
+.kolom-pencarian {
+	padding: 10px;
+}
+
 table.tabel-keterangan tr td {
 	font-size: 12pt;
 }

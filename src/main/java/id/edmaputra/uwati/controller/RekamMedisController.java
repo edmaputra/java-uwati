@@ -45,9 +45,7 @@ import id.edmaputra.uwati.entity.pasien.Pasien;
 import id.edmaputra.uwati.entity.pasien.RekamMedis;
 import id.edmaputra.uwati.entity.pasien.RekamMedisDetail;
 import id.edmaputra.uwati.entity.pasien.RekamMedisDetailTemp;
-import id.edmaputra.uwati.entity.pasien.RekamMedisHandler;
 import id.edmaputra.uwati.entity.pengguna.Pengguna;
-import id.edmaputra.uwati.entity.transaksi.PenjualanDetailHandler;
 import id.edmaputra.uwati.entity.transaksi.PenjualanDetailTemp;
 import id.edmaputra.uwati.service.obat.CekStokService;
 import id.edmaputra.uwati.service.obat.ObatDetailService;
@@ -64,6 +62,7 @@ import id.edmaputra.uwati.service.pengguna.PenggunaService;
 import id.edmaputra.uwati.specification.RekamMedisPredicateBuilder;
 import id.edmaputra.uwati.support.Converter;
 import id.edmaputra.uwati.support.LogSupport;
+import id.edmaputra.uwati.validator.ValidatorException;
 import id.edmaputra.uwati.validator.impl.RekamMedisDetailTempValidator;
 import id.edmaputra.uwati.validator.impl.RekamMedisDetailValidator;
 import id.edmaputra.uwati.validator.impl.RekamMedisValidator;
@@ -71,6 +70,8 @@ import id.edmaputra.uwati.view.Formatter;
 import id.edmaputra.uwati.view.Html;
 import id.edmaputra.uwati.view.HtmlElement;
 import id.edmaputra.uwati.view.THead;
+import id.edmaputra.uwati.view.handler.PenjualanDetailHandler;
+import id.edmaputra.uwati.view.handler.RekamMedisHandler;
 
 @Controller
 public class RekamMedisController {
@@ -281,6 +282,7 @@ public class RekamMedisController {
 			
 			rekamMedisDetailTempService.hapusBatchByNomor(rekamMedis.getNomor());
 			
+			
 			for(RekamMedisDetail rmd : rekamMedis.getRekamMedisDetail()){
 				RekamMedisDetailTemp temp = new RekamMedisDetailTemp();
 				temp.setNomor(rekamMedis.getNomor());
@@ -299,7 +301,9 @@ public class RekamMedisController {
 				temp.setTerakhirDirubah(new Date());
 				rekamMedisDetailTempValidator.validate(temp);
 				rekamMedisDetailTempService.simpan(temp);
+				
 			}
+			
 			List<RekamMedisDetailTemp> list = rekamMedisDetailTempService.muatDaftarByNomorAndTipePenggunaan(rekamMedis.getNomor(), stat);
 			String tabel = tabelTerapiGenerator(list);			
 			h.setTabelTerapi(tabel);
@@ -308,6 +312,29 @@ public class RekamMedisController {
 			logger.info(e.getMessage());
 			return null;
 		}
+	}
+//	
+	private void setBiayaResep(RekamMedis rekamMedis, Integer stat, Principal principal, int jumlah) throws ValidatorException{
+		RekamMedisDetailTemp temp = new RekamMedisDetailTemp();
+		temp.setNomor(rekamMedis.getNomor());
+		temp.setRandomId(rekamMedis.getNomor());
+		Obat biayaResep = obatService.dapatkanByNama("Biaya Resep");
+		temp.setIdObat(biayaResep.getId().toString());
+		temp.setTerapi(biayaResep.getNama());
+		BigDecimal hargaJual = biayaResep.getDetail().get(0).getHargaJual();
+		BigDecimal hargaTotal = hargaJual.multiply(new BigDecimal(jumlah));
+		temp.setHargaJual(Converter.patternCurrency(hargaJual));
+		temp.setJumlah(String.valueOf(jumlah));
+		temp.setHargaTotal(Converter.patternCurrency(hargaTotal));
+		temp.setDiskon("0");				
+		temp.setPajak("0");
+		temp.setTipe(2);
+		temp.setTipePenggunaan(stat);
+		temp.setUserInput(principal.getName());
+		temp.setWaktuDibuat(new Date());
+		temp.setTerakhirDirubah(new Date());
+		rekamMedisDetailTempValidator.validate(temp);
+		rekamMedisDetailTempService.simpan(temp);
 	}
 	
 	@RequestMapping(value = "/resep/dapatkan", method = RequestMethod.GET)
@@ -338,8 +365,10 @@ public class RekamMedisController {
 				total = total.add(d.getHargaTotal());
 			}
 			h.setIsMasukResepList(rekamMedis.isMasukListResep());
-			System.out.println(h.getIsMasukResepList());
 			h.setTotalPembelian(Converter.patternCurrency(total));
+			BigDecimal pajak = total.multiply(BigDecimal.TEN);
+			pajak = pajak.divide(new BigDecimal(100));
+			h.setPajak(Converter.patternCurrency(pajak));
 			h.setTabelTerapi(tabel);
 			return h;
 		} catch (Exception e) {
@@ -466,6 +495,8 @@ public class RekamMedisController {
 			}
 			
 			rm.setRekamMedisDetail(listEdit);
+			rm.setIsMasukListResep(false);
+			rm.setIsResepSudahDiproses(false);
 			rekamMedisValidator.validate(rm);
 			rekamMedisService.simpan(rm);
 			rekamMedisDetailTempService.hapusBatchByNomor(rm.getNomor());
@@ -603,6 +634,7 @@ public class RekamMedisController {
 		try {
 			RekamMedis rm = rekamMedisService.dapatkan(new Long(temp.getId()));
 			rm.setIsMasukListResep(true);
+			rm.setIsResepSudahDiproses(false);
 			rekamMedisService.simpan(rm);
 			logger.info(LogSupport.edit(principal.getName(), temp.getId()+"", request));
 		} catch (Exception e) {
@@ -617,6 +649,7 @@ public class RekamMedisController {
 		try {
 			RekamMedis rm = rekamMedisService.dapatkan(new Long(temp.getId()));
 			rm.setIsMasukListResep(false);
+			rm.setIsResepSudahDiproses(false);
 			rekamMedisService.simpan(rm);
 			logger.info(LogSupport.edit(principal.getName(), temp.getId()+"", request));
 		} catch (Exception e) {
@@ -735,10 +768,12 @@ public class RekamMedisController {
 			row += Html.td(ringkas(rm.getAnamnesa(), LENGTH_TEXT));
 			row += Html.td(ringkas(rm.getPemeriksaan(), LENGTH_TEXT));
 			row += Html.td(ringkas(rm.getDiagnosa(), LENGTH_TEXT));
-			if (rm.isMasukListResep() == false){
+			if (!rm.isMasukListResep() && !rm.getIsResepSudahDiproses()){
 				row += Html.td(Html.aJs("Proses Resep", "btn btn-primary btn-xs", "onClick", "prosesResep("+rm.getId()+")", "Proses Resep Untuk Pembayaran"));
-			} else {
+			} else if (rm.isMasukListResep() && !rm.getIsResepSudahDiproses()) {
 				row += Html.td(Html.aJs("Batal Proses Resep", "btn btn-danger btn-xs", "onClick", "batalProsesResep("+rm.getId()+")", "Batalkan Proses Resep"));
+			} else if (rm.isMasukListResep() && rm.getIsResepSudahDiproses()) {
+				row += Html.td("Resep Terproses");
 			}			
 			btn += Html.button("btn btn-primary btn-xs btnEdit", "modal", "#rm-modal", "onClick", "getData(" + rm.getId() + ","+STAT_REKAMMEDIS_BARU+")", 0, "Edit Data");
 			btn += Html.button("btn btn-danger btn-xs", "modal", "#rm-modal-hapus", "onClick","setIdUntukHapus(" + rm.getId() +")", 1, "Hapus Data");

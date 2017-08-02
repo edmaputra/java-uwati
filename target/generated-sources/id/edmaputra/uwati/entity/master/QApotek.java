@@ -23,6 +23,8 @@ public class QApotek extends EntityPathBase<Apotek> {
 
     public final StringPath alamat = createString("alamat");
 
+    public final NumberPath<java.math.BigDecimal> biayaResep = createNumber("biayaResep", java.math.BigDecimal.class);
+
     public final NumberPath<Integer> id = createNumber("id", Integer.class);
 
     //inherited

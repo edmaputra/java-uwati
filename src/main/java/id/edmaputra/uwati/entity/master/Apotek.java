@@ -1,5 +1,7 @@
 package id.edmaputra.uwati.entity.master;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,6 +33,17 @@ public class Apotek extends DasarEntity<Integer>{
 	@Column(name="telepon", length=DBConf.LENGTH_TELEPON)	
 	private String telepon;
 	
+	@Column(name="biaya_resep", nullable = false)	
+	private BigDecimal biayaResep;
+	
+	public BigDecimal getBiayaResep() {
+		return biayaResep;
+	}
+
+	public void setBiayaResep(BigDecimal biayaResep) {
+		this.biayaResep = biayaResep;
+	}
+
 	public Apotek(){
 		
 	}

@@ -1,4 +1,4 @@
-package id.edmaputra.uwati.entity.master.obat;
+package id.edmaputra.uwati.view.handler;
 
 public class TindakanHandler{
 

@@ -22,8 +22,7 @@
 			<a href="javascript:;">
 				<i class="fa fa-cubes"></i><span>Master</span>
 			</a>
-			<ul class="sub">				
-				<li><a href="<spring:url value="/profil" />">Profil</a></li>
+			<ul class="sub">
 				<li><a href="<spring:url value="/satuan" />">Satuan</a></li>
 				<li><a href="<spring:url value="/kategori" />">Kategori</a></li>			
 				<li><a href="<spring:url value="/karyawan" />">Karyawan</a></li>				
@@ -74,24 +73,29 @@
 				<i class="fa fa-book"></i> <span>Laporan</span>
 			</a>
 			<ul class="sub">
-				<li><a href="#">Penjualan</a></li>
+				<li><a  href="<spring:url value="/laporan/penjualan" />">Penjualan</a></li>
 				<li><a href="#">Pembelian</a></li>
 			</ul>
 		</li>
 		</security:authorize>
-		
-		<security:authorize access="hasAnyRole('ADMIN','APOTIK') and isAuthenticated()">
+				
 		<li class="sub-menu">
 			<a href="javascript:;"> 
 				<i class="fa fa-shopping-cart"></i> <span>Transaksi</span>
 			</a>
 			<ul class="sub">
-				<li><a href="<spring:url value="/penjualan-obat" />">Penjualan</a></li>
-				<li><a href="<spring:url value="/resep" />">Resep</a></li>
+				<security:authorize access="hasAnyRole('ADMIN','APOTIK') and isAuthenticated()">
+					<li><a href="<spring:url value="/penjualan-obat" />">Penjualan</a></li>
+				</security:authorize>
+				<security:authorize access="hasAnyRole('ADMIN','APOTIK') and isAuthenticated()">
+					<li><a href="<spring:url value="/resep" />">Resep</a></li>
+				</security:authorize>
+				<security:authorize access="hasAnyRole('ADMIN') and isAuthenticated()">
 				<li><a href="<spring:url value="/pembelian-obat" />">Pembelian</a></li>
+				</security:authorize>
 			</ul>
 		</li>
-		</security:authorize>
+		
 <!-- 		<li class="sub-menu"><a href="javascript:;"> <i -->
 <!-- 				class="fa fa-th"></i> <span>Data Tables</span> -->
 <!-- 		</a> -->
