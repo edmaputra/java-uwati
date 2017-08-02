@@ -80,7 +80,7 @@ public class ApotekController {
 			saved.setAlamat(apotek.getAlamat());
 			saved.setNama(apotek.getNama());
 			saved.setTelepon(apotek.getTelepon());
-			saved.setBiayaResep(new BigDecimal(Formatter.hilangkanTitikKoma(apotek.getBiayaResep())));
+//			saved.setBiayaResep(new BigDecimal(Formatter.hilangkanTitikKoma(apotek.getBiayaResep())));
 			saved.setTerakhirDirubah(new Date());
 			saved.setUserEditor(principal.getName());
 			apotekValidator.validate(saved);

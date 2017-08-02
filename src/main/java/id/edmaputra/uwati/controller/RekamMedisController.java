@@ -633,6 +633,23 @@ public class RekamMedisController {
 	public void kirimKeResepList(@RequestBody RekamMedisHandler temp, BindingResult result, Principal principal,HttpServletRequest request) {			
 		try {
 			RekamMedis rm = rekamMedisService.dapatkan(new Long(temp.getId()));
+			List<RekamMedisDetail> list = rekamMedisDetailService.dapatkan(rm);
+			int n = list.size();
+			RekamMedisDetail biayaResep = new RekamMedisDetail();
+			Obat o = getObat("Biaya Resep");
+			biayaResep.setTerapi(o.getNama());
+			biayaResep.setTipe(0);
+			biayaResep.setJumlah(1);
+			biayaResep.setPajak(BigDecimal.ZERO);
+			biayaResep.setDiskon(BigDecimal.ZERO);
+			biayaResep.setWaktuDibuat(new Date());
+			biayaResep.setTerakhirDirubah(new Date());
+			biayaResep.setRekamMedis(rm);
+			BigDecimal hargaJual = o.getDetail().get(0).getHargaJual();
+			BigDecimal hargaTotal = hargaJual.multiply(new BigDecimal(n));
+			biayaResep.setHargaJual(hargaTotal);
+			biayaResep.setHargaTotal(hargaTotal);
+			rekamMedisDetailService.simpan(biayaResep);
 			rm.setIsMasukListResep(true);
 			rm.setIsResepSudahDiproses(false);
 			rekamMedisService.simpan(rm);
@@ -648,6 +665,10 @@ public class RekamMedisController {
 	public void batalKirimKeResepList(@RequestBody RekamMedisHandler temp, BindingResult result, Principal principal,HttpServletRequest request) {			
 		try {
 			RekamMedis rm = rekamMedisService.dapatkan(new Long(temp.getId()));
+			RekamMedisDetail d = rekamMedisDetailService.dapatkanBiayaResep(rm, "Biaya Resep");
+			if (d != null){
+				rekamMedisDetailService.hapus(d);
+			}
 			rm.setIsMasukListResep(false);
 			rm.setIsResepSudahDiproses(false);
 			rekamMedisService.simpan(rm);
@@ -726,7 +747,7 @@ public class RekamMedisController {
 		cekStok.setWaktuDibuat(new Date());
 		cekStok.setTerakhirDirubah(new Date());
 		cekStok.setUserInput("");
-		System.out.println("Cek Stok : " +cekStok.getObat()+". Jumlah :"+cekStok.getJumlah());
+//		System.out.println("Cek Stok : " +cekStok.getObat()+". Jumlah :"+cekStok.getJumlah());
 		return cekStok;
 	}
 		
@@ -770,13 +791,14 @@ public class RekamMedisController {
 			row += Html.td(ringkas(rm.getDiagnosa(), LENGTH_TEXT));
 			if (!rm.isMasukListResep() && !rm.getIsResepSudahDiproses()){
 				row += Html.td(Html.aJs("Proses Resep", "btn btn-primary btn-xs", "onClick", "prosesResep("+rm.getId()+")", "Proses Resep Untuk Pembayaran"));
+				btn += Html.button("btn btn-primary btn-xs btnEdit", "modal", "#rm-modal", "onClick", "getData(" + rm.getId() + ","+STAT_REKAMMEDIS_BARU+")", 0, "Edit Data");
+				btn += Html.button("btn btn-danger btn-xs", "modal", "#rm-modal-hapus", "onClick","setIdUntukHapus(" + rm.getId() +")", 1, "Hapus Data");
 			} else if (rm.isMasukListResep() && !rm.getIsResepSudahDiproses()) {
 				row += Html.td(Html.aJs("Batal Proses Resep", "btn btn-danger btn-xs", "onClick", "batalProsesResep("+rm.getId()+")", "Batalkan Proses Resep"));
 			} else if (rm.isMasukListResep() && rm.getIsResepSudahDiproses()) {
 				row += Html.td("Resep Terproses");
-			}			
-			btn += Html.button("btn btn-primary btn-xs btnEdit", "modal", "#rm-modal", "onClick", "getData(" + rm.getId() + ","+STAT_REKAMMEDIS_BARU+")", 0, "Edit Data");
-			btn += Html.button("btn btn-danger btn-xs", "modal", "#rm-modal-hapus", "onClick","setIdUntukHapus(" + rm.getId() +")", 1, "Hapus Data");
+//				btn += Html.button("btn btn-danger btn-xs", "modal", "#rm-modal-hapus", "onClick","setIdUntukHapus(" + rm.getId() +")", 1, "Hapus Data");
+			}						
 			row += Html.td(btn);
 			data += Html.tr(row);
 		}

@@ -21,7 +21,7 @@
 	var="bootstrapDatePickerCss" />
 <spring:url value="/static/css/jquery.autocomplete.styles.css"
 	var="autoCompleteThemesCss" />
-<spring:url value="/static/fonts/font-awesome/css/font-awesome.css"
+<spring:url value="/static/css/font-awesome.min.css"
 	var="fontawesomeCss" />
 <spring:url value="/static/js/jquery-2.1.1.min.js" var="jQuery2" />
 <spring:url value="/static/js/bootstrap.min.js" var="bootstrapJs" />

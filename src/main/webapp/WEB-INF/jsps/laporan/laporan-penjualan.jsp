@@ -55,7 +55,7 @@
 	</div>
 
 	<div class="col-lg-3 ds">
-		<h3>Top 10 Obat Paling Laris</h3>
+		<h3>Detail</h3>
 		<div class="desc">			
 			<div class="thumb">
 <!-- 				<span class="badge bg-theme"><h4>1</h4></span> -->			

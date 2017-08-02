@@ -9,8 +9,10 @@
 	<div class="row">
 		<div class="col-lg-12 col-md-12">
 			<div class="form-panel">
-				<input type="submit" class="btn btn-primary pull-right" value="Simpan" style="width: 250px"> 
-				<input type="button" class="btn btn-default" value="Reset" id="btnReset"style="width: 110px">					
+				<input type="submit" class="btn btn-primary pull-right"
+					value="Simpan" style="width: 250px"> <input type="button"
+					class="btn btn-default" value="Reset" id="btnReset"
+					style="width: 110px">
 			</div>
 		</div>
 	</div>
@@ -30,10 +32,9 @@
 				<div class="form-group">
 					<label class="col-sm-2 col-sm-2 control-label">Alamat</label>
 					<div class="col-sm-10">
-					<textarea class="form-control" rows="3" name="alamat"
-								id="alamat">${apotek.alamat}</textarea>
-<!-- 						<input type="text" class="form-control" name="alamat" id="alamat" -->
-<%-- 							value="${apotek.alamat}" autocomplete="off"> --%>
+						<textarea class="form-control" rows="3" name="alamat" id="alamat">${apotek.alamat}</textarea>
+						<!-- 						<input type="text" class="form-control" name="alamat" id="alamat" -->
+						<%-- 							value="${apotek.alamat}" autocomplete="off"> --%>
 					</div>
 				</div>
 				<div class="form-group">
@@ -43,25 +44,25 @@
 							id="telepon" value="${apotek.telepon}" autocomplete="off">
 					</div>
 				</div>
-				
+
 			</div>
 		</div>
-		<div class="col-lg-4 col-sm-4">
-			<div class="form-panel">
-				<h4 class="mb">
-					<i class="fa fa-angle-right"></i> BIAYA
-				</h4>
-					<div class="form-group">
-					<label class="col-sm-4 control-label">Biaya resep</label>
-					<div class="col-sm-8">
-						<input type="text" class="form-control input-angka" name="biaya_resep" id="biaya_resep"
-							value="${apotek.biayaResep}" 
-							autocomplete="off">
-					</div>
-					</div>
-				
-			</div>
-		</div>
+<!-- 		<div class="col-lg-4 col-sm-4"> -->
+<!-- 			<div class="form-panel"> -->
+<!-- 				<h4 class="mb"> -->
+<!-- 					<i class="fa fa-angle-right"></i> BIAYA -->
+<!-- 				</h4> -->
+<!-- 				<div class="form-group"> -->
+<!-- 					<label class="col-sm-4 control-label">Biaya resep</label> -->
+<!-- 					<div class="col-sm-8"> -->
+<!-- 						<input type="text" class="form-control input-angka" -->
+<%-- 							name="biaya_resep" id="biaya_resep" value="${apotek.biayaResep}" --%>
+<!-- 							autocomplete="off"> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+
+<!-- 			</div> -->
+<!-- 		</div> -->
 	</div>
 </form>
 <div>
@@ -74,7 +75,7 @@
 			$('#nama').val(result.nama);
 			$('#alamat').val(result.alamat);
 			$('#telepon').val(result.telepon);
-			$('#biaya_resep').val(result.biayaResep);
+// 			$('#biaya_resep').val(result.biayaResep);
 		}, null);
 	}
 
@@ -100,7 +101,7 @@
 				data['nama'] = $('#nama').val();
 				data['alamat'] = $('#alamat').val();
 				data['telepon'] = $('#telepon').val();
-				data['biayaResep'] = $('#biaya_resep').val();
+// 				data['biayaResep'] = $('#biaya_resep').val();
 				$.postJSON('${simpanUrl}', data, function() {
 					$('#gritter-tambah-sukses').click();
 					muatUlang();
@@ -114,10 +115,10 @@
 			$('#nama').val('');
 			$('#alamat').val('');
 			$('#telepon').val('');
-			$('#biaya_resep').val('0');
+// 			$('#biaya_resep').val('0');
 		});
-		
-		setMaskingUang("#biaya_resep");
+
+// 		setMaskingUang("#biaya_resep");
 
 	});
 </script>

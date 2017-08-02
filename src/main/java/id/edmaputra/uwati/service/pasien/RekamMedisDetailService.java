@@ -55,4 +55,8 @@ public class RekamMedisDetailService {
 	public List<RekamMedisDetail> dapatkan(RekamMedis rekamMedis) {
 		return rekamMedisDetailRepository.findByRekamMedis(rekamMedis);
 	}
+	
+	public RekamMedisDetail dapatkanBiayaResep(RekamMedis rekamMedis, String terapi){
+		return rekamMedisDetailRepository.findByRekamMedisAndTerapi(rekamMedis, terapi);
+	}
 }

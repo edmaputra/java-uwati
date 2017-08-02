@@ -12,38 +12,37 @@
 <c:url var="terapiUrl" value="/obat/obat-tindakan" />
 
 <div class="showback">
-	<div class="row mt">
+	<div class="row">
 		<div class="col-md-12">
-			<div class="content-panel">
-				<div class="row">
-					<div class="col-md-12">
-						<form class="form-inline pull-right" id="formCari">
-							<div class="form-group">
-								<input type="text" id="stringTanggalCari"
-									class="form-control datePicker" placeholder="Tanggal"
-									style="width: 100px" />
-							</div>
-							<div class="form-group">
-								<input type="text" id="stringCari" class="form-control"
-									placeholder="Pencarian" style="width: 250px" />
-							</div>
-							<div class="form-group">
-								<button type="button" class="btn btn-primary" id="btnCari">Cari</button>
-							</div>
-							<div class="form-group">
-								<button type="button" class="btn btn-default" id="btnReset"
-									onclick="refresh(1, '', '')">Reset</button>
-							</div>
-						</form>
-					</div>
+			<div class="row">
+				<div class="col-md-12">
+					<form class="form-inline pull-right" id="formCari">
+						<div class="form-group">
+							<input type="text" id="stringTanggalCari"
+								class="form-control datePicker" placeholder="Tanggal"
+								style="width: 100px" />
+						</div>
+						<div class="form-group">
+							<input type="text" id="stringCari" class="form-control"
+								placeholder="Pencarian" style="width: 250px" />
+						</div>
+						<div class="form-group">
+							<button type="button" class="btn btn-primary" id="btnCari">Cari</button>
+						</div>
+						<div class="form-group">
+							<button type="button" class="btn btn-default" id="btnReset"
+								onclick="refresh(1, '', '')">Reset</button>
+						</div>
+					</form>
 				</div>
-				<br />
-
-				<table class="table table-striped table-advance table-hover"
-					id="tabel">
-				</table>
-				<div id="nav"></div>
 			</div>
+			<br />
+
+			<table class="table table-striped table-advance table-hover"
+				id="tabel">
+			</table>
+			<div id="nav"></div>
+
 		</div>
 	</div>
 </div>
@@ -57,46 +56,63 @@
 					aria-hidden="true">&times;</button>
 				<h4 class="modal-title" id="myModalLabel">Resep</h4>
 			</div>
-			<form class="form-horizontal style-form formTambah" method="post">
+			<form class="form style-form formTambah" method="post">
 				<div class="form-panel">
 					<div class="modal-body">
-						<div class="form-group">
-							<label class="col-sm-1 control-label">ID</label>
-							<div class="col-sm-1">
-								<input type="text" class="form-control" id="pasienId"
-									readonly="readonly">
-							</div>
-							<label class="col-sm-1 control-label">Nama</label>
-							<div class="col-sm-3">
-								<input type="text" class="form-control" readonly="readonly"
-									id="nama">
-							</div>
-							<label class="col-sm-1 control-label" style="text-align: right;">Gender</label>
-							<div class="col-sm-2">
-								<input type="text" class="form-control" readonly="readonly"
-									id="gender">
-							</div>
-							<label class="col-sm-1 control-label" style="text-align: right;">Usia</label>
-							<div class="col-sm-2">
-								<input type="text" class="form-control" readonly="readonly"
-									id="usia">
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label">Asuransi Kesehatan</label>
-							<div class="col-sm-4">
-								<input type="text" class="form-control" id="jaminan"
-									readonly="readonly">
-							</div>
-							<label class="col-sm-1 control-label">Nomor</label>
-							<div class="col-sm-5">
-								<input type="text" class="form-control" id="nomor-jaminan"
-									readonly="readonly">
+						<div class="row">
+							<div class="form-group">
+								<div class="col-sm-1">
+									<label class="form-control" style="border: none;">ID:</label>
+								</div>
+								<div class="col-sm-1 col-lg-1">
+									<input type="text" class="form-control" id="pasienId"
+										readonly="readonly">
+								</div>
+								<div class="col-sm-1 col-lg-1">
+									<label class="form-control" style="border: none;">Nama:</label>
+								</div>
+								<div class="col-sm-3 col-lg-3">
+									<input type="text" class="form-control" readonly="readonly"
+										id="nama">
+								</div>
+								<div class="col-sm-1 col-lg-1">
+									<label class="form-control" style="border: none;">Gender:</label>
+								</div>
+								<div class="col-sm-2 col-lg-2">
+									<input type="text" class="form-control" readonly="readonly"
+										id="gender">
+								</div>
+								<div class="col-sm-1 col-lg-1">
+									<label class="form-control" style="border: none;">Usia:</label>
+								</div>
+								<div class="col-sm-2 col-lg-2">
+									<input type="text" class="form-control" readonly="readonly"
+										id="usia">
+								</div>
 							</div>
 						</div>
+						<div class="row">
+							<div class="form-group">
+								<div class="col-sm-2 col-lg-2">
+									<label class="form-control" style="border: none;">Jaminan:</label>
+								</div>
+								<div class="col-sm-4 col-lg-4">
+									<input type="text" class="form-control" readonly="readonly"
+										id="jaminan">
+								</div>
+								<div class="col-sm-1 col-lg-1">
+									<label class="form-control" style="border: none;">Nomor:</label>
+								</div>
+								<div class="col-sm-5 col-lg-5">
+									<input type="text" class="form-control" readonly="readonly"
+										id="nomor-jaminan">
+								</div>
+							</div>
+						</div>
+						<br />
 
 						<div class="row">
-							<div class="col-md-7">
+							<div class="col-md-6">
 								<table class="table table-striped table-advance table-hover">
 									<thead style="background-color: #68DFF0;">
 										<tr>
@@ -109,28 +125,35 @@
 									</tbody>
 								</table>
 							</div>
-							<div class="col-md-5">
+							<div class="col-md-6">
 								<div class="row">
 									<div class="col-md-7">
 										<div class="form-group">
 											<label class="lb-sm">Total Pembelian</label> <input
 												name="totalpembelian" type="text" id="totalPembelian"
-												class="form-control input-lg" readonly="readonly" value="0">
+												class="form-control input-lg input-angka" readonly="readonly" value="0">
 										</div>
 									</div>
 									<div class="col-md-5">
 										<div class="form-group">
 											<label class="lb-sm">Diskon</label> <input name="diskon"
-												type="text" id="diskon" class="form-control input-lg"
+												type="number" id="diskon" class="form-control input-lg input-angka"
 												value="0" autocomplete="off">
 										</div>
 									</div>
+<!-- 									<div class="col-md-4"> -->
+<!-- 										<div class="form-group"> -->
+<!-- 											<label class="lb-sm">Total Setelah Diskon</label>  -->
+<!-- 											<input name="net" type="number" id="net" class="form-control input-lg input-angka" -->
+<!-- 												value="0" autocomplete="off"> -->
+<!-- 										</div> -->
+<!-- 									</div> -->
 								</div>
 								<div class="row">
 									<div class="col-md-5">
 										<div class="form-group">
-											<label class="lb-sm">PPN</label> <input name="pajak"
-												type="text" id="pajak" class="form-control input-lg"
+											<label class="lb-sm">PPN (10%)</label> <input name="pajak"
+												type="number" id="pajak" class="form-control input-lg input-angka"
 												value="0">
 										</div>
 									</div>
@@ -138,23 +161,23 @@
 										<div class="form-group">
 											<label class="lb-sm">Total Pembayaran</label> <input
 												name="totalbayar" type="text" id="totalBayar"
-												class="form-control input-lg" value="0" readonly="readonly">
+												class="form-control input-lg input-angka" value="0" readonly="readonly">
 										</div>
-									</div>								
+									</div>
 								</div>
 
 								<div class="row">
 									<div class="col-md-7">
 										<div class="form-group">
 											<label class="lb-sm">Bayar</label> <input name="bayar"
-												type="text" id="bayar" class="form-control input-lg"
+												type="number" id="bayar" class="form-control input-lg input-angka"
 												value="0" autocomplete="off">
 										</div>
 									</div>
 									<div class="col-md-5">
 										<div class="form-group">
 											<label class="lb-sm">Kembali</label> <input name="kembali"
-												type="text" id="kembali" class="form-control input-lg"
+												type="text" id="kembali" class="form-control input-lg input-angka"
 												value="0" readonly="readonly" autocomplete="off">
 										</div>
 									</div>
@@ -196,7 +219,7 @@
 						id="keluarModalHapus" data-dismiss="modal">Tidak</button>
 					<input type="hidden" name="id" class="form-control"
 						id="penjualanId" /> <input type="submit" class="btn btn-danger"
-						value="Cetak" />
+						value="Cetak" id="btnCetak" />
 				</div>
 			</form>
 		</div>
@@ -219,8 +242,10 @@
 						});
 
 				$('#diskon').keyup(
-					function() {	
-						$('#totalBayar').val(
+						function() {
+							$('#pajak').val(
+									hitungPajak('#totalPembelian', '#diskon'));
+							$('#totalBayar').val(
 									hitungGrandTotalBayar('#totalPembelian',
 											'#diskon', '#pajak'));
 						});
@@ -238,6 +263,10 @@
 							min : 0
 						},
 						diskon : {
+							required : true,
+							min : 0
+						},
+						pajak : {
 							required : true,
 							min : 0
 						},
@@ -263,6 +292,10 @@
 						diskon : {
 							required : "Diskon Harus Diisi",
 							min : "Isi Diskon dengan Benar"
+						},
+						pajak : {
+							required : "Pajak Harus Diisi",
+							min : "Pajak Diskon dengan Benar"
 						},
 						totalbayar : {
 							required : "Total Pembayaran Harus Terisi",
@@ -290,7 +323,6 @@
 						}, function() {
 							$('#gritter-tambah-gagal').click();
 						});
-
 					}
 				});
 
@@ -306,10 +338,16 @@
 		var data = {
 			id : ids
 		};
-		$.getAjax('${dapatkanUrl}',	data, function(result) {
+		$
+				.getAjax(
+						'${dapatkanUrl}',
+						data,
+						function(result) {
 							if (result.isMasukResepList == false) {
 								$('#pesan').empty();
-								$('#pesan').append("Resep Tidak Dapat Diproses karena Revisi, Hubungi Dokter Bersangkutan");
+								$('#pesan')
+										.append(
+												"Resep Tidak Dapat Diproses karena Revisi, Hubungi Dokter Bersangkutan");
 								$('#pesan-modal').modal('show');
 								$('#resep-modal').modal('hide');
 								reset();
@@ -318,7 +356,7 @@
 								$('#dokterId').val(result.dokterId);
 								$('#nama').val(result.pasien);
 								$('#gender').val(result.gender);
-								$('#usia').val(result.usia);
+								$('#usia').val(result.umur);
 								$('#jaminan').val(result.jaminan);
 								$('#nomor-jaminan').val(result.nomorJaminan);
 								$('#totalPembelian').val(result.totalPembelian);
@@ -327,8 +365,9 @@
 								$('#tabel-terapi').append(result.tabelTerapi);
 								$('#ids').val(ids);
 								$('#totalBayar').val(
-										hitungGrandTotalBayar('#totalPembelian',
-												'#diskon', '#pajak'));
+										hitungGrandTotalBayar(
+												'#totalPembelian', '#diskon',
+												'#pajak'));
 							}
 						}, null);
 	}
@@ -369,10 +408,19 @@
 	function hitungGrandTotalBayar(t, d) {
 		var total = parseFloat($(t).val().replace(/\./g, ''), 10);
 		var diskon = parseFloat($(d).val().replace(/\./g, ''), 10);
-		var grandTotal = total - diskon;			
+		var grandTotal = total - diskon;
 		return grandTotal;
 	}
-	
+
+	function hitungPajak(t, d) {
+		var total = parseFloat($(t).val().replace(/\./g, ''), 10);
+		var diskon = parseFloat($(d).val().replace(/\./g, ''), 10);
+		var grandTotal = total - diskon;
+		var pajak = grandTotal * 10;
+		pajak = pajak / 100;
+		return pajak;
+	}
+
 	function hitungGrandTotalBayar(t, d, p) {
 		var total = parseFloat($(t).val().replace(/\./g, ''), 10);
 		var diskon = parseFloat($(d).val().replace(/\./g, ''), 10);
