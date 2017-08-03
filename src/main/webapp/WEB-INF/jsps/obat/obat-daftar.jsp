@@ -8,48 +8,50 @@
 <c:url var="hapusUrl" value="/obat/hapus" />
 <c:url var="dapatkanUrl" value="/obat/dapatkan" />
 <c:url var="daftarUrl" value="/obat/daftar" />
+
 <c:url var="satuanSemua" value="/satuan/nama" />
 <c:url var="kategoriSemua" value="/kategori/nama" />
+
 <c:url var="kategoriAda" value="/kategori/ada" />
 <c:url var="satuanAda" value="/satuan/ada" />
 
 <div class="showback">
-<div class="row mt">
-	<div class="col-md-12">
-		<div class="content-panel">
-			<div class="row">
-				<div class="col-md-2 ">
-					<security:authorize access="hasAnyRole('ADMIN')">
-						<button class="btn btn-primary" data-toggle="modal"
-							data-target="#obat-modal">Obat Baru</button>
-					</security:authorize>
-				</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="content-panel">
+				<div class="row">
+					<div class="col-md-2 ">
+						<security:authorize access="hasAnyRole('ADMIN')">
+							<button class="btn btn-primary btnTambah" data-toggle="modal"
+								data-target="#obat-modal" id="btnBaru">Obat Baru</button>
+						</security:authorize>
+					</div>
 
-				<div class="col-md-10">
-					<form class="form-inline pull-right" id="formCari">
-						<div class="form-group">
-							<input type="text" id="stringCari" class="form-control"
-								placeholder="Pencarian" style="width: 250px" />
-						</div>
-						<div class="form-group">
-							<button type="button" class="btn btn-primary" id="btnCari">Cari</button>
-						</div>
-						<div class="form-group">
-							<button type="button" class="btn btn-default" id="btnReset"
-								onclick="refresh(1,'')">Reset</button>
-						</div>
-					</form>
+					<div class="col-md-10">
+						<form class="form-inline pull-right" id="formCari">
+							<div class="form-group">
+								<input type="text" id="stringCari" class="form-control"
+									placeholder="Pencarian" style="width: 250px" />
+							</div>
+							<div class="form-group">
+								<button type="button" class="btn btn-primary" id="btnCari">Cari</button>
+							</div>
+							<div class="form-group">
+								<button type="button" class="btn btn-default" id="btnReset"
+									onclick="refresh(1,'')">Reset</button>
+							</div>
+						</form>
+					</div>
 				</div>
+				<br />
+
+				<table class="table table-striped table-advance table-hover"
+					id="tabel">
+				</table>
+				<div id="nav"></div>
 			</div>
-			<br />
-
-			<table class="table table-striped table-advance table-hover"
-				id="tabel">
-			</table>
-			<div id="nav"></div>
 		</div>
 	</div>
-</div>
 </div>
 
 <div class="modal fade" id="obat-modal" tabindex="-1" role="dialog"
@@ -59,7 +61,7 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Obat Baru</h4>
+				<h4 class="modal-title" id="myModalLabel">Obat</h4>
 			</div>
 			<form class="form style-form formTambah" method="post">
 				<div class="modal-body">
@@ -70,46 +72,47 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>Nama:</label>
-									<input type="text" name="nama" class="form-control" id="tambahNama" autocomplete="off" />									
+									<label>Nama:</label> <input type="text" name="nama"
+										class="form-control" id="nama" autocomplete="off" />
 								</div>
 							</div>
 							<div class="col-md-2">
 								<div class="form-group">
-									<label>Kode:</label>
-									<input type="text" name="kode" class="form-control" id="tambahKode" autocomplete="off" />									
+									<label>Kode:</label> <input type="text" name="kode"
+										class="form-control" id="kode" autocomplete="off" />
 								</div>
 							</div>
 							<div class="col-md-3">
 								<div class="form-group">
-									<label>Barcode:</label>
-									<input type="text" name="barcode" class="form-control" id="tambahBarcode" autocomplete="off" />									
+									<label>Barcode:</label> <input type="text" name="barcode"
+										class="form-control" id="barcode" autocomplete="off" />
 								</div>
 							</div>
 							<div class="col-md-3">
 								<div class="form-group">
-									<label>Batch:</label>
-									<input type="text" name="batch" class="form-control" id="tambahBatch" autocomplete="off" />									
+									<label>Batch:</label> <input type="text" name="batch"
+										class="form-control" id="batch" autocomplete="off" />
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-3">
 								<div class="form-group">
-									<label>Satuan:</label>
-									<input type="text" name="satuan" class="form-control" id="tambahSatuan" autocomplete="off" />									
+									<label>Satuan:</label> <input type="text" name="satuan"
+										class="form-control" id="satuan" autocomplete="off" />
 								</div>
 							</div>
 							<div class="col-md-3">
 								<div class="form-group">
-									<label>Kategori:</label>
-									<input type="text" name="kategori" class="form-control" id="tambahKategori" autocomplete="off" />									
+									<label>Kategori:</label> <input type="text" name="kategori"
+										class="form-control" id="kategori" autocomplete="off" />
 								</div>
 							</div>
 							<div class="col-md-2">
 								<div class="form-group">
-									<label>Stok Minimal:</label>									
-									<input type="number" name="stokMinimal" class="form-control" id="tambahStokMinimal" autocomplete="off" />										
+									<label>Stok Minimal:</label> <input type="number"
+										name="stokMinimal" class="form-control" id="stokMinimal"
+										autocomplete="off" value="0"/>
 								</div>
 							</div>
 						</div>
@@ -121,160 +124,28 @@
 						<div class="row">
 							<div class="col-md-3">
 								<div class="form-group">
-									<label>Harga Jual:</label>									
-									<input type="text" name="hargaJual" class="form-control" id="tambahHargaJual" autocomplete="off" />
+									<label>Harga Jual:</label> <input type="text" name="hargaJual"
+										class="form-control" id="hargaJual" autocomplete="off" />
 								</div>
 							</div>
 							<div class="col-md-3">
 								<div class="form-group">
-									<label>Harga Jual Resep:</label>
-									<input type="text" name="hargaJualResep" class="form-control" id="tambahHargaJualResep" autocomplete="off" />									
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="form-group">									
-									<label>Harga Beli:</label>
-									<input type="text" name="hargaBeli" class="form-control" id="tambahHargaBeli" autocomplete="off" />									
+									<label>Harga Jual Resep:</label> <input type="text"
+										name="hargaJualResep" class="form-control" id="hargaJualResep"
+										autocomplete="off" />
 								</div>
 							</div>
 							<div class="col-md-3">
 								<div class="form-group">
-									<label>Harga Diskon:</label>
-									<input type="text" name="hargaDiskon" class="form-control" id="tambahHargaDiskon" autocomplete="off" />
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="form-panel">
-						<h4 class="mb">
-							<i class="fa fa-angle-right"></i> Stok Obat
-						</h4>
-						<div class="row">
-							<div class="col-md-3">
-								<div class="form-group">
-									<label>Stok:</label> 
-									<input type="number" name="stok" class="form-control" id="tambahStok" disabled="disabled" value="0">
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="form-panel">
-						<h4 class="mb">
-							<i class="fa fa-angle-right"></i> Tanggal Kadaluarsa Obat
-						</h4>
-						<div class="row">
-							<div class="col-md-3">
-								<div class="form-group">
-									<label>Tanggal Kadaluarsa:</label> <input type="text"
-										name="tanggalExpired" class="form-control datePicker"
-										id="tambahTanggalExpired" autocomplete="off">
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default btnKeluar"
-						data-dismiss="modal">Keluar</button>
-					<input type="hidden" name="id" class="form-control" id="tambahId" autocomplete="off" />					
-					<input type="submit" class="btn btn-primary" value="Simpan" />
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="obat-modal-edit" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Edit Obat</h4>
-			</div>
-			<form class="form style-form formEdit" method="post">
-				<div class="modal-body">
-					<div class="form-panel">
-						<h4 class="mb">
-							<i class="fa fa-angle-right"></i> Obat
-						</h4>
-						<div class="row">
-							<div class="col-md-4">
-								<div class="form-group">
-									<label>Nama:</label>
-									<input type="text" name="nama" class="form-control" id="editNama" autocomplete="off" />																		
-								</div>
-							</div>
-							<div class="col-md-2">
-								<div class="form-group">
-									<label>Kode:</label>
-									<input type="text" name="kode" class="form-control" id="editKode" autocomplete="off" />									
+									<label>Harga Beli:</label> <input type="text" name="hargaBeli"
+										class="form-control" id="hargaBeli" autocomplete="off" />
 								</div>
 							</div>
 							<div class="col-md-3">
 								<div class="form-group">
-									<label>Barcode:</label>
-									<input type="text" name="barcode" class="form-control" id="editBarcode" autocomplete="off" />									
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<label>Batch:</label>
-									<input type="text" name="batch" class="form-control" id="editBatch" autocomplete="off" />									
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-3">
-								<div class="form-group">
-									<label>Satuan:</label>
-									<input type="text" name="satuan" class="form-control" id="editSatuan" autocomplete="off" />									
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<label>Kategori:</label>
-									<input type="text" name="kategori" class="form-control" id="editKategori" autocomplete="off" />									
-								</div>
-							</div>
-							<div class="col-md-2">
-								<div class="form-group">
-									<label>Stok Minimal:</label> 
-									<input type="number" class="form-control" id="editStokMinimal" name="stokMinimal" autocomplete="off"/>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="form-panel">
-						<h4 class="mb">
-							<i class="fa fa-angle-right"></i> Detail Obat
-						</h4>
-						<div class="row">
-							<div class="col-md-3">
-								<div class="form-group">
-									<label>Harga Jual:</label>
-									<input type="text" name="hargaJual" class="form-control" id="editHargaJual" autocomplete="off" />									
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<label>Harga Jual Resep:</label>
-									<input type="text" name="hargaJualResep" class="form-control" id="editHargaJualResep" autocomplete="off" />									
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<label>Harga Beli:</label>
-									<input type="text" name="hargaBeli" class="form-control" id="editHargaBeli" autocomplete="off" />									
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<label>Harga Diskon:</label>
-									<input type="text" name="hargaDiskon" class="form-control" id="editHargaDiskon" autocomplete="off" />
+									<label>Harga Diskon:</label> <input type="text"
+										name="hargaDiskon" class="form-control" id="hargaDiskon"
+										autocomplete="off" />
 								</div>
 							</div>
 						</div>
@@ -287,7 +158,7 @@
 							<div class="col-md-3">
 								<div class="form-group">
 									<label>Stok:</label> <input type="number" name="stok"
-										class="form-control" id="editStok" disabled="disabled">
+										class="form-control" id="stok" disabled="disabled" value="0">
 								</div>
 							</div>
 						</div>
@@ -302,22 +173,23 @@
 								<div class="form-group">
 									<label>Tanggal Kadaluarsa:</label> <input type="text"
 										name="tanggalExpired" class="form-control datePicker"
-										id="editTanggalExpired" autocomplete="off">
+										id="tanggalExpired" autocomplete="off">
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default btnKeluar"
-						data-dismiss="modal">Keluar</button>
-					<input type="hidden" class="form-control" id="editId" name="id" />					
+					<button type="button" class="btn btn-default btnKeluar" data-dismiss="modal">Keluar</button>
+					<input type="hidden" name="id" class="form-control" id="ids" />
 					<input type="submit" class="btn btn-primary" value="Simpan" />
 				</div>
 			</form>
 		</div>
 	</div>
 </div>
+
 
 <div class="modal fade" id="obat-modal-hapus" tabindex="-1"
 	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -336,7 +208,7 @@
 			<form class="form-horizontal style-form formHapus" method="post">
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default btnKeluar"
-						id="keluarModalHapus" data-dismiss="modal">Tidak</button>					
+						id="keluarModalHapus" data-dismiss="modal">Tidak</button>
 					<input type="hidden" class="form-control" id="hapusId" name="id" />
 					<input type="submit" class="btn btn-danger" value="Hapus" />
 				</div>
@@ -351,31 +223,205 @@
 
 
 <script>
+	var state = 1;
+	$(document).ready(function() {
+		refresh(1, '');
+
+		$('#btnCari').click(function() {
+			refresh(1, $('#stringCari').val());
+		});
+		
+		$('.btnTambah').click(function() {
+			state = 0;
+			reset();
+			console.log(state);
+		});
+		
+		$('.btnEdit').click(function() {
+			state = 1;			
+		});
+		
+		$('.btnKeluar').click(function() {
+			reset();			
+		});
+
+		$(".formTambah").validate({
+			rules : {
+				nama : {
+					required : true
+				},
+				kode : {
+					required : true
+				},
+				satuan : {
+					required : true,
+					remote : {
+						url : "${satuanAda}",
+						type : "get",
+						data : {
+							nama : function() {
+								return $("#satuan").val();
+							}
+						}
+					},
+				},
+				kategori : {
+					required : true,
+					remote : {
+						url : "${kategoriAda}",
+						type : "get",
+						data : {
+							nama : function() {
+								return $("#kategori").val();
+							}
+						}
+					},
+				},
+				stokMinimal : {
+					required : true,
+					number : true,
+					min : 1
+				},
+				hargaJual : {
+					required : true
+				},
+				hargaJualResep : {
+					required : true
+				},
+				hargaBeli : {
+					required : true
+				},
+				tanggalExpired : {
+					required : true
+				},
+				stok : {
+					required : true,
+					number : true
+				},
+			},
+			messages : {
+				nama : "Masukkan Nama",
+				kode : "Masukkan Kode",
+				satuan : {
+					required : "Pilih Satuan",
+					remote : "Satuan Tidak Ada, tambahkan pada Data Master"
+				},
+				kategori : {
+					required : "Pilih Kategori",
+					remote : "Kategori Tidak Ada, tambahkan pada Data Master"
+				},
+				stokMinimal : {
+					required : "Masukkan Stok Minimal",
+					number : "Masukkan Angka dengan Benar",
+					min : "Masukkan Lebih dari 0"
+				},
+				hargaJual : {
+					required : "Masukkan Harga Jual Obat",
+					number : "Masukkan Angka dengan Benar",
+					min : "Masukkan Lebih dari 0"
+				},
+				hargaJualResep : {
+					required : "Masukkan Harga Jual Resep Obat",
+					number : "Masukkan Angka dengan Benar",
+					min : "Masukkan Lebih dari 0"
+				},
+				hargaBeli : {
+					required : "Masukkan Harga Beli Obat",
+					number : "Masukkan Angka dengan Benar",
+					min : "Masukkan Lebih dari 0"
+				},
+				stok : {
+					required : "Stok Obat Tidak Boleh Kosong",
+					number : "Masukkan Angka dengan Benar"
+				},
+				tanggalExpired : "Tentukan Tanggal Expire Obat",
+			},
+			submitHandler : function(form) {
+				var data = {};
+				data = setObatData(data);
+				if (state == 0){
+					$.postJSON('${tambahUrl}', data, function() {
+						$('#gritter-tambah-sukses').click();
+						$('.btnKeluar').click();
+						reset();
+						refresh();
+					}, function() {
+						$('#gritter-tambah-gagal').click();
+					});	
+				} else if (state == 1){
+					$.postJSON('${editUrl}', data, function() {
+						$('#gritter-edit-sukses').click();
+						$('.btnKeluar').click();
+						reset();
+						refresh();
+					}, function() {
+						$('#gritter-tambah-gagal').click();
+					});
+				}
+				state = 1;
+			}
+		});
+
+		$(".formHapus").submit(function(e) {
+			e.preventDefault();
+			var str = {};
+			str['id'] = $('#hapusId').val();
+			$.postJSON('${hapusUrl}', str, function(result) {
+				refresh();
+				$('#keluarModalHapus').click();
+				$('#gritter-hapus-sukses').click();
+			}, function(e) {
+				$('#gritter-hapus-sukses').click();
+				$('#keluarModalHapus').click();
+				refresh();
+			});
+		});
+
+		setAutoComplete('#kategori', '${kategoriSemua}');
+		setAutoComplete('#satuan', '${satuanSemua}');
+// 		setAutoComplete('#editKategori', '${kategoriSemua}');
+// 		setAutoComplete('#editSatuan', '${satuanSemua}');
+
+		setMaskingUang("#hargaJual");
+		setMaskingUang("#hargaJualResep");
+		setMaskingUang("#hargaBeli");
+		setMaskingUang("#hargaDiskon");
+
+// 		setMaskingUang("#editHargaJual");
+// 		setMaskingUang("#editHargaJualResep");
+// 		setMaskingUang("#editHargaBeli");
+// 		setMaskingUang("#editHargaDiskon");
+	});
+
 	function getData(ids) {
+		reset();
 		var data = {
 			id : ids
 		};
+		
 		$.getAjax('${dapatkanUrl}', data, function(obat) {
-			$('#editNama').val(obat.nama);
-			$('#editBarcode').val(obat.barcode);
-			$('#editBatch').val(obat.batch);
-			$('#editKode').val(obat.kode);
-			$('#editSatuan').val(obat.satuan.nama);
-			$('#editKategori').val(obat.kategori.nama);
-			$('#editStokMinimal').val(obat.stokMinimal);
-			$('#editHargaJual').val(obat.detail[0].hargaJual);
-			$('#editHargaJualResep').val(obat.detail[0].hargaJualResep);
-			$('#editHargaBeli').val(obat.detail[0].hargaBeli);
-			$('#editHargaDiskon').val(obat.detail[0].hargaDiskon);
-			$('#editStok').val(obat.stok[0].stok);
-			$('#editTanggalExpired').val(
+			$('#ids').val(ids);
+			$('#nama').val(obat.nama);
+			$('#barcode').val(obat.barcode);
+			$('#batch').val(obat.batch);
+			$('#kode').val(obat.kode);
+			$('#satuan').val(obat.satuan.nama);
+			$('#kategori').val(obat.kategori.nama);
+			$('#stokMinimal').val(obat.stokMinimal);
+			$('#hargaJual').val(obat.detail[0].hargaJual);
+			$('#hargaJualResep').val(obat.detail[0].hargaJualResep);
+			$('#hargaBeli').val(obat.detail[0].hargaBeli);
+			$('#hargaDiskon').val(obat.detail[0].hargaDiskon);
+			$('#stok').val(obat.stok[0].stok);
+			$('#tanggalExpired').val(
 					dateFormat(obat.expired[0].tanggalExpired, 'dd-mm-yyyy'));
-			$('#editId').val(ids);
-			$("#editHargaJual").maskMoney('mask');
-			$("#editHargaJualResep").maskMoney('mask');
-			$("#editHargaBeli").maskMoney('mask');
-			$("#editHargaDiskon").maskMoney('mask');
+			
+			$("#hargaJual").maskMoney('mask');
+			$("#hargaJualResep").maskMoney('mask');
+			$("#hargaBeli").maskMoney('mask');
+			$("#hargaDiskon").maskMoney('mask');
 		}, null);
+		console.log($('#ids').val());
 	}
 
 	function setIdUntukHapus(ids) {
@@ -395,276 +441,41 @@
 			$('#nav').append(result.navigasiHalaman);
 		}, null);
 	}
+	
+	function setObatData(data){
+		if ($('#ids').val() != null && $('#ids').val() != ''){
+			data['id'] = $('#ids').val();	
+		}	
+		data['nama'] = $('#nama').val();
+		data['kode'] = $('#kode').val();
+		data['barcode'] = $('#barcode').val();
+		data['batch'] = $('#batch').val();
+		data['satuan'] = $('#satuan').val();
+		data['kategori'] = $('#kategori').val();
+		data['stokMinimal'] = $('#stokMinimal').val();
+		data['hargaJual'] = $('#hargaJual').val();
+		data['hargaJualResep'] = $('#hargaJualResep').val();
+		data['hargaBeli'] = $('#hargaBeli').val();
+		data['hargaDiskon'] = $('#gargaDiskon').val();
+		data['stok'] = $('#stok').val();
+		data['tanggalExpired'] = $('#tanggalExpired').val();
+		return data;
+	}
 
-	$(document).ready(function() {
-		refresh(1, '');
-
-		$('#btnCari').click(function() {
-			refresh(1, $('#stringCari').val());
-		});
-
-		$(".formTambah").validate({
-			rules : {
-				nama : {
-					required : true
-				},
-				kode : {
-					required : true
-				},
-				satuan : {
-					required : true,
-					remote : {
-						url : "${satuanAda}",
-						type : "get",
-						data : {
-							nama : function() {
-								return $("#tambahSatuan").val();
-							}
-						}
-					},
-				},
-				kategori : {
-					required : true,
-					remote : {
-						url : "${kategoriAda}",
-						type : "get",
-						data : {
-							nama : function() {
-								return $("#tambahKategori").val();
-							}
-						}
-					},
-				},
-				stokMinimal : {
-					required : true,
-					number : true,
-					min : 1
-				},
-				hargaJual : {
-					required : true
-				},
-				hargaJualResep : {
-					required : true
-				},
-				hargaBeli : {
-					required : true
-				},
-				tanggalExpired : {
-					required : true
-				},
-				stok : {
-					required : true,
-					number : true
-				},
-			},
-			messages : {
-				nama : "Masukkan Nama",
-				kode : "Masukkan Kode",
-				satuan : {
-					required : "Pilih Satuan",
-					remote : "Satuan Tidak Ada, tambahkan pada Data Master"
-				},
-				kategori : {
-					required : "Pilih Kategori",
-					remote : "Kategori Tidak Ada, tambahkan pada Data Master"
-				},
-				stokMinimal : {
-					required : "Masukkan Stok Minimal",
-					number : "Masukkan Angka dengan Benar",
-					min : "Masukkan Lebih dari 0"
-				},
-				hargaJual : {
-					required : "Masukkan Harga Jual Obat",
-					number : "Masukkan Angka dengan Benar",
-					min : "Masukkan Lebih dari 0"
-				},
-				hargaJualResep : {
-					required : "Masukkan Harga Jual Resep Obat",
-					number : "Masukkan Angka dengan Benar",
-					min : "Masukkan Lebih dari 0"
-				},
-				hargaBeli : {
-					required : "Masukkan Harga Beli Obat",
-					number : "Masukkan Angka dengan Benar",
-					min : "Masukkan Lebih dari 0"
-				},
-				stok : {
-					required : "Stok Obat Tidak Boleh Kosong",
-					number : "Masukkan Angka dengan Benar"
-				},
-				tanggalExpired : "Tentukan Tanggal Expire Obat",
-			},
-			submitHandler : function(form) {
-				var data = {};
-				data['nama'] = $('#tambahNama').val();
-				data['kode'] = $('#tambahKode').val();
-				data['barcode'] = $('#tambahBarcode').val();
-				data['batch'] = $('#tambahBatch').val();
-				data['satuan'] = $('#tambahSatuan').val();
-				data['kategori'] = $('#tambahKategori').val();
-				data['stokMinimal'] = $('#tambahStokMinimal').val();
-				data['hargaJual'] = $('#tambahHargaJual').val();
-				data['hargaJualResep'] = $('#tambahHargaJualResep').val();
-				data['hargaBeli'] = $('#tambahHargaBeli').val();
-				data['hargaDiskon'] = $('#tambahHargaDiskon').val();
-				data['stok'] = $('#tambahStok').val();
-				data['tanggalExpired'] = $('#tambahTanggalExpired').val();
-				$.postJSON('${tambahUrl}', data, function() {
-					$('#gritter-tambah-sukses').click();
-					$('.btnKeluar').click();
-					$('#tambahNama').val('');
-					refresh();
-				}, function() {
-					$('#gritter-tambah-gagal').click();
-				});
-			}
-		});
-
-		$(".formEdit").validate({
-			rules : {
-				nama : {
-					required : true
-				},
-				kode : {
-					required : true
-				},
-				satuan : {
-					required : true,
-					remote : {
-						url : "${satuanAda}",
-						type : "get",
-						data : {
-							nama : function() {
-								return $("#editSatuan").val();
-							}
-						}
-					},
-				},
-				kategori : {
-					required : true,
-					remote : {
-						url : "${kategoriAda}",
-						type : "get",
-						data : {
-							nama : function() {
-								return $("#editKategori").val();
-							}
-						}
-					},
-				},
-				stokMinimal : {
-					required : true,
-					number : true,
-					min : 1
-				},
-				hargaJual : {
-					required : true
-				},
-				hargaJualResep : {
-					required : true
-				},
-				hargaBeli : {
-					required : true
-				},
-				tanggalExpired : {
-					required : true
-				},
-				stok : {
-					required : true,
-					number : true
-				},
-			},
-			messages : {
-				nama : "Masukkan Nama",
-				kode : "Masukkan Kode",
-				satuan : {
-					required : "Pilih Satuan",
-					remote : "Satuan Tidak Ada, tambahkan pada Data Master"
-				},
-				kategori : {
-					required : "Pilih Kategori",
-					remote : "Kategori Tidak Ada, tambahkan pada Data Master"
-				},
-				stokMinimal : {
-					required : "Masukkan Stok Minimal",
-					number : "Masukkan Angka dengan Benar",
-					min : "Masukkan Lebih dari 0"
-				},
-				hargaJual : {
-					required : "Masukkan Harga Jual Obat",
-					number : "Masukkan Angka dengan Benar",
-					min : "Masukkan Lebih dari 0"
-				},
-				hargaJualResep : {
-					required : "Masukkan Harga Jual Resep Obat",
-					number : "Masukkan Angka dengan Benar",
-					min : "Masukkan Lebih dari 0"
-				},
-				hargaBeli : {
-					required : "Masukkan Harga Beli Obat",
-					number : "Masukkan Angka dengan Benar",
-					min : "Masukkan Lebih dari 0"
-				},
-				stok : {
-					required : "Stok Obat Tidak Boleh Kosong",
-					number : "Masukkan Angka dengan Benar"
-				},
-				tanggalExpired : "Tentukan Tanggal Expire Obat",
-			},
-			submitHandler : function(form) {
-				var data = {};
-				data['nama'] = $('#editNama').val();
-				data['kode'] = $('#editKode').val();
-				data['barcode'] = $('#editBarcode').val();
-				data['batch'] = $('#editBatch').val();
-				data['satuan'] = $('#editSatuan').val();
-				data['kategori'] = $('#editKategori').val();
-				data['stokMinimal'] = $('#editStokMinimal').val();
-				data['hargaJual'] = $('#editHargaJual').val();
-				data['hargaJualResep'] = $('#editHargaJualResep').val();
-				data['hargaBeli'] = $('#editHargaBeli').val();
-				data['hargaDiskon'] = $('#editHargaDiskon').val();
-				data['stok'] = $('#editStok').val();
-				data['tanggalExpired'] = $('#editTanggalExpired').val();
-				data['id'] = $('#editId').val();
-				$.postJSON('${editUrl}', data, function() {
-					$('#gritter-edit-sukses').click();
-					$('.btnKeluar').click();
-					refresh();
-				}, function() {
-					$('#gritter-edit-gagal').click();
-				});
-			}
-		});
-
-		$(".formHapus").submit(function(e) {
-			e.preventDefault();
-			var str = {};
-			str['id'] = $('#hapusId').val();
-			$.postJSON('${hapusUrl}', str, function(result) {
-				refresh();
-				$('#keluarModalHapus').click();
-				$('#gritter-hapus-sukses').click();
-			}, function(e) {
-				$('#gritter-hapus-sukses').click();
-				$('#keluarModalHapus').click();
-				refresh();
-			});
-		});
-
-		setAutoComplete('#tambahKategori', '${kategoriSemua}');
-		setAutoComplete('#tambahSatuan', '${satuanSemua}');
-		setAutoComplete('#editKategori', '${kategoriSemua}');
-		setAutoComplete('#editSatuan', '${satuanSemua}');
-
-		setMaskingUang("#tambahHargaJual");
-		setMaskingUang("#tambahHargaJualResep");
-		setMaskingUang("#tambahHargaBeli");
-		setMaskingUang("#tambahHargaDiskon");
-
-		setMaskingUang("#editHargaJual");
-		setMaskingUang("#editHargaJualResep");
-		setMaskingUang("#editHargaBeli");
-		setMaskingUang("#editHargaDiskon");
-	});
+	function reset() {
+		$('#nama').val('');
+		$('#kode').val('');
+		$('#barcode').val('');
+		$('#batch').val('');
+		$('#satuan').val('');
+		$('#kategori').val('');
+		$('#stokMinimal').val('0');
+		$('#hargaJual').val('0');
+		$('#hargaJualResep').val('0');
+		$('#hargaBeli').val('0');
+		$('#hargaDiskon').val('0');
+		$('#stok').val('0');
+		$('#tanggalExpired').val('0');
+		$('#ids').val('');
+	}
 </script>

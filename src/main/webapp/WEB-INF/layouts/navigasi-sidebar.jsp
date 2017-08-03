@@ -51,7 +51,7 @@
 			</a>
 			<ul class="sub">
 				<li><a href="<spring:url value="/daftarpengguna" />">Pengguna</a></li>
-				<li><a href="<spring:url value="/role" />">Role</a></li>
+<%-- 				<li><a href="<spring:url value="/role" />">Role</a></li> --%>
 			</ul>
 		</li>
 		</security:authorize>

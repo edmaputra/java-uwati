@@ -159,7 +159,6 @@ public class SatuanController {
 		}
 	}
 
-	@Transactional
 	@RequestMapping(value = "/tambah", method = RequestMethod.POST)
 	@ResponseBody
 	public Satuan tambahSatuan(@RequestBody Satuan satuan, BindingResult result, Principal principal,
@@ -178,7 +177,6 @@ public class SatuanController {
 		}
 	}
 
-	@Transactional
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	@ResponseBody
 	public Satuan editSatuan(@RequestBody Satuan satuan, BindingResult result, Principal principal,
@@ -199,7 +197,6 @@ public class SatuanController {
 		}
 	}
 
-	@Transactional
 	@RequestMapping(value = "/hapus", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String hapusSatuan(@RequestBody Satuan satuan, BindingResult result, Principal principal,

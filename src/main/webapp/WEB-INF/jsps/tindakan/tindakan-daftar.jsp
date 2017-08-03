@@ -148,7 +148,7 @@
 		});
 
 		$('.btnTambah').click(function() {
-			state = 0;
+			state = 0;			
 		});
 
 		$('.btnEdit').click(function() {
@@ -225,7 +225,7 @@
 		$.getAjax('${dapatkan}', data, function(result) {
 			$('#nama').val(result.nama);
 			$('#kode').val(result.kode);
-			$('#tarif').val(result.tarif);
+			$('#tarif').val(result.detail[0].hargaJual);
 			$('#info').val(result.info);
 			$('#ids').val(ids);
 		}, null);

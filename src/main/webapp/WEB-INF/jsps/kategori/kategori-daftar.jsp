@@ -16,7 +16,7 @@
 				<div class="row">
 					<div class="col-md-2 ">
 						<security:authorize access="hasAnyRole('ADMIN')">
-							<button class="btn btn-primary" data-toggle="modal"
+							<button class="btn btn-primary btnTambah" data-toggle="modal"
 								data-target="#kategori-modal">Kategori Baru</button>
 						</security:authorize>
 					</div>
@@ -146,39 +146,19 @@
 
 
 <script>
-	function getData(ids) {
-		var data = {
-			id : ids
-		};
-		$.getAjax('${dapatkanUrl}', data, function(result) {
-			$('#editNama').val(result.nama);
-			$('#editId').val(ids);
-		}, null);
-	}
-
-	function setIdUntukHapus(ids) {
-		$('#hapusId').val(ids);
-	}
-
-	function refresh(halaman, find) {
-		var data = {
-			hal : halaman,
-			cari : find
-		};
-
-		$.getAjax('${daftarUrl}', data, function(result) {
-			$('#tabelCoba').empty();
-			$('#tabelCoba').append(result.tabel);
-			$('#nav').empty();
-			$('#nav').append(result.navigasiHalaman);
-		}, null);
-	}
-
 	$(document).ready(function() {
 		refresh(1, '');
 
 		$('#btnCari').click(function() {
 			refresh(1, $('#stringCari').val());
+		});
+		
+		$('.btnTambah').click(function() {
+			reset();
+		});
+		
+		$('.btnEdit').click(function() {
+			reset();
 		});
 
 		$(".formTambah").validate({
@@ -242,4 +222,38 @@
 			});
 		});
 	});
+	
+	function getData(ids) {
+		var data = {
+			id : ids
+		};
+		$.getAjax('${dapatkanUrl}', data, function(result) {
+			$('#editNama').val(result.nama);
+			$('#editId').val(ids);
+		}, null);
+	}
+
+	function setIdUntukHapus(ids) {
+		$('#hapusId').val(ids);
+	}
+
+	function refresh(halaman, find) {
+		var data = {
+			hal : halaman,
+			cari : find
+		};
+
+		$.getAjax('${daftarUrl}', data, function(result) {
+			$('#tabelCoba').empty();
+			$('#tabelCoba').append(result.tabel);
+			$('#nav').empty();
+			$('#nav').append(result.navigasiHalaman);
+		}, null);
+	}
+	
+	function reset(){
+		$('#tambahNama').val('');
+		$('#editNama').val('');		
+		$('#editId').val('');
+	}
 </script>

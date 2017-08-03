@@ -16,7 +16,7 @@
 				<div class="row">
 					<div class="col-md-2 ">
 						<security:authorize access="hasAnyRole('ADMIN')">
-							<button class="btn btn-primary" data-toggle="modal"
+							<button class="btn btn-primary btnTambah" data-toggle="modal"
 								data-target="#dokter-modal">Karyawan Baru</button>
 						</security:authorize>
 					</div>
@@ -62,7 +62,7 @@
 							<div class="col-md-8">
 								<div class="form-group">
 									<label>Nama:</label>
-									<input type="text" name="nama" class="form-control" id="tambahNama" autocomplete="off"  />									
+									<input type="text" name="nama" class="form-control" id="nama" autocomplete="off"  />									
 								</div>
 							</div>
 						</div>
@@ -70,13 +70,13 @@
 							<div class="col-md-5">
 								<div class="form-group">
 									<label>Jabatan:</label>
-									<input type="text" name="jabatan" class="form-control" id="tambahJabatan" autocomplete="off"  />
+									<input type="text" name="jabatan" class="form-control" id="jabatan" autocomplete="off"  />
 								</div>
 							</div>
 							<div class="col-md-7">
 								<div class="form-group">
 									<label>Spesialis:</label>
-									<input type="text" name="spesialis" class="form-control" id="tambahSpesialis" autocomplete="off"  />
+									<input type="text" name="spesialis" class="form-control" id="spesialis" autocomplete="off"  />
 								</div>
 							</div>
 						</div>
@@ -84,7 +84,7 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<label>SIP:</label>
-									<input type="text" name="sip" class="form-control" id="tambahSip" autocomplete="off"  />										
+									<input type="text" name="sip" class="form-control" id="sip" autocomplete="off"  />										
 								</div>
 							</div>
 						</div>
@@ -92,9 +92,9 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<label>Alamat:</label>
-									<input type="text" name="alamat" class="form-control" id="tambahAlamat" autocomplete="off"  />
+									<input type="text" name="alamat" class="form-control" id="alamat" autocomplete="off"  />
 								</div>
-								<input type="hidden" name="id" class="form-control" id="tambahId" autocomplete="off"  />								
+								<input type="hidden" name="id" class="form-control" id="ids" autocomplete="off"  />								
 							</div>
 						</div>
 					</div>
@@ -109,68 +109,6 @@
 	</div>
 </div>
 
-<div class="modal fade" id="dokter-modal-edit" tabindex="-1"
-	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog ">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Edit Karyawan</h4>
-			</div>
-			<form class="form style-form formEdit" method="post">
-				<div class="form-panel">
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-md-8">
-								<div class="form-group">
-									<label>Nama:</label>
-									<input type="text" name="nama" class="form-control" id="editNama" autocomplete="off"  />
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-5">
-								<div class="form-group">
-									<label>Jabatan:</label>
-									<input type="text" name="jabatan" class="form-control" id="editJabatan" autocomplete="off"  />									
-								</div>
-							</div>
-							<div class="col-md-7">
-								<div class="form-group">
-									<label>Spesialis:</label>
-									<input type="text" name="spesialis" class="form-control" id="editSpesialis" autocomplete="off"  />									
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group">
-									<label>SIP:</label>
-									<input type="text" name="sip" class="form-control" id="editSip" autocomplete="off"  />
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group">
-									<label>Alamat:</label>
-									<input type="text" name="alamat" class="form-control" id="editAlamat" autocomplete="off"  />
-								</div>submitHandler : function(form) {
-								<input type="hidden" name="id" class="form-control" id="editId" autocomplete="off"  />							
-							</div>
-						</div>						
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default btnKeluar"
-						data-dismiss="modal">Keluar</button>
-					<input type="submit" class="btn btn-primary" value="Simpan" />
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
 
 <div class="modal fade" id="dokter-modal-hapus" tabindex="-1"
 	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -204,38 +142,22 @@
 
 
 <script>
-	function getData(ids) {
-		var data = {id:ids};		
-		$.getAjax('${dapatkanUrl}', data, function(result) {
-			$('#editNama').val(result.nama);
-			$('#editSpesialis').val(result.spesialis);
-			$('#editSip').val(result.sip);
-			$('#editAlamat').val(result.alamat);
-			$('#editJabatan').val(result.jabatan);
-			$('#editId').val(ids);
-		}, null);
-	}
-
-	function setIdUntukHapus(ids) {
-		$('#hapusId').val(ids);
-	}
-
-	function refresh(halaman, find) {
-		var data = { hal : halaman, cari : find };
-
-		$.getAjax('${daftarUrl}', data, function(result) {
-			$('#tabel').empty();
-			$('#tabel').append(result.tabel);
-			$('#nav').empty();
-			$('#nav').append(result.navigasiHalaman);
-		}, null);
-	}
-
+var state = 1;
 	$(document).ready(function() {
 		refresh(1, '');
 
 		$('#btnCari').click(function() {
 			refresh(1, $('#stringCari').val());
+		});
+		
+		$('.btnTambah').click(function() {
+			reset();
+			state = 0;
+		});
+		
+		$('.btnEdit').click(function() {
+			reset();
+			state = 1;
 		});
 
 		$(".formTambah").validate({
@@ -253,53 +175,28 @@
 			},
 			submitHandler : function(form) {
 				var data = {};
-				data['nama'] = $('#tambahNama').val();
-				data['spesialis'] = $('#tambahSpesialis').val();
-				data['sip'] = $('#tambahSip').val();
-				data['alamat'] = $('#tambahAlamat').val();
-				data['jabatan'] = $('#tambahJabatan').val();
-				$.postJSON('${tambahUrl}', data, function() {
-					$('#gritter-tambah-sukses').click();
-					$('.btnKeluar').click();
-					$('#tambahNama').val('');
-					$('#tambahSpesialis').val('');
-					$('#tambahSip').val('');
-					$('#tambahAlamat').val('');
-					refresh();
-				}, function() {
-					$('#gritter-tambah-gagal').click();
-				});
-			}
-		});
-
-		$(".formEdit").validate({
-			rules : {
-				nama : {
-					required : true
-				},
-				jabatan : {
-					required : true
+				data = setContent(data);
+				if (state == 0){
+					$.postJSON('${tambahUrl}', data, function() {
+						$('#gritter-tambah-sukses').click();
+						$('.btnKeluar').click();
+						reset();
+						refresh();
+					}, function() {
+						$('#gritter-tambah-gagal').click();
+					});	
+				} else if (state == 1){
+					$.postJSON('${editUrl}', data, function() {
+						$('#gritter-edit-sukses').click();
+						$('.btnKeluar').click();
+						reset();
+						refresh();
+					}, function() {
+						$('#gritter-edit-gagal').click();
+					});
 				}
-			},
-			messages : {
-				nama : "Nama Wajib Diisi",
-				jabatan : "Jabatan Wajib Diisi"
-			},
-			submitHandler : function(form) {
-				var data = {};
-				data['id'] = $('#editId').val();
-				data['spesialis'] = $('#editSpesialis').val();
-				data['nama'] = $('#editNama').val();
-				data['sip'] = $('#editSip').val();
-				data['alamat'] = $('#editAlamat').val();
-				data['jabatan'] = $('#editJabatan').val();
-				$.postJSON('${editUrl}', data, function() {
-					$('#gritter-edit-sukses').click();
-					$('.btnKeluar').click();
-					refresh();
-				}, function() {
-					$('#gritter-edit-gagal').click();
-				});
+				state = 1;
+				
 			}
 		});
 
@@ -317,6 +214,53 @@
 				refresh();
 			});
 		});
-
 	});
+	
+	function getData(ids) {
+		var data = {id:ids};		
+		$.getAjax('${dapatkanUrl}', data, function(result) {
+			$('#nama').val(result.nama);
+			$('#spesialis').val(result.spesialis);
+			$('#sip').val(result.sip);
+			$('#alamat').val(result.alamat);
+			$('#jabatan').val(result.jabatan);
+			$('#ids').val(ids);
+		}, null);
+	}
+
+	function setIdUntukHapus(ids) {
+		$('#hapusId').val(ids);
+	}
+
+	function refresh(halaman, find) {
+		var data = { hal : halaman, cari : find };
+
+		$.getAjax('${daftarUrl}', data, function(result) {
+			$('#tabel').empty();
+			$('#tabel').append(result.tabel);
+			$('#nav').empty();
+			$('#nav').append(result.navigasiHalaman);
+		}, null);
+	}
+	
+	function setContent(data){
+		if ($('#ids').val() != null && $('#ids').val() != ''){
+			data['id'] = $('#ids').val();	
+		}
+		data['nama'] = $('#nama').val();
+		data['spesialis'] = $('#spesialis').val();
+		data['sip'] = $('#sip').val();
+		data['alamat'] = $('#alamat').val();
+		data['jabatan'] = $('#jabatan').val();
+		return data;
+	}
+	
+	function reset(){
+		$('#nama').val('');
+		$('#spesialis').val('');
+		$('#sip').val('');
+		$('#jabatan').val('');
+		$('#ids').val('');
+		$('#alamat').val('');
+	}
 </script>

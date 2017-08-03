@@ -153,7 +153,7 @@ public class ObatController {
 		}
 	}
 
-	@Transactional
+	
 	@RequestMapping(value = "/tambah", method = RequestMethod.POST)
 	@ResponseBody
 	public Obat tambahObat(@RequestBody ObatHandler h, BindingResult result, Principal principal,
@@ -201,7 +201,7 @@ public class ObatController {
 		}
 	}
 
-	@Transactional
+	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	@ResponseBody
 	public Obat editObat(@RequestBody ObatHandler h, BindingResult result, Principal principal,
@@ -250,7 +250,7 @@ public class ObatController {
 		}
 	}
 
-	@Transactional
+	
 	@RequestMapping(value = "/hapus", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Obat hapusObat(@RequestBody ObatHandler h, BindingResult result, Principal principal,
@@ -367,7 +367,7 @@ public class ObatController {
 				row += Html.td(o.getUserEditor());
 				row += Html.td(Formatter.formatTanggal(o.getTerakhirDirubah()));
 
-				btn = Html.button("btn btn-primary btn-xs btnEdit", "modal", "#obat-modal-edit", "onClick",
+				btn = Html.button("btn btn-primary btn-xs btnEdit", "modal", "#obat-modal", "onClick",
 						"getData(" + o.getId() + ")", 0);
 
 				btn += Html.button("btn btn-danger btn-xs", "modal", "#obat-modal-hapus", "onClick",

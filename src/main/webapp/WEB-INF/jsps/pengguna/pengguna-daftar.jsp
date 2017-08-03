@@ -293,7 +293,14 @@
 
 		$('#button-baru').click(function() {
 			clear();
+			clearEdit();
 		});
+		
+		$('.btnEdit').click(function() {
+			clear();
+			clearEdit();
+		});
+
 
 		$("#tambah-pengguna").validate({
 			rules : {

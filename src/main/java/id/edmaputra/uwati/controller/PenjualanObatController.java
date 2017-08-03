@@ -246,7 +246,9 @@ public class PenjualanObatController {
 
 				penjualanDetailValidator.validate(penjualanDetail);
 				listPenjualanDetail.add(penjualanDetail);
-				updateStokObat(obat, jumlah, 0);
+				if (obat.getTipe() == 0 || obat.getTipe() == 1){
+					updateStokObat(obat, jumlah, 0);
+				}				
 			}
 			penjualan.setPenjualanDetail(listPenjualanDetail);
 
@@ -348,7 +350,9 @@ public class PenjualanObatController {
 				
 				penjualanDetailValidator.validate(penjualanDetail);
 				listPenjualanDetail.add(penjualanDetail);				
-				updateStokObat(obat, jumlah, 0);
+				if (obat.getTipe() == 0 || obat.getTipe() == 1){
+					updateStokObat(obat, jumlah, 0);
+				}
 			}
 
 			penjualan.setPenjualanDetail(listPenjualanDetail);

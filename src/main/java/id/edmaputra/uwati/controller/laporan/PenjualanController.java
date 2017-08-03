@@ -246,7 +246,7 @@ public class PenjualanController {
 			row += Html.td(Table.nullCell(p.getDokter()));
 			row += Html.td(Formatter.patternCurrency(p.getGrandTotal()));
 			btn = Html.button("btn btn-primary btn-xs btnEdit", "modal", "#penjualan-modal", "onClick", "getData(" + p.getId() + ")", 0, "Detail Penjualan "+p.getNomorFaktur());
-			btn += Html.button("btn btn-danger btn-xs", "modal", "#penjualan-modal-hapus", "onClick", "setIdUntukHapus(" + p.getId() + ")", 1);
+//			btn += Html.button("btn btn-danger btn-xs", "modal", "#penjualan-modal-hapus", "onClick", "setIdUntukHapus(" + p.getId() + ")", 1);
 			
 			row += Html.td(btn);
 			data += Html.tr(row);

@@ -196,10 +196,12 @@
 		});
 
 		$('.btnTambah').click(function() {
+			reset();
 			state = 0;
 		});
 
 		$('.btnEdit').click(function() {
+			reset();
 			state = 1;
 		});
 

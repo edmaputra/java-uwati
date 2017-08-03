@@ -145,7 +145,6 @@ public class KaryawanController {
 		}
 	}
 
-	@Transactional
 	@RequestMapping(value = "/tambah", method = RequestMethod.POST)
 	@ResponseBody
 	public Karyawan tambahKaryawan(@RequestBody Karyawan karyawan, BindingResult result, Principal principal,
@@ -165,7 +164,6 @@ public class KaryawanController {
 		}
 	}
 
-	@Transactional
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	@ResponseBody
 	public Karyawan editKaryawan(@RequestBody Karyawan karyawan, BindingResult result, Principal principal,
@@ -189,8 +187,7 @@ public class KaryawanController {
 			return null;
 		}
 	}
-
-	@Transactional
+	
 	@RequestMapping(value = "/hapus", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String hapusKaryawan(@RequestBody Karyawan karyawan, BindingResult result, Principal principal,
@@ -258,7 +255,7 @@ public class KaryawanController {
 				row += Html.td(d.getUserEditor());
 				row += Html.td(Formatter.formatTanggal(d.getTerakhirDirubah()));
 
-				btn = Html.button("btn btn-primary btn-xs btnEdit", "modal", "#dokter-modal-edit", "onClick",
+				btn = Html.button("btn btn-primary btn-xs btnEdit", "modal", "#dokter-modal", "onClick",
 						"getData(" + d.getId() + ")", 0);
 
 				btn += Html.button("btn btn-danger btn-xs", "modal", "#dokter-modal-hapus", "onClick",

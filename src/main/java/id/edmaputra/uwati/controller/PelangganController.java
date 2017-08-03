@@ -95,7 +95,6 @@ public class PelangganController {
 		}
 	}
 
-	@Transactional
 	@RequestMapping(value = "/dapatkan", method = RequestMethod.GET)
 	@ResponseBody
 	public Pelanggan dapatkanPelanggan(@RequestParam("id") String dokter) {
@@ -108,7 +107,6 @@ public class PelangganController {
 		}
 	}
 
-	@Transactional
 	@RequestMapping(value = "/tambah", method = RequestMethod.POST)
 	@ResponseBody
 	public Pelanggan tambahPelanggan(@RequestBody Pelanggan pelanggan, BindingResult result, Principal principal,
@@ -127,7 +125,6 @@ public class PelangganController {
 		}
 	}
 
-	@Transactional
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	@ResponseBody
 	public Pelanggan editPelanggan(@RequestBody Pelanggan pelanggan, BindingResult result, Principal principal,

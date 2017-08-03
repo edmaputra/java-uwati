@@ -152,7 +152,6 @@ public class KategoriController {
 		}
 	}
 
-	@Transactional
 	@RequestMapping(value = "/tambah", method = RequestMethod.POST)
 	@ResponseBody
 	public Kategori tambahKategori(@RequestBody Kategori kategori, BindingResult result, Principal principal,
@@ -170,8 +169,7 @@ public class KategoriController {
 			return null;
 		}
 	}
-
-	@Transactional
+	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	@ResponseBody
 	public Kategori editKategori(@RequestBody Kategori kategori, BindingResult result, Principal principal,
@@ -192,7 +190,6 @@ public class KategoriController {
 		}
 	}
 
-	@Transactional
 	@RequestMapping(value = "/hapus", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String hapusKategori(@RequestBody Kategori kategori, BindingResult result, Principal principal,

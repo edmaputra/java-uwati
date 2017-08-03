@@ -821,7 +821,7 @@ public class RekamMedisController {
 			if (rm.getIsResepSudahDiproses() == false){
 				btn += Html.button("btn btn-primary btn-xs btnEdit", "modal", "#resep-modal", "onClick", "getData(" + rm.getId() + ","+STAT_PENJUALAN_RESEP+")", 3, "Proses Pembayaran");
 			}
-			btn += Html.button("btn btn-default btn-xs", null, null, "onClick", "cetakResep(" + rm.getId() +")", 4, "Cetak Resep");
+//			btn += Html.button("btn btn-default btn-xs", null, null, "onClick", "cetakResep(" + rm.getId() +")", 4, "Cetak Resep");
 			row += Html.td(btn);
 			data += Html.tr(row);
 		}

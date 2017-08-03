@@ -127,7 +127,7 @@ public class TindakanController {
 	@ResponseBody
 	public Obat dapatkanEntity(@RequestParam("id") String tindakan) {
 		try {
-			Obat get = obatService.dapatkan(Long.valueOf(tindakan));
+			Obat get = getObat(Long.valueOf(tindakan));
 			return get;
 		} catch (Exception e) {
 			logger.info(e.getMessage());
@@ -140,8 +140,7 @@ public class TindakanController {
 	public Boolean isAda(@RequestParam("nama") String nama) {
 		return obatService.dapatkanByNama(nama) != null;
 	}
-
-	@Transactional
+	
 	@RequestMapping(value = "/tambah", method = RequestMethod.POST)
 	@ResponseBody
 	public Obat tambah(@RequestBody TindakanHandler h, BindingResult result, Principal principal,
@@ -187,8 +186,7 @@ public class TindakanController {
 			return null;
 		}
 	}
-
-	@Transactional
+	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	@ResponseBody
 	public Obat edit(@RequestBody TindakanHandler tindakan, BindingResult result, Principal principal,
@@ -236,8 +234,7 @@ public class TindakanController {
 			return null;
 		}
 	}
-
-	@Transactional
+	
 	@RequestMapping(value = "/hapus", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Obat hapus(@RequestBody TindakanHandler tindakan, BindingResult result, Principal principal,
@@ -277,10 +274,10 @@ public class TindakanController {
 				row += Html.td(o.getUserEditor());
 				row += Html.td(Formatter.formatTanggal(o.getTerakhirDirubah()));
 
-				btn = Html.button("btn btn-primary btn-xs btnEdit", "modal", "#obat-modal-edit", "onClick",
+				btn = Html.button("btn btn-primary btn-xs btnEdit", "modal", "#tindakan-modal", "onClick",
 						"getData(" + o.getId() + ")", 0);
 
-				btn += Html.button("btn btn-danger btn-xs", "modal", "#obat-modal-hapus", "onClick",
+				btn += Html.button("btn btn-danger btn-xs", "modal", "#tindakan-modal-hapus", "onClick",
 						"setIdUntukHapus(" + o.getId() + ")", 1);
 			}
 			row += Html.td(btn);

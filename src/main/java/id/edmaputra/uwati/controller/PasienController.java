@@ -127,7 +127,6 @@ public class PasienController {
 		return pasienService.dapatkanByIdentitas(identitas) == null;
 	}
 
-//	@Transactional
 	@RequestMapping(value = "/tambah", method = RequestMethod.POST)
 	@ResponseBody
 	public Pasien tambah(@RequestBody PasienHandler h, BindingResult result, Principal principal, HttpServletRequest request) {
@@ -152,8 +151,6 @@ public class PasienController {
 			return pasien;
 		}
 	}
-//
-//	@Transactional
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	@ResponseBody
 	public Pasien edit(@RequestBody PasienHandler h, BindingResult result, Principal principal,
@@ -178,8 +175,7 @@ public class PasienController {
 			return edit;
 		}
 	}
-//
-//	@Transactional
+	
 	@RequestMapping(value = "/hapus", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Pasien hapus(@RequestBody PasienHandler p, BindingResult result, Principal principal,
