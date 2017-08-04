@@ -150,10 +150,6 @@
 		$('.btnTambah').click(function() {
 			state = 0;			
 		});
-
-		$('.btnEdit').click(function() {
-			state = 1;			
-		});
 		
 		$('.btnKeluar').click(function() {
 			reset();			
@@ -198,7 +194,6 @@
 						$('#gritter-edit-gagal').click();
 					});
 				}
-				state = 1;
 			}
 		});
 
@@ -228,6 +223,7 @@
 			$('#tarif').val(result.detail[0].hargaJual);
 			$('#info').val(result.info);
 			$('#ids').val(ids);
+			state = 1;
 		}, null);
 	}
 

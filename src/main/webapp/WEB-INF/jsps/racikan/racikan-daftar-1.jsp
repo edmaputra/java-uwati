@@ -223,8 +223,7 @@ var state = 1;
 					}, function() {
 						$('#gritter-tambah-gagal').click();
 					});
-				}
-				state = 1;				
+				}			
 			}
 		});
 

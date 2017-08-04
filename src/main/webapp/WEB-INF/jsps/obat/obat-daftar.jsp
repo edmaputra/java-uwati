@@ -234,11 +234,11 @@
 		$('.btnTambah').click(function() {
 			state = 0;
 			reset();
-			console.log(state);
 		});
 		
 		$('.btnEdit').click(function() {
-			state = 1;			
+// 			state = 1;
+// 			console.log(state);
 		});
 		
 		$('.btnKeluar').click(function() {
@@ -358,7 +358,6 @@
 						$('#gritter-tambah-gagal').click();
 					});
 				}
-				state = 1;
 			}
 		});
 
@@ -394,6 +393,8 @@
 	});
 
 	function getData(ids) {
+		state = 1;
+		console.log(state);
 		reset();
 		var data = {
 			id : ids
@@ -475,7 +476,7 @@
 		$('#hargaBeli').val('0');
 		$('#hargaDiskon').val('0');
 		$('#stok').val('0');
-		$('#tanggalExpired').val('0');
+		$('#tanggalExpired').val('');
 		$('#ids').val('');
 	}
 </script>

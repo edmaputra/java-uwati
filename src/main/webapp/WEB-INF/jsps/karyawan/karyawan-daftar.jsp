@@ -155,10 +155,6 @@ var state = 1;
 			state = 0;
 		});
 		
-		$('.btnEdit').click(function() {
-			reset();
-			state = 1;
-		});
 
 		$(".formTambah").validate({
 			rules : {
@@ -194,9 +190,7 @@ var state = 1;
 					}, function() {
 						$('#gritter-edit-gagal').click();
 					});
-				}
-				state = 1;
-				
+				}				
 			}
 		});
 
@@ -217,6 +211,8 @@ var state = 1;
 	});
 	
 	function getData(ids) {
+		reset();
+		state = 1;
 		var data = {id:ids};		
 		$.getAjax('${dapatkanUrl}', data, function(result) {
 			$('#nama').val(result.nama);

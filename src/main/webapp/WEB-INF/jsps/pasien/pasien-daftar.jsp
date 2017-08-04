@@ -200,11 +200,6 @@
 			state = 0;
 		});
 
-		$('.btnEdit').click(function() {
-			reset();
-			state = 1;
-		});
-
 		$('.btnKeluar').click(function() {
 			reset();
 		});
@@ -263,7 +258,6 @@
 
 					});
 				}
-				state = 1;
 			}
 		});
 
@@ -284,6 +278,8 @@
 	});
 
 	function getData(ids) {
+		reset();
+		state = 1;
 		var data = {
 			id : ids
 		};

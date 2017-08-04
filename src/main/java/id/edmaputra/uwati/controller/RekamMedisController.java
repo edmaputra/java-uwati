@@ -634,7 +634,13 @@ public class RekamMedisController {
 		try {
 			RekamMedis rm = rekamMedisService.dapatkan(new Long(temp.getId()));
 			List<RekamMedisDetail> list = rekamMedisDetailService.dapatkan(rm);
-			int n = list.size();
+			int n = 0;
+			for (RekamMedisDetail d : list){
+				Obat detail = getObat(d.getTerapi());
+				if (detail.getTipe() == 0  || detail.getTipe() == 1){
+					++n;
+				}
+			}
 			RekamMedisDetail biayaResep = new RekamMedisDetail();
 			Obat o = getObat("Biaya Resep");
 			biayaResep.setTerapi(o.getNama());
@@ -644,7 +650,7 @@ public class RekamMedisController {
 			biayaResep.setDiskon(BigDecimal.ZERO);
 			biayaResep.setWaktuDibuat(new Date());
 			biayaResep.setTerakhirDirubah(new Date());
-			biayaResep.setRekamMedis(rm);
+			biayaResep.setRekamMedis(rm);		
 			BigDecimal hargaJual = o.getDetail().get(0).getHargaJual();
 			BigDecimal hargaTotal = hargaJual.multiply(new BigDecimal(n));
 			biayaResep.setHargaJual(hargaTotal);

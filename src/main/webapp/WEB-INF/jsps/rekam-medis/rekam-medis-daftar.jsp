@@ -323,7 +323,6 @@
 						$('#gritter-edit-gagal').click();
 					});
 				}				
-				state = 1;				
 			}
 		});
 
@@ -361,6 +360,7 @@
 			$('#kunjungan').val(result.kunjungan);		
 			$('#tabel-terapi').append(result.tabelTerapi);			
 			$('#ids').val(ids);
+			state = 1;
 		}, null);
 	}
 	
