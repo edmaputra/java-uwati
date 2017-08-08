@@ -11,15 +11,16 @@
 		<div class="content-panel">
 			<div class="row kolom-pencarian">
 				<div class="col-md-12">
-					<form class="form-inline pull-right" id="formCari">					
-						<div class="form-group">							
-							<select class="form-control" name="tipe" id="tipe" style="width: 110px;">
+					<form class="form-inline pull-right" id="formCari">
+						<div class="form-group">
+							<select class="form-control" name="tipe" id="tipe"
+								style="width: 110px;">
 								<option value="-1">SEMUA</option>
 								<option value="0">Umum</option>
 								<option value="2">Resep</option>
 							</select>
 						</div>
-					
+
 						<div class="form-group">
 							<input type="text" id="tanggalAwal"
 								class="form-control datePicker" placeholder="Tanggal Awal"
@@ -35,7 +36,8 @@
 								placeholder="Pencarian" style="width: 150px" />
 						</div>
 						<div class="form-group">
-							<button type="button" class="btn btn-primary" id="btnCari" style="width: 80px">Filter</button>
+							<button type="button" class="btn btn-primary" id="btnCari"
+								style="width: 80px">Filter</button>
 						</div>
 						<div class="form-group">
 							<button type="button" class="btn btn-default" id="btnReset">Reset</button>
@@ -55,30 +57,112 @@
 	</div>
 
 	<div class="col-lg-3 ds">
-		<h3>Detail</h3>
-		<div class="desc">			
-			<div class="thumb">
-<!-- 				<span class="badge bg-theme"><h4>1</h4></span> -->			
+		<h3>Rekapitulasi</h3>
+		<div class="desc">
+			<div class="row">
+				<div class="col-md-12 pull-right">
+					<label>Penjualan</label>
+				</div>
 			</div>
-			<div class="details">
-			<h5>Albothyl</h5>			
+			<div class="row">				
+				<div class="col-md-12">
+					<h2 id="rekapitulasi" class="pull-right">0</h2>
+				</div>
+			</div>
+			
+		</div>
+		<div class="desc">
+			<div class="row">
+				<div class="col-md-6">
+					<a href="#" class="btn btn-primary" style="width: 100%;"><i class="fa fa-file-excel-o fa-6" aria-hidden="true"> excel</i></a>
+				</div>
+				<div class="col-md-6">					
+					<a href="#" class="btn btn-danger" style="width: 100%;"><i class="fa fa-file-pdf-o fa-6" aria-hidden="true"> pdf</i></a>
+				</div>
 			</div>
 		</div>
-	</div>
+		
+		<!-- 		<div class="desc">			 -->
+		<!-- 			<div class="thumb"> -->
+		<!-- 				<span class="badge bg-theme"><h4>1</h4></span>			 -->
+		<!-- 			</div> -->
+		<!-- 			<div class="details pull-right"> -->
+		<!-- 			<h2 id="rekapitulasi">0</h2>			 -->
+		<!-- 			</div> -->
+		<!-- 		</div> -->
+		
+	</div>	
 </div>
 
 
 
-<div class="modal fade" id="penjualan-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="penjualan-modal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
 				<h4 class="modal-title" id="myModalLabel">Laporan</h4>
 			</div>
-			<form class="form style-form formTambah" method="post">
+			<form class="form style-form" method="post">
 				<div class="form-panel">
-					<div class="modal-body">						
+					<div class="modal-body">
+						<div class="row">
+							<div class="form-group col-md-5">
+								<label class="lb-sm">Nomor Faktur</label>
+								<input type="text" readonly="readonly" class="form-control" id="nomor_faktur"/>
+							</div>
+							<div class="form-group col-md-3">
+								<label class="lb-sm">Tanggal</label>
+								<input type="text" readonly="readonly" class="form-control" id="tanggal"/>
+							</div>							
+						</div>
+						<div class="row">
+							<div class="form-group col-md-4">
+								<label class="lb-sm">Kasir</label>
+								<input type="text" readonly="readonly" class="form-control" id="kasir"/>
+							</div>
+							<div class="form-group col-md-4">
+								<label class="lb-sm">Pasien/Pelanggan</label>
+								<input type="text" readonly="readonly" class="form-control" id="pelanggan"/>
+							</div>							
+							<div class="form-group col-md-4">
+								<label class="lb-sm">Dokter</label>
+								<input type="text" readonly="readonly" class="form-control" id="dokter"/>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-md-2">
+								<label class="lb-sm">Pembelian</label>
+								<input type="text" readonly="readonly" class="form-control input-angka" id="pembelian"/>
+							</div>
+							<div class="form-group col-md-2">
+								<label class="lb-sm">Diskon</label>
+								<input type="text" readonly="readonly" class="form-control input-angka" id="diskon"/>
+							</div>
+							<div class="form-group col-md-2">
+								<label class="lb-sm">Pajak</label>
+								<input type="text" readonly="readonly" class="form-control input-angka" id="pajak"/>
+							</div>
+							<div class="form-group col-md-2">
+								<label class="lb-sm">Total</label>
+								<input type="text" readonly="readonly" class="form-control input-angka" id="pembelian_final"/>
+							</div>
+							<div class="form-group col-md-2">
+								<label class="lb-sm">Pembayaran</label>
+								<input type="text" readonly="readonly" class="form-control input-angka" id="bayar"/>
+							</div>
+							<div class="form-group col-md-2">
+								<label class="lb-sm">Kembali</label>
+								<input type="text" readonly="readonly" class="form-control input-angka" id="kembali"/>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<table class="table table-striped table-advance table-hover" id="tabel_detail" border="1"></table>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -131,7 +215,7 @@
 	var cari = '';
 	$(document).ready(function() {
 		$('#tanggalAwal').val(tanggalAwal);
-		refresh(1, tipe, tanggalAwal, tanggalAkhir, cari);		
+		refresh(1, tipe, tanggalAwal, tanggalAkhir, cari);
 
 		$('#btnCari').click(function() {
 			tipe = $('#tipe').val();
@@ -140,19 +224,19 @@
 			cari = $('#cari').val();
 			refresh(1, tipe, tanggalAwal, tanggalAkhir, cari);
 		});
-		
+
 		$('#btnReset').click(function() {
 			reset();
 			refresh(1, tipe, tanggalAwal, tanggalAkhir, cari);
 		});
 
-// 		$('.btnTambah').click(function() {
-// 			state = 0;
-// 		});
+		// 		$('.btnTambah').click(function() {
+		// 			state = 0;
+		// 		});
 
-// 		$('.btnEdit').click(function() {
-// 			state = 1;
-// 		});
+		// 		$('.btnEdit').click(function() {
+		// 			state = 1;
+		// 		});
 
 		$('.btnKeluar').click(function() {
 			reset();
@@ -189,7 +273,7 @@
 
 	function refresh(halaman, tipe, tanggalAwal, tanggalAkhir, cari) {
 		var data = {
-			hal : halaman, 
+			hal : halaman,
 			tipe : tipe,
 			tanggalAwal : tanggalAwal,
 			tanggalAkhir : tanggalAkhir,
@@ -200,22 +284,26 @@
 			$('#tabelCoba').append(result.tabel);
 			$('#nav').empty();
 			$('#nav').append(result.navigasiHalaman);
+			$('#rekapitulasi').empty();
+			$('#rekapitulasi').append(result.grandTotal);
 		}, null);
 	}
 
 	function isiFieldFromDataResult(result) {
 		$('#ids').val(result.id);
-		$('#nama').val(result.nama);
-		$('#identitas').val(result.identitas);
-		$('#tanggalLahir').val(result.tanggalLahir);
-		$('#tanggalLahir').val(dateFormat(result.tanggalLahir, 'dd-mm-yyyy'));
-		$('#jenisKelamin').val(result.jenisKelamin);
-		$('#agama').val(result.agama);
-		$('#pekerjaan').val(result.pekerjaan);
-		$('#alamat').val(result.alamat);
-		$('#kontak').val(result.kontak);
-		$('#jaminanKesehatan').val(result.jaminanKesehatan);
-		$('#nomorJaminan').val(result.nomorJaminan);
+		$('#nomor_faktur').val(result.nomorFaktur);
+		$('#pelanggan').val(result.pelanggan);
+		$('#kasir').val(result.pengguna);
+		$('#dokter').val(result.dokter);
+		$('#tanggal').val(dateFormat(result.waktuTransaksi, 'dd-mm-yyyy'));
+		$('#pembelian').val(result.totalPembelian);
+		$('#diskon').val(result.diskon);
+		$('#pajak').val(result.pajak);
+		$('#pembelian_final').val(result.grandTotal);
+		$('#bayar').val(result.bayar);
+		$('#kembali').val(result.kembali);
+		$('#tabel_detail').empty();
+		$('#tabel_detail').append(result.details);
 	}
 
 	function reset() {
@@ -226,6 +314,6 @@
 		$('#tipe').val(tipe);
 		$('#tanggalAwal').val(tanggalAwal);
 		$('#tanggalAkhir').val(tanggalAkhir);
-		$('#cari').val(cari);		
+		$('#cari').val(cari);
 	}
 </script>

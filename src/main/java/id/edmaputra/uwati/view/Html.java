@@ -271,18 +271,18 @@ public class Html {
 			html += Html.li(Html.aJs("&lt;&lt;", null, null, null), "disabled", null, null);
 			html += Html.li(Html.aJs("&lt;", null, null, null), "disabled", null, null);
 		} else {
-			html += Html.li(Html.aJs("&lt;&lt;", null, "onClick", "refresh(" + first + "," + tipe + "," + tanggalAwal + "," + tanggalAkhir + ",\"" + cari + "\")"), null,
+			html += Html.li(Html.aJs("&lt;&lt;", null, "onClick", "refresh(" + first + "," + tipe + ",\"" + tanggalAwal + "\",\"" + tanggalAkhir + "\",\"" + cari + "\")"), null,
 					null, null);
-			html += Html.li(Html.aJs("&lt;", null, "onClick", "refresh(" + prev + "," + tipe + "," + tanggalAwal + "," + tanggalAkhir + ",\"" + cari + "\")"), null, null,
+			html += Html.li(Html.aJs("&lt;", null, "onClick", "refresh(" + prev + "," + tipe + ",\"" + tanggalAwal + "\",\"" + tanggalAkhir + "\",\"" + cari + "\")"), null, null,
 					null);
 		}
 
 		for (int i = first; i <= last; i++) {
 			if (i == current) {
-				html += Html.li(Html.aJs(i + "", null, "onClick", "refresh(" + i + "," + tipe + "," + tanggalAwal + "," + tanggalAkhir + ",\"" + cari + "\")"), "active",
+				html += Html.li(Html.aJs(i + "", null, "onClick", "refresh(" + i + "," + tipe + ",\"" + tanggalAwal + "\",\"" + tanggalAkhir + "\",\"" + cari + "\")"), "active",
 						null, null);
 			} else {
-				html += Html.li(Html.aJs(i + "", null, "onClick", "refresh(" + i + "," + tipe + "," + tanggalAwal + "," + tanggalAkhir + ",\"" + cari + "\")"), null, null,
+				html += Html.li(Html.aJs(i + "", null, "onClick", "refresh(" + i + "," + tipe + ",\"" + tanggalAwal + "\",\"" + tanggalAkhir + "\",\"" + cari + "\")"), null, null,
 						null);
 			}
 		}
@@ -292,15 +292,16 @@ public class Html {
 			html += Html.li(Html.aJs("&gt;&gt;", null, null, null), "disabled", null, null);
 		} else {
 			html += Html.li(Html.aJs("&gt;", null, "onClick",
-					"refresh(" + next + "," + tipe + "," + tanggalAwal + "," + tanggalAkhir + ",\"" + cari + "\")"),
+					"refresh(" + next + "," + tipe + ",\"" + tanggalAwal + "\",\"" + tanggalAkhir + "\",\"" + cari + "\")"),
 					null, null, null);
-			html += Html.li(Html.aJs("&gt;&gt;", null, "onClick", "refresh(" + last + "," + tipe + "," + tanggalAwal + "," + tanggalAkhir + ",\"" + cari + "\")"), null, null,
+			html += Html.li(Html.aJs("&gt;&gt;", null, "onClick", "refresh(" + last + "," + tipe + ",\"" + tanggalAwal + "\",\"" + tanggalAkhir + "\",\"" + cari + "\")"), null, null,
 					null);
 		}
-
+		
 		String nav = Html.nav(Html.ul(html, "pagination"));
-
 		return nav;
 	}
+	
+	
 
 }

@@ -30,5 +30,12 @@ public class THead {
 			+ "<th>Total Pembelian</th>"
 			+ "<th></th>"
 			+ "</tr></thead>";
+	
+	public static final String THEAD_PENJUALAN_DETAIL = "<thead><tr>" 
+			+ "<th>Obat</th>"
+			+ "<th>Harga Jual</th>"
+			+ "<th>Jumlah</th>"
+			+ "<th>Total</th>"			
+			+ "</tr></thead>";
 
 }
