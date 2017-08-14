@@ -37,15 +37,18 @@ import id.edmaputra.uwati.entity.master.obat.Obat;
 import id.edmaputra.uwati.entity.master.obat.ObatDetail;
 import id.edmaputra.uwati.entity.master.obat.ObatExpired;
 import id.edmaputra.uwati.entity.master.obat.ObatStok;
+import id.edmaputra.uwati.entity.master.obat.Racikan;
 import id.edmaputra.uwati.entity.transaksi.Pembelian;
 import id.edmaputra.uwati.entity.transaksi.PembelianDetail;
 import id.edmaputra.uwati.entity.transaksi.PembelianDetailTemp;
+import id.edmaputra.uwati.entity.transaksi.PenjualanDetailTemp;
 import id.edmaputra.uwati.reports.Struk;
 import id.edmaputra.uwati.service.ApotekService;
 import id.edmaputra.uwati.service.obat.ObatDetailService;
 import id.edmaputra.uwati.service.obat.ObatExpiredService;
 import id.edmaputra.uwati.service.obat.ObatService;
 import id.edmaputra.uwati.service.obat.ObatStokService;
+import id.edmaputra.uwati.service.obat.RacikanService;
 import id.edmaputra.uwati.service.pengguna.PenggunaService;
 import id.edmaputra.uwati.service.transaksi.PembelianDetailService;
 import id.edmaputra.uwati.service.transaksi.PembelianDetailTempService;
@@ -57,6 +60,8 @@ import id.edmaputra.uwati.support.Converter;
 import id.edmaputra.uwati.support.LogSupport;
 import id.edmaputra.uwati.view.Html;
 import id.edmaputra.uwati.view.HtmlElement;
+import id.edmaputra.uwati.view.handler.PembelianDetailHandler;
+import id.edmaputra.uwati.view.handler.PenjualanDetailHandler;
 import id.edmaputra.uwati.view.json.JsonReturn;
 import id.edmaputra.uwati.view.json.Suggestion;
 import net.sf.jasperreports.engine.JRDataSource;
@@ -73,6 +78,9 @@ public class PembelianObatController {
 
 	@Autowired
 	private PembelianDetailService pembelianDetailService;
+	
+	@Autowired
+	private PembelianDetailTempService pembelianDetailTempService;
 
 	@Autowired
 	private ObatService obatService;
@@ -94,6 +102,9 @@ public class PembelianObatController {
 	
 	@Autowired
 	private PembelianDetailTempService pdtService;
+	
+	@Autowired
+	private RacikanService racikanService;
 	
 	@Autowired 
 	@Qualifier("strukPembelianPdf")
@@ -141,78 +152,69 @@ public class PembelianObatController {
 			return null;
 		}
 	}
-
-//	@Transactional
-	@RequestMapping(value = "/tambahTemp", method = RequestMethod.POST)
+	
+	@RequestMapping(value = "/tambah-obat", method = RequestMethod.POST)
 	@ResponseBody
-	public PembelianDetailTemp tambahObat(@RequestBody PembelianDetailTemp pembelianDetailTemp, BindingResult result,
+	public PembelianDetailHandler tambahTerapi(@RequestBody PembelianDetailHandler h, BindingResult result,
 			Principal principal, HttpServletRequest request) {
 		try {
-			pembelianDetailTemp.setPengguna(principal.getName());
-			pembelianDetailTemp.setWaktuDibuat(new Date());
-			pembelianDetailTemp.setTerakhirDirubah(new Date());
-			pdtService.simpan(pembelianDetailTemp);
-			logger.info(LogSupport.tambah(principal.getName(), pembelianDetailTemp.toString(), request));
-			return pembelianDetailTemp;
+			PembelianDetailTemp t = null;
+			PembelianDetailTemp tersimpan = pembelianDetailTempService.dapatkanByRandomIdAndIdObat(h.getRandomId(), h.getIdObat());
+			if (tersimpan == null) {
+				t = new PembelianDetailTemp();
+				Obat obat = getObat(h.getIdObat());
+				t.setRandomId(h.getRandomId());
+				t.setObat(obat.getNama());
+				t.setIdObat(obat.getId());
+				t.setDiskon("0");
+				t.setJumlah("1");
+				t.setHargaBeli(Converter.patternCurrency(obat.getDetail().get(0).getHargaBeli()));
+				t.setSubTotal(Converter.patternCurrency(obat.getDetail().get(0).getHargaBeli()));
+				
+			} else {
+				t = tersimpan;
+				Integer j = Integer.valueOf(tersimpan.getJumlah()).intValue() + 1;
+				BigDecimal diskon = new BigDecimal(tersimpan.getDiskon());
+				t.setJumlah(j.toString());
+				BigDecimal harga = new BigDecimal(t.getHargaBeli().replaceAll("[.,]", ""));
+				BigDecimal total = harga.multiply(new BigDecimal(j));
+				total = total.subtract(diskon);
+				t.setSubTotal(Converter.patternCurrency(total));
+			}
+			// updateStokObat(t.getObat(), "1", 0);
+			t.setWaktuDibuat(new Date());
+			t.setTerakhirDirubah(new Date());
+			pembelianDetailTempService.simpan(t);
+			logger.info(LogSupport.tambah(principal.getName(), t.getIdObat().toString(), request));
+			return h;
 		} catch (Exception e) {
 			logger.info(e.getMessage());
-			logger.info(LogSupport.tambahGagal(principal.getName(), pembelianDetailTemp.toString(), request));
-			return null;
+			logger.info(LogSupport.tambahGagal(principal.getName(), h.getIdObat() + "", request));
+			h.setInfo(e.getMessage());
+			return h;
 		}
 	}
-
-	@RequestMapping(value = "/daftarTemp", method = RequestMethod.GET)
+	
+	@RequestMapping(value = "/list-obat", method = RequestMethod.GET)
 	@ResponseBody
-	public HtmlElement dapatkanDaftarObat(@RequestParam(value = "s", required = false) String supplier,
-			@RequestParam(value = "t", required = false) String tanggal,
-			@RequestParam(value = "n", required = false) String nomorFaktur, Principal principal,
+	public HtmlElement daftarObatTemp(@RequestParam(value = "randomId", required = true) String randomId,
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
-			
-			PembelianDetailTempPredicateBuilder builder = new PembelianDetailTempPredicateBuilder();			
-			builder.find(nomorFaktur, principal.getName());
-			
-			BooleanExpression exp = builder.getExpression();			
-			List<PembelianDetailTemp> listTemp = pdtService.dapatkanList(exp);
-			
-			String tabel = tabelGenerator(listTemp, request);			
 			HtmlElement el = new HtmlElement();
-			el.setTabel(tabel);
-			
-			Integer tot = 0;
-			for (PembelianDetailTemp te : listTemp){
-				Integer subTotal = Integer.valueOf(te.getSubTotal().replaceAll("[.,]", ""));
-				tot = tot + subTotal;
-			}						
-			String total = NumberFormat.getNumberInstance(new Locale("id", "ID")).format(tot);			
-			el.setGrandTotal(total);
-			// logger.info(LogSupport.);
+
+			List<PembelianDetailTemp> list = pembelianDetailTempService.dapatkanListByRandomId(randomId);
+
+			String tabel = tabelTerapiGenerator(list);
+			el.setTabelTerapi(tabel);
+			el.setValue1(Converter.patternCurrency(totalHarga(list)));
+			el.setValue2(Converter.patternCurrency(new BigDecimal(totalItems(list))));
 			return el;
 		} catch (Exception e) {
 			logger.info(e.getMessage());
-			System.out.println("GET OBAT GAGAL");
 			return null;
 		}
 	}
 
-	@RequestMapping(value = "/hapusTemp", method = RequestMethod.POST)
-	@ResponseBody
-	public PembelianDetailTemp hapusObat(@RequestBody PembelianDetailTemp pembelianDetailTemp, BindingResult result,
-			Principal principal, HttpServletRequest request) {
-		PembelianDetailTemp t = pembelianDetailTemp;
-		try {			
-			Long index = pembelianDetailTemp.getId();
-			pdtService.hapus(index);
-			
-			return t;
-		} catch (Exception e) {
-			logger.info(e.getMessage());
-			System.out.println(e.getMessage());
-			return null;
-		}
-	}
-
-//	@Transactional
 	@RequestMapping(value = "/beli", method = RequestMethod.POST)
 	@ResponseBody
 	public PembelianDetailTemp simpanPembelian(@RequestBody PembelianDetailTemp temp, BindingResult result, Principal principal,
@@ -424,6 +426,23 @@ public class PembelianObatController {
 		return get;
 	}
 	
+	private Obat getObat(Long id) {
+		Obat get = obatService.dapatkan(id);
+
+		List<ObatDetail> lObatDetail = obatDetailService.temukanByObat(get);
+		get.setDetail(lObatDetail);
+		Hibernate.initialize(get.getDetail());
+
+		List<ObatStok> lObatStok = obatStokService.temukanByObats(get);
+		get.setStok(lObatStok);
+		Hibernate.initialize(get.getStok());
+
+		List<ObatExpired> lObatExpired = obatExpiredService.temukanByObats(get);
+		get.setExpired(lObatExpired);
+		Hibernate.initialize(get.getExpired());
+		return get;
+	}
+	
 	private Pembelian getPembelian(Long id){
 		Pembelian pembelian  = pembelianService.dapatkan(id);
 		
@@ -432,6 +451,45 @@ public class PembelianObatController {
 		Hibernate.initialize(pembelian.getPembelianDetail());
 		
 		return pembelian;
+	}
+	
+	private BigDecimal totalHarga(List<PembelianDetailTemp> list) {
+		BigDecimal t = BigDecimal.ZERO;
+		for (PembelianDetailTemp temp : list) {
+			Integer hargaTotal = Integer.valueOf(temp.getSubTotal().replaceAll("[.,]", ""));
+			t = t.add(new BigDecimal(hargaTotal));
+		}
+		return t;
+	}
+
+	private Integer totalItems(List<PembelianDetailTemp> list) {
+		Integer t = 0;
+		for (PembelianDetailTemp temp : list) {
+			Integer totalItems = Integer.valueOf(temp.getJumlah().replaceAll("[.,]", ""));
+			t = t + totalItems;
+		}
+		return t;
+	}
+	
+	private String tabelTerapiGenerator(List<PembelianDetailTemp> list) {
+		String html = "";
+		String data = "";
+		for (PembelianDetailTemp t : list) {
+			String row = "";
+			String btn = "";
+			row += Html.td(t.getObat());
+			row += Html.td(t.getJumlah().toString());
+			row += Html.td(t.getSubTotal());
+			btn += Html.aJs("<i class='fa fa-pencil'></i>", "btn btn-primary btn-xs", "onClick",
+					"editObat(" + t.getIdObat() + ")", "Edit Data", "modal", "#edit-obat-modal");
+			btn += Html.aJs("<i class='fa fa-trash-o'></i>", "btn btn-danger btn-xs", "onClick",
+					"hapusObat(" + t.getIdObat() + ")", "Hapus Data");
+			row += Html.td(btn);
+			data += Html.tr(row);
+		}
+		html = data;
+		// System.out.println(html);
+		return html;
 	}
 
 }

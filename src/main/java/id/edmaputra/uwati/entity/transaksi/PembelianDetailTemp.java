@@ -66,6 +66,27 @@ public class PembelianDetailTemp extends DasarTransaksiEntity<Long>{
 	
 	@Column(length = 100)
 	private String pesan;
+	
+	@Column(length = 15)
+	private String randomId;
+		
+	private Long idObat;
+
+	public String getRandomId() {
+		return randomId;
+	}
+
+	public void setRandomId(String randomId) {
+		this.randomId = randomId;
+	}
+
+	public Long getIdObat() {
+		return idObat;
+	}
+
+	public void setIdObat(Long idObat) {
+		this.idObat = idObat;
+	}
 
 	public Long getId() {
 		return id;

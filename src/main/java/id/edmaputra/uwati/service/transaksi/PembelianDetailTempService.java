@@ -54,4 +54,12 @@ public class PembelianDetailTempService {
 	public void hapus(String nomorFaktur, String pengguna){
 		pembelianDetailTempRepo.deleteByNomorFakturAndPengguna(nomorFaktur, pengguna);
 	}
+
+	public PembelianDetailTemp dapatkanByRandomIdAndIdObat(String randomId, Long idObat) {
+		return pembelianDetailTempRepo.findByRandomIdAndIdObat(randomId, idObat);
+	}
+
+	public List<PembelianDetailTemp> dapatkanListByRandomId(String randomId) {
+		return pembelianDetailTempRepo.findByRandomId(randomId);
+	}
 }

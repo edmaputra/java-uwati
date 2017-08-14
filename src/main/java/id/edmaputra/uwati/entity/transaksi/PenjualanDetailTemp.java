@@ -44,14 +44,6 @@ public class PenjualanDetailTemp extends DasarTransaksiEntity<Long>{
 	
 	@Column(length = 15)
 	private String idObat;
-	
-	public String getIdObat() {
-		return idObat;
-	}
-
-	public void setIdObat(String idObat) {
-		this.idObat = idObat;
-	}
 
 	@Column(length = 150)
 	private String obat;
@@ -90,7 +82,16 @@ public class PenjualanDetailTemp extends DasarTransaksiEntity<Long>{
 	private String kembali;
 	
 	@Column(length = 20)
-	private String randomId;
+	private String randomId;	
+
+	
+	public String getIdObat() {
+		return idObat;
+	}
+
+	public void setIdObat(String idObat) {
+		this.idObat = idObat;
+	}
 	
 	public String getRandomId() {
 		return randomId;

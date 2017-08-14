@@ -309,7 +309,40 @@ public class ObatController {
 		try {
 			HtmlElement el = new HtmlElement();			
 			
-			Page<Obat> page = getListObatAndTindakan(halaman, cari, Integer.valueOf(n));
+			Page<Obat> page = getListObatAndTindakan(halaman, cari, Integer.valueOf(n), -1);
+
+			String button = buttonListGenerator(page, 2, request);
+			el.setButton(button);
+
+			if (page.hasContent()) {
+				if (page.getTotalPages() > 1) {
+					int current = page.getNumber() + 1;
+					int next = current + 1;
+					int prev = current - 1;
+
+					String h = navigasiHalamanGenerator(prev, current, next, page.getTotalPages(), cari);
+					el.setNavigasiObat(h);
+				}
+			}
+			return el;
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+			return null;
+		}
+	}
+	
+	@RequestMapping(value = "/obat", method = RequestMethod.GET)
+	@ResponseBody
+	public HtmlElement dapatkanDaftarObatForTransaksi(
+			@RequestParam(value = "hal", defaultValue = "1", required = false) Integer halaman,
+			@RequestParam(value = "cari", defaultValue = "", required = false) String cari,
+			@RequestParam(value = "n", defaultValue = "", required = false) String n,
+			HttpServletRequest request,
+			HttpServletResponse response) {
+		try {
+			HtmlElement el = new HtmlElement();			
+			
+			Page<Obat> page = getListObatAndTindakan(halaman, cari, Integer.valueOf(n), 0);
 
 			String button = buttonListGenerator(page, 2, request);
 			el.setButton(button);
@@ -331,12 +364,15 @@ public class ObatController {
 		}
 	}
 
-	private Page<Obat> getListObatAndTindakan(Integer halaman, String nama, Integer n) {
+	private Page<Obat> getListObatAndTindakan(Integer halaman, String nama, Integer n, int tipe) {
 		ObatPredicateBuilder builder = new ObatPredicateBuilder();
 		if (!StringUtils.isBlank(nama)) {
 			builder.nama(nama);
 		}		
 		
+		if (tipe != -1){
+			builder.tipe(tipe);
+		}
 //		builder.stok(1);
 
 		BooleanExpression exp = builder.getExpression();

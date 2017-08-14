@@ -73,7 +73,7 @@
 	<definition name="pembelian-obat" extends="dasar">
 		<put-attribute name="title" value="UWATI - Pembelian Obat" />
 		<put-attribute name="page_title" value="Pembelian Obat" />
-		<put-attribute name="body" value="/WEB-INF/jsps/transaksi/pembelian-obat.jsp" />
+		<put-attribute name="body" value="/WEB-INF/jsps/transaksi/pembelian-obat-1.jsp" />
 		<!-- <put-attribute name="current" value="home" /> -->
 	</definition>
 	

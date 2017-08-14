@@ -112,6 +112,11 @@ body {
 	color: white;
 }
 
+.keterangan-beli {
+	background-color: #f57900;
+	color: white;
+}
+
 .kolom-pencarian {
 	padding: 10px;
 }
@@ -125,6 +130,15 @@ table.tabel-keterangan tr td input {
 	color: white;
 	font-size: 12pt;
 	background-color: green;
+	border: none;
+	border-color: transparent;
+}
+
+table.tabel-beli tr td input {
+	text-align: right;	
+	color: white;
+	font-size: 12pt;
+	background-color: #f57900;
 	border: none;
 	border-color: transparent;
 }

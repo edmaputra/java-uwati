@@ -31,6 +31,8 @@ public class QPembelianDetailTemp extends EntityPathBase<PembelianDetailTemp> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final NumberPath<Long> idObat = createNumber("idObat", Long.class);
+
     //inherited
     public final StringPath info = _super.info;
 
@@ -45,6 +47,8 @@ public class QPembelianDetailTemp extends EntityPathBase<PembelianDetailTemp> {
     public final StringPath pengguna = createString("pengguna");
 
     public final StringPath pesan = createString("pesan");
+
+    public final StringPath randomId = createString("randomId");
 
     public final StringPath subTotal = createString("subTotal");
 

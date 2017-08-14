@@ -26,7 +26,7 @@
 <c:url var="cekStokListObatUrl" value="/penjualan-obat/cek-stok" />
 <c:url var="penjualanUrl" value="/penjualan-obat/jual" />
 
-<div class="row mt">
+<div class="row">
 	<div class="col-md-12">
 		<div class="form-panel">
 			<form class="form formTambah" id="formObat" method="POST">
@@ -141,7 +141,7 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Obat:</label> <input type="text" class="form-control"
-									name="editOobat" id="editObat" readonly="readonly" autocomplete="off">
+									name="editObat" id="editObat" readonly="readonly" autocomplete="off">
 							</div>
 						</div>
 						<div class="col-md-2">
