@@ -19,11 +19,13 @@ public class PembelianPredicateBuilder {
 		if (hasil == null) {
 			hasil = QPembelian.pembelian.nomorFaktur.containsIgnoreCase(cari)
 					.or(QPembelian.pembelian.pengguna.nama.containsIgnoreCase(cari))
-					.or(QPembelian.pembelian.supplier.containsIgnoreCase(cari));
+					.or(QPembelian.pembelian.supplier.containsIgnoreCase(cari))
+					.or(QPembelian.pembelian.pembelianDetail.any().obat.containsIgnoreCase(cari));
 		} else {
 			hasil = hasil.and(QPembelian.pembelian.nomorFaktur.containsIgnoreCase(cari)
 					.or(QPembelian.pembelian.pengguna.nama.containsIgnoreCase(cari))
-					.or(QPembelian.pembelian.supplier.containsIgnoreCase(cari)));
+					.or(QPembelian.pembelian.supplier.containsIgnoreCase(cari))
+					.or(QPembelian.pembelian.pembelianDetail.any().obat.containsIgnoreCase(cari)));
 		}
 	}
 

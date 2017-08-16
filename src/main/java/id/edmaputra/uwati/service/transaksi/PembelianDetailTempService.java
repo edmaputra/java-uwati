@@ -13,6 +13,7 @@ import com.mysema.query.types.expr.BooleanExpression;
 
 import id.edmaputra.uwati.entity.transaksi.PembelianDetailTemp;
 import id.edmaputra.uwati.repository.transaksi.PembelianDetailTempRepository;
+import id.edmaputra.uwati.view.handler.PembelianDetailHandler;
 
 @Service
 public class PembelianDetailTempService {
@@ -22,7 +23,7 @@ public class PembelianDetailTempService {
 
 	private static final int PAGE_SIZE = 25;
 
-	public void simpan(PembelianDetailTemp pembelianDetailTemp) {		
+	public void simpan(PembelianDetailTemp pembelianDetailTemp) {
 		pembelianDetailTempRepo.save(pembelianDetailTemp);
 	}
 
@@ -34,11 +35,11 @@ public class PembelianDetailTempService {
 		PageRequest request = new PageRequest(halaman - 1, PAGE_SIZE, Sort.Direction.ASC, "id");
 		return pembelianDetailTempRepo.findAll(expression, request);
 	}
-	
-	public List<PembelianDetailTemp> dapatkanSemua(){
+
+	public List<PembelianDetailTemp> dapatkanSemua() {
 		return pembelianDetailTempRepo.findAll(new Sort(Direction.ASC, "id"));
 	}
-	
+
 	public void hapus(PembelianDetailTemp pembelianDetailTemp) {
 		pembelianDetailTempRepo.delete(pembelianDetailTemp);
 	}
@@ -48,10 +49,10 @@ public class PembelianDetailTempService {
 	}
 
 	public void hapus(Long index) {
-		pembelianDetailTempRepo.delete(index);		
+		pembelianDetailTempRepo.delete(index);
 	}
-	
-	public void hapus(String nomorFaktur, String pengguna){
+
+	public void hapus(String nomorFaktur, String pengguna) {
 		pembelianDetailTempRepo.deleteByNomorFakturAndPengguna(nomorFaktur, pengguna);
 	}
 
@@ -61,5 +62,9 @@ public class PembelianDetailTempService {
 
 	public List<PembelianDetailTemp> dapatkanListByRandomId(String randomId) {
 		return pembelianDetailTempRepo.findByRandomId(randomId);
+	}
+
+	public void hapusBatch(String randomId) {
+		pembelianDetailTempRepo.deleteInBatch(dapatkanListByRandomId(randomId));
 	}
 }

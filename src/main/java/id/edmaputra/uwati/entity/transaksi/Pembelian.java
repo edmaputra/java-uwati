@@ -47,7 +47,13 @@ public class Pembelian extends DasarTransaksiEntity<Long> {
 	@Column(name="nomor_faktur", nullable=false, length=DBConf.LENGTH_TRANSAKSI_NOMORFAKTUR)	
 	private String nomorFaktur;
 	
+	private BigDecimal pajak;
+	
+	private BigDecimal diskon;
+	
 	private BigDecimal grandTotal;
+	
+	private BigDecimal total;
 	
 	@Temporal(TemporalType.TIMESTAMP)
     @Column(name = "deadline")    
@@ -135,7 +141,31 @@ public class Pembelian extends DasarTransaksiEntity<Long> {
 	public String toString() {
 		return "Pembelian [id=" + id + ", waktuTransaksi=" + waktuTransaksi + ", pengguna=" + pengguna
 				+ ", nomorFaktur=" + nomorFaktur + ", grandTotal=" + grandTotal + ", deadline=" + deadline
-				+ ", supplier=" + supplier + ", pembelianDetail=" + pembelianDetail + "]";
+				+ ", supplier=" + supplier + ", ]";
+	}
+
+	public BigDecimal getDiskon() {
+		return diskon;
+	}
+
+	public void setDiskon(BigDecimal diskon) {
+		this.diskon = diskon;
+	}
+
+	public BigDecimal getPajak() {
+		return pajak;
+	}
+
+	public void setPajak(BigDecimal pajak) {
+		this.pajak = pajak;
+	}
+
+	public BigDecimal getTotal() {
+		return total;
+	}
+
+	public void setTotal(BigDecimal total) {
+		this.total = total;
 	}
 	
 

@@ -104,7 +104,7 @@
 					<h4 class="modal-title" id="myModalLabel">Pesan</h4>
 				</div>
 				<div class="modal-body">
-					<div id="pesan"></div>
+					<div id="pesan" style="text-align: center;"></div>
 				</div>
 				<div class="modal-footer"></div>
 			</div>

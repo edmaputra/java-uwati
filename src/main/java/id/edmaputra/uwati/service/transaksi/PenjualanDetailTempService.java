@@ -80,7 +80,6 @@ public class PenjualanDetailTempService {
 	}
 
 	public void hapusBatch(String randomId) {
-		penjualanDetailTempRepo.deleteInBatch(dapatkanListByRandomId(randomId));
-		
+		penjualanDetailTempRepo.deleteInBatch(dapatkanListByRandomId(randomId));		
 	}
 }

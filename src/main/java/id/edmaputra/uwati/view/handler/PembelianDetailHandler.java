@@ -41,6 +41,14 @@ public class PembelianDetailHandler {
 	private String totalPembayaran;
 
 	private String kembali;
+	
+	private String hargaBeli;
+	
+	private String hargaJualResep;
+	
+	private String distributor;
+	
+	private String details;
 
 	public String getId() {
 		return id;
@@ -200,6 +208,38 @@ public class PembelianDetailHandler {
 
 	public void setKembali(String kembali) {
 		this.kembali = kembali;
+	}
+
+	public String getHargaBeli() {
+		return hargaBeli;
+	}
+
+	public void setHargaBeli(String hargaBeli) {
+		this.hargaBeli = hargaBeli;
+	}
+
+	public String getHargaJualResep() {
+		return hargaJualResep;
+	}
+
+	public void setHargaJualResep(String hargaJualResep) {
+		this.hargaJualResep = hargaJualResep;
+	}
+
+	public String getDistributor() {
+		return distributor;
+	}
+
+	public void setDistributor(String distributor) {
+		this.distributor = distributor;
+	}
+
+	public String getDetails() {
+		return details;
+	}
+
+	public void setDetails(String details) {
+		this.details = details;
 	}
 
 }

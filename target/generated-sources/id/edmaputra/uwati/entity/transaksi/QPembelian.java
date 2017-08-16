@@ -26,6 +26,8 @@ public class QPembelian extends EntityPathBase<Pembelian> {
 
     public final DateTimePath<java.util.Date> deadline = createDateTime("deadline", java.util.Date.class);
 
+    public final NumberPath<java.math.BigDecimal> diskon = createNumber("diskon", java.math.BigDecimal.class);
+
     public final NumberPath<java.math.BigDecimal> grandTotal = createNumber("grandTotal", java.math.BigDecimal.class);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
@@ -35,6 +37,8 @@ public class QPembelian extends EntityPathBase<Pembelian> {
 
     public final StringPath nomorFaktur = createString("nomorFaktur");
 
+    public final NumberPath<java.math.BigDecimal> pajak = createNumber("pajak", java.math.BigDecimal.class);
+
     public final ListPath<PembelianDetail, QPembelianDetail> pembelianDetail = this.<PembelianDetail, QPembelianDetail>createList("pembelianDetail", PembelianDetail.class, QPembelianDetail.class, PathInits.DIRECT2);
 
     public final id.edmaputra.uwati.entity.pengguna.QPengguna pengguna;
@@ -43,6 +47,8 @@ public class QPembelian extends EntityPathBase<Pembelian> {
 
     //inherited
     public final DateTimePath<java.util.Date> terakhirDirubah = _super.terakhirDirubah;
+
+    public final NumberPath<java.math.BigDecimal> total = createNumber("total", java.math.BigDecimal.class);
 
     //inherited
     public final DateTimePath<java.util.Date> waktuDibuat = _super.waktuDibuat;

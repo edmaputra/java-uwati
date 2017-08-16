@@ -40,6 +40,7 @@
 				<li><a href="<spring:url value="/obat" />">Obat</a></li>
 				<li><a href="<spring:url value="/racikan" />">Racikan</a></li>				
 				<li><a href="<spring:url value="/tindakan" />">Tindakan</a></li>
+				<li><a href="<spring:url value="/diagnosa" />">Diagnosa</a></li>
 			</ul>
 		</li>
 		</security:authorize>
@@ -73,8 +74,8 @@
 				<i class="fa fa-book"></i> <span>Laporan</span>
 			</a>
 			<ul class="sub">
-				<li><a  href="<spring:url value="/laporan/penjualan" />">Penjualan</a></li>
-				<li><a href="#">Pembelian</a></li>
+				<li><a href="<spring:url value="/laporan/penjualan" />">Penjualan</a></li>
+				<li><a href="<spring:url value="/laporan/pembelian" />">Pembelian</a></li>
 			</ul>
 		</li>
 		</security:authorize>

@@ -22,6 +22,13 @@
 		<!-- <put-attribute name="current" value="home" /> -->
 	</definition>	
 	
+	<definition name="diagnosa-daftar" extends="dasar">
+		<put-attribute name="title" value="UWATI - Diagnosa" />
+		<put-attribute name="page_title" value="Diagnosa" />
+		<put-attribute name="body" value="/WEB-INF/jsps/diagnosa/diagnosa-daftar.jsp" />
+		<!-- <put-attribute name="current" value="home" /> -->
+	</definition>
+	
 	<definition name="karyawan-daftar" extends="dasar">
 		<put-attribute name="title" value="UWATI - Karyawan" />
 		<put-attribute name="page_title" value="Karyawan" />
@@ -40,6 +47,13 @@
 		<put-attribute name="title" value="UWATI - Laporan Penjualan" />
 		<put-attribute name="page_title" value="Laporan Penjualan" />
 		<put-attribute name="body" value="/WEB-INF/jsps/laporan/laporan-penjualan.jsp" />
+		<!-- <put-attribute name="current" value="home" /> -->
+	</definition>
+	
+	<definition name="laporan-pembelian" extends="dasar">
+		<put-attribute name="title" value="UWATI - Laporan Pembelian" />
+		<put-attribute name="page_title" value="Laporan Pembelian" />
+		<put-attribute name="body" value="/WEB-INF/jsps/laporan/laporan-pembelian.jsp" />
 		<!-- <put-attribute name="current" value="home" /> -->
 	</definition>
 	

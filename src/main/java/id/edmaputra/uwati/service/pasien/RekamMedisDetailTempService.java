@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.mysema.query.types.expr.BooleanExpression;
 
-import id.edmaputra.uwati.entity.pasien.RekamMedis;
 import id.edmaputra.uwati.entity.pasien.RekamMedisDetailTemp;
 import id.edmaputra.uwati.repository.pasien.RekamMedisDetailTempRepository;
 

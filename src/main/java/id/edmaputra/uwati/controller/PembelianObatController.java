@@ -58,6 +58,7 @@ import id.edmaputra.uwati.specification.PembelianDetailTempPredicateBuilder;
 import id.edmaputra.uwati.specification.PembelianPredicateBuilder;
 import id.edmaputra.uwati.support.Converter;
 import id.edmaputra.uwati.support.LogSupport;
+import id.edmaputra.uwati.view.Formatter;
 import id.edmaputra.uwati.view.Html;
 import id.edmaputra.uwati.view.HtmlElement;
 import id.edmaputra.uwati.view.handler.PembelianDetailHandler;
@@ -170,7 +171,8 @@ public class PembelianObatController {
 				t.setJumlah("1");
 				t.setHargaBeli(Converter.patternCurrency(obat.getDetail().get(0).getHargaBeli()));
 				t.setSubTotal(Converter.patternCurrency(obat.getDetail().get(0).getHargaBeli()));
-				
+				t.setHargaJual(Converter.patternCurrency(obat.getDetail().get(0).getHargaJual()));
+				t.setHargaJualResep(Converter.patternCurrency(obat.getDetail().get(0).getHargaJualResep()));
 			} else {
 				t = tersimpan;
 				Integer j = Integer.valueOf(tersimpan.getJumlah()).intValue() + 1;
@@ -181,6 +183,7 @@ public class PembelianObatController {
 				total = total.subtract(diskon);
 				t.setSubTotal(Converter.patternCurrency(total));
 			}
+			
 			// updateStokObat(t.getObat(), "1", 0);
 			t.setWaktuDibuat(new Date());
 			t.setTerakhirDirubah(new Date());
@@ -214,60 +217,132 @@ public class PembelianObatController {
 			return null;
 		}
 	}
+	
+	@RequestMapping(value = "/dapatkan-obat", method = RequestMethod.GET)
+	@ResponseBody
+	public PembelianDetailHandler dapatkanObat(@RequestParam("idObat") String idObat,
+			@RequestParam("randomId") String randomId, Principal principal) {
+		PembelianDetailHandler h = new PembelianDetailHandler();
+		Long id = new Long(idObat);
+		h.setIdObat(id);
+		h.setRandomId(randomId);
+		try {
+			PembelianDetailTemp tersimpan = pembelianDetailTempService.dapatkanByRandomIdAndIdObat(randomId, id);
+			if (tersimpan != null) {
+				h.setObat(tersimpan.getObat());
+				h.setJumlah(tersimpan.getJumlah());
+				h.setHargaJual(tersimpan.getHargaJual());
+				h.setHargaBeli(tersimpan.getHargaBeli());
+				h.setDiskon(tersimpan.getDiskon());
+				h.setSubTotal(tersimpan.getSubTotal());
+			}
+			return h;
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+			h.setInfo(e.getMessage());
+			return h;
+		}
+	}
+	
+	@RequestMapping(value = "/hapus-obat", method = RequestMethod.POST)
+	@ResponseBody
+	public PembelianDetailHandler hapusObat(@RequestBody PembelianDetailHandler h, BindingResult result,
+			Principal principal, HttpServletRequest request) {
+		PembelianDetailTemp tersimpan = pembelianDetailTempService.dapatkanByRandomIdAndIdObat(h.getRandomId(),
+				h.getIdObat());
+		try {
+			// updateStokObat(tersimpan.getObat(), tersimpan.getJumlah(), 1);
+			pembelianDetailTempService.hapus(tersimpan);
+			logger.info(LogSupport.hapus(principal.getName(), tersimpan.getId() + "", request));
+			h.setInfo(tersimpan.getObat() + " Terhapus");
+			return h;
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+			logger.info(LogSupport.hapusGagal(principal.getName(), tersimpan.toString(), request));
+			h.setInfo(tersimpan.getObat() + " Gagal Terhapus : " + e.getMessage());
+			return h;
+		}
+	}
+	
+	@RequestMapping(value = "/edit-obat", method = RequestMethod.POST)
+	@ResponseBody
+	public PembelianDetailHandler editTerapi(@RequestBody PembelianDetailHandler h, BindingResult result,
+			Principal principal, HttpServletRequest request) {
+		try {
+			PembelianDetailTemp tersimpan = pembelianDetailTempService.dapatkanByRandomIdAndIdObat(h.getRandomId(),h.getIdObat());			
+			if (tersimpan != null) {
+				Integer jumlah = new Integer(Converter.hilangkanTandaTitikKoma(h.getJumlah()));				
+				BigDecimal hargaBeli = new BigDecimal(Converter.hilangkanTandaTitikKoma(h.getHargaBeli()));				
+				BigDecimal hargaJualResep = new BigDecimal(Converter.hilangkanTandaTitikKoma(h.getHargaJual()));				System.out.println("B");
+				BigDecimal hargaJual = new BigDecimal(Converter.hilangkanTandaTitikKoma(h.getHargaJual()));				
+				BigDecimal diskon = new BigDecimal(Converter.hilangkanTandaTitikKoma(h.getDiskon()));				
+				BigDecimal hargaTotal = hargaBeli.multiply(new BigDecimal(jumlah));
+				hargaTotal = hargaTotal.subtract(diskon);
+				tersimpan.setJumlah(h.getJumlah());
+				tersimpan.setHargaJual(Converter.patternCurrency(hargaJual));
+				tersimpan.setHargaJualResep(Converter.patternCurrency(hargaJualResep));
+				tersimpan.setHargaBeli(Converter.patternCurrency(hargaBeli));
+				tersimpan.setSubTotal(Converter.patternCurrency(hargaTotal));
+				tersimpan.setDiskon(Converter.patternCurrency(diskon));
+				tersimpan.setTerakhirDirubah(new Date());
+				pembelianDetailTempService.simpan(tersimpan);
+			}
+			logger.info(LogSupport.edit(principal.getName(), h.getIdObat().toString(), request));
+			System.out.println("B");
+			return h;
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+			logger.info(LogSupport.editGagal(principal.getName(), h.getIdObat() + "", request));
+			h.setInfo(e.getMessage());
+			return h;
+		}
+	}
 
 	@RequestMapping(value = "/beli", method = RequestMethod.POST)
 	@ResponseBody
-	public PembelianDetailTemp simpanPembelian(@RequestBody PembelianDetailTemp temp, BindingResult result, Principal principal,
+	public PembelianDetailHandler simpanPembelian(@RequestBody PembelianDetailHandler h, BindingResult result, Principal principal,
 			HttpServletRequest request) {
 		Pembelian pembelian = new Pembelian();
 		try {
-			if (!isTersedia(temp.getNomorFaktur(), temp.getTanggal().toString())){
+			if (!isTersedia(h.getNomorFaktur(), h.getTanggal().toString())){
 //				throw new Exception("Nomor Faktur Sudah Ada");
 				return null;
 			}
-			String nomorFaktur = temp.getNomorFaktur();
+			String nomorFaktur = h.getNomorFaktur();
 			pembelian.setNomorFaktur(nomorFaktur);
-			pembelian.setWaktuTransaksi(Converter.stringToDate(temp.getTanggal()));
-			pembelian.setSupplier(temp.getSupplier());
+			pembelian.setWaktuTransaksi(Converter.stringToDate(h.getTanggal()));
+			pembelian.setSupplier(h.getDistributor());
 			pembelian.setPengguna(penggunaService.temukan(principal.getName()));
+			pembelian.setDiskon(new BigDecimal(Formatter.hilangkanTitik(h.getDiskon())));
+			pembelian.setPajak(new BigDecimal(Formatter.hilangkanTitik(h.getPajak())));
+			pembelian.setTotal(new BigDecimal(Formatter.hilangkanTitik(h.getTotalPembelian())));
+			pembelian.setGrandTotal(new BigDecimal(Formatter.hilangkanTitik(h.getTotalPembelianFinal())));
+			
 			pembelian.setWaktuDibuat(new Date());
 			pembelian.setTerakhirDirubah(new Date());
-
-			BigDecimal grandTotal = new BigDecimal(0);
-			PembelianDetailTempPredicateBuilder builder = new PembelianDetailTempPredicateBuilder();
-			if (!StringUtils.isBlank(nomorFaktur)) {
-				builder.find(nomorFaktur, principal.getName());
-			}
-			BooleanExpression exp = builder.getExpression();			
-			List<PembelianDetailTemp> listTemp = pdtService.dapatkanList(exp);
 			
 			List<PembelianDetail> listPembelianDetail = new ArrayList<>();
-			for (PembelianDetailTemp t : listTemp) {
+			
+			List<PembelianDetailTemp> list = pembelianDetailTempService.dapatkanListByRandomId(h.getRandomId());
+			for (PembelianDetailTemp t : list) {
 				PembelianDetail pembelianDetail = new PembelianDetail();
 				pembelianDetail = setDetailContent(pembelianDetail, t);
 				pembelianDetail.setPembelian(pembelian);
-				grandTotal = grandTotal.add(new BigDecimal(t.getSubTotal().replaceAll("[.,]", "")));
 				listPembelianDetail.add(pembelianDetail);
 				Obat obat = getObat(pembelianDetail.getObat());
 				updateObat(obat, pembelianDetail, principal.getName(), request);				
 			}
-			pembelian.setGrandTotal(grandTotal);
-			pembelian.setPembelianDetail(listPembelianDetail);
-			
+			pembelian.setPembelianDetail(listPembelianDetail);			
 			pembelianService.simpan(pembelian);
-			
-			for (PembelianDetailTemp t : listTemp) {
-				pdtService.hapus(t);
-			}	
-			
-			temp.setId(pembelian.getId());
+			pembelianDetailTempService.hapusBatch(h.getRandomId());			
+			h.setId(pembelian.getId().toString());
 			logger.info(LogSupport.tambah(principal.getName(), pembelian.toString(), request));
-			return temp;			
+			return h;			
 		} catch (Exception e) {
 			logger.info(e.getMessage());
 			logger.info(LogSupport.tambahGagal(principal.getName(), pembelian.toString(), request));
-			temp.setPesan(e.getMessage());
-			return temp;
+			h.setInfo(e.getMessage());
+			return h;
 		}
 	}
 	

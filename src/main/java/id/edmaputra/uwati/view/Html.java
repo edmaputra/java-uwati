@@ -302,6 +302,44 @@ public class Html {
 		return nav;
 	}
 	
+	public static String navigasiHalamanGenerator(int first, int prev, int current, int next, int last, int totalPage, String tanggalAwal, String tanggalAkhir, String cari) {
+		String html = "";
+
+		if (current == 1) {
+			html += Html.li(Html.aJs("&lt;&lt;", null, null, null), "disabled", null, null);
+			html += Html.li(Html.aJs("&lt;", null, null, null), "disabled", null, null);
+		} else {
+			html += Html.li(Html.aJs("&lt;&lt;", null, "onClick", "refresh(" + first + ",\"" + tanggalAwal + "\",\"" + tanggalAkhir + "\",\"" + cari + "\")"), null,
+					null, null);
+			html += Html.li(Html.aJs("&lt;", null, "onClick", "refresh(" + prev + ",\"" + tanggalAwal + "\",\"" + tanggalAkhir + "\",\"" + cari + "\")"), null, null,
+					null);
+		}
+
+		for (int i = first; i <= last; i++) {
+			if (i == current) {
+				html += Html.li(Html.aJs(i + "", null, "onClick", "refresh(" + i + ",\"" + tanggalAwal + "\",\"" + tanggalAkhir + "\",\"" + cari + "\")"), "active",
+						null, null);
+			} else {
+				html += Html.li(Html.aJs(i + "", null, "onClick", "refresh(" + i + ",\"" + tanggalAwal + "\",\"" + tanggalAkhir + "\",\"" + cari + "\")"), null, null,
+						null);
+			}
+		}
+
+		if (current == totalPage) {
+			html += Html.li(Html.aJs("&gt;", null, null, null), "disabled", null, null);
+			html += Html.li(Html.aJs("&gt;&gt;", null, null, null), "disabled", null, null);
+		} else {
+			html += Html.li(Html.aJs("&gt;", null, "onClick",
+					"refresh(" + next + ",\"" + tanggalAwal + "\",\"" + tanggalAkhir + "\",\"" + cari + "\")"),
+					null, null, null);
+			html += Html.li(Html.aJs("&gt;&gt;", null, "onClick", "refresh(" + last + ",\"" + tanggalAwal + "\",\"" + tanggalAkhir + "\",\"" + cari + "\")"), null, null,
+					null);
+		}
+		
+		String nav = Html.nav(Html.ul(html, "pagination"));
+		return nav;
+	}
+	
 	
 
 }

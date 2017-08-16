@@ -37,5 +37,21 @@ public class THead {
 			+ "<th>Jumlah</th>"
 			+ "<th>Total</th>"			
 			+ "</tr></thead>";
+	
+	public static final String THEAD_PEMBELIAN = "<thead><tr>" 
+			+ "<th>Tanggal</th>"			
+			+ "<th>Supplier</th>"
+			+ "<th>Nomor Faktur</th>"			
+			+ "<th>Total Pembelian</th>"
+			+ "<th></th>"
+			+ "</tr></thead>";
+	
+	public static final String THEAD_PEMBELIAN_DETAIL = "<thead><tr>" 
+			+ "<th>Obat</th>"
+			+ "<th>Harga Beli</th>"
+			+ "<th>Jumlah</th>"
+			+ "<th>Total</th>"
+			+ "<th>Harga Jual</th>"
+			+ "</tr></thead>";
 
 }

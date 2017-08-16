@@ -3,12 +3,8 @@
 
 <%@ include file="../../layouts/taglib.jsp"%>
 
-<c:url var="simpanUrl" value="/pembelian-obat/tambah" />
 <c:url var="cariObatUrl" value="/pembelian-obat/cariobat" />
 <c:url var="getObatUrl" value="/obat/nama" />
-<c:url var="tambahObatUrl" value="/pembelian-obat/tambahTemp" />
-<c:url var="hapusObatUrl" value="/pembelian-obat/hapusTemp" />
-<c:url var="daftarTempUrl" value="/pembelian-obat/daftarTemp" />
 <c:url var="beliUrl" value="/pembelian-obat/beli" />
 <c:url var="tersediaUrl" value="/pembelian-obat/tersedia" />
 <c:url var="cetakUrl" value="/pembelian-obat/cetak" />
@@ -113,16 +109,16 @@
 							</tr>
 						</table>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-7" >
 						<div class="form-group">							
-							<a href="#" class="form control btn btn-primary" style="width: 100%; height: 100%;"  id="button-bayar">BAYAR</a>
+							<a href="#" class="form control btn btn-primary" style="width: 100%; height: 100%;"  id="button-bayar">BELI</a>
 						</div>
 					</div>
-					<div class="col-md-1">
-						<div class="form-group">
+<!-- 					<div class="col-md-1"> -->
+<!-- 						<div class="form-group"> -->
 <!-- 							<a href="#" class="form control btn btn-default" style="height: 100%;" id="button-batal" onclick="resetAll()">Batal</a>							 -->
-						</div>
-					</div>
+<!-- 						</div> -->
+<!-- 					</div> -->
 				</div>
 			</form>
 		</div>
@@ -132,21 +128,23 @@
 	<%@ include file="../../layouts/gritter.jsp"%>
 </div>
 
-<div class="modal fade" id="cetakModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="cetak-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-sm">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title" id="myModalLabel">Pembelian Tersimpan</h4>
 			</div>
-			<div class="form-panel">
+			<div class="form-panel">				
 				<div class="modal-body">
-					<p>Apakah Anda Ingin Mencetak Bukti Pembelian ?</p>
+					<div id="pesan-cetak-modal" style="text-align: center;"></div>
+					<div style="text-align: center;">Apakah Anda Ingin Mencetak Bukti Pembelian ?</div>
+					
 				</div>
 			</div>
 			<form action="${cetakUrl}" class="form-horizontal style-form formCetak" method="POST" target="_blank">
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default btnKeluar" id="keluarModal" data-dismiss="modal" onclick="muatUlangHalaman()">Tidak</button>
-					<input type="hidden" name="id" class="form-control" id="beliId" />
+					<button type="button" class="btn btn-default btnKeluar" id="keluarModal" data-dismiss="modal">Tidak</button>
+					<input type="hidden" name="id" class="form-control" id="beli_id" />
 					<input type="submit" id="cetak" class="btn btn-primary" value="CETAK" />
 				</div>
 			</form>
@@ -206,7 +204,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<input type="hidden" class="form-control" name="editId" id="editId" />
+					<input type="hidden" class="form-control" name="edit_id" id="edit_id" />
 					<button type="button" class="btn btn-default btnKeluar"
 						data-dismiss="modal">Keluar</button>
 					<input type="submit" class="btn btn-primary" value="UPDATE"
@@ -271,6 +269,74 @@
 			refreshObat(1, $('#cariObat').val());
 		});
 		
+		$("#btnPajak").click(function() {
+			hitungPajakAtauDiskon("#input-pajak", 0);
+		});
+
+		$("#btnDiskon").click(function() {
+			hitungPajakAtauDiskon("#input-diskon", 1);
+		});
+		
+		$("#button-bayar").click(function() {
+			cek("#tanggal", "#distributor", "#nomor_faktur");
+		});
+		
+		hitungHargaTotalOnKeyUp("#edit_jumlah", "#edit_harga_total");
+		hitungHargaTotalOnKeyUp("#edit_harga_beli", "#edit_harga_total");
+		hitungHargaTotalOnKeyUp("#edit_diskon", "#edit_harga_total");
+				
+		
+		$(".formEdit").validate({
+			rules : {
+				edit_obat : {
+					required : true
+				},
+				edit_jumlah : {
+					required : true,
+					min : 1
+				},
+				edit_harga_beli : {
+					required : true					
+				},
+				edit_harga_total : {
+					required : true
+				},
+				edit_diskon : {
+					required : true,					
+				}
+			},
+			messages : {
+				edit_obat : {
+					required : "Obat Wajib Diisi",					
+				}, 					
+				edit_jumlah : {
+					required : "Jumlah Wajib Diisi",
+					min : "Isi Jumlah Dengan Benar"
+				},				
+				edit_harga : {
+					required : "Harga Wajib Diisi"					
+				},
+				edit_harga_total : {
+					required : "Harga Total Wajib Terisi"					
+				},
+				edit_diskon : {
+					required : "Diskon Wajib Diisi"
+				}
+			},
+			submitHandler : function(form) {
+				var data = {};
+				data = setObat(data);
+				$.postJSON('${editObatTerpilihUrl}', data, function() {
+					$('.btnKeluar').click();
+					refreshDaftarObat(randomId);
+					refreshObat(halamanObat, cariObat);
+					resetEditObatData();
+				}, function() {
+					$('#gritter-edit-gagal').click();
+				});
+			}
+		});
+		
 		setMaskingUang("#input-diskon");
 		setMaskingUang("#input-pajak");
 		setMaskingUang("#edit_jumlah");
@@ -285,6 +351,30 @@
 	var cariObat = '';
 	var diskonTotal = "0";
 	var pajakTotal = "0";
+	
+	function cek(tanggal, distributor, nomor_faktur){
+		if ($(tanggal).val() != '' && $(distributor).val() != '' && $(nomor_faktur).val() != '') {
+			var data = {};
+			data = setPembelian(data);
+			$.postJSON('${beliUrl}', data, function(result) {
+				resetAll();
+				randomId = Math.floor(Math.random() * 1000000);				
+				refreshObat(halamanObat, cariObat);
+				var p = "Pembelian Tersimpan, Stok Update Diperbarui";
+				$('#pesan-cetak-modal').empty();
+				$('#pesan-cetak-modal').append(p);
+				$('#beli_id').val(result.id);
+				$('#cetak-modal').modal('show');								
+			}, function() {
+				$('#gritter-tambah-gagal').click();
+			});
+		} else {
+			var p = "Harap Isi Tanggal, Distributor dan Nomor Faktur Pembelian";
+			$('#pesan').empty();
+			$('#pesan').append(p);
+			$('#pesan-modal').modal('show');	
+		}		
+	}
 	
 	function refreshObat(halaman, find) {
 		var data = {
@@ -337,6 +427,53 @@
 		});
 	}
 	
+	function editObat(id) {
+		resetEditObatData();
+		var data = {
+			idObat : id,
+			randomId : randomId
+		};
+		$.getAjax('${dapatkanObatTerpilihUrl}', data, function(result) {
+			$('#edit_obat').val(result.obat);
+			$('#edit_jumlah').val(result.jumlah);
+			$('#edit_harga_beli').val(result.hargaBeli);
+			$('#edit_harga_total').val(result.subTotal);
+			$('#edit_diskon').val(result.diskon);
+			$('#edit_harga_jual').val(result.hargaJual);
+			$('#edit_id').val(result.idObat);
+		}, null);
+	}
+	
+	function hapusObat(id) {
+		var data = {
+			idObat : id,
+			randomId : randomId
+		};
+		$.postJSON('${hapusObatTerpilihUrl}', data, function(result) {
+			refreshDaftarObat(randomId);
+			console.log(result.info);
+		}, function() {
+			console.log(result.info);
+		});
+	}
+	
+	function hitungHargaTotalOnKeyUp(origin, hargaTotal) {
+		$(origin).keyup(function() {
+			$(hargaTotal).val(hitungHargaTotalPerObat("#edit_harga_beli", "#edit_diskon", "#edit_jumlah"));
+		});
+	}
+	
+	function hitungHargaTotalPerObat(hrg, dsk, jum) {
+		if ($(hrg).val() != '' && $(dsk).val() != '' && $(jum).val() != '') {
+			var hargaBeli = parseFloat($(hrg).val().replace(/\./g, ''));
+			var diskon = parseFloat($(dsk).val().replace(/\./g, ''));
+			var jumlah = parseInt($(jum).val().replace(/\./g, ''), 10);
+			var hargaTotal = hargaBeli * jumlah;
+			hargaTotal = hargaTotal - diskon;
+			return hargaTotal;
+		}
+	}
+	
 	function hitungHargaTotal(hrg, pjk, dsk) {
 		if (hrg != '' && pjk != '' && dsk != '') {
 			var hargaBeli = parseFloat(hrg.replace(/\./g, ''));
@@ -346,5 +483,77 @@
 			hargaTotal = hargaTotal + pajak;
 			return hargaTotal;
 		}
+	}
+	
+	function hitungPajakAtauDiskon(inputan, n) {
+		if ($("#total").val() != "0") {
+			if (n == 0) {
+				pajakTotal = $(inputan).val();
+			} else if (n == 1) {
+				diskonTotal = $(inputan).val();
+			}
+			refreshDaftarObat(randomId);
+		}
+	}
+	
+	function hitungKembalian(beli, bayar){
+		var totalBeli = $(beli).val().replace(/\./g, '');
+		var totalBayar = $(bayar).val().replace(/\./g, '');
+		var kembali = totalBayar - totalBeli;
+		return kembali;
+	}
+	
+	function resetEditObatData() {
+		$('#edit_id').val('');
+		$('#edit_obat').val('');
+		$('#edit_jumlah').val('0');
+		$('#edit_harga_beli').val('0');
+		$('#edit_harga_jual').val('0');
+		$('#edit_harga_total').val('0');
+		$('#edit_diskon').val('0');
+	}
+	
+	function setObat(data) {
+		data['idObat'] = $('#edit_id').val();
+		data['obat'] = $('#edit_obat').val();
+		data['jumlah'] = $('#edit_jumlah').val();
+		data['hargaJual'] = $('#edit_harga_jual').val();
+		data['hargaBeli'] = $('#edit_harga_beli').val();
+		data['subTotal'] = $('#edit_harga_total').val();
+		data['diskon'] = $('#edit_diskon').val();
+		data['randomId'] = randomId;
+		return data;
+	}
+	
+	function setPembelian(data) {
+		data['tanggal'] = $('#tanggal').val();
+		data['distributor'] = $('#distributor').val();
+		data['nomorFaktur'] = $('#nomor_faktur').val();
+		data['pajak'] = $('#pajak').val();
+		data['diskon'] = $('#diskon').val();
+		data['pajak'] = $('#pajak').val();
+		data['totalPembelian'] = $('#total').val();
+		data['totalPembelianFinal'] = $('#totalBayar').val();
+		data['randomId'] = randomId;
+		return data;
+	}
+	
+	function resetAll(){							
+		halamanObat = 1;
+		cariObat = '';
+		diskonTotal = "0";
+		pajakTotal = "0";
+		refreshObat(halamanObat, cariObat);
+		$('#tabel-obat').empty();
+		$('#barang').val('0');		
+		$('#total').val('0');		
+		$('#diskon').val('0');
+		$('#pajak').val('0');
+		$('#input-diskon').val('0');
+		$('#input-pajak').val('0');		
+		$('#cariObat').val('');
+		$('#totalBayar').val('0')
+		$('#distributor').val('');
+		$('#nomor_faktur').val('');
 	}
 </script>
