@@ -13,6 +13,14 @@ public interface RekamMedisDiagnosaTempRepository extends JpaRepository<RekamMed
 
 	List<RekamMedisDiagnosaTemp> findByRandomId(String randomId);
 
+	List<RekamMedisDiagnosaTemp> findByNomor(String nomor);
+
+	RekamMedisDiagnosaTemp findByNomorAndIdDiagnosa(String nomor, String idDiagnosa);
+
+	void deleteByNomor(String nomor);
+
+	void deleteByNomorAndIdDiagnosa(String nomor, String idDiagnosa);
+
 	
 
 }

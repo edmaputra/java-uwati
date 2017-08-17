@@ -209,7 +209,7 @@ public class DiagnosaController {
 		String isi = "";
 		int size = list.getContent().size();
 		for (int i = 0; i < size; i++) {
-			isi += Html.aJs(list.getContent().get(i).getNama(), "btn btn-default btn-wrapword", "onClick", "tambahObat(" + list.getContent().get(i).getId() + ")");
+			isi += Html.aJs(list.getContent().get(i).getNama(), "btn btn-default btn-wrapword", "onClick", "tambahDiagnosa(" + list.getContent().get(i).getId() + ")");
 			if ((i + 1) % jumlahKolom == 0 || (i + 1) == size) {
 				button += Html.div(isi, "btn-group btn-group-justified");
 				isi = "";

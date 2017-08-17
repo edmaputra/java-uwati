@@ -55,6 +55,8 @@ public class RekamMedisHandler {
 	private Boolean isMasukResepList;
 	
 	private String pajak;
+	
+	private String tabelDiagnosa;
 
 	public String getJaminan() {
 		return jaminan;
@@ -276,6 +278,14 @@ public class RekamMedisHandler {
 
 	public void setPajak(String pajak) {
 		this.pajak = pajak;
+	}
+
+	public String getTabelDiagnosa() {
+		return tabelDiagnosa;
+	}
+
+	public void setTabelDiagnosa(String tabelDiagnosa) {
+		this.tabelDiagnosa = tabelDiagnosa;
 	}
 
 }

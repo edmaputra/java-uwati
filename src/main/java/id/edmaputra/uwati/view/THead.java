@@ -15,8 +15,7 @@ public class THead {
 			+ "<th>Tanggal</th>"
 			+ "<th>Dokter</th>"
 			+ "<th>Anamnesa</th>"
-			+ "<th>Pemeriksaan</th>" 
-			+ "<th>Diagnosa</th>" 
+			+ "<th>Pemeriksaan</th>"
 			+ "<th>Proses</th>"
 			+ "<th></th>"
 			+ "</tr></thead>";

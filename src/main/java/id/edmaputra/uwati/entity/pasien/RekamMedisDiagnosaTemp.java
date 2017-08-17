@@ -19,6 +19,14 @@ import id.edmaputra.uwati.entity.DasarEntity;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class RekamMedisDiagnosaTemp extends DasarEntity<Long> {
 	
+	public String getNomor() {
+		return nomor;
+	}
+
+	public void setNomor(String nomor) {
+		this.nomor = nomor;
+	}
+
 	private static final long serialVersionUID = 2351726938294178806L;
 
 	@Id
@@ -31,8 +39,11 @@ public class RekamMedisDiagnosaTemp extends DasarEntity<Long> {
 	@Column(name="diagnosa", nullable=true, length=DBConf.LENGTH_TRANSAKSI_NOMORFAKTUR)
 	private String diagnosa;
 	
-	@Column(name="randomId", nullable=true)
+	@Column(name="randomId", nullable=true, length = 40)
 	private String randomId;
+	
+	@Column(name="nomor", nullable=true, length = 40)
+	private String nomor;
 
 	public Long getId() {
 		return id;

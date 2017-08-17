@@ -51,6 +51,8 @@ public class QRekamMedis extends EntityPathBase<RekamMedis> {
 
     public final ListPath<RekamMedisDetail, QRekamMedisDetail> rekamMedisDetail = this.<RekamMedisDetail, QRekamMedisDetail>createList("rekamMedisDetail", RekamMedisDetail.class, QRekamMedisDetail.class, PathInits.DIRECT2);
 
+    public final ListPath<RekamMedisDiagnosa, QRekamMedisDiagnosa> rekamMedisDiagnosa = this.<RekamMedisDiagnosa, QRekamMedisDiagnosa>createList("rekamMedisDiagnosa", RekamMedisDiagnosa.class, QRekamMedisDiagnosa.class, PathInits.DIRECT2);
+
     public final DateTimePath<java.util.Date> tanggal = createDateTime("tanggal", java.util.Date.class);
 
     //inherited

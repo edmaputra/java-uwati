@@ -17,15 +17,20 @@
 <c:url var="hapusTerapiUrl" value="/rekammedis/hapus-terapi" />
 <c:url var="hapusTempUrl" value="/rekammedis/hapus-temp" />
 
+<c:url var="tambahDiagnosaUrl" value="/rekammedis/tambah-diagnosa" />
+<c:url var="daftarDiagnosaUrl" value="/rekammedis/daftar-diagnosa" />
+<c:url var="hapusDiagnosaUrl" value="/rekammedis/hapus-diagnosa" />
+
 <c:url var="prosesResepUrl" value="/rekammedis/resep-kirim" />
 <c:url var="batalProsesResepUrl" value="/rekammedis/resep-batal" />
 
 <c:url var="cekStokListObatUrl" value="/rekammedis/cek-stok" />
 
 <c:url var="terapiUrl" value="/obat/obat-tindakan" />
+<c:url var="diagnosaUrl" value="/diagnosa/b" />
 
 <div class="showback">
-	<div class="row mt">
+	<div class="row">
 		<div class="col-md-12">
 			<form class="form-horizontal style-form" method="get">
 				<div class="form-group">
@@ -153,8 +158,28 @@
 						</div>
 						<div class="form-group">
 							<label>Diagnosa :</label>
-							<textarea class="form-control" rows="3" name="diagnosa"
-								id="diagnosa"></textarea>
+							<div class="row">
+							<div class="col-md-6">
+								<table class="table table-striped table-advance table-hover">
+									<thead style="background-color: #68DFF0;">
+										<tr>
+											<th>Diagnosa</th>											
+										</tr>
+									</thead>
+									<tbody id="tabel-diagnosa">
+									</tbody>
+								</table>
+							</div>
+							<div class="col-md-6">
+								<input type="text" name="cari_diagnosa" class="form-control"
+									id="cari_diagnosa" placeholder="Pencarian Diagnosa" autocomplete="off" />
+								<div id="button-diagnosa"></div>
+								<div class="btn-group btn-group-justified" id="navigasi-diagnosa">
+								</div>
+							</div>
+						</div>
+<!-- 							<textarea class="form-control" rows="3" name="diagnosa" -->
+<!-- 								id="diagnosa"></textarea> -->
 						</div>
 						<label>Terapi :</label>
 						<div class="row">
@@ -165,7 +190,7 @@
 											<th>Terapi</th>
 											<th>Jumlah</th>
 											<th>Biaya</th>
-											<th>x</th>
+											<th></th>
 										</tr>
 									</thead>
 									<tbody id="tabel-terapi">
@@ -254,7 +279,11 @@
 		});
 
 		$("#cari-terapi").keyup(function() {
-			refreshObat(1, $('#cari-terapi').val());
+			refreshObat(1, $('#cari-terapi').val());		
+		});
+		
+		$("#cari-diagnosa").keyup(function() {
+			refreshDiagnosa(1, $('#cari_diagnosa').val());		
 		});
 
 		$('#rm-baru').click(function() {
@@ -264,6 +293,7 @@
 			state = 0;
 			reset();
 			refreshObat(1, '');
+			refreshDiagnosa(1, '');
 		});
 		
 		$('#button-keluar-modal').click(function(){			
@@ -287,9 +317,6 @@
 				},
 				pemeriksaan : {
 					required : true
-				},
-				diagnosa : {
-					required : true
 				}
 			},
 			messages : {
@@ -297,8 +324,7 @@
 				kunjungan : "Kunjungan Wajib Diisi",
 				tanggal : "Tanggal Wajib Diisi",
 				anamnesa : "Anamnesa Wajib Diisi",
-				pemeriksaan : "Pemeriksaan Wajib Diisi",
-				diagnosa : "Diagnosa Wajib Diisi"
+				pemeriksaan : "Pemeriksaan Wajib Diisi"
 			},
 			submitHandler : function(form) {
 				var data = {};
@@ -347,6 +373,7 @@
 	function getData(ids, s) {
 		reset();
 		refreshObat(1, '');
+		refreshDiagnosa(1, '');
 		var data = {
 			id : ids,
 			status : s
@@ -358,7 +385,8 @@
 			$('#nomor').val(result.nomor);
 			$('#tanggal').val(result.tanggal);
 			$('#kunjungan').val(result.kunjungan);		
-			$('#tabel-terapi').append(result.tabelTerapi);			
+			$('#tabel-terapi').append(result.tabelTerapi);
+			$('#tabel-diagnosa').append(result.tabelDiagnosa);
 			$('#ids').val(ids);
 			state = 1;
 		}, null);
@@ -409,6 +437,21 @@
 			$('#navigasi-obat').append(result.navigasiObat);
 		}, null);
 	}
+	
+	function refreshDiagnosa(halaman, find) {
+		var data = {
+			hal : halaman,
+			cari : find,
+			n : 15
+		};
+
+		$.getAjax('${diagnosaUrl}', data, function(result) {
+			$('#button-diagnosa').empty();
+			$('#button-diagnosa').append(result.button);
+			$('#navigasi-diagnosa').empty();
+			$('#navigasi-diagnosa').append(result.navigasiObat);
+		}, null);
+	}
 
 	function refreshDaftarTerapi(n) {
 		if (n != null) {
@@ -420,7 +463,18 @@
 				$('#tabel-terapi').append(result.tabelTerapi);
 			}, null);
 		}
-
+	}
+	
+	function refreshDaftarDiagnosa(n) {
+		if (n != null) {
+			var data = {
+				nomor : n
+			};
+			$.getAjax('${daftarDiagnosaUrl}', data, function(result) {
+				$('#tabel-diagnosa').empty();
+				$('#tabel-diagnosa').append(result.tabelTerapi);
+			}, null);
+		}
 	}
 
 	function tambahObat(id) {
@@ -432,6 +486,21 @@
 		$.postJSON('${tambahTerapiUrl}', data, function(result) {
 			// 			console.log(result.nomor);
 			refreshDaftarTerapi($('#nomor').val());
+		}, function() {
+			console.log(result.info);
+			$('#gritter-tambah-gagal').click();
+		});
+	}
+	
+	function tambahDiagnosa(id) {
+		var data = {
+			idDiagnosa : id,
+			nomor : $("#nomor").val(),
+			randomId : randomId
+		};
+		$.postJSON('${tambahDiagnosaUrl}', data, function(result) {
+			// 			console.log(result.nomor);
+			refreshDaftarDiagnosa($('#nomor').val());
 		}, function() {
 			console.log(result.info);
 			$('#gritter-tambah-gagal').click();
@@ -456,6 +525,19 @@
 		};
 		$.postJSON('${hapusTerapiUrl}', data, function(result) {
 			refreshDaftarTerapi(data.nomor);
+			console.log(result.info);
+		}, function() {
+			console.log(result.info);
+		});
+	}
+	
+	function hapusDiagnosa(id) {
+		var data = {
+			idDiagnosa : id,
+			nomor : $('#nomor').val()
+		};
+		$.postJSON('${hapusDiagnosaUrl}', data, function(result) {
+			refreshDaftarDiagnosa(data.nomor);
 			console.log(result.info);
 		}, function() {
 			console.log(result.info);
@@ -524,7 +606,6 @@
 		data['tanggal'] = $('#tanggal').val();
 		data['anamnesa'] = $('#anamnesa').val();
 		data['pemeriksaan'] = $('#pemeriksaan').val();
-		data['diagnosa'] = $('#diagnosa').val();
 		data['pasien'] = $('#pasienId').val();
 		return data;
 	}
@@ -535,7 +616,7 @@
 		$('#tanggal').val(tanggalHariIni());
 		$('#anamnesa').val('');
 		$('#pemeriksaan').val('');
-		$('#diagnosa').val('');
 		$('#tabel-terapi').empty();
+		$('#tabel-diagnosa').empty();
 	}
 </script>

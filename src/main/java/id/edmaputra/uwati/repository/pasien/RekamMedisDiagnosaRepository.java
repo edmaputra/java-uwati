@@ -14,6 +14,5 @@ public interface RekamMedisDiagnosaRepository extends JpaRepository<RekamMedisDi
 
 	void deleteByRekamMedis(RekamMedis rekamMedis);
 
-	RekamMedisDiagnosa findByRekamMedisAndDiagnosa(RekamMedis rekamMedis, String diagnosa);
 
 }

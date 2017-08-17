@@ -35,6 +35,10 @@ import id.edmaputra.uwati.entity.master.Karyawan;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class RekamMedis extends DasarEntity<Long>{
 
+	public Boolean getIsMasukListResep() {
+		return isMasukListResep;
+	}
+
 	private static final long serialVersionUID = 2272001067197118594L;
 
 	@Id
@@ -73,7 +77,10 @@ public class RekamMedis extends DasarEntity<Long>{
 	private Integer kunjungan;
 	
 	@OneToMany(mappedBy = "rekamMedis", cascade = CascadeType.ALL, fetch = FetchType.LAZY)	
-	private List<RekamMedisDetail> rekamMedisDetail;	
+	private List<RekamMedisDetail> rekamMedisDetail;
+	
+	@OneToMany(mappedBy = "rekamMedis", cascade = CascadeType.ALL, fetch = FetchType.LAZY)	
+	private List<RekamMedisDiagnosa> rekamMedisDiagnosa;
 	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_dokter", nullable = true)
@@ -187,6 +194,14 @@ public class RekamMedis extends DasarEntity<Long>{
 
 	public void setKunjungan(Integer kunjungan) {
 		this.kunjungan = kunjungan;
+	}
+	
+	public List<RekamMedisDiagnosa> getRekamMedisDiagnosa() {
+		return rekamMedisDiagnosa;
+	}
+
+	public void setRekamMedisDiagnosa(List<RekamMedisDiagnosa> rekamMedisDiagnosa) {
+		this.rekamMedisDiagnosa = rekamMedisDiagnosa;
 	}
 	
 }

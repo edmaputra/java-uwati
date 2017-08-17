@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.mysema.query.types.expr.BooleanExpression;
 
+import id.edmaputra.uwati.entity.pasien.RekamMedisDetailTemp;
 import id.edmaputra.uwati.entity.pasien.RekamMedisDiagnosaTemp;
 import id.edmaputra.uwati.repository.pasien.RekamMedisDiagnosaTempRepository;
 
@@ -54,5 +55,25 @@ public class RekamMedisDiagnosaTempService {
 	private List<RekamMedisDiagnosaTemp> muatDaftarByRandomId(String randomId) {
 		// TODO Auto-generated method stub
 		return rekamMedisDiagnosaTempRepository.findByRandomId(randomId);
+	}
+	
+	public void hapus(String nomor, String idDiagnosa){
+		rekamMedisDiagnosaTempRepository.deleteByNomorAndIdDiagnosa(nomor, idDiagnosa);
+	}
+
+	public void hapus(String nomor) {
+		rekamMedisDiagnosaTempRepository.deleteByNomor(nomor);		
+	}
+	
+	public void hapusBatchByNomor(String nomor) {
+		rekamMedisDiagnosaTempRepository.deleteInBatch(muatDaftarByNomor(nomor));		
+	}
+	
+	public RekamMedisDiagnosaTemp dapatkanByNomorAndIdDiagnosa(String nomor, String idDiagnosa){
+		return rekamMedisDiagnosaTempRepository.findByNomorAndIdDiagnosa(nomor, idDiagnosa);
+	}
+	
+	public List<RekamMedisDiagnosaTemp> muatDaftarByNomor(String nomor){
+		return rekamMedisDiagnosaTempRepository.findByNomor(nomor);
 	}
 }
