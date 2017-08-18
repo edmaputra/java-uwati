@@ -11,7 +11,6 @@ import javax.persistence.UniqueConstraint;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import id.edmaputra.uwati.config.DBConf;
 import id.edmaputra.uwati.entity.DasarEntity;
 
 @Entity
@@ -29,7 +28,18 @@ public class Diagnosa extends DasarEntity<Long>{
 	@Column(name = "nama", nullable = false, length = 200)
 	private String nama;
 	
+	@Column(name = "kode", nullable = true, length = 100)
+	private String kode;
 	
+	
+	public String getKode() {
+		return kode;
+	}
+
+	public void setKode(String kode) {
+		this.kode = kode;
+	}
+
 	public Long getId() {
 		return id;
 	}

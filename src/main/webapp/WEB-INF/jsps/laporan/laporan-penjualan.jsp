@@ -168,8 +168,7 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default btnKeluar"
 						data-dismiss="modal">Keluar</button>
-					<input type="hidden" name="id" class="form-control" id="ids" /> <input
-						type="submit" class="btn btn-primary" value="Simpan" />
+					<input type="hidden" name="id" class="form-control" id="ids" /> 
 				</div>
 			</form>
 		</div>

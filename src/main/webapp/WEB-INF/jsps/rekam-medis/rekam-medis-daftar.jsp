@@ -450,6 +450,9 @@
 				$.postJSON('${editTerapiUrl}', data, function() {
 					$('#edit_keluar').click();
 					refreshDaftarTerapi($('#nomor').val());
+					$('#edit-terapi-modal').on('hide.bs.modal', function () {
+						$('#tanggal').focus();
+					});
 				}, function() {
 				});
 			}

@@ -136,6 +136,7 @@ public class DiagnosaController {
 		Diagnosa get = diagnosaService.dapatkan(d.getId());		
 		try {
 			get.setNama(d.getNama());
+			get.setKode(d.getKode());
 			diagnosaService.simpan(get);
 			logger.info(LogSupport.edit(principal.getName(), get.getNama(), request));
 			return get;
@@ -234,7 +235,7 @@ public class DiagnosaController {
 
 	private String tabelGenerator(Page<Diagnosa> list, HttpServletRequest request) {
 		String html = "";
-		String thead = "<thead><tr>" +  "<th>Diagnosa</th>";
+		String thead = "<thead><tr><th>Diagnosa</th><th>Kode</th>";
 		if (request.isUserInRole("ROLE_ADMIN")) {
 			thead += "<th>User Input</th>" + "<th>Waktu Dibuat</th>" + "<th>User Editor</th>"
 					+ "<th>Terakhir Diubah</th>";
@@ -244,7 +245,8 @@ public class DiagnosaController {
 		for (Diagnosa o : list.getContent()) {
 			String row = "";
 			String btn = "";			
-			row += Html.td(o.getNama());						
+			row += Html.td(o.getNama());
+			row += Html.td(o.getKode());
 			if (request.isUserInRole("ROLE_ADMIN")) {
 				row += Html.td(o.getUserInput());
 				row += Html.td(Formatter.formatTanggal(o.getWaktuDibuat()));

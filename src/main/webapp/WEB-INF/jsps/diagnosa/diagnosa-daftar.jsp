@@ -20,7 +20,7 @@
 				<div class="col-md-10">
 					<form class="form-inline pull-right" id="formCari">
 						<div class="form-group">
-							<input type="text" id="cari" class="form-control"
+							<input type="text" id="stringCari" class="form-control"
 								placeholder="Pencarian" style="width: 150px" />
 						</div>
 						<div class="form-group">
@@ -60,7 +60,11 @@
 				<div class="form-panel">
 					<div class="modal-body">
 						<div class="row">
-							<div class="form-group col-md-12">
+							<div class="form-group col-md-3">
+								<label>Kode:</label> <input type="text" name="kode"
+									class="form-control" id="kode" autocomplete="off" />
+							</div>
+							<div class="form-group col-md-9">
 								<label>Nama:</label> <input type="text" name="nama"
 									class="form-control" id="nama" autocomplete="off" />
 							</div>
@@ -112,9 +116,15 @@
 	var state = 1;
 	$(document).ready(function() {
 		refresh(1, '');
+		
+		$('#stringCari').on('keypress', function(e) {
+			if (e.which === 13) {
+				$('#btnCari').click();
+			}
+		});
 
 		$('#btnCari').click(function() {
-			refresh(1, $('#cari').val());
+			refresh(1, $('#stringCari').val());
 		});
 		
 		$('#btnReset').click(function() {
@@ -184,6 +194,7 @@
 		};		
 		$.getAjax('${dapatkan}', data, function(result) {
 			$('#nama').val(result.nama);
+			$('#kode').val(result.kode);
 			$('#ids').val(ids);
 			state = 1;
 		}, null);
@@ -212,11 +223,13 @@
 			data['id'] = $('#ids').val();
 		}
 		data['nama'] = $('#nama').val();
+		data['kode'] = $('#kode').val();
 		return data;
 	}
 
 	function reset() {
 		$('#ids').val('');
 		$('#nama').val('');
+		$('#kode').val('');
 	}
 </script>

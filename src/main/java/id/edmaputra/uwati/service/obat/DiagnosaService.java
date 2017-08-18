@@ -33,6 +33,10 @@ public class DiagnosaService {
 	public Diagnosa dapatkanByNama(String nama){
 		return diagnosaRepository.findByNama(nama);
 	}
+	
+	public Diagnosa dapatkanByKode(String kode){
+		return diagnosaRepository.findByKode(kode);
+	}
 
 	public Page<Diagnosa> muatDaftar(Integer halaman, BooleanExpression expression) {
 		PageRequest request = new PageRequest(halaman - 1, PAGE_SIZE, Sort.Direction.ASC, "nama");

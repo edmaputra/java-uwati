@@ -393,12 +393,21 @@ public class RekamMedisController {
 			List<RekamMedisDetail> list = rekamMedis.getRekamMedisDetail();
 			String tabel = tabelResep(list);
 			BigDecimal total = new BigDecimal(0);
+			BigDecimal totalObat = new BigDecimal(0);
+			
 			for (RekamMedisDetail d : list){
+				Obat o = getObat(d.getTerapi());
+				if (o.getTipe() == 0){
+					totalObat = totalObat.add(d.getHargaTotal());
+				} else if (o.getTipe() == 1){
+					Racikan r = getRacikan(o.getNama());
+					totalObat = totalObat.add(r.getHargaJual());
+				}
 				total = total.add(d.getHargaTotal());
 			}
 			h.setIsMasukResepList(rekamMedis.isMasukListResep());
 			h.setTotalPembelian(Converter.patternCurrency(total));
-			BigDecimal pajak = total.multiply(BigDecimal.TEN);
+			BigDecimal pajak = totalObat.multiply(BigDecimal.TEN);
 			pajak = pajak.divide(new BigDecimal(100));
 			h.setPajak(Converter.patternCurrency(pajak));
 			h.setTabelTerapi(tabel);

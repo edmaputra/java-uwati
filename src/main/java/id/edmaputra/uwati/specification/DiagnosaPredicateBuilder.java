@@ -15,10 +15,12 @@ public class DiagnosaPredicateBuilder {
 	public void cari(String cari) {
 		if (hasil == null) {
 			hasil = QDiagnosa.diagnosa.nama.containsIgnoreCase(cari)
+					.or(QDiagnosa.diagnosa.kode.containsIgnoreCase(cari))
 					.or(QDiagnosa.diagnosa.userInput.containsIgnoreCase(cari))
 					.or(QDiagnosa.diagnosa.userEditor.containsIgnoreCase(cari));
 		} else {
 			hasil = hasil.and(QDiagnosa.diagnosa.nama.containsIgnoreCase(cari)
+					.or(QDiagnosa.diagnosa.kode.containsIgnoreCase(cari))
 					.or(QDiagnosa.diagnosa.userInput.containsIgnoreCase(cari))
 					.or(QDiagnosa.diagnosa.userEditor.containsIgnoreCase(cari)));
 		}
@@ -26,9 +28,11 @@ public class DiagnosaPredicateBuilder {
 
 	public void nama(String nama) {
 		if (hasil == null) {
-			hasil = QDiagnosa.diagnosa.nama.containsIgnoreCase(nama);
+			hasil = QDiagnosa.diagnosa.nama.containsIgnoreCase(nama)
+					.or(QDiagnosa.diagnosa.kode.containsIgnoreCase(nama));			
 		} else {
-			hasil = hasil.and(QDiagnosa.diagnosa.nama.containsIgnoreCase(nama));
+			hasil = hasil.and(QDiagnosa.diagnosa.nama.containsIgnoreCase(nama)
+					.or(QDiagnosa.diagnosa.kode.containsIgnoreCase(nama)));
 		}		
 	}
 
