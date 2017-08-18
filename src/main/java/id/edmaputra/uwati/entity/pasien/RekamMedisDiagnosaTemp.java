@@ -36,7 +36,7 @@ public class RekamMedisDiagnosaTemp extends DasarEntity<Long> {
 	@Column(name="id_diagnosa", nullable=true, length=DBConf.LENGTH_TRANSAKSI_NOMORFAKTUR)
 	private String idDiagnosa;
 	
-	@Column(name="diagnosa", nullable=true, length=DBConf.LENGTH_TRANSAKSI_NOMORFAKTUR)
+	@Column(name="diagnosa", nullable=true, length=200)
 	private String diagnosa;
 	
 	@Column(name="randomId", nullable=true, length = 40)

@@ -12,7 +12,9 @@
 <c:url var="kunjunganUrl" value="/rekammedis/kunjungan" />
 <c:url var="daftarUrl" value="/rekammedis/daftar" />
 
+<c:url var="dapatkanTerapiUrl" value="/rekammedis/dapatkan-terapi" />
 <c:url var="tambahTerapiUrl" value="/rekammedis/tambah-terapi" />
+<c:url var="editTerapiUrl" value="/rekammedis/edit-terapi" />
 <c:url var="daftarTerapiUrl" value="/rekammedis/daftar-terapi" />
 <c:url var="hapusTerapiUrl" value="/rekammedis/hapus-terapi" />
 <c:url var="hapusTempUrl" value="/rekammedis/hapus-temp" />
@@ -115,8 +117,9 @@
 	</div>
 </div>
 
-<div class="modal fade" id="rm-modal" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true">
+
+
+<div class="modal fade" id="rm-modal" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -163,7 +166,8 @@
 								<table class="table table-striped table-advance table-hover">
 									<thead style="background-color: #68DFF0;">
 										<tr>
-											<th>Diagnosa</th>											
+											<th>Diagnosa</th>
+											<th>x</th>											
 										</tr>
 									</thead>
 									<tbody id="tabel-diagnosa">
@@ -190,7 +194,7 @@
 											<th>Terapi</th>
 											<th>Jumlah</th>
 											<th>Biaya</th>
-											<th></th>
+											<th>-</th>
 										</tr>
 									</thead>
 									<tbody id="tabel-terapi">
@@ -217,6 +221,54 @@
 				</div>
 			</form>
 		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="edit-terapi-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<form class="form style-form formEdit" method="post">
+			<div class="modal-content">
+				<div class="modal-header">					
+					<h4 class="modal-title" id="myModalLabel">Edit Terapi</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Obat:</label> 
+								<input type="text" class="form-control"	name="edit_obat" id="edit_obat" readonly="readonly" autocomplete="off">
+							</div>
+						</div>						
+					</div>
+					<div class="row">
+						<div class="form-group col-md-2">
+							<label>Jumlah:</label> 
+							<input type="text" class="form-control input-angka" name="edit_jumlah" id="edit_jumlah" autocomplete="off">
+						</div>
+						<div class="col-md-5">
+							<div class="form-group">
+								<label>Harga:</label> 
+								<input type="text"class="form-control input-angka" name="edit_harga" id="edit_harga" autocomplete="off">
+							</div>
+						</div>
+						
+						<div class="col-md-5">
+							<div class="form-group">
+								<label>Total:</label> 
+								<input type="text"class="form-control input-angka" name="edit_total" id="edit_total" readonly="readonly" autocomplete="off">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="hidden" class="form-control" name="edit_id" id="edit_id" />
+					<button type="button" class="btn btn-default btnKeluar"
+						data-dismiss="modal" id="edit_keluar">Keluar</button>
+					<input type="submit" class="btn btn-primary" value="UPDATE"
+						id="update-obat" />
+				</div>
+			</div>
+		</form>
 	</div>
 </div>
 
@@ -282,7 +334,7 @@
 			refreshObat(1, $('#cari-terapi').val());		
 		});
 		
-		$("#cari-diagnosa").keyup(function() {
+		$("#cari_diagnosa").keyup(function() {
 			refreshDiagnosa(1, $('#cari_diagnosa').val());		
 		});
 
@@ -294,11 +346,16 @@
 			reset();
 			refreshObat(1, '');
 			refreshDiagnosa(1, '');
+			refreshDaftarTerapi($('#nomor').val());
+			refreshDaftarDiagnosa($('#nomor').val());
 		});
 		
 		$('#button-keluar-modal').click(function(){			
 			hapusTempObat($('#nomor').val());
 			reset();			
+		});
+		
+		$('#edit_keluar').click(function(){
 		});
 
 		$(".formTambah").validate({
@@ -351,6 +408,52 @@
 				}				
 			}
 		});
+		
+		$(".formEdit").validate({
+			rules : {
+				edit_id : {
+					required : true
+				},
+				edit_obat : {
+					required : true
+				},
+				edit_jumlah : {
+					required : true
+				},
+				edit_harga : {
+					required : true
+				},
+				edit_total : {
+					required : true
+				}
+			},
+			messages : {
+				edit_id : {
+					required : "ID Wajib Diisi"
+				},
+				edit_obat : {
+					required : "Obat Wajib Diisi"
+				},
+				edit_jumlah : {
+					required : "Jumlah Wajib Diisi"
+				},
+				edit_harga : {
+					required : "Harga Wajib Diisi"
+				},
+				edit_total : {
+					required : "Total Wajib Diisi"
+				}
+			},
+			submitHandler : function(form) {
+				var data = {};
+				data = setEditTerapi(data);
+				$.postJSON('${editTerapiUrl}', data, function() {
+					$('#edit_keluar').click();
+					refreshDaftarTerapi($('#nomor').val());
+				}, function() {
+				});
+			}
+		});
 
 		$(".formHapus").submit(function(e) {
 			e.preventDefault();
@@ -368,6 +471,12 @@
 				refresh();
 			});
 		});
+		
+		setMaskingUang("#edit_jumlah");
+		setMaskingUang("#edit_harga");
+		setMaskingUang("#edit_total");
+		hitungHargaTotalOnKeyUp("#edit_jumlah", "#edit_total");
+		hitungHargaTotalOnKeyUp("#edit_harga", "#edit_total");
 	});
 	
 	function getData(ids, s) {
@@ -442,7 +551,7 @@
 		var data = {
 			hal : halaman,
 			cari : find,
-			n : 15
+			n : 7
 		};
 
 		$.getAjax('${diagnosaUrl}', data, function(result) {
@@ -484,12 +593,26 @@
 			randomId : randomId
 		};
 		$.postJSON('${tambahTerapiUrl}', data, function(result) {
-			// 			console.log(result.nomor);
 			refreshDaftarTerapi($('#nomor').val());
 		}, function() {
 			console.log(result.info);
 			$('#gritter-tambah-gagal').click();
 		});
+	}
+	
+	function editTerapi(id) {
+		resetEditObatData();
+		var data = {
+			idObat : id,
+			nomor : $("#nomor").val()
+		};
+		$.getAjax('${dapatkanTerapiUrl}', data, function(result) {
+			$('#edit_obat').val(result.terapi);
+			$('#edit_jumlah').val(result.jumlah);
+			$('#edit_harga').val(result.hargaJual);
+			$('#edit_total').val(result.hargaTotal);
+			$('#edit_id').val(result.idObat);
+		}, null);
 	}
 	
 	function tambahDiagnosa(id) {
@@ -610,6 +733,23 @@
 		return data;
 	}
 	
+	function setEditTerapi(data){		
+		data['nomor'] = $('#nomor').val();
+		data['idObat'] = $('#edit_id').val();		
+		data['terapi'] = $('#edit_obat').val();
+		data['jumlah'] = $('#edit_jumlah').val();
+		data['hargaJual'] = $('#edit_harga').val();
+		return data;
+	}
+	
+	function resetEditObatData(){
+		$('#edit_obat').val('');
+		$('#edit_jumlah').val('0');
+		$('#edit_harga').val('0');
+		$('#edit_total').val('0');
+		$('#edit_id').val('');
+	}
+	
 	function reset(){
 		$('#nomor').val('');
 		$('#kunjungan').val('');
@@ -618,5 +758,20 @@
 		$('#pemeriksaan').val('');
 		$('#tabel-terapi').empty();
 		$('#tabel-diagnosa').empty();
+	}
+	
+	function hitungHargaTotalOnKeyUp(origin, hargaTotal) {
+		$(origin).keyup(function() {
+			$(hargaTotal).val(hitungHargaTotalPerObat("#edit_harga","#edit_jumlah"));
+		});
+	}
+	
+	function hitungHargaTotalPerObat(hrg, jum) {
+		if ($(hrg).val() != '' && $(jum).val() != '') {
+			var hargaBeli = parseFloat($(hrg).val().replace(/\./g, ''));
+			var jumlah = parseInt($(jum).val().replace(/\./g, ''), 10);
+			var hargaTotal = hargaBeli * jumlah;
+			return hargaTotal;
+		}
 	}
 </script>

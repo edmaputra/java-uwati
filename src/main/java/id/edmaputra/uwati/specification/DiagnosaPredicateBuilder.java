@@ -24,4 +24,12 @@ public class DiagnosaPredicateBuilder {
 		}
 	}
 
+	public void nama(String nama) {
+		if (hasil == null) {
+			hasil = QDiagnosa.diagnosa.nama.containsIgnoreCase(nama);
+		} else {
+			hasil = hasil.and(QDiagnosa.diagnosa.nama.containsIgnoreCase(nama));
+		}		
+	}
+
 }

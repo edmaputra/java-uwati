@@ -174,7 +174,7 @@ public class DiagnosaController {
 			
 			Page<Diagnosa> page = getListDiagnosa(halaman, cari, Integer.valueOf(n));
 
-			String button = buttonListGenerator(page, 2, request);
+			String button = buttonListGenerator(page, 1, request);
 			el.setButton(button);
 
 			if (page.hasContent()) {
@@ -183,7 +183,7 @@ public class DiagnosaController {
 					int next = current + 1;
 					int prev = current - 1;
 
-					String h = navigasiHalamanGenerator(prev, current, next, page.getTotalPages(), cari);
+					String h = navigasiDiagnosa(prev, current, next, page.getTotalPages(), cari);
 					el.setNavigasiObat(h);
 				}
 			}
@@ -195,7 +195,7 @@ public class DiagnosaController {
 	}
 	
 	private Page<Diagnosa> getListDiagnosa(Integer halaman, String nama, Integer n) {
-		ObatPredicateBuilder builder = new ObatPredicateBuilder();
+		DiagnosaPredicateBuilder builder = new DiagnosaPredicateBuilder();
 		if (!StringUtils.isBlank(nama)) {
 			builder.nama(nama);
 		}
@@ -218,16 +218,16 @@ public class DiagnosaController {
 		return button;
 	}
 	
-	private String navigasiHalamanGenerator(int prev, int current, int next, int totalPage, String cari) {
+	private String navigasiDiagnosa(int prev, int current, int next, int totalPage, String cari) {
 		String html = "";
 
 		if (current == 1) {
-			html += Html.aJs("&gt;", "btn btn-primary", "onClick", "refreshObat(" + next + ",\"" + cari + "\")");
+			html += Html.aJs("&gt;", "btn btn-primary", "onClick", "refreshDiagnosa(" + next + ",\"" + cari + "\")");
 		} else if (current == totalPage) {
-			html += Html.aJs("&lt;", "btn btn-primary", "onClick", "refreshObat(" + prev + ",\"" + cari + "\")");
+			html += Html.aJs("&lt;", "btn btn-primary", "onClick", "refreshDiagnosa(" + prev + ",\"" + cari + "\")");
 		} else if (current > 1 && current < totalPage) {
-			html += Html.aJs("&lt;", "btn btn-primary", "onClick", "refreshObat(" + prev + ",\"" + cari + "\")");
-			html += Html.aJs("&gt;", "btn btn-primary", "onClick", "refreshObat(" + next + ",\"" + cari + "\")");
+			html += Html.aJs("&lt;", "btn btn-primary", "onClick", "refreshDiagnosa(" + prev + ",\"" + cari + "\")");
+			html += Html.aJs("&gt;", "btn btn-primary", "onClick", "refreshDiagnosa(" + next + ",\"" + cari + "\")");
 		}
 		return html;
 	}

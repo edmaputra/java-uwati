@@ -35,7 +35,7 @@ public class RekamMedisDiagnosa extends DasarEntity<Long>{
 	@JsonIgnore
 	private RekamMedis rekamMedis;
 		
-	@Column(name="terapi", nullable=false, length=DBConf.LENGTH_NAMA)
+	@Column(name="diagnosa", nullable=false, length=200)
 	private String Diagnosa;
 
 	public Long getId() {

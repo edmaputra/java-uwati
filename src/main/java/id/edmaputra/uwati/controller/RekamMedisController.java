@@ -49,6 +49,7 @@ import id.edmaputra.uwati.entity.pasien.RekamMedisDetailTemp;
 import id.edmaputra.uwati.entity.pasien.RekamMedisDiagnosa;
 import id.edmaputra.uwati.entity.pasien.RekamMedisDiagnosaTemp;
 import id.edmaputra.uwati.entity.pengguna.Pengguna;
+import id.edmaputra.uwati.entity.transaksi.PembelianDetailTemp;
 import id.edmaputra.uwati.entity.transaksi.PenjualanDetailTemp;
 import id.edmaputra.uwati.repository.pasien.RekamMedisDiagnosaTempRepository;
 import id.edmaputra.uwati.service.obat.CekStokService;
@@ -77,6 +78,7 @@ import id.edmaputra.uwati.view.Formatter;
 import id.edmaputra.uwati.view.Html;
 import id.edmaputra.uwati.view.HtmlElement;
 import id.edmaputra.uwati.view.THead;
+import id.edmaputra.uwati.view.handler.PembelianDetailHandler;
 import id.edmaputra.uwati.view.handler.PenjualanDetailHandler;
 import id.edmaputra.uwati.view.handler.RekamMedisHandler;
 
@@ -627,6 +629,19 @@ public class RekamMedisController {
 			return null;
 		}
 	}
+	
+	@RequestMapping(value = "/rekammedis/dapatkan-terapi", method = RequestMethod.GET)
+	@ResponseBody
+	public RekamMedisDetailTemp dapatkanTerapi(@RequestParam("nomor") String nomor, @RequestParam("idObat") String idObat) {
+		
+		try {
+			RekamMedisDetailTemp h = rekamMedisDetailTempService.dapatkanByNomorAndIdObat(nomor, idObat);
+			return h;
+		} catch (Exception e) {
+			logger.info(e.getMessage());			
+			return null;
+		}
+	}
 
 	@RequestMapping(value = "/rekammedis/tambah-terapi", method = RequestMethod.POST)
 	@ResponseBody
@@ -674,6 +689,32 @@ public class RekamMedisController {
 		} catch (Exception e) {
 			logger.info(e.getMessage());
 			logger.info(LogSupport.tambahGagal(principal.getName(), temp.getId() + "", request));
+			temp.setInfo(e.getMessage());
+			return temp;
+		}
+	}
+	
+	@RequestMapping(value = "/rekammedis/edit-terapi", method = RequestMethod.POST)
+	@ResponseBody
+	public RekamMedisDetailTemp editTerapi(@RequestBody RekamMedisDetailTemp temp, BindingResult result, Principal principal, HttpServletRequest request) {
+		try {			
+			RekamMedisDetailTemp tersimpan = rekamMedisDetailTempService.dapatkanByNomorAndIdObat(temp.getNomor(), temp.getIdObat()); 						
+			Integer j = Integer.valueOf(temp.getJumlah()).intValue();				
+			tersimpan.setJumlah(temp.getJumlah());
+			tersimpan.setHargaJual(temp.getHargaJual());
+			BigDecimal h = new BigDecimal(temp.getHargaJual().replaceAll("[.,]", ""));
+			BigDecimal total = h.multiply(new BigDecimal(j));
+			tersimpan.setHargaTotal(Converter.patternCurrency(total));
+						
+			tersimpan.setUserEditor(principal.getName());			
+			tersimpan.setTerakhirDirubah(new Date());
+			rekamMedisDetailTempValidator.validate(tersimpan);
+			rekamMedisDetailTempService.simpan(tersimpan);
+			logger.info(LogSupport.edit(principal.getName(), temp.toString(), request));
+			return temp;
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+			logger.info(LogSupport.editGagal(principal.getName(), temp.getId() + "", request));
 			temp.setInfo(e.getMessage());
 			return temp;
 		}
@@ -977,7 +1018,9 @@ public class RekamMedisController {
 			row += Html.td(t.getTerapi());
 			row += Html.td(t.getJumlah() + "");
 			row += Html.td(t.getHargaTotal());
-			btn += Html.aJs("<i class='fa fa-trash-o'></i>", "btn btn-danger btn-xs", "onClick", "hapusObat(" + t.getIdObat() + ")", "Hapus Data");			
+			btn += Html.aJs("<i class='fa fa-pencil'></i>", "btn btn-primary btn-xs", "onClick",
+					"editTerapi(" + t.getIdObat() + ")", "Edit "+t.getTerapi(), "modal", "#edit-terapi-modal");
+			btn += Html.aJs("<i class='fa fa-trash-o'></i>", "btn btn-danger btn-xs", "onClick", "hapusObat(" + t.getIdObat() + ")", "Hapus "+t.getTerapi());			
 			row += Html.td(btn);
 			data += Html.tr(row);
 		}

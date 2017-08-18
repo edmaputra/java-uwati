@@ -26,7 +26,7 @@ public class Diagnosa extends DasarEntity<Long>{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "nama", nullable = false, length = DBConf.LENGTH_NAMA)
+	@Column(name = "nama", nullable = false, length = 200)
 	private String nama;
 	
 	
