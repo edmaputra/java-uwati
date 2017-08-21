@@ -31,12 +31,12 @@ public class PembelianService {
 	}
 
 	public Page<Pembelian> muatDaftar(Integer halaman, BooleanExpression expression) {
-		PageRequest request = new PageRequest(halaman - 1, PAGE_SIZE, Sort.Direction.ASC, "id");
+		PageRequest request = new PageRequest(halaman - 1, PAGE_SIZE, Sort.Direction.ASC, "waktuTransaksi");
 		return pembelianRepo.findAll(expression, request);
 	}
 	
 	public List<Pembelian> dapatkanSemua(){
-		return pembelianRepo.findAll(new Sort(Direction.ASC, "id"));
+		return pembelianRepo.findAll(new Sort(Direction.ASC, "waktuTransaksi"));
 	}
 	
 	public Pembelian dapatkanByNomorFaktur(String nomorFaktur){

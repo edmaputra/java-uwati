@@ -76,6 +76,8 @@
 			<ul class="sub">
 				<li><a href="<spring:url value="/laporan/penjualan" />">Penjualan</a></li>
 				<li><a href="<spring:url value="/laporan/pembelian" />">Pembelian</a></li>
+				<li><a href="<spring:url value="#" />">Pasien</a></li>
+				<li><a href="<spring:url value="#" />">Obat &amp; Diagnosa</a></li>
 			</ul>
 		</li>
 		</security:authorize>

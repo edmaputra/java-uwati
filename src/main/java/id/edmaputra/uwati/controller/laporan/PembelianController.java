@@ -2,8 +2,11 @@ package id.edmaputra.uwati.controller.laporan;
 
 import java.math.BigDecimal;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,9 +27,12 @@ import com.mysema.query.types.expr.BooleanExpression;
 
 import id.edmaputra.uwati.entity.transaksi.Pembelian;
 import id.edmaputra.uwati.entity.transaksi.PembelianDetail;
+import id.edmaputra.uwati.entity.transaksi.Penjualan;
+import id.edmaputra.uwati.entity.transaksi.PenjualanDetail;
 import id.edmaputra.uwati.service.transaksi.PembelianDetailService;
 import id.edmaputra.uwati.service.transaksi.PembelianService;
 import id.edmaputra.uwati.specification.PembelianPredicateBuilder;
+import id.edmaputra.uwati.specification.PenjualanPredicateBuilder;
 import id.edmaputra.uwati.support.Converter;
 import id.edmaputra.uwati.support.LogSupport;
 import id.edmaputra.uwati.view.Formatter;
@@ -35,6 +41,7 @@ import id.edmaputra.uwati.view.HtmlElement;
 import id.edmaputra.uwati.view.THead;
 import id.edmaputra.uwati.view.Table;
 import id.edmaputra.uwati.view.handler.PembelianDetailHandler;
+import id.edmaputra.uwati.view.handler.PenjualanHandler;
 
 @Controller
 @RequestMapping("/laporan/pembelian")
@@ -121,6 +128,63 @@ public class PembelianController {
 			return null;
 		}
 	}
+	
+	@RequestMapping(value = "/dapatkan-rekap", method = RequestMethod.GET)
+	@ResponseBody
+	public PembelianDetailHandler dapatkanRekap(
+			@RequestParam(value = "tipe", defaultValue = "1", required = false) Integer tipe,
+			@RequestParam("tanggalAwal") String tanggalAwal, 
+			@RequestParam("tanggalAkhir") String tanggalAkhir) {
+		try {
+			PembelianDetailHandler ph = new PembelianDetailHandler();
+			PembelianPredicateBuilder builder = new PembelianPredicateBuilder();
+
+			if (StringUtils.isNotBlank(tanggalAwal) || StringUtils.isNotBlank(tanggalAkhir)) {
+				Date awal = Converter.stringToDate(tanggalAwal);
+				if (StringUtils.isBlank(tanggalAkhir)) {
+					builder.tanggal(awal, awal);
+				} else if (StringUtils.isNotBlank(tanggalAkhir)) {
+					Date akhir = Converter.stringToDate(tanggalAkhir);
+					if (awal.compareTo(akhir) > 0) {
+						builder.tanggal(akhir, awal);
+					} else if (awal.compareTo(akhir) < 0) {
+						builder.tanggal(awal, akhir);
+					}
+				}
+			}
+
+			BooleanExpression exp = builder.getExpression();
+			List<Pembelian> list = pembelianService.dapatkanList(exp);
+			for (Pembelian p : list) {
+				p.setPembelianDetail(pembelianDetailService.dapatkanByPembelian(p));
+			}
+
+			List<PembelianDetail> d = new ArrayList<>();
+			List<String> obat = new ArrayList<>();
+
+			for (Pembelian p : list) {
+				for (PembelianDetail detail : p.getPembelianDetail()) {
+					detail.setPembelian(p);
+					d.add(detail);
+					obat.add(detail.getObat());
+				}
+			}
+
+			Set<String> hs = new HashSet<>();
+			hs.addAll(obat);
+			obat.clear();
+			obat.addAll(hs);
+
+			ph.setJumlah(String.valueOf(obat.size()));
+
+			ph.setDetails(tabelDetails(d, 1));
+
+			return ph;
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+			return null;
+		}
+	}
 
 	private String tabelGenerator(Page<Pembelian> list, HttpServletRequest request) {
 		String html = "";
@@ -154,7 +218,7 @@ public class PembelianController {
 			Pembelian get = pembelianService.dapatkan(new Long(id));
 			List<PembelianDetail> details = pembelianDetailService.dapatkanByPembelian(get);
 			ph = setContent(get, ph);
-			ph.setDetails(tabelDetails(details));
+			ph.setDetails(tabelDetails(details, 0));
 			return ph;
 		} catch (Exception e) {
 			logger.info(e.getMessage());
@@ -173,12 +237,15 @@ public class PembelianController {
 		return ph;
 	}
 	
-	private String tabelDetails(List<PembelianDetail>  pembelianDetails){
+	private String tabelDetails(List<PembelianDetail>  pembelianDetails, Integer n){
 		String html = "";
 		String data = "";
 		for (PembelianDetail d : pembelianDetails) {
 			String row = "";
 			row += Html.td(d.getObat());
+			if (n == 1){
+				row += Html.td(Converter.dateToString(d.getPembelian().getWaktuTransaksi()));
+			}
 			row += Html.td(Formatter.patternCurrency(d.getHargaBeli()));
 			row += Html.td(Formatter.patternCurrency(d.getJumlah()));
 			row += Html.td(Formatter.patternCurrency(d.getSubTotal()));
@@ -186,7 +253,12 @@ public class PembelianController {
 			data += Html.tr(row);
 		}
 		String tbody = Html.tbody(data);
-		html = THead.THEAD_PEMBELIAN_DETAIL + tbody;
+		if (n == 1){
+			html = THead.THEAD_PEMBELIAN_DETAIL_TANGGAL + tbody;
+		} else {
+			html = THead.THEAD_PEMBELIAN_DETAIL + tbody;
+		}
+		
 		return html;
 	}
 	

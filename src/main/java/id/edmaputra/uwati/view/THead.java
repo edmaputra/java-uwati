@@ -37,6 +37,14 @@ public class THead {
 			+ "<th>Total</th>"			
 			+ "</tr></thead>";
 	
+	public static final String THEAD_PENJUALAN_DETAIL_TANGGAL = "<thead><tr>" 
+			+ "<th>Obat</th>"
+			+ "<th>Tanggal</th>"
+			+ "<th>Harga Jual</th>"
+			+ "<th>Jumlah</th>"
+			+ "<th>Total</th>"			
+			+ "</tr></thead>";
+	
 	public static final String THEAD_PEMBELIAN = "<thead><tr>" 
 			+ "<th>Tanggal</th>"			
 			+ "<th>Supplier</th>"
@@ -47,6 +55,15 @@ public class THead {
 	
 	public static final String THEAD_PEMBELIAN_DETAIL = "<thead><tr>" 
 			+ "<th>Obat</th>"
+			+ "<th>Harga Beli</th>"
+			+ "<th>Jumlah</th>"
+			+ "<th>Total</th>"
+			+ "<th>Harga Jual</th>"
+			+ "</tr></thead>";
+	
+	public static final String THEAD_PEMBELIAN_DETAIL_TANGGAL = "<thead><tr>" 
+			+ "<th>Obat</th>"
+			+ "<th>Tanggal</th>"
 			+ "<th>Harga Beli</th>"
 			+ "<th>Jumlah</th>"
 			+ "<th>Total</th>"

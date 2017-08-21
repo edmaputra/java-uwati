@@ -5,6 +5,8 @@
 <c:url var="dapatkan" value="/laporan/pembelian/dapatkan" />
 <c:url var="daftar" value="/laporan/pembelian/daftar" />
 
+<c:url var="daftarRekap" value="/laporan/pembelian/dapatkan-rekap" />
+
 <div class="row">
 	<div class="col-lg-9">
 		<div class="content-panel">
@@ -60,7 +62,13 @@
 					<h2 id="rekapitulasi" class="pull-right">0</h2>
 				</div>
 			</div>
-			
+		</div>
+		<div class="desc">
+			<div class="row">
+				<div class="col-md-12">
+					<button id="button_rekap" class="btn btn-primary" data-toggle="modal" data-target="#pembelian-rekap-modal" style="width: 100%;"><i class="fa fa-medkit" aria-hidden="true"> Obat</i></button>
+				</div>
+			</div>
 		</div>
 		<div class="desc">
 			<div class="row">
@@ -148,6 +156,48 @@
 	</div>
 </div>
 
+<div class="modal fade" id="pembelian-rekap-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Laporan Rekap</h4>
+			</div>
+			<form class="form style-form" method="post">
+				<div class="form-panel">
+					<div class="modal-body">
+						<div class="row">
+							<div class="form-group col-md-5">
+								<label class="lb-sm">Tanggal  Awal</label>
+								<input type="text" readonly="readonly" class="form-control" id="rekap_tanggal_awal"/>
+							</div>	
+							<div class="form-group col-md-5">
+								<label class="lb-sm">Tanggal Akhir</label>
+								<input type="text" readonly="readonly" class="form-control" id="rekap_tanggal_akhir"/>
+							</div>
+<!-- 							<div class="form-group col-md-2"> -->
+<!-- 								<label class="lb-sm">Total Penjualan Obat</label> -->
+<!-- 								<input type="text" readonly="readonly" class="form-control" id="rekap_total_obat"/> -->
+<!-- 							</div> -->
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<table class="table table-striped table-advance table-hover" id="tabel_detail_rekap" border="1"></table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default btnKeluar"
+						data-dismiss="modal">Keluar</button>
+					<input type="hidden" name="id" class="form-control" id="ids" /> 
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
 <div class="modal fade" id="penjualan-modal-hapus" tabindex="-1"
 	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-sm">
@@ -200,16 +250,8 @@
 			refresh(1, tanggalAwal, tanggalAkhir, cari);
 		});
 
-		// 		$('.btnTambah').click(function() {
-		// 			state = 0;
-		// 		});
-
-		// 		$('.btnEdit').click(function() {
-		// 			state = 1;
-		// 		});
-
-		$('.btnKeluar').click(function() {
-			reset();
+		$('#button_rekap').click(function() {
+			getDataRekap();
 		});
 
 		$(".formHapus").submit(function(e) {
@@ -234,6 +276,20 @@
 		};
 		$.getAjax('${dapatkan}', data, function(result) {
 			isiFieldFromDataResult(result);
+		}, null);
+	}
+	
+	function getDataRekap() {
+		var data = {
+			tanggalAwal : $('#tanggalAwal').val(),
+			tanggalAkhir : $('#tanggalAkhir').val(),
+		};
+		$.getAjax('${daftarRekap}', data, function(result) {
+			$('#rekap_total_obat').val(result.jumlah);
+			$('#rekap_tanggal_awal').val(data.tanggalAwal);
+			$('#rekap_tanggal_akhir').val(data.tanggalAkhir);			
+			$('#tabel_detail_rekap').empty();
+			$('#tabel_detail_rekap').append(result.details);
 		}, null);
 	}
 

@@ -842,12 +842,13 @@ public class PenjualanObatController {
 		int day = cal.get(Calendar.DAY_OF_MONTH);
 		bulan = bulan + 1;
 		String b = angkaNolBulan(bulan + "");
-
+		String d = angkaNolBulan(day + "");
+		
 		nomorTerakhir++;
 		String nomor = nomorTerakhir + "";
 
 		nomor = generateNomorUrut(nomor);
-		return kode + "" + tahun + "" + b + "" + day + "" + nomor;
+		return kode + "" + tahun + "" + b + "" + d + "" + nomor;
 
 	}
 

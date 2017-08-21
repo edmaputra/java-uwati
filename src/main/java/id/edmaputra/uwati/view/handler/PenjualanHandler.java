@@ -33,6 +33,8 @@ public class PenjualanHandler {
 	private String nomorResep;
 	
 	private String details;
+	
+	private Integer jumlah;
 
 	public Date getWaktuTransaksi() {
 		return waktuTransaksi;
@@ -151,6 +153,14 @@ public class PenjualanHandler {
 
 	public void setPajak(String pajak) {
 		this.pajak = pajak;
+	}
+
+	public Integer getJumlah() {
+		return jumlah;
+	}
+
+	public void setJumlah(Integer jumlah) {
+		this.jumlah = jumlah;
 	}
 
 }
