@@ -109,6 +109,16 @@
 								</div>
 							</div>
 						</div>
+						<div class="row">
+							<div class="form-group">
+								<div class="col-sm-2 col-lg-2">
+									<label class="form-control" style="border: none;">Tanggal:</label>
+								</div>
+								<div class="col-sm-2 col-lg-2">
+									<input type="text" class="form-control datePicker" name="tanggal" id="tanggal" autocomplete="off">
+								</div>								
+							</div>
+						</div>
 						<br />
 
 						<div class="row">
@@ -266,6 +276,9 @@
 							required : true,
 							min : 0
 						},
+						tanggal : {
+							required : true,
+						},
 						pajak : {
 							required : true,
 							min : 0
@@ -354,6 +367,7 @@
 							} else {
 								$('#pasienId').val(result.pasienId);
 								$('#dokterId').val(result.dokterId);
+								$('#tanggal').val(result.tanggal);
 								$('#nama').val(result.pasien);
 								$('#gender').val(result.gender);
 								$('#usia').val(result.umur);
@@ -394,6 +408,7 @@
 		if ($('#ids').val() != null && $('#ids').val() != '') {
 			data['id'] = $('#ids').val();
 		}
+		data['tanggal'] = $('#tanggal').val();
 		data['pasienId'] = $('#pasienId').val();
 		data['dokterId'] = $('#dokterId').val();
 		data['totalPembelian'] = $('#totalPembelian').val();
@@ -444,6 +459,7 @@
 		$('#nama').val(tanggalHariIni());
 		$('#gender').val('');
 		$('#usia').val('');
+		$('#tanggal').val('');
 		$('#jaminan').val('');
 		$('#nomor-jaminan').val('');
 		$('#totalPembelian').val('0');

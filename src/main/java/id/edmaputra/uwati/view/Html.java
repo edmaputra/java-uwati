@@ -211,6 +211,8 @@ public class Html {
 			btn += "<i class='fa fa-cart-plus'></i>";
 		} else if (tipe == 4) {
 			btn += "<i class='fa fa-print'></i>";
+		} else if (tipe == 5) {
+			btn += "<i class='fa fa-file-o'></i>";
 		}
 		btn += "</button>";
 		return btn;

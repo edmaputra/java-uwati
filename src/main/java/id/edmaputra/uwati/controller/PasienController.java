@@ -39,6 +39,7 @@ import id.edmaputra.uwati.validator.impl.PasienValidator;
 import id.edmaputra.uwati.view.Formatter;
 import id.edmaputra.uwati.view.Html;
 import id.edmaputra.uwati.view.HtmlElement;
+import id.edmaputra.uwati.view.Table;
 import id.edmaputra.uwati.view.handler.PasienHandler;
 
 @Controller
@@ -82,10 +83,10 @@ public class PasienController {
 			HtmlElement el = new HtmlElement();
 
 			PasienPredicateBuilder builder = new PasienPredicateBuilder();
-			if (!StringUtils.isBlank(cari)) {
+			if (!StringUtils.isBlank(cari)) {				
 				builder.cari(cari);
 			}
-
+			
 			BooleanExpression exp = builder.getExpression();
 			Page<Pasien> page = pasienService.muatDaftar(halaman, exp);
 
@@ -204,8 +205,12 @@ public class PasienController {
 	private String tabelGenerator(Page<Pasien> list, HttpServletRequest request) {
 		String html = "";
 		String thead = "<thead><tr>"
-				+ "<th>Pasien</th>";				
-		if (request.isUserInRole("ROLE_ADMIN") || request.isUserInRole("ROLE_MEDIS")) {
+				+ "<th>Pasien</th>"
+				+ "<th>ID</th>"
+				+ "<th>Usia</th>"
+				+ "<th>Jaminan</th>"
+				+ "<th>Nomor</th>";				
+		if (request.isUserInRole("ROLE_ADMIN")) {
 			thead += "<th>User Input</th>" + "<th>Waktu Dibuat</th>" + "<th>User Editor</th>"
 					+ "<th>Terakhir Diubah</th>";
 		}
@@ -215,13 +220,18 @@ public class PasienController {
 		for (Pasien t : list.getContent()) {
 			String row = "";
 			String btn = "";
-			row += Html.td(t.getNama());			
-			if (request.isUserInRole("ROLE_ADMIN") || request.isUserInRole("ROLE_MEDIS")) {
+			row += Html.td(t.getNama());
+			row += Html.td(t.getId().toString());
+			row += Html.td(Formatter.hitungUsia(t.getTanggalLahir(), new Date()));
+			row += Html.td(Table.nullCell(t.getJaminanKesehatan()));
+			row += Html.td(Table.nullCell(t.getNomorJaminanKesehatan()));			
+			if (request.isUserInRole("ROLE_ADMIN")) {
 				row += Html.td(t.getUserInput());
 				row += Html.td(Formatter.formatTanggal(t.getWaktuDibuat()));
 				row += Html.td(t.getUserEditor());
 				row += Html.td(Formatter.formatTanggal(t.getTerakhirDirubah()));
-
+			}
+			if (request.isUserInRole("ROLE_ADMIN") || request.isUserInRole("ROLE_MEDIS")) {
 				btn = Html.button("btn btn-primary btn-xs btnEdit", "modal", "#pasien-modal", "onClick",
 						"getData(" + t.getId() + ")", 0, "Edit Data");
 
@@ -347,6 +357,8 @@ public class PasienController {
 
 		return get;
 	}
+	
+	
 	
 
 }

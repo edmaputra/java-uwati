@@ -279,7 +279,7 @@ public class PenjualanObatController {
 		try {			
 			String nomorFaktur = nomorFakturGenerator(Converter.dateToStringDashSeparator(new Date()), KODE_TRANSAKSI_JUAL_RESEP);			
 			penjualan.setNomorFaktur(nomorFaktur);		
-			penjualan.setWaktuTransaksi(new Date());			
+			penjualan.setWaktuTransaksi(Converter.stringToDate(temp.getTanggal()));			
 			penjualan.setTipe(Integer.valueOf(2));			
 			penjualan.setDokter(karyawanService.dapatkan(Integer.valueOf(temp.getDokterId()).intValue()).getNama());			
 			penjualan.setPelanggan(pasienService.dapatkan(Long.valueOf(temp.getPasienId())).getNama());			

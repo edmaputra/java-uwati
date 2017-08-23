@@ -8,6 +8,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import org.joda.time.LocalDate;
+import org.joda.time.Period;
+import org.joda.time.PeriodType;
+
 public class Formatter {
 
 	public static String formatTanggal(Date date) {
@@ -39,6 +43,15 @@ public class Formatter {
 	
 	public static String hilangkanTitikKoma(String angka){
 		return angka.replaceAll("[.,]", "");
+	}
+	
+	public static String hitungUsia(Date tanggalLahir, Date hariIni){
+		LocalDate today = new LocalDate(hariIni);
+		LocalDate birth = new LocalDate(tanggalLahir);
+		Period period = new Period(birth, today, PeriodType.yearMonthDay());
+		String usiaTahun = period.getYears()+" th ";
+		String usiaBulan = period.getMonths()+" bl";	    
+		return usiaTahun + usiaBulan;
 	}
 
 }

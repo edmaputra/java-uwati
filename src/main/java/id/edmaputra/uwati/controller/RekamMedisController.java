@@ -156,11 +156,8 @@ public class RekamMedisController {
 				pasien.setInfo("Perempuan");
 			} else if (pasien.getJenisKelamin() == 1) {
 				pasien.setInfo("Laki-laki");
-			}
-			Instant instant = pasien.getTanggalLahir().toInstant();
-			LocalDate tanggalLahir = instant.atZone(ZoneId.systemDefault()).toLocalDate();
-			Long usia = ChronoUnit.YEARS.between(tanggalLahir, LocalDate.now());
-			pasien.setJenisKelamin(Long.valueOf(usia).intValue());
+			}			
+			pasien.setKontak(Formatter.hitungUsia(pasien.getTanggalLahir(), new Date()));
 			mav.addObject("pasien", pasien);
 
 			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
@@ -195,7 +192,7 @@ public class RekamMedisController {
 			@RequestParam(value = "cari", defaultValue = "", required = false) String cari,
 			@RequestParam(value = "tgl", defaultValue = "", required = false) String tanggal,
 			@RequestParam(value = "id", required = true) String id,
-			HttpServletRequest request, HttpServletResponse response) {
+			HttpServletRequest request, HttpServletResponse response, Principal principal) {
 		try {
 			HtmlElement el = new HtmlElement();
 
@@ -216,7 +213,7 @@ public class RekamMedisController {
 			BooleanExpression exp = builder.getExpression();
 			Page<RekamMedis> page = rekamMedisService.muatDaftar(halaman, exp);
 
-			String tabel = tabelGenerator(page, request, THead.THEAD_REKAMMEDIS);
+			String tabel = tabelGenerator(page, request, THead.THEAD_REKAMMEDIS, principal);
 			el.setTabel(tabel);
 
 			if (page.hasContent()) {
@@ -345,6 +342,30 @@ public class RekamMedisController {
 			return null;
 		}
 	}
+	
+	@RequestMapping(value = "/rekammedis/detail", method = RequestMethod.GET)
+	@ResponseBody
+	public RekamMedisHandler detail(@RequestParam("id") String id, Principal principal) {
+		try {			
+			RekamMedisHandler h = new RekamMedisHandler();
+			RekamMedis rekamMedis = getRekamMedis(Long.valueOf(id));
+			h.setNomor(rekamMedis.getNomor());			
+			h.setTanggal(Converter.dateToStringDashSeparator(rekamMedis.getTanggal()));
+			h.setAnamnesa(rekamMedis.getAnamnesa());			
+			h.setPemeriksaan(rekamMedis.getPemeriksaan());
+			h.setKunjungan(rekamMedis.getKunjungan());
+			
+				
+			String tabel = tabelTerapiDetail(rekamMedis.getRekamMedisDetail());
+			String tabelDiagnosa = tabelDiagnosaDetail(rekamMedis.getRekamMedisDiagnosa());
+			h.setTabelTerapi(tabel);
+			h.setTabelDiagnosa(tabelDiagnosa);
+			return h;
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+			return null;
+		}
+	}
 //	
 	private void setBiayaResep(RekamMedis rekamMedis, Integer stat, Principal principal, int jumlah) throws ValidatorException{
 		RekamMedisDetailTemp temp = new RekamMedisDetailTemp();
@@ -383,13 +404,11 @@ public class RekamMedisController {
 			} else if (p.getJenisKelamin() == 1) {
 				h.setGender("Laki-laki");
 			}
-			Instant instant = p.getTanggalLahir().toInstant();
-			LocalDate tanggalLahir = instant.atZone(ZoneId.systemDefault()).toLocalDate();
-			Long usia = ChronoUnit.YEARS.between(tanggalLahir, LocalDate.now());
-			h.setUmur(usia.toString());
+			h.setUmur(Formatter.hitungUsia(p.getTanggalLahir(), new Date()));
 			h.setJaminan(p.getJaminanKesehatan());
 			h.setNomorJaminan(p.getNomorJaminanKesehatan());
 			h.setDokterId(rekamMedis.getDokter().getId().toString());
+			h.setTanggal(Converter.dateToStringDashSeparator(rekamMedis.getTanggal()));
 			List<RekamMedisDetail> list = rekamMedis.getRekamMedisDetail();
 			String tabel = tabelResep(list);
 			BigDecimal total = new BigDecimal(0);
@@ -966,7 +985,7 @@ public class RekamMedisController {
 		return nomor;
 	}
 
-	private String tabelGenerator(Page<RekamMedis> list, HttpServletRequest request, String tHead) {
+	private String tabelGenerator(Page<RekamMedis> list, HttpServletRequest request, String tHead, Principal principal) {
 		String html = "";		
 		String data = "";
 		for (RekamMedis rm : list.getContent()) {
@@ -978,15 +997,24 @@ public class RekamMedisController {
 			row += Html.td(ringkas(rm.getAnamnesa(), LENGTH_TEXT));
 			row += Html.td(ringkas(rm.getPemeriksaan(), LENGTH_TEXT));
 			if (!rm.isMasukListResep() && !rm.getIsResepSudahDiproses()){
-				row += Html.td(Html.aJs("Proses Resep", "btn btn-primary btn-xs", "onClick", "prosesResep("+rm.getId()+")", "Proses Resep Untuk Pembayaran"));
-				btn += Html.button("btn btn-primary btn-xs btnEdit", "modal", "#rm-modal", "onClick", "getData(" + rm.getId() + ","+STAT_REKAMMEDIS_BARU+")", 0, "Edit Data");
-				btn += Html.button("btn btn-danger btn-xs", "modal", "#rm-modal-hapus", "onClick","setIdUntukHapus(" + rm.getId() +")", 1, "Hapus Data");
+				if (StringUtils.equals(principal.getName(), rm.getDokter().getPengguna().getNama())){
+					row += Html.td(Html.aJs("Proses Resep", "btn btn-primary btn-xs", "onClick", "prosesResep("+rm.getId()+")", "Proses Resep Untuk Pembayaran"));
+					btn += Html.button("btn btn-primary btn-xs btnEdit", "modal", "#rm-modal", "onClick", "getData(" + rm.getId() + ","+STAT_REKAMMEDIS_BARU+")", 0, "Edit Data");
+					btn += Html.button("btn btn-danger btn-xs", "modal", "#rm-modal-hapus", "onClick","setIdUntukHapus(" + rm.getId() +")", 1, "Hapus Data");
+				} else {
+					row += Html.td("Resep Belum Terproses");
+				}
 			} else if (rm.isMasukListResep() && !rm.getIsResepSudahDiproses()) {
-				row += Html.td(Html.aJs("Batal Proses Resep", "btn btn-danger btn-xs", "onClick", "batalProsesResep("+rm.getId()+")", "Batalkan Proses Resep"));
+				if (StringUtils.equals(principal.getName(), rm.getDokter().getPengguna().getNama())){
+					row += Html.td(Html.aJs("Batal Proses Resep", "btn btn-danger btn-xs", "onClick", "batalProsesResep("+rm.getId()+")", "Batalkan Proses Resep"));
+				} else {
+					row += Html.td("Resep Belum Terproses");
+				}
 			} else if (rm.isMasukListResep() && rm.getIsResepSudahDiproses()) {
 				row += Html.td("Resep Terproses");
 //				btn += Html.button("btn btn-danger btn-xs", "modal", "#rm-modal-hapus", "onClick","setIdUntukHapus(" + rm.getId() +")", 1, "Hapus Data");
-			}						
+			}
+			btn += Html.button("btn btn-primary btn-xs", "modal", "#detail-modal", "onClick","getDetail(" + rm.getId() +")", 5, "Detail Rekam Medis");
 			row += Html.td(btn);
 			data += Html.tr(row);
 		}
@@ -1051,6 +1079,33 @@ public class RekamMedisController {
 		}
 		html = data;		 	
 //		System.out.println(html);
+		return html;
+	}
+	
+	private String tabelTerapiDetail(List<RekamMedisDetail> list) {
+		String html = "";
+		String data = "";
+		for (RekamMedisDetail t : list) {
+			String row = "";
+			if (!StringUtils.equals(t.getTerapi(), "Biaya Resep")){
+				row += Html.td(t.getTerapi());
+				row += Html.td(t.getJumlah() + "");					
+				data += Html.tr(row);
+			}			
+		}
+		html = data;
+		return html;
+	}
+	
+	private String tabelDiagnosaDetail(List<RekamMedisDiagnosa> list) {
+		String html = "";
+		String data = "";
+		for (RekamMedisDiagnosa t : list) {
+			String row = "";			
+			row += Html.td(t.getDiagnosa());
+			data += Html.tr(row);
+		}
+		html = data;
 		return html;
 	}
 	
