@@ -115,8 +115,9 @@
 									<label class="form-control" style="border: none;">Tanggal:</label>
 								</div>
 								<div class="col-sm-2 col-lg-2">
-									<input type="text" class="form-control datePicker" name="tanggal" id="tanggal" autocomplete="off">
-								</div>								
+									<input type="text" class="form-control datePicker"
+										name="tanggal" id="tanggal" autocomplete="off">
+								</div>
 							</div>
 						</div>
 						<br />
@@ -137,42 +138,55 @@
 							</div>
 							<div class="col-md-6">
 								<div class="row">
-									<div class="col-md-7">
+									<div class="col-md-4">
 										<div class="form-group">
-											<label class="lb-sm">Total Pembelian</label> <input
-												name="totalpembelian" type="text" id="totalPembelian"
-												class="form-control input-lg input-angka" readonly="readonly" value="0">
-										</div>
-									</div>
-									<div class="col-md-5">
-										<div class="form-group">
-											<label class="lb-sm">Diskon</label> <input name="diskon"
-												type="number" id="diskon" class="form-control input-lg input-angka"
-												value="0" autocomplete="off">
-										</div>
-									</div>
-<!-- 									<div class="col-md-4"> -->
-<!-- 										<div class="form-group"> -->
-<!-- 											<label class="lb-sm">Total Setelah Diskon</label>  -->
-<!-- 											<input name="net" type="number" id="net" class="form-control input-lg input-angka" -->
-<!-- 												value="0" autocomplete="off"> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-								</div>
-								<div class="row">
-									<div class="col-md-5">
-										<div class="form-group">
-											<label class="lb-sm">PPN (10%)</label> <input name="pajak"
-												type="number" id="pajak" class="form-control input-lg input-angka"
+											<label class="lb-sm">Total Obat</label> <input
+												name="total_obat" type="text" id="total_obat"
+												class="form-control input-angka" readonly="readonly"
 												value="0">
 										</div>
 									</div>
-									<div class="col-md-7">
+									<div class="col-md-4 form-group">
+										<label class="lb-sm">Biaya-biaya</label> <input name="biaya"
+											type="text" id="biaya" class="form-control input-angka"
+											value="0" readonly="readonly">
+
+									</div>
+									<div class="col-md-4 form-group">
+										<label class="lb-sm">PPN Obat(10%)</label> <input name="pajak"
+											type="text" id="pajak" class="form-control input-angka"
+											value="0">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-4">
 										<div class="form-group">
-											<label class="lb-sm">Total Pembayaran</label> <input
-												name="totalbayar" type="text" id="totalBayar"
-												class="form-control input-lg input-angka" value="0" readonly="readonly">
+											<label class="lb-sm">Total (Obat + Biaya)</label> <input
+												name="total_obat_biaya" type="text" id="total_obat_biaya"
+												class="form-control input-angka" value="0"
+												autocomplete="off" readonly="readonly">
 										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<label class="lb-sm">Total (Setelah Pajak)</label> <input
+												name="total_pajak" type="text" id="total_pajak"
+												class="form-control input-angka" value="0"
+												autocomplete="off" readonly="readonly">
+										</div>
+									</div>
+									<div class="col-md-4 form-group">
+										<label class="lb-sm">Diskon</label> 
+										<input name="diskon" type="text" id="diskon" class="form-control input-angka"
+											value="0" autocomplete="off">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-8 col-md-offset-4 form-group">
+										<label class="lb-sm">Total Pembayaran (Setelah Diskon)</label>
+										<input name="total_bayar" type="text" id="total_bayar"
+											class="form-control input-angka input-lg" value="0"
+											readonly="readonly">
 									</div>
 								</div>
 
@@ -180,15 +194,17 @@
 									<div class="col-md-7">
 										<div class="form-group">
 											<label class="lb-sm">Bayar</label> <input name="bayar"
-												type="number" id="bayar" class="form-control input-lg input-angka"
-												value="0" autocomplete="off">
+												type="number" id="bayar"
+												class="form-control input-lg input-angka" value="0"
+												autocomplete="off">
 										</div>
 									</div>
 									<div class="col-md-5">
 										<div class="form-group">
 											<label class="lb-sm">Kembali</label> <input name="kembali"
-												type="text" id="kembali" class="form-control input-lg input-angka"
-												value="0" readonly="readonly" autocomplete="off">
+												type="text" id="kembali"
+												class="form-control input-lg input-angka" value="0"
+												readonly="readonly" autocomplete="off">
 										</div>
 									</div>
 								</div>
@@ -241,109 +257,103 @@
 </div>
 
 <script>
-	$(document).ready(
-			function() {
-				refresh(1, '', '');
+	$(document).ready(function() {
+		refresh(1, '', '');
+		
+		$('#btnCari').click(function() {
+			refresh(1, $('#stringCari').val(), $('#stringTanggalCari').val());
+		});
+		
+		$('#pajak').keyup(function() {
+			$('#total_pajak').val(hitungTotalAfterPajak('#total_obat_biaya', '#pajak'));
+			$('#total_bayar').val(hitungTotalPembayaran('#total_pajak','#diskon'));
+		});
 
-				$('#btnCari').click(
-						function() {
-							refresh(1, $('#stringCari').val(), $(
-									'#stringTanggalCari').val());
-						});
+		$('#diskon').keyup(function() {
+			$('#total_bayar').val(hitungTotalPembayaran('#total_pajak','#diskon'));
+		});
 
-				$('#diskon').keyup(
-						function() {
-							$('#pajak').val(
-									hitungPajak('#totalPembelian', '#diskon'));
-							$('#totalBayar').val(
-									hitungGrandTotalBayar('#totalPembelian',
-											'#diskon', '#pajak'));
-						});
+		$('#bayar').keyup(function() {
+			$('#kembali').val(hitungKembalian('#total_bayar', '#bayar'));
+		});
 
-				$('#bayar').keyup(
-						function() {
-							$('#kembali').val(
-									hitungKembalian('#totalBayar', '#bayar'));
-						});
-
-				$(".formTambah").validate({
-					rules : {
-						totalpembelian : {
-							required : true,
-							min : 0
-						},
-						diskon : {
-							required : true,
-							min : 0
-						},
-						tanggal : {
-							required : true,
-						},
-						pajak : {
-							required : true,
-							min : 0
-						},
-						totalbayar : {
-							required : true,
-							min : 0
-						},
-						bayar : {
-							required : true,
-							min : 0,
-							greaterEqualThan : '#totalBayar'
-						},
-						kembali : {
-							required : true,
-							min : 0
-						}
-					},
-					messages : {
-						totalpembelian : {
-							required : "Total Pembelian Harus Diisi",
-							min : "Isi Total Pembelian dengan Benar"
-						},
-						diskon : {
-							required : "Diskon Harus Diisi",
-							min : "Isi Diskon dengan Benar"
-						},
-						pajak : {
-							required : "Pajak Harus Diisi",
-							min : "Pajak Diskon dengan Benar"
-						},
-						totalbayar : {
-							required : "Total Pembayaran Harus Terisi",
-							min : "Isi Total Pembelian dengan Benar"
-						},
-						bayar : {
-							required : "Pembayaran Harus Diisi",
-							min : "Isi Pembayaran dengan Benar",
-							greaterEqualThan : 'Pembayaran Kurang'
-						},
-						kembali : {
-							required : "Kembalian Harus Terisi",
-							min : "Isi Kembalian Tidak Tepat"
-						}
-					},
-					submitHandler : function(form) {
-						var data = {};
-						data = setResep(data);
-						$.postJSON('${jualUrl}', data, function(result) {
-							reset();
-							refresh();
-							$('#penjualanId').val(result.penjualanId);
-							$('#resep-modal').modal('hide');
-							$('#resep-modal-cetak').modal('show');
-						}, function() {
-							$('#gritter-tambah-gagal').click();
-						});
-					}
+		$(".formTambah").validate({
+			rules : {
+				totalpembelian : {
+					required : true,
+					min : 0
+				},
+				diskon : {
+					required : true,
+					min : 0
+				},
+				tanggal : {
+					required : true,
+				},
+				pajak : {
+					required : true,
+					min : 0
+				},
+				totalbayar : {
+					required : true,
+					min : 0
+				},
+				bayar : {
+					required : true,
+					min : 0,
+					greaterEqualThan : '#total_bayar'
+				},
+				kembali : {
+					required : true,
+					min : 0
+				}
+			},
+			messages : {
+				totalpembelian : {
+					required : "Total Pembelian Harus Diisi",
+					min : "Isi Total Pembelian dengan Benar"
+				},
+				diskon : {
+					required : "Diskon Harus Diisi",
+					min : "Isi Diskon dengan Benar"
+				},
+				pajak : {
+					required : "Pajak Harus Diisi",
+					min : "Pajak Diskon dengan Benar"
+				},
+				totalbayar : {
+					required : "Total Pembayaran Harus Terisi",
+					min : "Isi Total Pembelian dengan Benar"
+				},
+				bayar : {
+					required : "Pembayaran Harus Diisi",
+					min : "Isi Pembayaran dengan Benar",
+					greaterEqualThan : 'Pembayaran Kurang'
+				},
+				kembali : {
+					required : "Kembalian Harus Terisi",
+					min : "Isi Kembalian Tidak Tepat"
+				}
+			},
+			submitHandler : function(form) {
+				var data = {};
+				data = setResep(data);
+				$.postJSON('${jualUrl}', data, function(result) {
+					reset();
+					refresh();
+					$('#penjualanId').val(result.penjualanId);
+					$('#resep-modal').modal('hide');
+					$('#resep-modal-cetak').modal('show');
+				}, function() {
+					$('#gritter-tambah-gagal').click();
 				});
+			}
+		});
 
-				// 				setMaskingUang("#totalPembelian");
-				// 				setMaskingUang("#diskon");
-				// 				setMaskingUang("#totalBayar");
-				// 				setMaskingUang("#bayar");
-				// 				setMaskingUang("#kembali");
+				setMaskingUang("#pajak");
+				setMaskingUang("#diskon");
+// 				setMaskingUang("#bayar");
+				setMaskingUang("#kembali");
 			});
 
 	function getData(ids, s) {
@@ -351,45 +361,35 @@
 		var data = {
 			id : ids
 		};
-		$
-				.getAjax(
-						'${dapatkanUrl}',
-						data,
-						function(result) {
-							if (result.isMasukResepList == false) {
-								$('#pesan').empty();
-								$('#pesan')
-										.append(
-												"Resep Tidak Dapat Diproses karena Revisi, Hubungi Dokter Bersangkutan");
-								$('#pesan-modal').modal('show');
-								$('#resep-modal').modal('hide');
-								reset();
-							} else {
-								$('#pasienId').val(result.pasienId);
-								$('#dokterId').val(result.dokterId);
-								$('#tanggal').val(result.tanggal);
-								$('#nama').val(result.pasien);
-								$('#gender').val(result.gender);
-								$('#usia').val(result.umur);
-								$('#jaminan').val(result.jaminan);
-								$('#nomor-jaminan').val(result.nomorJaminan);
-								$('#totalPembelian').val(result.totalPembelian);
-								$('#totalBayar').val(result.totalPembelian);
-								$('#pajak').val(result.pajak);
-								$('#tabel-terapi').append(result.tabelTerapi);
-								$('#ids').val(ids);
-								$('#totalBayar').val(
-										hitungGrandTotalBayar(
-												'#totalPembelian', '#diskon',
-												'#pajak'));
-							}
-						}, null);
+		$.getAjax('${dapatkanUrl}',	data,function(result) {
+			if (result.isMasukResepList == false) {
+				$('#pesan').empty();
+				$('#pesan').append("Resep Tidak Dapat Diproses karena Revisi, Hubungi Dokter Bersangkutan");
+				$('#pesan-modal').modal('show');
+				$('#resep-modal').modal('hide');
+				reset();
+			} else {
+				$('#pasienId').val(result.pasienId);
+				$('#dokterId').val(result.dokterId);
+				$('#tanggal').val(result.tanggal);
+				$('#nama').val(result.pasien);
+				$('#gender').val(result.gender);
+				$('#usia').val(result.umur);
+				$('#jaminan').val(result.jaminan);
+				$('#nomor-jaminan').val(result.nomorJaminan);
+				
+				$('#total_obat').val(result.totalObat);
+				$('#biaya').val(result.totalBiaya);
+				$('#pajak').val(result.pajak);
+				$('#total_obat_biaya').val(result.totalObatDanBiaya);
+				$('#total_pajak').val(result.totalAfterPajak);
+				$('#total_bayar').val(result.totalPembelian);
+				$('#tabel-terapi').append(result.tabelTerapi);
+				$('#ids').val(ids);
+			}
+		}, null);
 	}
-
-	// 	function setIdUntukHapus(ids) {
-	// 		$('#hapusId').val(ids);
-	// 	}
-
+	
 	function refresh(halaman, find, tanggal) {
 		var data = {
 			hal : halaman,
@@ -411,37 +411,26 @@
 		data['tanggal'] = $('#tanggal').val();
 		data['pasienId'] = $('#pasienId').val();
 		data['dokterId'] = $('#dokterId').val();
-		data['totalPembelian'] = $('#totalPembelian').val();
+		data['totalPembelian'] = $('#total_obat_biaya').val();
+		data['grandTotal'] = $('#total_bayar').val();
 		data['diskon'] = $('#diskon').val();
 		data['pajak'] = $('#pajak').val();
-		data['totalBayar'] = $('#totalBayar').val();
 		data['bayar'] = $('#bayar').val();
 		data['kembali'] = $('#kembali').val();
 		return data;
 	}
-
-	function hitungGrandTotalBayar(t, d) {
-		var total = parseFloat($(t).val().replace(/\./g, ''), 10);
-		var diskon = parseFloat($(d).val().replace(/\./g, ''), 10);
-		var grandTotal = total - diskon;
-		return grandTotal;
+	
+	function hitungTotalAfterPajak(obat_biaya, pajak){
+		var p = parseFloat($(pajak).val().replace(/\./g, ''), 10);
+		var o = parseFloat($(obat_biaya).val().replace(/\./g, ''), 10);
+		var total = o + p;
+		return total;
 	}
 
-	function hitungPajak(t, d) {
-		var total = parseFloat($(t).val().replace(/\./g, ''), 10);
-		var diskon = parseFloat($(d).val().replace(/\./g, ''), 10);
-		var grandTotal = total - diskon;
-		var pajak = grandTotal * 10;
-		pajak = pajak / 100;
-		return pajak;
-	}
-
-	function hitungGrandTotalBayar(t, d, p) {
-		var total = parseFloat($(t).val().replace(/\./g, ''), 10);
-		var diskon = parseFloat($(d).val().replace(/\./g, ''), 10);
-		var pajak = parseFloat($(p).val().replace(/\./g, ''), 10);
-		var grandTotal = total - diskon;
-		grandTotal = grandTotal + pajak;
+	function hitungTotalPembayaran(totalAfterPajak, diskon) {
+		var t = parseFloat($(totalAfterPajak).val().replace(/\./g, ''), 10);
+		var d = parseFloat($(diskon).val().replace(/\./g, ''), 10);
+		var grandTotal = t - d;
 		return grandTotal;
 	}
 

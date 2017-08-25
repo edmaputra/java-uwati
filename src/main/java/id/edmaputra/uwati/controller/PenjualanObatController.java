@@ -126,7 +126,7 @@ public class PenjualanObatController {
 
 	@Autowired
 	private RekamMedisDetailService rekamMedisDetailService;
-	
+
 	@Autowired
 	private CekStokService cekStokService;
 
@@ -246,9 +246,9 @@ public class PenjualanObatController {
 
 				penjualanDetailValidator.validate(penjualanDetail);
 				listPenjualanDetail.add(penjualanDetail);
-				if (obat.getTipe() == 0 || obat.getTipe() == 1){
+				if (obat.getTipe() == 0 || obat.getTipe() == 1) {
 					updateStokObat(obat, jumlah, 0);
-				}				
+				}
 			}
 			penjualan.setPenjualanDetail(listPenjualanDetail);
 
@@ -257,8 +257,9 @@ public class PenjualanObatController {
 
 			penjualanDetailTempService.hapusBatch(h.getRandomId());
 
-			logger.info(LogSupport.tambah(principal.getName(), penjualan.toString(), request));			
-			String pesan = "<p>Penjualan Tersimpan dengan Nomor Faktur " + penjualan.getNomorFaktur() + "</p><p>Klik Tombol CETAK untuk Mencetak Resi Penjualan.</p>";
+			logger.info(LogSupport.tambah(principal.getName(), penjualan.toString(), request));
+			String pesan = "<p>Penjualan Tersimpan dengan Nomor Faktur " + penjualan.getNomorFaktur()
+					+ "</p><p>Klik Tombol CETAK untuk Mencetak Resi Penjualan.</p>";
 			h.setInfo(pesan);
 			h.setId(penjualan.getNomorFaktur());
 
@@ -277,81 +278,102 @@ public class PenjualanObatController {
 			HttpServletRequest request) {
 		Penjualan penjualan = new Penjualan();
 		try {			
-			String nomorFaktur = nomorFakturGenerator(Converter.dateToStringDashSeparator(new Date()), KODE_TRANSAKSI_JUAL_RESEP);			
-			penjualan.setNomorFaktur(nomorFaktur);		
-			penjualan.setWaktuTransaksi(Converter.stringToDate(temp.getTanggal()));			
-			penjualan.setTipe(Integer.valueOf(2));			
-			penjualan.setDokter(karyawanService.dapatkan(Integer.valueOf(temp.getDokterId()).intValue()).getNama());			
-			penjualan.setPelanggan(pasienService.dapatkan(Long.valueOf(temp.getPasienId())).getNama());			
-			penjualan.setPengguna(principal.getName());			
-			penjualan.setTotalPembelian(new BigDecimal(Formatter.hilangkanTitik(temp.getTotalPembelian())));			
-			penjualan.setDiskon(new BigDecimal(Formatter.hilangkanTitik(temp.getDiskon())));			
+			String nomorFaktur = nomorFakturGenerator(Converter.dateToStringDashSeparator(new Date()),KODE_TRANSAKSI_JUAL_RESEP);
+			penjualan.setNomorFaktur(nomorFaktur);
+			penjualan.setWaktuTransaksi(Converter.stringToDate(temp.getTanggal()));
+			penjualan.setTipe(Integer.valueOf(2));
+			penjualan.setDokter(karyawanService.dapatkan(Integer.valueOf(temp.getDokterId()).intValue()).getNama());
+			penjualan.setPelanggan(pasienService.dapatkan(Long.valueOf(temp.getPasienId())).getNama());
+			penjualan.setPengguna(principal.getName());
+			penjualan.setTotalPembelian(new BigDecimal(Formatter.hilangkanTitik(temp.getTotalPembelian())));
+			penjualan.setDiskon(new BigDecimal(Formatter.hilangkanTitik(temp.getDiskon())));
 			penjualan.setPajak(new BigDecimal(Formatter.hilangkanTitik(temp.getPajak())));
-			BigDecimal grandTotal = new BigDecimal(Formatter.hilangkanTitik(temp.getTotalBayar()));
+			BigDecimal grandTotal = new BigDecimal(Formatter.hilangkanTitik(temp.getGrandTotal()));
 			BigDecimal bayar = new BigDecimal(Formatter.hilangkanTitik(temp.getBayar()));
-			penjualan.setGrandTotal(grandTotal);			
-			penjualan.setBayar(bayar);			
-			penjualan.setKembali(bayar.subtract(grandTotal));			
-			penjualan.setWaktuDibuat(new Date());			
-			penjualan.setTerakhirDirubah(new Date());			
+			penjualan.setGrandTotal(grandTotal);
+			penjualan.setBayar(bayar);
+			penjualan.setKembali(bayar.subtract(grandTotal));
+			penjualan.setWaktuDibuat(new Date());
+			penjualan.setTerakhirDirubah(new Date());
 
-			listPenjualanDetail = new ArrayList<>();			
-			listPenjualanDetailRacikan = new ArrayList<>();		
+			listPenjualanDetail = new ArrayList<>();
+			listPenjualanDetailRacikan = new ArrayList<>();
 
-			RekamMedis rm = rekamMedisService.dapatkan(Long.valueOf(temp.getId()));			
-			List<RekamMedisDetail> list = rekamMedisDetailService.dapatkan(rm);			
+			RekamMedis rm = rekamMedisService.dapatkan(Long.valueOf(temp.getId()));
+			List<RekamMedisDetail> list = rekamMedisDetailService.dapatkan(rm);
 
 			for (RekamMedisDetail rmd : list) {				
-				PenjualanDetail penjualanDetail = new PenjualanDetail();
-				Obat obat = getObat(rmd.getTerapi());				
-				penjualanDetail.setObat(obat.getNama());				
+				if (rmd.getTipe() != 100) {
+					PenjualanDetail penjualanDetail = new PenjualanDetail();
+					Obat obat = getObat(rmd.getTerapi());
+					penjualanDetail.setObat(obat.getNama());
 
-				if (obat.getTipe() == 1) {					
-					penjualanDetail.setIsRacikan(true);					
-					Racikan r = getRacikan(obat.getNama());					
-					for (RacikanDetail rd : r.getRacikanDetail()) {						
-						PenjualanDetailRacikan pdr = new PenjualanDetailRacikan();						
-						pdr.setKomposisi(rd.getKomposisi().getNama());						
-						pdr.setHargaJualPerKomposisi(rd.getHargaSatuan());						
-						pdr.setJumlah(rd.getJumlah());						
-						pdr.setTerakhirDirubah(new Date());
-						pdr.setWaktuDibuat(new Date());						
-						pdr.setPenjualanDetail(penjualanDetail);						
-						penjualanDetailRacikanValidator.validate(pdr);						
-						listPenjualanDetailRacikan.add(pdr);					
-					}					
-					PenjualanDetailRacikan biayaRacik = new PenjualanDetailRacikan();
-										
-					biayaRacik.setKomposisi("Biaya Racik");					
-					biayaRacik.setHargaJualPerKomposisi(r.getBiayaRacik());					
-					biayaRacik.setJumlah(1);					
-					biayaRacik.setTerakhirDirubah(new Date());					
+					if (obat.getTipe() == 1) {
+						penjualanDetail.setIsRacikan(true);
+						Racikan r = getRacikan(obat.getNama());
+						for (RacikanDetail rd : r.getRacikanDetail()) {
+							PenjualanDetailRacikan pdr = new PenjualanDetailRacikan();
+							pdr.setKomposisi(rd.getKomposisi().getNama());
+							pdr.setHargaJualPerKomposisi(rd.getHargaSatuan());
+							pdr.setJumlah(rd.getJumlah());
+							pdr.setTerakhirDirubah(new Date());
+							pdr.setWaktuDibuat(new Date());
+							pdr.setPenjualanDetail(penjualanDetail);
+							penjualanDetailRacikanValidator.validate(pdr);
+							listPenjualanDetailRacikan.add(pdr);
+						}
+						PenjualanDetailRacikan biayaRacik = new PenjualanDetailRacikan();
+
+						biayaRacik.setKomposisi("Biaya Racik");
+						biayaRacik.setHargaJualPerKomposisi(r.getBiayaRacik());
+						biayaRacik.setJumlah(1);
+						biayaRacik.setTerakhirDirubah(new Date());
+						biayaRacik.setWaktuDibuat(new Date());
+						biayaRacik.setPenjualanDetail(penjualanDetail);
+						penjualanDetailRacikanValidator.validate(biayaRacik);
+						listPenjualanDetailRacikan.add(biayaRacik);
+
+						penjualanDetail.setRacikanDetail(listPenjualanDetailRacikan);
+					} else {
+						penjualanDetail.setIsRacikan(false);
+					}
+					BigDecimal hargaJual = rmd.getHargaJual();
+					Integer jumlah = rmd.getJumlah();
+					BigDecimal diskon = rmd.getDiskon();
+					BigDecimal hargaTotal = hargaJual.multiply(new BigDecimal(jumlah));
+					hargaTotal = hargaTotal.subtract(diskon);
+					penjualanDetail.setHargaJual(hargaJual);
+					penjualanDetail.setJumlah(jumlah);
+					penjualanDetail.setDiskon(diskon);
+					penjualanDetail.setHargaTotal(hargaTotal);
+					penjualanDetail.setWaktuDibuat(new Date());
+					penjualanDetail.setTerakhirDirubah(new Date());
+					penjualanDetail.setPenjualan(penjualan);
+
+					penjualanDetailValidator.validate(penjualanDetail);
+					listPenjualanDetail.add(penjualanDetail);
+					if (obat.getTipe() == 0 || obat.getTipe() == 1) {
+						updateStokObat(obat, jumlah, 0);
+					}
+				} else if (rmd.getTipe() == 100) {
+					PenjualanDetail biayaRacik = new PenjualanDetail();
+					biayaRacik.setObat(rmd.getTerapi());
+					
+					String terapi = rmd.getTerapi();
+					int s = terapi.indexOf("-") + 1;
+					String t = terapi.substring(s, terapi.length());
+					
+					Racikan r = getRacikan(t);
+					biayaRacik.setHargaJual(r.getBiayaRacik());
+					biayaRacik.setJumlah(1);
+					biayaRacik.setDiskon(BigDecimal.ZERO);
+					biayaRacik.setPajak(BigDecimal.ZERO);
+					biayaRacik.setHargaTotal(r.getBiayaRacik());
 					biayaRacik.setWaktuDibuat(new Date());
-					biayaRacik.setPenjualanDetail(penjualanDetail);				
-					penjualanDetailRacikanValidator.validate(biayaRacik);					
-					listPenjualanDetailRacikan.add(biayaRacik);					
-
-					penjualanDetail.setRacikanDetail(listPenjualanDetailRacikan);
-				} else {					
-					penjualanDetail.setIsRacikan(false);				
-				}			
-				BigDecimal hargaJual = rmd.getHargaJual();				
-				Integer jumlah = rmd.getJumlah();				
-				BigDecimal diskon = rmd.getDiskon();				
-				BigDecimal hargaTotal = hargaJual.multiply(new BigDecimal(jumlah));
-				hargaTotal = hargaTotal.subtract(diskon);				
-				penjualanDetail.setHargaJual(hargaJual);
-				penjualanDetail.setJumlah(jumlah);				
-				penjualanDetail.setDiskon(diskon);				
-				penjualanDetail.setHargaTotal(hargaTotal);				
-				penjualanDetail.setWaktuDibuat(new Date());				
-				penjualanDetail.setTerakhirDirubah(new Date());				
-				penjualanDetail.setPenjualan(penjualan);
-				
-				penjualanDetailValidator.validate(penjualanDetail);
-				listPenjualanDetail.add(penjualanDetail);				
-				if (obat.getTipe() == 0 || obat.getTipe() == 1){
-					updateStokObat(obat, jumlah, 0);
+					biayaRacik.setTerakhirDirubah(new Date());
+					biayaRacik.setPenjualan(penjualan);
+					biayaRacik.setIsRacikan(false);
+					listPenjualanDetail.add(biayaRacik);
 				}
 			}
 
@@ -439,9 +461,8 @@ public class PenjualanObatController {
 			Map<String, Object> parameterMap = new HashMap<String, Object>();
 			Apotek apotek = apotekService.semua().get(0);
 			BigDecimal grandTotal = new BigDecimal(0);
-			System.out.println("NOMOR FAKTUR "+id);
 			Penjualan penjualan = penjualanService.dapatkanByNomorFaktur(id);
-			
+
 			List<PenjualanDetail> list = penjualanDetailService.dapatkanByPenjualan(penjualan);
 			for (PenjualanDetail d : list) {
 				Struk struk = new Struk();
@@ -548,7 +569,8 @@ public class PenjualanObatController {
 			PenjualanDetailTemp tersimpan = penjualanDetailTempService.dapatkanByRandomIdAndIdObat(h.getRandomId(),
 					h.getIdObat());
 			if (tersimpan != null) {
-//				Integer jumlahLama = new Integer(Converter.hilangkanTandaTitikKoma(tersimpan.getJumlah()));
+				// Integer jumlahLama = new
+				// Integer(Converter.hilangkanTandaTitikKoma(tersimpan.getJumlah()));
 				Integer jumlah = new Integer(Converter.hilangkanTandaTitikKoma(h.getJumlah()));
 				BigDecimal harga = new BigDecimal(Converter.hilangkanTandaTitikKoma(h.getHargaJual()));
 				BigDecimal diskon = new BigDecimal(Converter.hilangkanTandaTitikKoma(h.getDiskon()));
@@ -638,40 +660,41 @@ public class PenjualanObatController {
 			return null;
 		}
 	}
-	
+
 	@RequestMapping(value = "/cek-stok", method = RequestMethod.GET)
 	@ResponseBody
 	private PenjualanDetailHandler cekStokObat(@RequestParam(value = "randomId", required = true) String randomId,
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			PenjualanDetailHandler h = new PenjualanDetailHandler();
-			List<PenjualanDetailTemp> list = penjualanDetailTempService.dapatkanListByRandomId(randomId);			
+			List<PenjualanDetailTemp> list = penjualanDetailTempService.dapatkanListByRandomId(randomId);
 			String returnStatusStok = "OKE";
 			String statusStokPerObat = "";
 			Integer marker = 0;
 			CekStok cekStok = null;
-			for (PenjualanDetailTemp temp : list) {				
-				Obat obat = getObat(Long.valueOf(temp.getIdObat()));				
-				if (obat.getTipe() == 1){					
+			for (PenjualanDetailTemp temp : list) {
+				Obat obat = getObat(Long.valueOf(temp.getIdObat()));
+				if (obat.getTipe() == 1) {
 					Racikan r = getRacikan(obat.getNama());
-					for (RacikanDetail rd : r.getRacikanDetail()){						
-						Obat detail = getObat(rd.getKomposisi().getNama());												
+					for (RacikanDetail rd : r.getRacikanDetail()) {
+						Obat detail = getObat(rd.getKomposisi().getNama());
 						Integer jumlahBeli = new Integer(Converter.hilangkanTandaTitikKoma(temp.getJumlah()));
 						jumlahBeli = jumlahBeli * rd.getJumlah();
 						cekStok = periksaEntityCekStok(cekStok, detail, temp, jumlahBeli);
-						cekStokService.simpan(cekStok);									
+						cekStokService.simpan(cekStok);
 					}
-				} else if (obat.getTipe() == 0){
-					cekStok = periksaEntityCekStok(cekStok, obat, temp, new Integer(Formatter.hilangkanTitikKoma(temp.getJumlah())));
+				} else if (obat.getTipe() == 0) {
+					cekStok = periksaEntityCekStok(cekStok, obat, temp,
+							new Integer(Formatter.hilangkanTitikKoma(temp.getJumlah())));
 					cekStokService.simpan(cekStok);
-				}				
+				}
 			}
-			
+
 			List<CekStok> cekStoks = cekStokService.dapatkanListByRandomId(randomId);
-			for (CekStok c : cekStoks){
+			for (CekStok c : cekStoks) {
 				Obat obat = getObat(new Long(c.getIdObat()));
 				Integer stokTersimpan = obat.getStok().get(0).getStok();
-				if (c.getJumlah() > stokTersimpan){
+				if (c.getJumlah() > stokTersimpan) {
 					marker = 1;
 					statusStokPerObat += "<p>" + obat.getNama() + " :: Stok Tersisa " + stokTersimpan + "</p>";
 				}
@@ -682,7 +705,7 @@ public class PenjualanObatController {
 				returnStatusStok = returnStatusStok + statusStokPerObat;
 			}
 			h.setInfo(returnStatusStok);
-			
+
 			cekStokService.hapusBatch(randomId);
 			return h;
 		} catch (Exception e) {
@@ -690,72 +713,78 @@ public class PenjualanObatController {
 			return null;
 		}
 	}
-	
-	private CekStok periksaEntityCekStok(CekStok cekStok, Obat obat, PenjualanDetailTemp temp, Integer jumlah){		
+
+	private CekStok periksaEntityCekStok(CekStok cekStok, Obat obat, PenjualanDetailTemp temp, Integer jumlah) {
 		cekStok = cekStokService.dapatkanByRandomIdAndIdObat(temp.getRandomId(), obat.getId().toString());
-		if (cekStok == null){
+		if (cekStok == null) {
 			cekStok = new CekStok();
 			cekStok.setRandomId(temp.getRandomId());
 			cekStok.setIdObat(obat.getId().toString());
 			cekStok.setObat(obat.getNama());
-			cekStok.setJumlah(jumlah);			
+			cekStok.setJumlah(jumlah);
 		} else {
 			Integer jumlahTersimpan = cekStok.getJumlah();
 			Integer jumlahBaru = jumlahTersimpan + jumlah;
-			cekStok.setJumlah(jumlahBaru);		
+			cekStok.setJumlah(jumlahBaru);
 		}
 		cekStok.setWaktuDibuat(new Date());
 		cekStok.setTerakhirDirubah(new Date());
 		cekStok.setUserInput("");
-		System.out.println("Cek Stok : " +cekStok.getObat()+". Jumlah :"+cekStok.getJumlah());
+		System.out.println("Cek Stok : " + cekStok.getObat() + ". Jumlah :" + cekStok.getJumlah());
 		return cekStok;
 	}
 
-//	@RequestMapping(value = "/cek-stok", method = RequestMethod.GET)
-//	@ResponseBody
-//	private PenjualanDetailHandler cekStokObat(@RequestParam(value = "randomId", required = true) String randomId,
-//			HttpServletRequest request, HttpServletResponse response) {
-//		try {
-//			PenjualanDetailHandler h = new PenjualanDetailHandler();
-//			List<PenjualanDetailTemp> list = penjualanDetailTempService.dapatkanListByRandomId(randomId);
-//			String returnStatusStok = "OKE";
-//			String statusStokPerObat = "";
-//			Integer marker = 0;
-//			for (PenjualanDetailTemp temp : list) {
-//				Obat obat = getObat(Long.valueOf(temp.getIdObat()));
-//				if (obat.getTipe() == 1){
-//					Racikan r = getRacikan(obat.getNama());
-//					for (RacikanDetail rd : r.getRacikanDetail()){
-//						Obat detail = getObat(rd.getKomposisi().getNama());
-//						Integer stokTersimpan = detail.getStok().get(0).getStok();
-//						Integer jumlahBeli = new Integer(Converter.hilangkanTandaTitikKoma(temp.getJumlah()));
-//						jumlahBeli = jumlahBeli * rd.getJumlah();
-//						if (jumlahBeli > stokTersimpan) {
-//							marker = 1;
-//							statusStokPerObat += "<p>" + rd.getKomposisi().getNama() + " : " + stokTersimpan + "</p>";
-//						}
-//					}
-//				} else {
-//					Integer stokTersimpan = obat.getStok().get(0).getStok();
-//					Integer jumlahBeli = new Integer(Converter.hilangkanTandaTitikKoma(temp.getJumlah()));
-//					if (jumlahBeli > stokTersimpan) {
-//						marker = 1;
-//						statusStokPerObat += "<p>" + temp.getObat() + " : " + stokTersimpan + "</p>";
-//					}
-//				}				
-//			}
-//
-//			if (marker == 1) {
-//				returnStatusStok = "<p>Jumlah Beli Melebihi Stok Obat yang Ada : </p>";
-//				returnStatusStok = returnStatusStok + statusStokPerObat;
-//			}
-//			h.setInfo(returnStatusStok);
-//			return h;
-//		} catch (Exception e) {
-//			logger.info(e.getMessage());
-//			return null;
-//		}
-//	}
+	// @RequestMapping(value = "/cek-stok", method = RequestMethod.GET)
+	// @ResponseBody
+	// private PenjualanDetailHandler cekStokObat(@RequestParam(value =
+	// "randomId", required = true) String randomId,
+	// HttpServletRequest request, HttpServletResponse response) {
+	// try {
+	// PenjualanDetailHandler h = new PenjualanDetailHandler();
+	// List<PenjualanDetailTemp> list =
+	// penjualanDetailTempService.dapatkanListByRandomId(randomId);
+	// String returnStatusStok = "OKE";
+	// String statusStokPerObat = "";
+	// Integer marker = 0;
+	// for (PenjualanDetailTemp temp : list) {
+	// Obat obat = getObat(Long.valueOf(temp.getIdObat()));
+	// if (obat.getTipe() == 1){
+	// Racikan r = getRacikan(obat.getNama());
+	// for (RacikanDetail rd : r.getRacikanDetail()){
+	// Obat detail = getObat(rd.getKomposisi().getNama());
+	// Integer stokTersimpan = detail.getStok().get(0).getStok();
+	// Integer jumlahBeli = new
+	// Integer(Converter.hilangkanTandaTitikKoma(temp.getJumlah()));
+	// jumlahBeli = jumlahBeli * rd.getJumlah();
+	// if (jumlahBeli > stokTersimpan) {
+	// marker = 1;
+	// statusStokPerObat += "<p>" + rd.getKomposisi().getNama() + " : " +
+	// stokTersimpan + "</p>";
+	// }
+	// }
+	// } else {
+	// Integer stokTersimpan = obat.getStok().get(0).getStok();
+	// Integer jumlahBeli = new
+	// Integer(Converter.hilangkanTandaTitikKoma(temp.getJumlah()));
+	// if (jumlahBeli > stokTersimpan) {
+	// marker = 1;
+	// statusStokPerObat += "<p>" + temp.getObat() + " : " + stokTersimpan +
+	// "</p>";
+	// }
+	// }
+	// }
+	//
+	// if (marker == 1) {
+	// returnStatusStok = "<p>Jumlah Beli Melebihi Stok Obat yang Ada : </p>";
+	// returnStatusStok = returnStatusStok + statusStokPerObat;
+	// }
+	// h.setInfo(returnStatusStok);
+	// return h;
+	// } catch (Exception e) {
+	// logger.info(e.getMessage());
+	// return null;
+	// }
+	// }
 
 	private String tabelTerapiGenerator(List<PenjualanDetailTemp> list) {
 		String html = "";
@@ -795,9 +824,9 @@ public class PenjualanObatController {
 		}
 		return t;
 	}
-	
-	private String nomorFakturGenerator(String tanggal, String kodeTransaksi){
-		String nF = generateNomorFaktur(tanggal, kodeTransaksi);		
+
+	private String nomorFakturGenerator(String tanggal, String kodeTransaksi) {
+		String nF = generateNomorFaktur(tanggal, kodeTransaksi);
 		NomorFaktur newNF = new NomorFaktur();
 		newNF.setNomor(setNomorUrutFaktur(nF));
 		newNF.setIsSelesai(false);
@@ -843,7 +872,7 @@ public class PenjualanObatController {
 		bulan = bulan + 1;
 		String b = angkaNolBulan(bulan + "");
 		String d = angkaNolBulan(day + "");
-		
+
 		nomorTerakhir++;
 		String nomor = nomorTerakhir + "";
 

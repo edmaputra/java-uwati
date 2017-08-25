@@ -66,6 +66,15 @@ public class Converter {
 		formatter.setDecimalFormatSymbols(dfs);
 		return formatter.format(angka.doubleValue());
 	}
+	
+	public static String patternCurrency(Integer angka) {
+		DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
+		DecimalFormatSymbols dfs = formatter.getDecimalFormatSymbols();
+		dfs.setGroupingSeparator('.');
+		dfs.setDecimalSeparator(',');
+		formatter.setDecimalFormatSymbols(dfs);
+		return formatter.format(angka.doubleValue());
+	}
 
 	// 0: BeritaAcaraAtm
 //	public static String nomorSuratGenerator(String nomor, Date date, int tipe, String kodeCabang) {

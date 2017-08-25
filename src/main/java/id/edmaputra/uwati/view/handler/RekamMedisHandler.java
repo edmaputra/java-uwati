@@ -57,6 +57,16 @@ public class RekamMedisHandler {
 	private String pajak;
 	
 	private String tabelDiagnosa;
+	
+	private String totalBiaya;
+	
+	private String totalObat;
+	
+	private String totalAfterPajak;
+	
+	private String totalObatDanBiaya;
+	
+	private String grandTotal;
 
 	public String getJaminan() {
 		return jaminan;
@@ -286,6 +296,46 @@ public class RekamMedisHandler {
 
 	public void setTabelDiagnosa(String tabelDiagnosa) {
 		this.tabelDiagnosa = tabelDiagnosa;
+	}
+
+	public String getTotalBiaya() {
+		return totalBiaya;
+	}
+
+	public void setTotalBiaya(String biaya) {
+		this.totalBiaya = biaya;
+	}
+
+	public String getTotalObat() {
+		return totalObat;
+	}
+
+	public void setTotalObat(String totalObat) {
+		this.totalObat = totalObat;
+	}
+
+	public String getTotalObatDanBiaya() {
+		return totalObatDanBiaya;
+	}
+
+	public void setTotalObatDanBiaya(String totalObatDanBiaya) {
+		this.totalObatDanBiaya = totalObatDanBiaya;
+	}
+
+	public String getTotalAfterPajak() {
+		return totalAfterPajak;
+	}
+
+	public void setTotalAfterPajak(String totalAfterPajak) {
+		this.totalAfterPajak = totalAfterPajak;
+	}
+
+	public String getGrandTotal() {
+		return grandTotal;
+	}
+
+	public void setGrandTotal(String grandTotal) {
+		this.grandTotal = grandTotal;
 	}
 
 }

@@ -56,7 +56,24 @@ public class RekamMedisDetailService {
 		return rekamMedisDetailRepository.findByRekamMedis(rekamMedis);
 	}
 	
+	public List<RekamMedisDetail> dapatkanBiaya(RekamMedis rekamMedis, Integer tipe){
+		return rekamMedisDetailRepository.findByRekamMedisAndTipe(rekamMedis, tipe);
+	}
+	
 	public RekamMedisDetail dapatkanBiayaResep(RekamMedis rekamMedis, String terapi){
 		return rekamMedisDetailRepository.findByRekamMedisAndTerapi(rekamMedis, terapi);
+	}
+	
+	public RekamMedisDetail dapatkanBiayaRekamMedisDanTerapi(RekamMedis rekamMedis, String terapi){
+		return rekamMedisDetailRepository.findByRekamMedisAndTerapi(rekamMedis, terapi);
+	}
+
+
+	public RekamMedisDetail dapatkan(String nama) {
+		return rekamMedisDetailRepository.findByTerapi(nama);
+	}
+
+	public void hapusBatch(List<RekamMedisDetail> list) {
+		rekamMedisDetailRepository.deleteInBatch(list);	
 	}
 }

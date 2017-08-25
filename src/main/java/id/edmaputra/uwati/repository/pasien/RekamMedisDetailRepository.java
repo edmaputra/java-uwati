@@ -16,4 +16,8 @@ public interface RekamMedisDetailRepository extends JpaRepository<RekamMedisDeta
 
 	RekamMedisDetail findByRekamMedisAndTerapi(RekamMedis rekamMedis, String terapi);
 
+	RekamMedisDetail findByTerapi(String nama);
+
+	List<RekamMedisDetail> findByRekamMedisAndTipe(RekamMedis rekamMedis, Integer tipe);
+
 }
