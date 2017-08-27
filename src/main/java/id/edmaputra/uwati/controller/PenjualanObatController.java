@@ -365,14 +365,14 @@ public class PenjualanObatController {
 					
 					Racikan r = getRacikan(t);
 					biayaRacik.setHargaJual(r.getBiayaRacik());
-					biayaRacik.setJumlah(1);
+					biayaRacik.setJumlah(rmd.getJumlah());
 					biayaRacik.setDiskon(BigDecimal.ZERO);
 					biayaRacik.setPajak(BigDecimal.ZERO);
-					biayaRacik.setHargaTotal(r.getBiayaRacik());
+					biayaRacik.setHargaTotal(r.getBiayaRacik().multiply(new BigDecimal(rmd.getJumlah())));
 					biayaRacik.setWaktuDibuat(new Date());
 					biayaRacik.setTerakhirDirubah(new Date());
 					biayaRacik.setPenjualan(penjualan);
-					biayaRacik.setIsRacikan(false);
+					biayaRacik.setIsRacikan(true);
 					listPenjualanDetail.add(biayaRacik);
 				}
 			}

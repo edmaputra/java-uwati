@@ -407,10 +407,6 @@
 			refresh(1, $('#stringCari').val(), $('#stringTanggalCari').val());
 		});
 
-		$('.btnKeluar').click(function() {
-			state = 1;
-		});
-
 		$('.btnEdit').click(function() {
 			state = 1;
 		});
@@ -539,9 +535,6 @@
 				$.postJSON('${editTerapiUrl}', data, function() {
 					$('#edit_keluar').click();
 					refreshDaftarTerapi($('#nomor').val());
-					$('#edit-terapi-modal').on('hide.bs.modal', function() {
-						$('#tanggal').focus();
-					});
 				}, function() {
 				});
 			}

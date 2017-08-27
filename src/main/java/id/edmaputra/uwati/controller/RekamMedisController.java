@@ -880,20 +880,25 @@ public class RekamMedisController {
 				if (detail.getTipe() == 1) {
 					Racikan r = getRacikan(detail.getNama());
 					RekamMedisDetail racikan = rekamMedisDetailService.dapatkanBiayaRekamMedisDanTerapi(rm, detail.getNama());
-					racikan.setHargaJual(r.getHargaJual());
-					racikan.setHargaTotal(r.getHargaJual());
+					BigDecimal hargaJual = r.getHargaJual();
+					BigDecimal byRacik = r.getBiayaRacik();
+					Integer jumlah = d.getJumlah();
+					BigDecimal totalHargaJual = hargaJual.multiply(new BigDecimal(jumlah));
+					BigDecimal totalByRacik = byRacik.multiply(new BigDecimal(jumlah));
+					racikan.setHargaJual(hargaJual);
+					racikan.setHargaTotal(totalHargaJual);					
 					rekamMedisDetailService.simpan(racikan);
 					RekamMedisDetail biayaRacik = new RekamMedisDetail();
 					biayaRacik.setTerapi("Biaya Racik-" + detail.getNama());
 					biayaRacik.setTipe(100);
-					biayaRacik.setJumlah(1);
+					biayaRacik.setJumlah(d.getJumlah());
 					biayaRacik.setPajak(BigDecimal.ZERO);
 					biayaRacik.setDiskon(BigDecimal.ZERO);
 					biayaRacik.setWaktuDibuat(new Date());
 					biayaRacik.setTerakhirDirubah(new Date());
 					biayaRacik.setRekamMedis(rm);
-					biayaRacik.setHargaJual(r.getBiayaRacik());
-					biayaRacik.setHargaTotal(r.getBiayaRacik());
+					biayaRacik.setHargaJual(byRacik);
+					biayaRacik.setHargaTotal(totalByRacik);
 					rekamMedisDetailService.simpan(biayaRacik);
 				}
 			}
