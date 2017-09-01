@@ -5,6 +5,7 @@ import java.util.Date;
 import com.mysema.query.types.expr.BooleanExpression;
 
 import id.edmaputra.uwati.entity.pasien.QRekamMedis;
+import id.edmaputra.uwati.entity.transaksi.QPenjualan;
 
 public class RekamMedisPredicateBuilder {
 
@@ -48,6 +49,14 @@ public class RekamMedisPredicateBuilder {
 		}
 	}
 	
+	public void tanggalBetween(Date tanggalAwal, Date tanggalAkhir){
+		if (hasil == null) {			
+			hasil = QRekamMedis.rekamMedis.tanggal.between(tanggalAwal, tanggalAkhir);
+		} else {
+			hasil = hasil.and(QRekamMedis.rekamMedis.tanggal.between(tanggalAwal, tanggalAkhir));
+		}
+	}
+	
 	public void saved(Boolean b){
 		if (hasil == null) {
 			hasil = QRekamMedis.rekamMedis.isSudahDisimpan.eq(b);
@@ -69,6 +78,14 @@ public class RekamMedisPredicateBuilder {
 			hasil = QRekamMedis.rekamMedis.isMasukListResep.eq(b);
 		} else {
 			hasil = hasil.and(QRekamMedis.rekamMedis.isMasukListResep.eq(b));
+		}
+	}
+	
+	public void kategori(Integer kategori){
+		if (hasil == null) {
+			hasil = QRekamMedis.rekamMedis.pasien.kategoriPasien.id.eq(kategori);
+		} else {
+			hasil = hasil.and(QRekamMedis.rekamMedis.pasien.kategoriPasien.id.eq(kategori));
 		}
 	}
 	

@@ -25,7 +25,8 @@
 			<ul class="sub">
 				<li><a href="<spring:url value="/satuan" />">Satuan</a></li>
 				<li><a href="<spring:url value="/kategori" />">Kategori</a></li>			
-				<li><a href="<spring:url value="/karyawan" />">Karyawan</a></li>				
+				<li><a href="<spring:url value="/karyawan" />">Karyawan</a></li>
+				<li><a href="<spring:url value="/kategori-pasien" />">Kategori Pasien</a></li>				
 <%-- 				<li><a href="<spring:url value="/pelanggan" />">Pelanggan</a></li>							 --%>
 			</ul>
 		</li>
@@ -76,7 +77,7 @@
 			<ul class="sub">
 				<li><a href="<spring:url value="/laporan/penjualan" />">Penjualan</a></li>
 				<li><a href="<spring:url value="/laporan/pembelian" />">Pembelian</a></li>
-				<li><a href="<spring:url value="#" />">Pasien</a></li>
+				<li><a href="<spring:url value="/laporan/pasien" />">Pasien</a></li>
 				<li><a href="<spring:url value="#" />">Obat &amp; Diagnosa</a></li>
 			</ul>
 		</li>

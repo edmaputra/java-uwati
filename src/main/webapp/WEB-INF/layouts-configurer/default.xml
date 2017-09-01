@@ -43,6 +43,20 @@
 		<!-- <put-attribute name="current" value="home" /> -->
 	</definition>
 	
+	<definition name="kategori-pasien-daftar" extends="dasar">
+		<put-attribute name="title" value="UWATI - Kategori Pasien" />
+		<put-attribute name="page_title" value="Kategori Pasien" />
+		<put-attribute name="body" value="/WEB-INF/jsps/kategori/kategori-pasien-daftar.jsp" />
+		<!-- <put-attribute name="current" value="home" /> -->
+	</definition>
+	
+	<definition name="laporan-pasien" extends="dasar">
+		<put-attribute name="title" value="UWATI - Laporan Pasien" />
+		<put-attribute name="page_title" value="Laporan Pasien" />
+		<put-attribute name="body" value="/WEB-INF/jsps/laporan/laporan-pasien.jsp" />
+		<!-- <put-attribute name="current" value="home" /> -->
+	</definition>
+	
 	<definition name="laporan-penjualan" extends="dasar">
 		<put-attribute name="title" value="UWATI - Laporan Penjualan" />
 		<put-attribute name="page_title" value="Laporan Penjualan" />

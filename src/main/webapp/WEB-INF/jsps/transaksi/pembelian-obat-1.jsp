@@ -172,7 +172,7 @@
 						<div class="col-md-2">
 							<div class="form-group">
 								<label>Jumlah:</label> 
-								<input type="text" class="form-control input-angka" name="edit_jumlah" id="edit_jumlah" autocomplete="off">
+								<input type="number" class="form-control" name="edit_jumlah" id="edit_jumlah" autocomplete="off" style="text-align: right;">
 							</div>
 						</div>
 					</div>
@@ -200,6 +200,10 @@
 						<div class="col-md-4 form-group">							
 							<label>Harga Jual:</label> 
 							<input type="text" class="form-control input-angka" name="edit_harga_jual" id="edit_harga_jual" autocomplete="off">
+						</div>
+						<div class="col-md-4 form-group">							
+							<label>Tanggal Kadaluarsa:</label> 
+							<input type="text" class="form-control datePicker" name="edit_tanggal_kadaluarsa" id="edit_tanggal_kadaluarsa" autocomplete="off">
 						</div>
 					</div>
 				</div>
@@ -303,6 +307,12 @@
 				},
 				edit_diskon : {
 					required : true,					
+				},
+				edit_harga_jual : {
+					required : true,					
+				},
+				edit_tanggal_kadaluarsa : {
+					required : true,					
 				}
 			},
 			messages : {
@@ -321,6 +331,12 @@
 				},
 				edit_diskon : {
 					required : "Diskon Wajib Diisi"
+				},
+				edit_harga_jual : {
+					required : "Harga Jual Wajib Diisi"
+				},
+				edit_tanggal_kadaluarsa : {
+					required : "Tanggal Kadaluarsa Wajib Diisi"
 				}
 			},
 			submitHandler : function(form) {
@@ -339,7 +355,7 @@
 		
 		setMaskingUang("#input-diskon");
 		setMaskingUang("#input-pajak");
-		setMaskingUang("#edit_jumlah");
+// 		setMaskingUang("#edit_jumlah");
 		setMaskingUang("#edit_harga_beli");
 		setMaskingUang("#edit_harga_total");
 		setMaskingUang("#edit_diskon");
@@ -440,6 +456,7 @@
 			$('#edit_harga_total').val(result.subTotal);
 			$('#edit_diskon').val(result.diskon);
 			$('#edit_harga_jual').val(result.hargaJual);
+			$('#edit_tanggal_kadaluarsa').val(result.tanggalExpired);
 			$('#edit_id').val(result.idObat);
 		}, null);
 	}
@@ -511,6 +528,7 @@
 		$('#edit_harga_jual').val('0');
 		$('#edit_harga_total').val('0');
 		$('#edit_diskon').val('0');
+		$('#edit_tanggal_kadaluarsa').val('');
 	}
 	
 	function setObat(data) {
@@ -521,6 +539,7 @@
 		data['hargaBeli'] = $('#edit_harga_beli').val();
 		data['subTotal'] = $('#edit_harga_total').val();
 		data['diskon'] = $('#edit_diskon').val();
+		data['tanggalExpired'] = $('#edit_tanggal_kadaluarsa').val();
 		data['randomId'] = randomId;
 		return data;
 	}

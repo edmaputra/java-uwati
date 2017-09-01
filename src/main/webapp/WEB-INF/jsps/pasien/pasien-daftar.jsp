@@ -10,41 +10,52 @@
 <c:url var="daftar" value="/pasien/daftar" />
 <c:url var="isIdentitasAda" value="/pasien/tersedia" />
 
-<div class="showback">
-	<div class="row mt">
-		<div class="col-md-12">
-			<div class="content-panel">
-				<div class="row">
-					<div class="col-md-2 ">
-						<security:authorize access="hasAnyRole('ADMIN','MEDIS')">
-							<button class="btn btn-primary btnTambah" data-toggle="modal"
-								data-target="#pasien-modal">Pasien Baru</button>
-							</security:authorize>
-					</div>
 
-					<div class="col-md-10">
-						<form class="form-inline pull-right" id="formCari">
-							<div class="form-group">
-								<input type="text" id="stringCari" class="form-control"
-									placeholder="Pencarian" style="width: 250px" />
-							</div>
-							<div class="form-group">
-								<button type="button" class="btn btn-primary" id="btnCari">Cari</button>
-							</div>
-							<div class="form-group">
-								<button type="button" class="btn btn-default" id="btnReset"
-									onclick="refresh(1,'')">Reset</button>
-							</div>
-						</form>
-					</div>
+<div class="row">
+	<div class="col-lg-12">
+		<div class="content-panel">
+			<div class="row kolom-pencarian">
+
+				<div class="col-md-2 ">
+					<security:authorize access="hasAnyRole('ADMIN','MEDIS')">
+						<button class="btn btn-primary btnTambah" data-toggle="modal"
+							data-target="#pasien-modal">Pasien Baru</button>
+					</security:authorize>
 				</div>
-				<br />
 
-				<table class="table table-striped table-advance table-hover"
-					id="tabelCoba">
-				</table>
-				<div id="nav"></div>
+				<div class="col-md-10">
+					<form class="form-inline pull-right" id="formCari">
+						<div class="form-group">
+							<select class="form-control" id="kategori_cari">
+								<option value="-1"></option>
+								<c:forEach items="${kategoris}" var="kategoris" varStatus="loop">
+									<option value="${kategoris.id}"><c:out
+											value="${kategoris.nama}" /></option>
+								</c:forEach>
+							</select>
+						</div>
+
+
+						<div class="form-group">
+							<input type="text" id="stringCari" class="form-control"
+								placeholder="Pencarian" style="width: 150px" />
+						</div>
+						<div class="form-group">
+							<button type="button" class="btn btn-primary" id="btnCari">Cari</button>
+						</div>
+						<div class="form-group">
+							<button type="button" class="btn btn-default" id="btnReset" >Reset</button>
+						</div>
+					</form>
+				</div>
 			</div>
+		</div>
+
+		<div class="content-panel">
+			<table class="table table-striped table-advance table-hover"
+				id="tabelCoba">
+			</table>
+			<div id="nav"></div>
 		</div>
 	</div>
 </div>
@@ -74,7 +85,8 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>Nomor Identitas:</label> <input type="text"
-										name="identitas" class="form-control" id="identitas" autocomplete="off"/>
+										name="identitas" class="form-control" id="identitas"
+										autocomplete="off" />
 
 								</div>
 							</div>
@@ -82,7 +94,7 @@
 								<div class="form-group">
 									<label>Tanggal Lahir:</label> <input type="text"
 										name="tanggalLahir" class="form-control datePicker"
-										id="tanggalLahir" autocomplete="off"/>
+										id="tanggalLahir" autocomplete="off" />
 
 								</div>
 							</div>
@@ -101,14 +113,25 @@
 							<div class="col-md-3">
 								<div class="form-group">
 									<label>Agama:</label> <input type="text" name="agama"
-										class="form-control" id="agama" autocomplete="off"/>
+										class="form-control" id="agama" autocomplete="off" />
 								</div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-3">
 								<div class="form-group">
 									<label>Pekerjaan:</label> <input type="text" name="pekerjaan"
-										class="form-control" id="pekerjaan" autocomplete="off"/>
+										class="form-control" id="pekerjaan" autocomplete="off" />
 								</div>
+							</div>
+							<div class="col-md-3 form-group">
+								<label>Kategori:</label> <select class="form-control"
+									name="kategori" id="kategori">
+									<option value="default"></option>
+									<c:forEach items="${kategoris}" var="kategoris"
+										varStatus="loop">
+										<option value="${kategoris.id}"><c:out
+												value="${kategoris.nama}" /></option>
+									</c:forEach>
+								</select>
 							</div>
 						</div>
 
@@ -116,13 +139,13 @@
 							<div class="col-md-9">
 								<div class="form-group">
 									<label>Alamat:</label> <input type="text" name="alamat"
-										class="form-control" id="alamat" autocomplete="off"/>
+										class="form-control" id="alamat" autocomplete="off" />
 								</div>
 							</div>
 							<div class="col-md-3">
 								<div class="form-group">
 									<label>Telepon:</label> <input type="text" name="kontak"
-										class="form-control" id="kontak" autocomplete="off"/>
+										class="form-control" id="kontak" autocomplete="off" />
 								</div>
 							</div>
 						</div>
@@ -131,15 +154,17 @@
 								<div class="form-group">
 									<label>Jaminan:</label> <input type="text"
 										name="jaminanKesehatan" class="form-control"
-										id="jaminanKesehatan" autocomplete="off"/>
+										id="jaminanKesehatan" autocomplete="off" />
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Nomor Jaminan:</label> <input type="text"
-										name="nomorJaminan" class="form-control" id="nomorJaminan" autocomplete="off"/>
+										name="nomorJaminan" class="form-control" id="nomorJaminan"
+										autocomplete="off" />
 								</div>
 							</div>
+							
 						</div>
 					</div>
 				</div>
@@ -188,11 +213,24 @@
 
 <script>
 	var state = 1;
+	
+	var c = '';
+	var k = -1;
 	$(document).ready(function() {
-		refresh(1, '');
+		refresh(1, c, k);
 
 		$('#btnCari').click(function() {
-			refresh(1, $('#stringCari').val());
+			c = $('#stringCari').val();
+			k = $('#kategori_cari').val();
+			refresh(1, c, k);
+		});
+		
+		$('#btnReset').click(function() {
+			c = '';
+			k = -1;
+			$('#stringCari').val(c);
+			$('#kategori_cari').val(-1);
+			refresh(1, c, k);
 		});
 
 		$('.btnTambah').click(function() {
@@ -211,20 +249,23 @@
 				},
 				identitas : {
 					required : true,
-// 					remote: {
-// 						url: "${isIdentitasAda}",
-// 						type: "get",
-// 						data: {
-// 							identitas: function(){
-// 								return $("#identitas").val();
-// 							}
-// 						}
-// 					},
+				// 					remote: {
+				// 						url: "${isIdentitasAda}",
+				// 						type: "get",
+				// 						data: {
+				// 							identitas: function(){
+				// 								return $("#identitas").val();
+				// 							}
+				// 						}
+				// 					},
 				},
 				tanggalLahir : {
 					required : true
 				},
 				jenisKelamin : {
+					valueNotEquals : "default"
+				},
+				kategori : {
 					valueNotEquals : "default"
 				}
 			},
@@ -235,7 +276,8 @@
 					remote : "Identitas sudah Ada"
 				},
 				tanggalLahir : "Harap Isi Tanggal Lahir",
-				jenisKelamin : "Harap Pilih Jenis Kelamin"
+				jenisKelamin : "Harap Pilih Jenis Kelamin",
+				kategori : "Harap Pilih Kategori Pasien"
 			},
 			submitHandler : function(form) {
 				var data = {};
@@ -244,7 +286,7 @@
 					$.postJSON('${tambah}', data, function(result) {
 						$('#gritter-tambah-sukses').click();
 						$('.btnKeluar').click();
-						refresh();
+						refresh(1, c, k);
 					}, function() {
 						$('#gritter-tambah-gagal').click();
 					});
@@ -252,7 +294,7 @@
 					$.postJSON('${edit}', data, function() {
 						$('#gritter-edit-sukses').click();
 						$('.btnKeluar').click();
-						refresh();
+						refresh(1, c, k);
 					}, function() {
 						$('#gritter-edit-gagal').click();
 
@@ -266,13 +308,13 @@
 			var data = {};
 			data['id'] = $('#hapusId').val();
 			$.postJSON('${hapus}', data, function(result) {
-				refresh();
+				refresh(1, c, k);;
 				$('#keluarModalHapus').click();
 				$('#gritter-hapus-sukses').click();
 			}, function(e) {
 				$('#gritter-hapus-sukses').click();
 				$('#keluarModalHapus').click();
-				refresh();
+				refresh(1, c, k);
 			});
 		});
 	});
@@ -292,10 +334,11 @@
 		$('#hapusId').val(ids);
 	}
 
-	function refresh(halaman, find) {
+	function refresh(halaman, find, kategori) {
 		var data = {
 			hal : halaman,
-			cari : find
+			cari : find,
+			k : kategori
 		};
 
 		$.getAjax('${daftar}', data, function(result) {
@@ -318,7 +361,8 @@
 		$('#alamat').val(result.alamat);
 		$('#kontak').val(result.kontak);
 		$('#jaminanKesehatan').val(result.jaminanKesehatan);
-		$('#nomorJaminan').val(result.nomorJaminan);
+		$('#nomorJaminan').val(result.nomorJaminanKesehatan);
+		$('#kategori').val(result.kategoriPasien.id);
 	}
 
 	function setDataContent(data) {
@@ -335,6 +379,7 @@
 		data['kontak'] = $('#kontak').val();
 		data['jaminanKesehatan'] = $('#jaminanKesehatan').val();
 		data['nomorJaminan'] = $('#nomorJaminan').val();
+		data['kategori'] = $('#kategori').val();
 		return data;
 	}
 
@@ -350,5 +395,6 @@
 		$('#kontak').val('');
 		$('#jaminanKesehatan').val('');
 		$('#nomorJaminan').val('');
+		$('#kategori').val('default');
 	}
 </script>

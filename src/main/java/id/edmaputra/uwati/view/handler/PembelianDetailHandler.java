@@ -49,6 +49,8 @@ public class PembelianDetailHandler {
 	private String distributor;
 	
 	private String details;
+	
+	private String tanggalExpired;
 
 	public String getId() {
 		return id;
@@ -240,6 +242,14 @@ public class PembelianDetailHandler {
 
 	public void setDetails(String details) {
 		this.details = details;
+	}
+
+	public String getTanggalExpired() {
+		return tanggalExpired;
+	}
+
+	public void setTanggalExpired(String tanggalExpired) {
+		this.tanggalExpired = tanggalExpired;
 	}
 
 }

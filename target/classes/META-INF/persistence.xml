@@ -36,5 +36,6 @@
 		<class>id.edmaputra.uwati.entity.pasien.RekamMedisDiagnosa</class>
 		<class>id.edmaputra.uwati.entity.pasien.RekamMedisDiagnosaTemp</class>
 		<class>id.edmaputra.uwati.entity.master.obat.Diagnosa</class>
+		<class>id.edmaputra.uwati.entity.pasien.KategoriPasien</class>
 	</persistence-unit>
 </persistence>

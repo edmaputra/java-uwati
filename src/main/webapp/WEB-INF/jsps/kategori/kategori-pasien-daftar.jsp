@@ -3,11 +3,11 @@
 
 <%@ include file="../../layouts/taglib.jsp"%>
 
-<c:url var="tambahUrl" value="/kategori/tambah" />
-<c:url var="editUrl" value="/kategori/edit" />
-<c:url var="hapusUrl" value="/kategori/hapus" />
-<c:url var="dapatkanUrl" value="/kategori/dapatkan" />
-<c:url var="daftarUrl" value="/kategori/daftar" />
+<c:url var="tambahUrl" value="/kategori-pasien/tambah" />
+<c:url var="editUrl" value="/kategori-pasien/edit" />
+<c:url var="hapusUrl" value="/kategori-pasien/hapus" />
+<c:url var="dapatkanUrl" value="/kategori-pasien/dapatkan" />
+<c:url var="daftarUrl" value="/kategori-pasien/daftar" />
 
 <div class="showback">
 	<div class="row">

@@ -2,13 +2,11 @@ package id.edmaputra.uwati.controller;
 
 import java.math.BigDecimal;
 import java.security.Principal;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,24 +35,20 @@ import id.edmaputra.uwati.entity.master.obat.Obat;
 import id.edmaputra.uwati.entity.master.obat.ObatDetail;
 import id.edmaputra.uwati.entity.master.obat.ObatExpired;
 import id.edmaputra.uwati.entity.master.obat.ObatStok;
-import id.edmaputra.uwati.entity.master.obat.Racikan;
 import id.edmaputra.uwati.entity.transaksi.Pembelian;
 import id.edmaputra.uwati.entity.transaksi.PembelianDetail;
 import id.edmaputra.uwati.entity.transaksi.PembelianDetailTemp;
-import id.edmaputra.uwati.entity.transaksi.PenjualanDetailTemp;
 import id.edmaputra.uwati.reports.Struk;
 import id.edmaputra.uwati.service.ApotekService;
 import id.edmaputra.uwati.service.obat.ObatDetailService;
 import id.edmaputra.uwati.service.obat.ObatExpiredService;
 import id.edmaputra.uwati.service.obat.ObatService;
 import id.edmaputra.uwati.service.obat.ObatStokService;
-import id.edmaputra.uwati.service.obat.RacikanService;
 import id.edmaputra.uwati.service.pengguna.PenggunaService;
 import id.edmaputra.uwati.service.transaksi.PembelianDetailService;
 import id.edmaputra.uwati.service.transaksi.PembelianDetailTempService;
 import id.edmaputra.uwati.service.transaksi.PembelianService;
 import id.edmaputra.uwati.specification.ObatPredicateBuilder;
-import id.edmaputra.uwati.specification.PembelianDetailTempPredicateBuilder;
 import id.edmaputra.uwati.specification.PembelianPredicateBuilder;
 import id.edmaputra.uwati.support.Converter;
 import id.edmaputra.uwati.support.LogSupport;
@@ -62,7 +56,6 @@ import id.edmaputra.uwati.view.Formatter;
 import id.edmaputra.uwati.view.Html;
 import id.edmaputra.uwati.view.HtmlElement;
 import id.edmaputra.uwati.view.handler.PembelianDetailHandler;
-import id.edmaputra.uwati.view.handler.PenjualanDetailHandler;
 import id.edmaputra.uwati.view.json.JsonReturn;
 import id.edmaputra.uwati.view.json.Suggestion;
 import net.sf.jasperreports.engine.JRDataSource;
@@ -100,12 +93,6 @@ public class PembelianObatController {
 	
 	@Autowired
 	private ApotekService apotekService;
-	
-	@Autowired
-	private PembelianDetailTempService pdtService;
-	
-	@Autowired
-	private RacikanService racikanService;
 	
 	@Autowired 
 	@Qualifier("strukPembelianPdf")
@@ -169,6 +156,7 @@ public class PembelianObatController {
 				t.setIdObat(obat.getId());
 				t.setDiskon("0");
 				t.setJumlah("1");
+				t.setTanggalKadaluarsa(Converter.dateToStringDashSeparator(obat.getExpired().get(0).getTanggalExpired()));
 				t.setHargaBeli(Converter.patternCurrency(obat.getDetail().get(0).getHargaBeli()));
 				t.setSubTotal(Converter.patternCurrency(obat.getDetail().get(0).getHargaBeli()));
 				t.setHargaJual(Converter.patternCurrency(obat.getDetail().get(0).getHargaJual()));
@@ -235,6 +223,7 @@ public class PembelianObatController {
 				h.setHargaBeli(tersimpan.getHargaBeli());
 				h.setDiskon(tersimpan.getDiskon());
 				h.setSubTotal(tersimpan.getSubTotal());
+				h.setTanggalExpired(tersimpan.getTanggalKadaluarsa());
 			}
 			return h;
 		} catch (Exception e) {
@@ -273,7 +262,7 @@ public class PembelianObatController {
 			if (tersimpan != null) {
 				Integer jumlah = new Integer(Converter.hilangkanTandaTitikKoma(h.getJumlah()));				
 				BigDecimal hargaBeli = new BigDecimal(Converter.hilangkanTandaTitikKoma(h.getHargaBeli()));				
-				BigDecimal hargaJualResep = new BigDecimal(Converter.hilangkanTandaTitikKoma(h.getHargaJual()));				System.out.println("B");
+				BigDecimal hargaJualResep = new BigDecimal(Converter.hilangkanTandaTitikKoma(h.getHargaJual()));
 				BigDecimal hargaJual = new BigDecimal(Converter.hilangkanTandaTitikKoma(h.getHargaJual()));				
 				BigDecimal diskon = new BigDecimal(Converter.hilangkanTandaTitikKoma(h.getDiskon()));				
 				BigDecimal hargaTotal = hargaBeli.multiply(new BigDecimal(jumlah));
@@ -284,11 +273,11 @@ public class PembelianObatController {
 				tersimpan.setHargaBeli(Converter.patternCurrency(hargaBeli));
 				tersimpan.setSubTotal(Converter.patternCurrency(hargaTotal));
 				tersimpan.setDiskon(Converter.patternCurrency(diskon));
+				tersimpan.setTanggalKadaluarsa(h.getTanggalExpired());
 				tersimpan.setTerakhirDirubah(new Date());
 				pembelianDetailTempService.simpan(tersimpan);
 			}
 			logger.info(LogSupport.edit(principal.getName(), h.getIdObat().toString(), request));
-			System.out.println("B");
 			return h;
 		} catch (Exception e) {
 			logger.info(e.getMessage());
@@ -460,27 +449,6 @@ public class PembelianObatController {
 			logger.info(e.getMessage());
 			logger.info(LogSupport.editGagal(user, obat.toString(), request));
 		}
-	}
-
-	private String tabelGenerator(List<PembelianDetailTemp> list, HttpServletRequest request) {
-		String html = "";
-		String data = "";
-		for (PembelianDetailTemp pdt : list) {
-			String row = "";
-			String btn = "";
-			row += Html.td(pdt.getObat());
-			row += Html.td(pdt.getJumlah());
-			row += Html.td(pdt.getTanggalKadaluarsa());
-			row += Html.td(pdt.getHargaBeli());
-			row += Html.td(pdt.getSubTotal());
-			// row += Html.td(pdt.getHargaJual());
-			// row += Html.td(pdt.getHargaJualResep());
-			btn += Html.button("btn btn-danger btn-xs", null, null, "onClick", "hapus(" + pdt.getId() + ")", 1);
-			row += Html.td(btn);
-			data += Html.tr(row);			
-		}
-		html = data;
-		return html;
 	}
 
 //	@Transactional

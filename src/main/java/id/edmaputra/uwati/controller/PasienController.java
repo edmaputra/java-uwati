@@ -29,6 +29,7 @@ import id.edmaputra.uwati.entity.pasien.Pasien;
 import id.edmaputra.uwati.entity.pasien.RekamMedis;
 import id.edmaputra.uwati.entity.pasien.RekamMedisDetail;
 import id.edmaputra.uwati.service.KaryawanService;
+import id.edmaputra.uwati.service.pasien.KategoriPasienService;
 import id.edmaputra.uwati.service.pasien.PasienService;
 import id.edmaputra.uwati.service.pasien.RekamMedisDetailService;
 import id.edmaputra.uwati.service.pasien.RekamMedisService;
@@ -59,12 +60,16 @@ public class PasienController {
 	
 	@Autowired
 	private RekamMedisDetailService rekamMedisDetailService;
+	
+	@Autowired
+	private KategoriPasienService kategoriPasienService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView tampilkanPage(Principal principal, HttpServletRequest request) {
 		try {
 			logger.info(LogSupport.load(principal.getName(), request));
 			ModelAndView mav = new ModelAndView("pasien-daftar");
+			mav.addObject("kategoris", kategoriPasienService.dapatkanSemua());
 			return mav;
 		} catch (Exception e) {
 			logger.info(e.getMessage());
@@ -77,6 +82,7 @@ public class PasienController {
 	@ResponseBody
 	public HtmlElement tampilkanDaftar(
 			@RequestParam(value = "hal", defaultValue = "1", required = false) Integer halaman,
+			@RequestParam(value = "k", defaultValue = "-1", required = false) Integer kategori,
 			@RequestParam(value = "cari", defaultValue = "", required = false) String cari, HttpServletRequest request,
 			HttpServletResponse response) {
 		try {
@@ -86,6 +92,10 @@ public class PasienController {
 			if (!StringUtils.isBlank(cari)) {				
 				builder.cari(cari);
 			}
+			
+			if (kategori != -1) {				
+				builder.kategori(kategori);
+			}			
 			
 			BooleanExpression exp = builder.getExpression();
 			Page<Pasien> page = pasienService.muatDaftar(halaman, exp);
@@ -209,7 +219,8 @@ public class PasienController {
 				+ "<th>ID</th>"
 				+ "<th>Usia</th>"
 				+ "<th>Jaminan</th>"
-				+ "<th>Nomor</th>";				
+				+ "<th>Nomor</th>"
+				+ "<th>Kategori</th>";
 		if (request.isUserInRole("ROLE_ADMIN")) {
 			thead += "<th>User Input</th>" + "<th>Waktu Dibuat</th>" + "<th>User Editor</th>"
 					+ "<th>Terakhir Diubah</th>";
@@ -224,7 +235,8 @@ public class PasienController {
 			row += Html.td(t.getId().toString());
 			row += Html.td(Formatter.hitungUsia(t.getTanggalLahir(), new Date()));
 			row += Html.td(Table.nullCell(t.getJaminanKesehatan()));
-			row += Html.td(Table.nullCell(t.getNomorJaminanKesehatan()));			
+			row += Html.td(Table.nullCell(t.getNomorJaminanKesehatan()));
+			row += Html.td(Table.nullCell(t.getKategoriPasien().getNama()));
 			if (request.isUserInRole("ROLE_ADMIN")) {
 				row += Html.td(t.getUserInput());
 				row += Html.td(Formatter.formatTanggal(t.getWaktuDibuat()));
@@ -335,6 +347,7 @@ public class PasienController {
 		p.setNomorJaminanKesehatan(h.getNomorJaminan());
 		p.setPekerjaan(h.getPekerjaan());
 		p.setTanggalLahir(Converter.stringToDate(h.getTanggalLahir()));
+		p.setKategoriPasien(kategoriPasienService.dapatkan(h.getKategori()));
 		return p;
 	}
 	

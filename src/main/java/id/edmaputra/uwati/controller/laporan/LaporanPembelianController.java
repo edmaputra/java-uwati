@@ -45,9 +45,9 @@ import id.edmaputra.uwati.view.handler.PenjualanHandler;
 
 @Controller
 @RequestMapping("/laporan/pembelian")
-public class PembelianController {
+public class LaporanPembelianController {
 
-	private static final Logger logger = LoggerFactory.getLogger(PembelianController.class);
+	private static final Logger logger = LoggerFactory.getLogger(LaporanPembelianController.class);
 
 	@Autowired
 	private PembelianService pembelianService;

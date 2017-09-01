@@ -57,4 +57,8 @@ public class RekamMedisService {
 		PageRequest request = new PageRequest(halaman - 1, PAGE_SIZE, Sort.Direction.DESC, "waktuDibuat");
 		return rekamMedisRepository.findAll(expression, request);
 	}
+
+	public List<RekamMedis> dapatkanList(BooleanExpression exp) {
+		return (List<RekamMedis>) rekamMedisRepository.findAll(exp);
+	}
 }

@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -78,6 +79,18 @@ public class Pasien extends DasarEntity<Long>{
 	@OneToMany(mappedBy = "pasien", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonIgnore
 	private List<RekamMedis> rekamMedis;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "kategori", nullable = true)
+	private KategoriPasien kategoriPasien;
+
+	public KategoriPasien getKategoriPasien() {
+		return kategoriPasien;
+	}
+
+	public void setKategoriPasien(KategoriPasien kategoriPasien) {
+		this.kategoriPasien = kategoriPasien;
+	}
 
 	public Long getId() {
 		return id;

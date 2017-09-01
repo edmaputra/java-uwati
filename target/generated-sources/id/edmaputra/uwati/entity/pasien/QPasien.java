@@ -39,6 +39,8 @@ public class QPasien extends EntityPathBase<Pasien> {
 
     public final NumberPath<Integer> jenisKelamin = createNumber("jenisKelamin", Integer.class);
 
+    public final QKategoriPasien kategoriPasien;
+
     public final StringPath kontak = createString("kontak");
 
     public final StringPath nama = createString("nama");
@@ -83,6 +85,7 @@ public class QPasien extends EntityPathBase<Pasien> {
 
     public QPasien(Class<? extends Pasien> type, PathMetadata<?> metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.kategoriPasien = inits.isInitialized("kategoriPasien") ? new QKategoriPasien(forProperty("kategoriPasien")) : null;
         this.pelanggan = inits.isInitialized("pelanggan") ? new id.edmaputra.uwati.entity.master.QPelanggan(forProperty("pelanggan")) : null;
     }
 

@@ -32,6 +32,14 @@ public class PasienPredicateBuilder {
 		}
 	}
 	
+	public void kategori(Integer id){
+		if (hasil == null){
+			hasil = QPasien.pasien.kategoriPasien.id.eq(id);					
+		} else {
+			hasil = hasil.and(QPasien.pasien.kategoriPasien.id.eq(id));
+		}
+	}
+	
 	public void id(Long id){
 		if (hasil == null){
 			hasil = QPasien.pasien.id.eq(id);					

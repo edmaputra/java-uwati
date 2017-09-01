@@ -69,5 +69,12 @@ public class THead {
 			+ "<th>Total</th>"
 			+ "<th>Harga Jual</th>"
 			+ "</tr></thead>";
+	
+	public static final String THEAD_LAPORAN_PASIEN = "<thead><tr>" 
+			+ "<th>Tanggal</th>"
+			+ "<th>Pasien</th>"
+			+ "<th>Dokter</th>"
+			+ "<th></th>"
+			+ "</tr></thead>";
 
 }
