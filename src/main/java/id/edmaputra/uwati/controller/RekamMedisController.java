@@ -634,6 +634,7 @@ public class RekamMedisController {
 			HttpServletRequest request) {
 		RekamMedis rm = getRekamMedis(new Long(temp.getId()));
 		try {
+			rekamMedisDetailService.hapusBatch(rm);
 			rekamMedisService.hapus(rm);
 			logger.info(LogSupport.hapus(principal.getName(), temp.getId() + "", request));
 			temp.setInfo(temp.getId() + " Terhapus");

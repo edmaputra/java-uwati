@@ -71,14 +71,7 @@
 				</div>
 			</div>
 			
-		</div>
-		<div class="desc">
-			<div class="row">
-				<div class="col-md-12">
-					<button id="button_rekap" class="btn btn-primary" data-toggle="modal" data-target="#penjualan-rekap-modal" style="width: 100%;"><i class="fa fa-medkit" aria-hidden="true"> Obat</i></button>
-				</div>
-			</div>
-		</div>
+		</div>		
 		<div class="desc">
 			<div class="row">
 				<div class="col-md-6">

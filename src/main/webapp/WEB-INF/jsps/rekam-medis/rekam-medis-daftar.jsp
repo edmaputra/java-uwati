@@ -119,246 +119,223 @@
 	</div>
 </div>
 
-
-
-<div class="modal fade" id="rm-modal" tabindex="-1" role="dialog"
-	aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title" id="myModalLabel">Rekam Medis</h4>
-			</div>
-			<form class="form style-form formTambah" method="post"
-				id="formRekamMedis">
-				<div class="form-panel">
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-md-3">
-								<div class="form-group">
-									<label>Kunjungan:</label> <input type="text" name="kunjungan"
-										class="form-control" id="kunjungan" readonly="readonly" />
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<label>Tanggal:</label> <input type="text" name="tanggal"
-										class="form-control datePicker" id="tanggal"
-										autocomplete="off" />
-								</div>
-							</div>
-
-							<div class="col-md-3">
-								<div class="form-group">
-									<label>Nomor:</label> <input type="text" name="nomor"
-										class="form-control" id="nomor" readonly="readonly" />
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<label>Anamnesa :</label>
-							<textarea class="form-control" rows="3" name="anamnesa"
-								id="anamnesa"></textarea>
-						</div>
-						<div class="form-group">
-							<label>Pemeriksaan :</label>
-							<textarea class="form-control" rows="3" name="pemeriksaan"
-								id="pemeriksaan"></textarea>
-						</div>
-						<div class="form-group">
-							<label>Diagnosa :</label>
-							<div class="row">
-								<div class="col-md-6">
-									<table class="table table-striped table-advance table-hover">
-										<thead style="background-color: #68DFF0;">
-											<tr>
-												<th>Diagnosa</th>
-												<th>x</th>
-											</tr>
-										</thead>
-										<tbody id="tabel-diagnosa">
-										</tbody>
-									</table>
-								</div>
-								<div class="col-md-6">
-									<input type="text" name="cari_diagnosa" class="form-control"
-										id="cari_diagnosa" placeholder="Pencarian Diagnosa"
-										autocomplete="off" />
-									<div id="button-diagnosa"></div>
-									<div class="btn-group btn-group-justified"
-										id="navigasi-diagnosa"></div>
-								</div>
-							</div>
-							<!-- 							<textarea class="form-control" rows="3" name="diagnosa" -->
-							<!-- 								id="diagnosa"></textarea> -->
-						</div>
-						<label>Terapi :</label>
-						<div class="row">
-							<div class="col-md-6">
-								<table class="table table-striped table-advance table-hover">
-									<thead style="background-color: #68DFF0;">
-										<tr>
-											<th>Terapi</th>
-											<th>Jumlah</th>
-											<th>Biaya</th>
-											<th>-</th>
-										</tr>
-									</thead>
-									<tbody id="tabel-terapi">
-									</tbody>
-								</table>
-							</div>
-							<div class="col-md-6">
-								<input type="text" name="cari-terapi" class="form-control"
-									id="cari-terapi" placeholder="Pencarian" autocomplete="off" />
-								<div id="button-terapi"></div>
-								<div class="btn-group btn-group-justified" id="navigasi-obat">
-
-								</div>
-							</div>
-						</div>
+<div class="modal container fade" id="rm-modal" tabindex="-1"
+	style="display: none;">
+	<div class="modal-header">
+		<h4 class="modal-title" id="myModalLabel">Rekam Medis</h4>
+	</div>
+	<form class="form style-form formTambah" method="post"
+		id="formRekamMedis">
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-md-3 form-group">
+					<label>Kunjungan:</label> <input type="text" name="kunjungan"
+						class="form-control" id="kunjungan" readonly="readonly" />
+				</div>
+				<div class="col-md-3">
+					<div class="form-group">
+						<label>Tanggal:</label> <input type="text" name="tanggal"
+							class="form-control datePicker" id="tanggal" autocomplete="off" />
 					</div>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default btnKeluar"
-						id="button-keluar-modal" data-dismiss="modal">Keluar</button>
-					<input type="hidden" name="id" class="form-control" id="ids" /> <a
-						href="#" class="btn btn-primary" id="button-cek-stok">Simpan</a> <input
-						type="submit" class="btn btn-primary btnHide" id="button-simpan"
-						value="Simpan" />
+
+				<div class="col-md-3">
+					<div class="form-group">
+						<label>Nomor:</label> <input type="text" name="nomor"
+							class="form-control" id="nomor" readonly="readonly" />
+					</div>
 				</div>
-			</form>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="detail-modal" tabindex="-1" role="dialog"
-	aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title" id="myModalLabel">Detail Rekam Medis</h4>
 			</div>
-			<form class="form style-form" method="post">
-				<div class="form-panel">
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-md-3">
-								<div class="form-group">
-									<label>Kunjungan:</label> <input type="text" name="kunjungan"
-										class="form-control" id="kunjungan-detail" readonly="readonly" />
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<label>Tanggal:</label> <input type="text" name="tanggal"
-										class="form-control datePicker" id="tanggal-detail"
-										autocomplete="off" />
-								</div>
-							</div>
-
-							<div class="col-md-3">
-								<div class="form-group">
-									<label>Nomor:</label> <input type="text" name="nomor"
-										class="form-control" id="nomor-detail" readonly="readonly" />
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<label>Anamnesa :</label>
-							<textarea class="form-control" rows="3" name="anamnesa"
-								id="anamnesa-detail"></textarea>
-						</div>
-						<div class="form-group">
-							<label>Pemeriksaan :</label>
-							<textarea class="form-control" rows="3" name="pemeriksaan"
-								id="pemeriksaan-detail"></textarea>
-						</div>
-						<div class="form-group">
-							<label>Diagnosa :</label>
-							<table class="table table-striped table-advance table-hover">
-								<thead style="background-color: #68DFF0;">
-									<tr>
-										<th>Diagnosa</th>
-									</tr>
-								</thead>
-								<tbody id="tabel-diagnosa-detail">
-								</tbody>
-							</table>
-						</div>
-						<label>Terapi :</label>
+			<div class="form-group">
+				<label>Anamnesa :</label>
+				<textarea class="form-control" rows="3" name="anamnesa"
+					id="anamnesa"></textarea>
+			</div>
+			<div class="form-group">
+				<label>Pemeriksaan :</label>
+				<textarea class="form-control" rows="3" name="pemeriksaan"
+					id="pemeriksaan"></textarea>
+			</div>
+			<div class="form-group">
+				<label>Diagnosa :</label>
+				<div class="row">
+					<div class="col-md-6">
 						<table class="table table-striped table-advance table-hover">
-							<thead style="background-color: #FFD777;">
+							<thead style="background-color: #68DFF0;">
 								<tr>
-									<th>Terapi</th>
-									<th>Jumlah</th>
+									<th>Diagnosa</th>
+									<th>x</th>
 								</tr>
 							</thead>
-							<tbody id="tabel-terapi-detail">
+							<tbody id="tabel-diagnosa">
 							</tbody>
 						</table>
 					</div>
+					<div class="col-md-6">
+						<input type="text" name="cari_diagnosa" class="form-control"
+							id="cari_diagnosa" placeholder="Pencarian Diagnosa"
+							autocomplete="off" />
+						<div id="button-diagnosa"></div>
+						<div class="btn-group btn-group-justified" id="navigasi-diagnosa"></div>
+					</div>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default btnKeluar"
-						id="button-keluar-modal" data-dismiss="modal">Keluar</button>
+			</div>
+			<label>Terapi :</label>
+			<div class="row">
+				<div class="col-md-6">
+					<table class="table table-striped table-advance table-hover">
+						<thead style="background-color: #68DFF0;">
+							<tr>
+								<th>Terapi</th>
+								<th>Jumlah</th>
+								<th>Biaya</th>
+								<th>-</th>
+							</tr>
+						</thead>
+						<tbody id="tabel-terapi">
+						</tbody>
+					</table>
 				</div>
-			</form>
+				<div class="col-md-6">
+					<input type="text" name="cari-terapi" class="form-control"
+						id="cari-terapi" placeholder="Pencarian" autocomplete="off" />
+					<div id="button-terapi"></div>
+					<div class="btn-group btn-group-justified" id="navigasi-obat">
+
+					</div>
+				</div>
+			</div>
 		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default btnKeluar"
+				id="button-keluar-modal" data-dismiss="modal">Keluar</button>
+			<input type="hidden" name="id" class="form-control" id="ids" /> <a
+				href="#" class="btn btn-primary" id="button-cek-stok">Simpan</a> <input
+				type="submit" class="btn btn-primary btnHide" id="button-simpan"
+				value="Simpan" />
+		</div>
+	</form>
+</div>
+
+<div class="modal container fade" id="detail-modal" tabindex="-1"
+	style="display: none;">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal"
+			aria-hidden="true">&times;</button>
+		<h4 class="modal-title" id="myModalLabel">Detail Rekam Medis</h4>
 	</div>
+	<form class="form style-form">
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-md-3">
+					<div class="form-group">
+						<label>Kunjungan:</label> <input type="text" name="kunjungan"
+							class="form-control" id="kunjungan-detail" readonly="readonly" />
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="form-group">
+						<label>Tanggal:</label> <input type="text" name="tanggal"
+							class="form-control datePicker" id="tanggal-detail"
+							autocomplete="off" readonly="readonly" />
+					</div>
+				</div>
+
+				<div class="col-md-3">
+					<div class="form-group">
+						<label>Nomor:</label> <input type="text" name="nomor"
+							class="form-control" id="nomor-detail" readonly="readonly" />
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label>Anamnesa :</label>
+				<textarea class="form-control" rows="3" name="anamnesa"
+					id="anamnesa-detail" readonly="readonly"></textarea>
+			</div>
+			<div class="form-group">
+				<label>Pemeriksaan :</label>
+				<textarea class="form-control" rows="3" name="pemeriksaan"
+					id="pemeriksaan-detail" readonly="readonly"></textarea>
+			</div>
+			<div class="form-group">
+				<label>Diagnosa :</label>
+				<table class="table table-striped table-advance table-hover">
+					<thead style="background-color: #68DFF0;">
+						<tr>
+							<th>Diagnosa</th>
+						</tr>
+					</thead>
+					<tbody id="tabel-diagnosa-detail">
+					</tbody>
+				</table>
+			</div>
+			<label>Terapi :</label>
+			<table class="table table-striped table-advance table-hover">
+				<thead style="background-color: #FFD777;">
+					<tr>
+						<th>Terapi</th>
+						<th>Jumlah</th>
+					</tr>
+				</thead>
+				<tbody id="tabel-terapi-detail">
+				</tbody>
+			</table>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default btnKeluar"
+				id="button-keluar-modal" data-dismiss="modal">Keluar</button>
+		</div>
+	</form>
 </div>
 
 <div class="modal fade" id="edit-terapi-modal" tabindex="-1"
-	role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<form class="form style-form formEdit" method="post">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title" id="myModalLabel">Edit Terapi</h4>
-				</div>
-				<div class="modal-body">
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Obat:</label> <input type="text" class="form-control"
-									name="edit_obat" id="edit_obat" readonly="readonly"
-									autocomplete="off">
-							</div>
-						</div>
+	style="display: none;">
+	<form class="form style-form formEdit" method="post">
+		<div class="modal-header">
+			<h4 class="modal-title" id="myModalLabel">Edit Terapi</h4>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label>Obat:</label> <input type="text" class="form-control"
+							name="edit_obat" id="edit_obat" readonly="readonly"
+							autocomplete="off">
 					</div>
-					<div class="row">
-						<div class="form-group col-md-2">
-							<label>Jumlah:</label> <input type="text"
-								class="form-control input-angka" name="edit_jumlah"
-								id="edit_jumlah" autocomplete="off">
-						</div>
-						<div class="col-md-5">
-							<div class="form-group">
-								<label>Harga:</label> <input type="text"
-									class="form-control input-angka" name="edit_harga"
-									id="edit_harga" autocomplete="off">
-							</div>
-						</div>
-
-						<div class="col-md-5">
-							<div class="form-group">
-								<label>Total:</label> <input type="text"
-									class="form-control input-angka" name="edit_total"
-									id="edit_total" readonly="readonly" autocomplete="off">
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<input type="hidden" class="form-control" name="edit_id"
-						id="edit_id" />
-					<button type="button" class="btn btn-default btnKeluar"
-						data-dismiss="modal" id="edit_keluar">Keluar</button>
-					<input type="submit" class="btn btn-primary" value="UPDATE"
-						id="update-obat" />
 				</div>
 			</div>
-		</form>
-	</div>
+			<div class="row">
+				<div class="form-group col-md-2">
+					<label>Jumlah:</label> <input type="text"
+						class="form-control input-angka" name="edit_jumlah"
+						id="edit_jumlah" autocomplete="off">
+				</div>
+				<div class="col-md-5">
+					<div class="form-group">
+						<label>Harga:</label> <input type="text"
+							class="form-control input-angka" name="edit_harga"
+							id="edit_harga" autocomplete="off">
+					</div>
+				</div>
+
+				<div class="col-md-5">
+					<div class="form-group">
+						<label>Total:</label> <input type="text"
+							class="form-control input-angka" name="edit_total"
+							id="edit_total" readonly="readonly" autocomplete="off">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<input type="hidden" class="form-control" name="edit_id" id="edit_id" />
+			<button type="button" class="btn btn-default btnKeluar"
+				data-dismiss="modal" id="edit_keluar">Keluar</button>
+			<input type="submit" class="btn btn-primary" value="UPDATE"
+				id="update-obat" />
+		</div>
+	</form>
 </div>
 
 <div class="modal fade" id="rm-modal-hapus" tabindex="-1" role="dialog"

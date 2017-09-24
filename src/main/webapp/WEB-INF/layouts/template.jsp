@@ -23,6 +23,12 @@
 	var="autoCompleteThemesCss" />
 <spring:url value="/static/css/font-awesome.min.css"
 	var="fontawesomeCss" />
+	
+<spring:url value="/static/baru/bootstrap-modal-patch/css/bootstrap-modal-bs3patch.css"
+	var="bootstrap-modal-3-patch" />
+<spring:url value="/static/baru/bootstrap-modal-patch/css/bootstrap-modal.css"
+	var="bootstrap-modal" />
+	
 <spring:url value="/static/js/jquery-2.1.1.min.js" var="jQuery2" />
 <spring:url value="/static/js/bootstrap.min.js" var="bootstrapJs" />
 <spring:url value="/static/js/uwati.js" var="uwatiJs" />
@@ -56,6 +62,8 @@
 <link href="${gritterCss}" rel="stylesheet" />
 <link href="${bootstrapDatePickerCss}" rel="stylesheet" />
 <link href="${autoCompleteThemesCss}" rel="stylesheet" />
+<link href="/uwati/static/baru/bootstrap-modal-patch/css/bootstrap-modal-bs3patch.css" rel="stylesheet" />
+<link href="/uwati/static/baru/bootstrap-modal-patch/css/bootstrap-modal.css" rel="stylesheet" />
 <script type="text/javascript" src="${jQuery2}"></script>
 <script type="text/javascript" src="${uwatiJs}"></script>
 <title><tiles:getAsString name="title" /></title>
@@ -125,5 +133,9 @@
 	<script type="text/javascript" src="${dateFormatJs}"></script>
 	<script type="text/javascript" src="${jqueryautocompleteJs}"></script>
 	<script type="text/javascript" src="${maskMoney}"></script>
+	<spring:url value="/static/baru/bootstrap-modal-patch/js/bootstrap-modal.js" var="bootstrap-modal-js" />
+	<spring:url value="/static/baru/bootstrap-modal-patch/js/bootstrap-modalmanager.js" var="bootstrap-modalmanager-js" />
+	<script type="text/javascript" src="/uwati/static/baru/bootstrap-modal-patch/js/bootstrap-modal.js"></script>
+	<script type="text/javascript" src="/uwati/static/baru/bootstrap-modal-patch/js/bootstrap-modalmanager.js"></script>
 </body>
 </html>

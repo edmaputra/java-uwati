@@ -35,10 +35,6 @@ import id.edmaputra.uwati.entity.master.Karyawan;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class RekamMedis extends DasarEntity<Long>{
 
-	public Boolean getIsMasukListResep() {
-		return isMasukListResep;
-	}
-
 	private static final long serialVersionUID = 2272001067197118594L;
 
 	@Id
@@ -202,6 +198,10 @@ public class RekamMedis extends DasarEntity<Long>{
 
 	public void setRekamMedisDiagnosa(List<RekamMedisDiagnosa> rekamMedisDiagnosa) {
 		this.rekamMedisDiagnosa = rekamMedisDiagnosa;
+	}
+	
+	public Boolean getIsMasukListResep() {
+		return isMasukListResep;
 	}
 	
 }

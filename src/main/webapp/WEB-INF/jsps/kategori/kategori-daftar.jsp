@@ -12,132 +12,113 @@
 <div class="showback">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="content-panel">
-				<div class="row">
-					<div class="col-md-2 ">
-						<security:authorize access="hasAnyRole('ADMIN')">
-							<button class="btn btn-primary btnTambah" data-toggle="modal"
-								data-target="#kategori-modal">Kategori Baru</button>
-						</security:authorize>
-					</div>
-
-					<div class="col-md-10">
-						<form class="form-inline pull-right" id="formCari">
-							<div class="form-group">
-								<input type="text" id="stringCari" class="form-control"
-									placeholder="Pencarian" style="width: 250px" />
-							</div>
-							<div class="form-group">
-								<button type="button" class="btn btn-primary" id="btnCari">Cari</button>
-							</div>
-							<div class="form-group">
-								<button type="button" class="btn btn-default" id="btnReset"
-									onclick="refresh(1,'')">Reset</button>
-							</div>
-						</form>
-					</div>
+			<div class="row">
+				<div class="col-md-2 ">
+					<security:authorize access="hasAnyRole('ADMIN')">
+						<button class="btn btn-primary btnTambah" data-toggle="modal"
+							data-target="#kategori-modal">Kategori Baru</button>
+					</security:authorize>
 				</div>
-				<br />
 
-				<table class="table table-striped table-advance table-hover"
-					id="tabelCoba">
-				</table>
-				<div id="nav"></div>
+				<div class="col-md-10">
+					<form class="form-inline pull-right" id="formCari">
+						<div class="form-group">
+							<input type="text" id="stringCari" class="form-control"
+								placeholder="Pencarian" style="width: 250px" />
+						</div>
+						<div class="form-group">
+							<button type="button" class="btn btn-primary" id="btnCari">Cari</button>
+						</div>
+						<div class="form-group">
+							<button type="button" class="btn btn-default" id="btnReset"
+								onclick="refresh(1,'')">Reset</button>
+						</div>
+					</form>
+				</div>
 			</div>
+			<br />
+
+			<table class="table table-striped table-advance table-hover"
+				id="tabelCoba">
+			</table>
+			<div id="nav"></div>
 		</div>
 	</div>
 </div>
 
-<div class="modal fade" id="kategori-modal" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-sm">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Kategori Baru</h4>
-			</div>
+<div class="modal fade" id="kategori-modal" tabindex="-1"
+	style="display: none" data-focus-on="input:first">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal"
+			aria-hidden="true">&times;</button>
+		<h4 class="modal-title" id="myModalLabel">Kategori Baru</h4>
+	</div>
 
-			<form class="form-horizontal style-form formTambah" method="post">
-				<div class="form-panel">
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group">
-									<label>Nama:</label>									
-									<input type="text" class="form-control" id="tambahNama" autocomplete="off" name="tambahNama"/>
-									<input type="hidden" class="form-control" id="tambahId" />									
-								</div>
-							</div>
-						</div>
+	<form class="form-horizontal style-form formTambah" method="post">
+		<div class="modal-body" style="margin: 8px;">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Nama:</label> <input type="text" class="form-control"
+							id="tambahNama" autocomplete="off" name="tambahNama" /> <input
+							type="hidden" class="form-control" id="tambahId" />
 					</div>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default btnKeluar"
-						data-dismiss="modal">Keluar</button>
-					<input type="submit" class="btn btn-primary" value="Simpan" />
-				</div>
-			</form>
+			</div>
 		</div>
-	</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default btnKeluar"
+				data-dismiss="modal">Keluar</button>
+			<input type="submit" class="btn btn-primary" value="Simpan" />
+		</div>
+	</form>
 </div>
 
 <div class="modal fade" id="kategori-modal-edit" tabindex="-1"
-	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-sm">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Edit Kategori</h4>
-			</div>
-			<form class="form-horizontal style-form formEdit" method="post">
-				<div class="form-panel">
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group">
-									<label>Nama:</label>
-									<input type="text" class="form-control" id="editNama" autocomplete="off" name="editNama"/>
-									<input type="hidden" class="form-control" id="editId" autocomplete="off"/>									
-								</div>
-							</div>
-						</div>
+	style="display: none;" data-focus-on="input:first">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal"
+			aria-hidden="true">&times;</button>
+		<h4 class="modal-title" id="myModalLabel">Edit Kategori</h4>
+	</div>
+	<form class="form-horizontal style-form formEdit" method="post">
+		<div class="modal-body" style="margin: 8px;">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Nama:</label> <input type="text" class="form-control"
+							id="editNama" autocomplete="off" name="editNama" /> <input
+							type="hidden" class="form-control" id="editId" autocomplete="off" />
 					</div>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default btnKeluar"
-						data-dismiss="modal">Keluar</button>
-					<input type="submit" class="btn btn-primary" value="Simpan" />
-				</div>
-			</form>
+			</div>
 		</div>
-	</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default btnKeluar"
+				data-dismiss="modal">Keluar</button>
+			<input type="submit" class="btn btn-primary" value="Simpan" />
+		</div>
+	</form>
 </div>
 
 <div class="modal fade" id="kategori-modal-hapus" tabindex="-1"
-	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-sm">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Hapus Kategori</h4>
-			</div>
-			<div class="form-panel">
-				<div class="modal-body">
-					<p>Apakah Anda Yakin Ingin Menghapus ?</p>
-				</div>
-			</div>
-			<form class="form-horizontal style-form formHapus" method="post">
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default btnKeluar" id="keluarModalHapus" data-dismiss="modal">Tidak</button>
-					<input type="hidden" class="form-control" id="hapusId"/>					
-					<input type="submit" class="btn btn-danger" value="Hapus" />
-				</div>
-			</form>
-		</div>
+	style="display: none;" data-width="300">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal"
+			aria-hidden="true">&times;</button>
+		<h4 class="modal-title" id="myModalLabel">Hapus Kategori</h4>
 	</div>
+	<div class="modal-body" style="margin: 8px; text-align: center;">
+		<p>Apakah Anda Yakin Ingin Menghapus ?</p>
+	</div>
+	<form class="form-horizontal style-form formHapus" method="post">
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default btnKeluar"
+				id="keluarModalHapus" data-dismiss="modal">Tidak</button>
+			<input type="hidden" class="form-control" id="hapusId" /> <input
+				type="submit" class="btn btn-danger" value="Hapus" />
+		</div>
+	</form>
 </div>
 
 <div>
@@ -152,11 +133,11 @@
 		$('#btnCari').click(function() {
 			refresh(1, $('#stringCari').val());
 		});
-		
+
 		$('.btnTambah').click(function() {
 			reset();
 		});
-		
+
 		$('.btnEdit').click(function() {
 			reset();
 		});
@@ -222,7 +203,7 @@
 			});
 		});
 	});
-	
+
 	function getData(ids) {
 		var data = {
 			id : ids
@@ -250,10 +231,10 @@
 			$('#nav').append(result.navigasiHalaman);
 		}, null);
 	}
-	
-	function reset(){
+
+	function reset() {
 		$('#tambahNama').val('');
-		$('#editNama').val('');		
+		$('#editNama').val('');
 		$('#editId').val('');
 	}
 </script>
