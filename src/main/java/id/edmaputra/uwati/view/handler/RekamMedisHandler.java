@@ -67,6 +67,66 @@ public class RekamMedisHandler {
 	private String totalObatDanBiaya;
 	
 	private String grandTotal;
+	
+	private String pernafasan;
+	
+	private String suhuTubuh;
+	
+	private String nadi;
+	
+	private String tekananDarah;
+	
+	private String tinggiBadan;
+	
+	private String beratBadan;
+
+	public String getPernafasan() {
+		return pernafasan;
+	}
+
+	public void setPernafasan(String pernafasan) {
+		this.pernafasan = pernafasan;
+	}
+
+	public String getSuhuTubuh() {
+		return suhuTubuh;
+	}
+
+	public void setSuhuTubuh(String suhuTubuh) {
+		this.suhuTubuh = suhuTubuh;
+	}
+
+	public String getNadi() {
+		return nadi;
+	}
+
+	public void setNadi(String nadi) {
+		this.nadi = nadi;
+	}
+
+	public String getTekananDarah() {
+		return tekananDarah;
+	}
+
+	public void setTekananDarah(String tekananDarah) {
+		this.tekananDarah = tekananDarah;
+	}
+
+	public String getTinggiBadan() {
+		return tinggiBadan;
+	}
+
+	public void setTinggiBadan(String tinggiBadan) {
+		this.tinggiBadan = tinggiBadan;
+	}
+
+	public String getBeratBadan() {
+		return beratBadan;
+	}
+
+	public void setBeratBadan(String beratBadan) {
+		this.beratBadan = beratBadan;
+	}
 
 	public String getJaminan() {
 		return jaminan;

@@ -18,237 +18,221 @@
 <c:url var="isKaryawanAda" value="/karyawan/ada" />
 
 <div class="showback">
-	<div class="row mt">
+	<div class="row">
 		<div class="col-md-12">
-			<div class="content-panel">
-				<div class="row">
-					<div class="col-md-2 ">
-						<security:authorize access="hasAnyRole('ADMIN')">
-							<button class="btn btn-primary" data-toggle="modal"
-								data-target="#modal-pengguna" id="button-baru">Pengguna
-								Baru</button>
-						</security:authorize>
-					</div>
-
-					<div class="col-md-10">
-						<form class="form-inline pull-right" id="formCari">
-							<div class="form-group">
-								<input type="text" id="stringCari" class="form-control"
-									placeholder="Pencarian" style="width: 250px" />
-							</div>
-							<div class="form-group">
-								<button type="button" class="btn btn-primary" id="btnCari">Cari</button>
-							</div>
-							<div class="form-group">
-								<button type="button" class="btn btn-default" id="btnReset"
-									onclick="refresh(1,'')">Reset</button>
-							</div>
-						</form>
-					</div>
+			<div class="row">
+				<div class="col-md-2 ">
+					<security:authorize access="hasAnyRole('ADMIN')">
+						<button class="btn btn-primary" data-toggle="modal"
+							data-target="#modal-pengguna" id="button-baru">Pengguna
+							Baru</button>
+					</security:authorize>
 				</div>
-				<br />
 
-				<table class="table table-striped table-advance table-hover"
-					id="tabel">
-				</table>
-				<div id="nav"></div>
+				<div class="col-md-10">
+					<form class="form-inline pull-right" id="formCari">
+						<div class="form-group">
+							<input type="text" id="stringCari" class="form-control"
+								placeholder="Pencarian" style="width: 250px" />
+						</div>
+						<div class="form-group">
+							<button type="button" class="btn btn-primary" id="btnCari">Cari</button>
+						</div>
+						<div class="form-group">
+							<button type="button" class="btn btn-default" id="btnReset"
+								onclick="refresh(1,'')">Reset</button>
+						</div>
+					</form>
+				</div>
 			</div>
+			<br />
+
+			<table class="table table-striped table-advance table-hover"
+				id="tabel">
+			</table>
+			<div id="nav"></div>
 		</div>
 	</div>
 </div>
 
-<div class="modal fade" id="modal-pengguna" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Pengguna</h4>
-			</div>
+<div class="modal container fade" id="modal-pengguna" tabindex="-1"
+	style="display: none;">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal"
+			aria-hidden="true">&times;</button>
+		<h4 class="modal-title" id="myModalLabel">Pengguna</h4>
+	</div>
 
-			<form class="form style-form" method="post" id="tambah-pengguna">
-				<div class="form-panel">
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-md-5">
-								<div class="form-group">
-									<label>Nama:</label> <input type="text" name="nama" id="nama"
-										class="form-control" autocomplete="off" />
-								</div>
-							</div>
-							<div class="col-md-5">
-								<div class="form-group">
-									<label>Karyawan:</label> <input type="text"
-										class="form-control" id="karyawan" name="karyawan"
-										autocomplete="off">
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>Password:</label> <input type="password" name="password"
-										id="password" class="form-control" autocomplete="off" />
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>Password Konfirmasi:</label> <input type="password"
-										class="form-control" name="passwordKonfirmasi"
-										id="passwordKonfirmasi" autocomplete="off" />
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-4">
-								<div class="form-group">
-									<label>Aktif:</label> <input type="checkbox" name="isAktif"
-										class="form-control" id="isAktif" />
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<label>First Time:</label> <input type="checkbox"
-										name="isPertamaKali" class="form-control" id="isPertamaKali" />
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<label>Kesempatan:</label> <input type="number"
-										name="countKesalahan" class="form-control" id="countKesalahan"
-										autocomplete="off" />
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-4">
-								<div class="form-group">
-									<label>Role 1:</label> <input type="text" name="role1"
-										class="form-control" id="role1">
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<label>Role 2:</label> <input type="text" name="role2"
-										class="form-control" id="role2">
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<label>Role 3:</label> <input type="text" name="role3"
-										class="form-control" id="role3">
-								</div>
-							</div>
-						</div>
+	<form class="form style-form" method="post" id="tambah-pengguna">
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-md-5">
+					<div class="form-group">
+						<label>Nama:</label> <input type="text" name="nama" id="nama"
+							class="form-control" autocomplete="off" />
 					</div>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default btnKeluar"
-						data-dismiss="modal">Keluar</button>
-					<input type="submit" class="btn btn-primary" value="Simpan" />
+				<div class="col-md-5">
+					<div class="form-group">
+						<label>Karyawan:</label> <input type="text" class="form-control"
+							id="karyawan" name="karyawan" autocomplete="off">
+					</div>
 				</div>
-			</form>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label>Password:</label> <input type="password" name="password"
+							id="password" class="form-control" autocomplete="off" />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label>Password Konfirmasi:</label> <input type="password"
+							class="form-control" name="passwordKonfirmasi"
+							id="passwordKonfirmasi" autocomplete="off" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group">
+						<label>Aktif:</label> <input type="checkbox" name="isAktif"
+							class="form-control" id="isAktif" />
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label>First Time:</label> <input type="checkbox"
+							name="isPertamaKali" class="form-control" id="isPertamaKali" />
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label>Kesempatan:</label> <input type="number"
+							name="countKesalahan" class="form-control" id="countKesalahan"
+							autocomplete="off" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group">
+						<label>Role 1:</label> <input type="text" name="role1"
+							class="form-control" id="role1">
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label>Role 2:</label> <input type="text" name="role2"
+							class="form-control" id="role2">
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label>Role 3:</label> <input type="text" name="role3"
+							class="form-control" id="role3">
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default btnKeluar"
+				data-dismiss="modal">Keluar</button>
+			<input type="submit" class="btn btn-primary" value="Simpan" />
+		</div>
+	</form>
 </div>
 
-<div class="modal fade" id="modal-pengguna-edit" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Pengguna</h4>
-			</div>
+<div class="modal container fade" id="modal-pengguna-edit" tabindex="-1"
+	style="display: none;">
 
-			<form class="form style-form" method="post" id="edit-pengguna">
-				<div class="form-panel">
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-md-5">
-								<div class="form-group">
-									<label>Nama:</label> <input type="text" name="nama"
-										id="namaEdit" class="form-control" autocomplete="off" readonly="readonly"/>
-								</div>
-							</div>
-							<div class="col-md-5">
-								<div class="form-group">
-									<label>Karyawan:</label> <input type="text"
-										class="form-control" id="karyawanEdit" name="karyawan"
-										autocomplete="off">
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>Password:</label> <input type="password" name="password"
-										id="passwordEdit" class="form-control" autocomplete="off" />
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>Password Konfirmasi:</label> <input type="password"
-										class="form-control" name="passwordKonfirmasi"
-										id="passwordKonfirmasiEdit" autocomplete="off" />
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-4">
-								<div class="form-group">
-									<label>Aktif:</label> <input type="checkbox" name="isAktif"
-										class="form-control" id="isAktifEdit" />
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<label>First Time:</label> <input type="checkbox"
-										name="isPertamaKali" class="form-control"
-										id="isPertamaKaliEdit" />
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<label>Kesempatan:</label> <input type="number"
-										name="countKesalahan" class="form-control"
-										id="countKesalahanEdit" autocomplete="off" />
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-4">
-								<div class="form-group">
-									<label>Role 1:</label> <input type="text" name="role1"
-										class="form-control" id="role1Edit">
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<label>Role 2:</label> <input type="text" name="role2"
-										class="form-control" id="role2Edit">
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<label>Role 3:</label> <input type="text" name="role3"
-										class="form-control" id="role3Edit">
-								</div>
-							</div>
-						</div>
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal"
+			aria-hidden="true">&times;</button>
+		<h4 class="modal-title" id="myModalLabel">Pengguna</h4>
+	</div>
+
+	<form class="form style-form" method="post" id="edit-pengguna">
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-md-5">
+					<div class="form-group">
+						<label>Nama:</label> <input type="text" name="nama" id="namaEdit"
+							class="form-control" autocomplete="off" readonly="readonly" />
 					</div>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default btnKeluar"
-						data-dismiss="modal">Keluar</button>
-					<input type="hidden" name="id" class="form-control" id="ids" /> <input
-						type="submit" class="btn btn-primary" value="Simpan" />
+				<div class="col-md-5">
+					<div class="form-group">
+						<label>Karyawan:</label> <input type="text" class="form-control"
+							id="karyawanEdit" name="karyawan" autocomplete="off">
+					</div>
 				</div>
-			</form>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label>Password:</label> <input type="password" name="password"
+							id="passwordEdit" class="form-control" autocomplete="off" />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label>Password Konfirmasi:</label> <input type="password"
+							class="form-control" name="passwordKonfirmasi"
+							id="passwordKonfirmasiEdit" autocomplete="off" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group">
+						<label>Aktif:</label> <input type="checkbox" name="isAktif"
+							class="form-control" id="isAktifEdit" />
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label>First Time:</label> <input type="checkbox"
+							name="isPertamaKali" class="form-control" id="isPertamaKaliEdit" />
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label>Kesempatan:</label> <input type="number"
+							name="countKesalahan" class="form-control"
+							id="countKesalahanEdit" autocomplete="off" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group">
+						<label>Role 1:</label> <input type="text" name="role1"
+							class="form-control" id="role1Edit">
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label>Role 2:</label> <input type="text" name="role2"
+							class="form-control" id="role2Edit">
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label>Role 3:</label> <input type="text" name="role3"
+							class="form-control" id="role3Edit">
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default btnKeluar"
+				data-dismiss="modal">Keluar</button>
+			<input type="hidden" name="id" class="form-control" id="ids" /> <input
+				type="submit" class="btn btn-primary" value="Simpan" />
+		</div>
+	</form>
 </div>
 
 
@@ -295,12 +279,11 @@
 			clear();
 			clearEdit();
 		});
-		
+
 		$('.btnEdit').click(function() {
 			clear();
 			clearEdit();
 		});
-
 
 		$("#tambah-pengguna").validate({
 			rules : {
@@ -473,13 +456,13 @@
 			$('#isPertamaKaliEdit').prop('checked', pengguna.isPertamaKali);
 			$('#countKesalahanEdit').val(pengguna.countKesalahan);
 			$('#karyawanEdit').val(pengguna.karyawan.nama);
-			if (pengguna.roles[0].nama){
+			if (pengguna.roles[0].nama) {
 				$('#role1Edit').val(pengguna.roles[0].nama);
 			}
-			if (pengguna.roles[1].nama){
+			if (pengguna.roles[1].nama) {
 				$('#role2Edit').val(pengguna.roles[1].nama);
 			}
-			if (pengguna.roles[2].nama){
+			if (pengguna.roles[2].nama) {
 				$('#role3Edit').val(pengguna.roles[2].nama);
 			}
 		}, null);

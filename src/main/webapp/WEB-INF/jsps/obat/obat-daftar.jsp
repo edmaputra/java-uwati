@@ -18,176 +18,171 @@
 <div class="showback">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="content-panel">
-				<div class="row">
-					<div class="col-md-2 ">
-						<security:authorize access="hasAnyRole('ADMIN')">
-							<button class="btn btn-primary btnTambah" data-toggle="modal"
-								data-target="#obat-modal" id="btnBaru">Obat Baru</button>
-						</security:authorize>
-					</div>
-
-					<div class="col-md-10">
-						<form class="form-inline pull-right" id="formCari">
-							<div class="form-group">
-								<input type="text" id="stringCari" class="form-control"
-									placeholder="Pencarian" style="width: 250px" />
-							</div>
-							<div class="form-group">
-								<button type="button" class="btn btn-primary" id="btnCari">Cari</button>
-							</div>
-							<div class="form-group">
-								<button type="button" class="btn btn-default" id="btnReset"
-									onclick="refresh(1,'')">Reset</button>
-							</div>
-						</form>
-					</div>
+			<div class="row">
+				<div class="col-md-2 ">
+					<security:authorize access="hasAnyRole('ADMIN')">
+						<button class="btn btn-primary btnTambah" data-toggle="modal"
+							data-target="#obat-modal" id="btnBaru">Obat Baru</button>
+					</security:authorize>
 				</div>
-				<br />
 
-				<table class="table table-striped table-advance table-hover"
-					id="tabel">
-				</table>
-				<div id="nav"></div>
+				<div class="col-md-10">
+					<form class="form-inline pull-right" id="formCari">
+						<div class="form-group">
+							<input type="text" id="stringCari" class="form-control"
+								placeholder="Pencarian" style="width: 250px" />
+						</div>
+						<div class="form-group">
+							<button type="button" class="btn btn-primary" id="btnCari">Cari</button>
+						</div>
+						<div class="form-group">
+							<button type="button" class="btn btn-default" id="btnReset"
+								onclick="refresh(1,'')">Reset</button>
+						</div>
+					</form>
+				</div>
 			</div>
+			<br />
+
+			<table class="table table-striped table-advance table-hover"
+				id="tabel">
+			</table>
+			<div id="nav"></div>
 		</div>
 	</div>
 </div>
 
-<div class="modal fade" id="obat-modal" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Obat</h4>
-			</div>
-			<form class="form style-form formTambah" method="post">
-				<div class="modal-body">
-					<div class="form-panel">
-						<h4 class="mb">
-							<i class="fa fa-angle-right"></i> Obat
-						</h4>
-						<div class="row">
-							<div class="col-md-4">
-								<div class="form-group">
-									<label>Nama:</label> <input type="text" name="nama"
-										class="form-control" id="nama" autocomplete="off" />
-								</div>
-							</div>
-							<div class="col-md-2">
-								<div class="form-group">
-									<label>Kode:</label> <input type="text" name="kode"
-										class="form-control" id="kode" autocomplete="off" />
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<label>Barcode:</label> <input type="text" name="barcode"
-										class="form-control" id="barcode" autocomplete="off" />
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<label>Batch:</label> <input type="text" name="batch"
-										class="form-control" id="batch" autocomplete="off" />
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-3">
-								<div class="form-group">
-									<label>Satuan:</label> <input type="text" name="satuan"
-										class="form-control" id="satuan" autocomplete="off" />
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<label>Kategori:</label> <input type="text" name="kategori"
-										class="form-control" id="kategori" autocomplete="off" />
-								</div>
-							</div>
-							<div class="col-md-2">
-								<div class="form-group">
-									<label>Stok Minimal:</label> <input type="number"
-										name="stokMinimal" class="form-control" id="stokMinimal"
-										autocomplete="off" value="0"/>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="form-panel">
-						<h4 class="mb">
-							<i class="fa fa-angle-right"></i> Detail Obat
-						</h4>
-						<div class="row">
-							<div class="col-md-3">
-								<div class="form-group">
-									<label>Harga Jual:</label> <input type="text" name="hargaJual"
-										class="form-control" id="hargaJual" autocomplete="off" />
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<label>Harga Jual Resep:</label> <input type="text"
-										name="hargaJualResep" class="form-control" id="hargaJualResep"
-										autocomplete="off" />
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<label>Harga Beli:</label> <input type="text" name="hargaBeli"
-										class="form-control" id="hargaBeli" autocomplete="off" />
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<label>Harga Diskon:</label> <input type="text"
-										name="hargaDiskon" class="form-control" id="hargaDiskon"
-										autocomplete="off" />
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="form-panel">
-						<h4 class="mb">
-							<i class="fa fa-angle-right"></i> Stok Obat
-						</h4>
-						<div class="row">
-							<div class="col-md-3">
-								<div class="form-group">
-									<label>Stok:</label> <input type="number" name="stok"
-										class="form-control" id="stok" disabled="disabled" value="0">
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="form-panel">
-						<h4 class="mb">
-							<i class="fa fa-angle-right"></i> Tanggal Kadaluarsa Obat
-						</h4>
-						<div class="row">
-							<div class="col-md-3">
-								<div class="form-group">
-									<label>Tanggal Kadaluarsa:</label> <input type="text"
-										name="tanggalExpired" class="form-control datePicker"
-										id="tanggalExpired" autocomplete="off">
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default btnKeluar" data-dismiss="modal">Keluar</button>
-					<input type="hidden" name="id" class="form-control" id="ids" />
-					<input type="submit" class="btn btn-primary" value="Simpan" />
-				</div>
-			</form>
-		</div>
+<div class="modal container fade" id="obat-modal" tabindex="-1"
+	role="dialog" style="display: none;">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal"
+			aria-hidden="true">&times;</button>
+		<h4 class="modal-title" id="myModalLabel">Obat</h4>
 	</div>
+	<form class="form style-form formTambah" method="post">
+		<div class="modal-body">
+			<div class="form-panel">
+				<h4 class="mb">
+					<i class="fa fa-angle-right"></i> Obat
+				</h4>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group">
+							<label>Nama:</label> <input type="text" name="nama"
+								class="form-control" id="nama" autocomplete="off" />
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group">
+							<label>Kode:</label> <input type="text" name="kode"
+								class="form-control" id="kode" autocomplete="off" />
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>Barcode:</label> <input type="text" name="barcode"
+								class="form-control" id="barcode" autocomplete="off" />
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>Batch:</label> <input type="text" name="batch"
+								class="form-control" id="batch" autocomplete="off" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>Satuan:</label> <input type="text" name="satuan"
+								class="form-control" id="satuan" autocomplete="off" />
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>Kategori:</label> <input type="text" name="kategori"
+								class="form-control" id="kategori" autocomplete="off" />
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group">
+							<label>Stok Minimal:</label> <input type="number"
+								name="stokMinimal" class="form-control" id="stokMinimal"
+								autocomplete="off" value="0" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-panel">
+				<h4 class="mb">
+					<i class="fa fa-angle-right"></i> Detail Obat
+				</h4>
+				<div class="row">
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>Harga Jual:</label> <input type="text" name="hargaJual"
+								class="form-control" id="hargaJual" autocomplete="off" />
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>Harga Jual Resep:</label> <input type="text"
+								name="hargaJualResep" class="form-control" id="hargaJualResep"
+								autocomplete="off" />
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>Harga Beli:</label> <input type="text" name="hargaBeli"
+								class="form-control" id="hargaBeli" autocomplete="off" />
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>Harga Diskon:</label> <input type="text"
+								name="hargaDiskon" class="form-control" id="hargaDiskon"
+								autocomplete="off" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-panel">
+				<h4 class="mb">
+					<i class="fa fa-angle-right"></i> Stok Obat
+				</h4>
+				<div class="row">
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>Stok:</label> <input type="number" name="stok"
+								class="form-control" id="stok" disabled="disabled" value="0">
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-panel">
+				<h4 class="mb">
+					<i class="fa fa-angle-right"></i> Tanggal Kadaluarsa Obat
+				</h4>
+				<div class="row">
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>Tanggal Kadaluarsa:</label> <input type="text"
+								name="tanggalExpired" class="form-control datePicker"
+								id="tanggalExpired" autocomplete="off">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default btnKeluar"
+				data-dismiss="modal">Keluar</button>
+			<input type="hidden" name="id" class="form-control" id="ids" /> <input
+				type="submit" class="btn btn-primary" value="Simpan" />
+		</div>
+	</form>
 </div>
 
 
@@ -230,19 +225,19 @@
 		$('#btnCari').click(function() {
 			refresh(1, $('#stringCari').val());
 		});
-		
+
 		$('.btnTambah').click(function() {
 			state = 0;
 			reset();
 		});
-		
+
 		$('.btnEdit').click(function() {
-// 			state = 1;
-// 			console.log(state);
+			// 			state = 1;
+			// 			console.log(state);
 		});
-		
+
 		$('.btnKeluar').click(function() {
-			reset();			
+			reset();
 		});
 
 		$(".formTambah").validate({
@@ -339,7 +334,7 @@
 			submitHandler : function(form) {
 				var data = {};
 				data = setObatData(data);
-				if (state == 0){
+				if (state == 0) {
 					$.postJSON('${tambahUrl}', data, function() {
 						$('#gritter-tambah-sukses').click();
 						$('.btnKeluar').click();
@@ -347,8 +342,8 @@
 						refresh();
 					}, function() {
 						$('#gritter-tambah-gagal').click();
-					});	
-				} else if (state == 1){
+					});
+				} else if (state == 1) {
 					$.postJSON('${editUrl}', data, function() {
 						$('#gritter-edit-sukses').click();
 						$('.btnKeluar').click();
@@ -378,18 +373,18 @@
 
 		setAutoComplete('#kategori', '${kategoriSemua}');
 		setAutoComplete('#satuan', '${satuanSemua}');
-// 		setAutoComplete('#editKategori', '${kategoriSemua}');
-// 		setAutoComplete('#editSatuan', '${satuanSemua}');
+		// 		setAutoComplete('#editKategori', '${kategoriSemua}');
+		// 		setAutoComplete('#editSatuan', '${satuanSemua}');
 
 		setMaskingUang("#hargaJual");
 		setMaskingUang("#hargaJualResep");
 		setMaskingUang("#hargaBeli");
 		setMaskingUang("#hargaDiskon");
 
-// 		setMaskingUang("#editHargaJual");
-// 		setMaskingUang("#editHargaJualResep");
-// 		setMaskingUang("#editHargaBeli");
-// 		setMaskingUang("#editHargaDiskon");
+		// 		setMaskingUang("#editHargaJual");
+		// 		setMaskingUang("#editHargaJualResep");
+		// 		setMaskingUang("#editHargaBeli");
+		// 		setMaskingUang("#editHargaDiskon");
 	});
 
 	function getData(ids) {
@@ -399,7 +394,7 @@
 		var data = {
 			id : ids
 		};
-		
+
 		$.getAjax('${dapatkanUrl}', data, function(obat) {
 			$('#ids').val(ids);
 			$('#nama').val(obat.nama);
@@ -416,7 +411,7 @@
 			$('#stok').val(obat.stok[0].stok);
 			$('#tanggalExpired').val(
 					dateFormat(obat.expired[0].tanggalExpired, 'dd-mm-yyyy'));
-			
+
 			$("#hargaJual").maskMoney('mask');
 			$("#hargaJualResep").maskMoney('mask');
 			$("#hargaBeli").maskMoney('mask');
@@ -442,11 +437,11 @@
 			$('#nav').append(result.navigasiHalaman);
 		}, null);
 	}
-	
-	function setObatData(data){
-		if ($('#ids').val() != null && $('#ids').val() != ''){
-			data['id'] = $('#ids').val();	
-		}	
+
+	function setObatData(data) {
+		if ($('#ids').val() != null && $('#ids').val() != '') {
+			data['id'] = $('#ids').val();
+		}
 		data['nama'] = $('#nama').val();
 		data['kode'] = $('#kode').val();
 		data['barcode'] = $('#barcode').val();

@@ -17,108 +17,105 @@
 <c:url var="hapusObatUrl" value="/racikan/hapus-obat" />
 
 <div class="showback">
-	<div class="row mt">
+	<div class="row">
 		<div class="col-md-12">
-			<div class="content-panel">
-				<div class="row">
-					<div class="col-md-2 ">
-						<security:authorize access="hasAnyRole('ADMIN','APOTEK')">
-							<button class="btn btn-primary" data-toggle="modal" data-target="#racikan-modal" id="racikan_baru">Racikan Baru</button>
-						</security:authorize>
-					</div>
-
-					<div class="col-md-10">
-						<form class="form-inline pull-right" id="formCari">
-							<div class="form-group">
-								<input type="text" id="stringCari" class="form-control"
-									placeholder="Pencarian" style="width: 250px" />
-							</div>
-							<div class="form-group">
-								<button type="button" class="btn btn-primary" id="btnCari">Cari</button>
-							</div>
-							<div class="form-group">
-								<button type="button" class="btn btn-default" id="btnReset"
-									onclick="refresh(1,'')">Reset</button>
-							</div>
-						</form>
-					</div>
+			<div class="row">
+				<div class="col-md-2 ">
+					<security:authorize access="hasAnyRole('ADMIN','APOTEK')">
+						<button class="btn btn-primary" data-toggle="modal"
+							data-target="#racikan-modal" id="racikan_baru">Racikan
+							Baru</button>
+					</security:authorize>
 				</div>
-				<br />
 
-				<table class="table table-striped table-advance table-hover"
-					id="tabel">
-				</table>
-				<div id="nav"></div>
+				<div class="col-md-10">
+					<form class="form-inline pull-right" id="formCari">
+						<div class="form-group">
+							<input type="text" id="stringCari" class="form-control"
+								placeholder="Pencarian" style="width: 250px" />
+						</div>
+						<div class="form-group">
+							<button type="button" class="btn btn-primary" id="btnCari">Cari</button>
+						</div>
+						<div class="form-group">
+							<button type="button" class="btn btn-default" id="btnReset"
+								onclick="refresh(1,'')">Reset</button>
+						</div>
+					</form>
+				</div>
 			</div>
+			<br />
+
+			<table class="table table-striped table-advance table-hover"
+				id="tabel">
+			</table>
+			<div id="nav"></div>
 		</div>
 	</div>
 </div>
 
-<div class="modal fade" id="racikan-modal" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Racikan Baru</h4>
-			</div>
+<div class="modal container fade" id="racikan-modal" tabindex="-1"
+	style="display: none;">
 
-			<form class="form style-form formTambah" method="post">
-				<div class="form-panel">
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-md-4">
-								<div class="form-group">
-									<label>Nama Racikan:</label> <input type="text"
-										class="form-control" name="nama" id="nama" autocomplete="off">
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<label>Biaya Racik</label> <input type="text"
-										class="form-control" name="biayaRacik" id="biayaRacik" autocomplete="off">
-								</div>
-							</div>
-							<div class="col-md-5">
-								<div class="form-group">
-									<label>Harga Racikan</label> <input type="text"
-										class="form-control" name="hargaRacikan" id="hargaRacikan"
-										readonly="readonly">
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<table class="table table-striped table-advance table-hover">
-									<thead style="background-color: #68DFF0;">
-										<tr>
-											<th>Komposisi</th>
-											<th>Jumlah</th>
-											<th>Biaya</th>
-											<th></th>
-										</tr>
-									</thead>
-									<tbody id="tabel-obat">
-									</tbody>
-								</table>
-							</div>
-							<div class="col-md-6">
-								<input type="text" name="cariObat" class="form-control" id="cariObat" placeholder="Pencarian" autocomplete="off" />
-								<div id="list-obat"></div>
-								<div class="btn-group btn-group-justified" id="navigasi-obat"></div>
-							</div>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default btnKeluar" data-dismiss="modal">Keluar</button>
-						<input type="hidden" name="ids" class="form-control" id="ids" /> 
-						<input type="submit" class="btn btn-primary" value="Simpan" />
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal"
+			aria-hidden="true">&times;</button>
+		<h4 class="modal-title" id="myModalLabel">Racikan Baru</h4>
+	</div>
+
+	<form class="form style-form formTambah" method="post">
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group">
+						<label>Nama Racikan:</label> <input type="text"
+							class="form-control" name="nama" id="nama" autocomplete="off">
 					</div>
 				</div>
-			</form>
+				<div class="col-md-3">
+					<div class="form-group">
+						<label>Biaya Racik</label> <input type="text" class="form-control"
+							name="biayaRacik" id="biayaRacik" autocomplete="off">
+					</div>
+				</div>
+				<div class="col-md-5">
+					<div class="form-group">
+						<label>Harga Racikan</label> <input type="text"
+							class="form-control" name="hargaRacikan" id="hargaRacikan"
+							readonly="readonly">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<table class="table table-striped table-advance table-hover">
+						<thead style="background-color: #68DFF0;">
+							<tr>
+								<th>Komposisi</th>
+								<th>Jumlah</th>
+								<th>Biaya</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody id="tabel-obat">
+						</tbody>
+					</table>
+				</div>
+				<div class="col-md-6">
+					<input type="text" name="cariObat" class="form-control"
+						id="cariObat" placeholder="Pencarian" autocomplete="off" />
+					<div id="list-obat"></div>
+					<div class="btn-group btn-group-justified" id="navigasi-obat"></div>
+				</div>
+			</div>
 		</div>
-	</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default btnKeluar"
+				data-dismiss="modal">Keluar</button>
+			<input type="hidden" name="ids" class="form-control" id="ids" /> <input
+				type="submit" class="btn btn-primary" value="Simpan" />
+		</div>
+	</form>
 </div>
 
 <div class="modal fade" id="racikan-modal-hapus" tabindex="-1"
@@ -135,11 +132,14 @@
 					<p>Apakah Anda Yakin Ingin Menghapus ?</p>
 				</div>
 			</div>
-			<form action="${hapusUrl}"class="form-horizontal style-form formHapus" method="post">
+			<form action="${hapusUrl}"
+				class="form-horizontal style-form formHapus" method="post">
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default btnKeluar" id="keluarModalHapus" data-dismiss="modal">Tidak</button>
-					<input type="hidden" class="form-control" name="hapusId" id="hapusId" /> 
-					<input type="submit" class="btn btn-danger" value="Hapus" /> 
+					<button type="button" class="btn btn-default btnKeluar"
+						id="keluarModalHapus" data-dismiss="modal">Tidak</button>
+					<input type="hidden" class="form-control" name="hapusId"
+						id="hapusId" /> <input type="submit" class="btn btn-danger"
+						value="Hapus" />
 				</div>
 			</form>
 		</div>
@@ -152,36 +152,35 @@
 
 
 <script>
-
-var randomId = Math.floor(Math.random() * 1000000);
-var halamanObat = 1;
-var cariObat = '';
-var state = 1;
+	var randomId = Math.floor(Math.random() * 1000000);
+	var halamanObat = 1;
+	var cariObat = '';
+	var state = 1;
 
 	$(document).ready(function() {
-		
-		refresh(1, '');		
+
+		refresh(1, '');
 
 		$('#btnCari').click(function() {
 			refresh(1, $('#stringCari').val());
-		});		
-		
-		$('#racikan_baru').click(function(e) {			
+		});
+
+		$('#racikan_baru').click(function(e) {
 			reset();
 			refreshObat(halamanObat, cariObat);
 			refreshDaftarObat(randomId);
-			state = 0;			
+			state = 0;
 		});
-		
+
 		$("#cariObat").keyup(function() {
 			refreshObat(1, $('#cariObat').val());
 		});
-		
-		$("#racikan-modal").on("hide.bs.modal", function(){
+
+		$("#racikan-modal").on("hide.bs.modal", function() {
 			randomId = Math.floor(Math.random() * 1000000);
 			console.log(randomId);
 		});
-		
+
 		$(".formTambah").validate({
 			rules : {
 				nama : {
@@ -199,11 +198,11 @@ var state = 1;
 				biayaRacik : "Biaya Racik Wajib Diisi",
 				hargaRacikan : "Harga Total Racikan Wajib Diisi"
 			},
-			submitHandler : function(form) {							
+			submitHandler : function(form) {
 				var data = {};
 				data = setRacikanData(data);
-				
-				if (state == 0){
+
+				if (state == 0) {
 					$.postJSON('${tambahUrl}', data, function() {
 						$('#gritter-tambah-sukses').click();
 						$('.btnKeluar').click();
@@ -213,7 +212,7 @@ var state = 1;
 					}, function() {
 						$('#gritter-tambah-gagal').click();
 					});
-				} else if (state == 1){
+				} else if (state == 1) {
 					$.postJSON('${editUrl}', data, function() {
 						$('#gritter-edit-sukses').click();
 						$('.btnKeluar').click();
@@ -223,7 +222,7 @@ var state = 1;
 					}, function() {
 						$('#gritter-tambah-gagal').click();
 					});
-				}			
+				}
 			}
 		});
 
@@ -240,12 +239,12 @@ var state = 1;
 				$('#keluarModalHapus').click();
 				refresh();
 			});
-		});		
+		});
 		setMaskingUang("#biayaRacik");
 		setMaskingUang("#hargaRacikan");
 	});
 
-	function getData(ids) {		
+	function getData(ids) {
 		var data = {
 			id : ids
 		};
@@ -256,7 +255,7 @@ var state = 1;
 			refreshObat(halamanObat, cariObat);
 			randomId = result.info
 			console.log(randomId);
-			refreshDaftarObat(randomId);			
+			refreshDaftarObat(randomId);
 			$('#ids').val(ids);
 			state = 1;
 		}, null);
@@ -278,7 +277,7 @@ var state = 1;
 			$('#nav').append(result.navigasiHalaman);
 		}, null);
 	}
-	
+
 	function refreshObat(halaman, find) {
 		var data = {
 			hal : halaman,
@@ -295,7 +294,7 @@ var state = 1;
 			cariObat = find;
 		}, null);
 	}
-	
+
 	function refreshDaftarObat(id) {
 		if (id != null) {
 			var data = {
@@ -309,7 +308,7 @@ var state = 1;
 			}, null);
 		}
 	}
-	
+
 	function tambahObat(id) {
 		var data = {
 			idObat : id,
@@ -324,7 +323,7 @@ var state = 1;
 			$('#gritter-tambah-gagal').click();
 		});
 	}
-	
+
 	function hapusObat(id) {
 		var data = {
 			idObat : id,
@@ -337,18 +336,18 @@ var state = 1;
 			console.log(result.info);
 		});
 	}
-	
-	function setRacikanData(data){
-		if ($('#ids').val() != null && $('#ids').val() != ''){
-			data['id'] = $('#ids').val();	
-		}		
+
+	function setRacikanData(data) {
+		if ($('#ids').val() != null && $('#ids').val() != '') {
+			data['id'] = $('#ids').val();
+		}
 		data['nama'] = $('#nama').val();
 		data['biayaRacik'] = $('#biayaRacik').val();
 		data['randomId'] = randomId;
 		return data;
 	}
-		
-	function reset(){
+
+	function reset() {
 		$('#hargaRacikan').val('0');
 		$('#nama').val('');
 		$('#biayaRacik').val('0');

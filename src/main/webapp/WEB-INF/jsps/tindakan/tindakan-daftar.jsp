@@ -10,127 +10,114 @@
 <c:url var="daftar" value="/tindakan/daftar" />
 
 <div class="showback">
-	<div class="row mt">
+	<div class="row">
 		<div class="col-md-12">
-			<div class="content-panel">
-				<div class="row">
-					<div class="col-md-2 ">
-						<security:authorize access="hasAnyRole('ADMIN')">
-							<button class="btn btn-primary btnTambah" data-toggle="modal"
-								data-target="#tindakan-modal">Tindakan Baru</button>
-						</security:authorize>
-					</div>
-
-					<div class="col-md-10">
-						<form class="form-inline pull-right" id="formCari">
-							<div class="form-group">
-								<input type="text" id="stringCari" class="form-control"
-									placeholder="Pencarian" style="width: 250px" />
-							</div>
-							<div class="form-group">
-								<button type="button" class="btn btn-primary" id="btnCari">Cari</button>
-							</div>
-							<div class="form-group">
-								<button type="button" class="btn btn-default" id="btnReset"
-									onclick="refresh(1,'')">Reset</button>
-							</div>
-						</form>
-					</div>
+			<div class="row">
+				<div class="col-md-2 ">
+					<security:authorize access="hasAnyRole('ADMIN')">
+						<button class="btn btn-primary btnTambah" data-toggle="modal"
+							data-target="#tindakan-modal">Tindakan Baru</button>
+					</security:authorize>
 				</div>
-				<br />
 
-				<table class="table table-striped table-advance table-hover"
-					id="tabelCoba">
-				</table>
-				<div id="nav"></div>
+				<div class="col-md-10">
+					<form class="form-inline pull-right" id="formCari">
+						<div class="form-group">
+							<input type="text" id="stringCari" class="form-control"
+								placeholder="Pencarian" style="width: 250px" />
+						</div>
+						<div class="form-group">
+							<button type="button" class="btn btn-primary" id="btnCari">Cari</button>
+						</div>
+						<div class="form-group">
+							<button type="button" class="btn btn-default" id="btnReset"
+								onclick="refresh(1,'')">Reset</button>
+						</div>
+					</form>
+				</div>
 			</div>
+			<br />
+
+			<table class="table table-striped table-advance table-hover"
+				id="tabelCoba">
+			</table>
+			<div id="nav"></div>
 		</div>
 	</div>
 </div>
 
 
-<div class="modal fade" id="tindakan-modal" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Tindakan</h4>
-			</div>
+<div class="modal fade" id="tindakan-modal" tabindex="-1"
+	style="display: none;" data-focus-on="input:first">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal"
+			aria-hidden="true">&times;</button>
+		<h4 class="modal-title" id="myModalLabel">Tindakan</h4>
+	</div>
 
-			<form class="form style-form formTambah" method="post">
-				<div class="form-panel">
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-md-9">
-								<div class="form-group">
-									<label>Nama:</label> <input type="text" name="nama"
-										class="form-control" id="nama" autocomplete="off" />
-
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-4">
-								<div class="form-group">
-									<label>Kode:</label> <input type="text" name="kode"
-										class="form-control" id="kode" autocomplete="off" />
-								</div>
-							</div>
-							<div class="col-md-8">
-								<div class="form-group">
-									<label>Tarif/Harga:</label> 
-									<input type="text" name="tarif" class="form-control" id="tarif" value="0" autocomplete="off"/>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group">
-									<label>Info/Keterangan:</label> 
-									<input type="text" name="info"	class="form-control" id="info" autocomplete="off"/>
-								</div>
-							</div>
-						</div>
+	<form class="form style-form formTambah" method="post">
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-md-9">
+					<div class="form-group">
+						<label>Nama:</label> <input type="text" name="nama"
+							class="form-control" id="nama" autocomplete="off" />
 					</div>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default btnKeluar"
-						data-dismiss="modal">Keluar</button>
-					<input type="hidden" name="id" class="form-control" id="ids" /> <input
-						type="submit" class="btn btn-primary" value="Simpan" />
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group">
+						<label>Kode:</label> <input type="text" name="kode"
+							class="form-control" id="kode" autocomplete="off" />
+					</div>
 				</div>
-
-			</form>
+				<div class="col-md-8">
+					<div class="form-group">
+						<label>Tarif/Harga:</label> <input type="text" name="tarif"
+							class="form-control" id="tarif" value="0" autocomplete="off" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Info/Keterangan:</label> <input type="text" name="info"
+							class="form-control" id="info" autocomplete="off" />
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default btnKeluar"
+				data-dismiss="modal">Keluar</button>
+			<input type="hidden" name="id" class="form-control" id="ids" /> <input
+				type="submit" class="btn btn-primary" value="Simpan" />
+		</div>
+	</form>
 </div>
 
 <div class="modal fade" id="tindakan-modal-hapus" tabindex="-1"
-	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-sm">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Hapus Tindakan</h4>
-			</div>
-			<div class="form-panel">
-				<div class="modal-body">
-					<p>Apakah Anda Yakin Ingin Menghapus ?</p>
-				</div>
-			</div>
-			<form class="form-horizontal style-form formHapus" method="post">
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default btnKeluar"
-						id="keluarModalHapus" data-dismiss="modal">Tidak</button>
-					<input type="hidden" name="id" class="form-control" id="hapusId" />
-					<input type="submit" class="btn btn-danger" value="Hapus" />
-				</div>
-			</form>
-		</div>
+	style="display: none;" data-width="300">
+
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal"
+			aria-hidden="true">&times;</button>
+		<h4 class="modal-title" id="myModalLabel">Hapus Tindakan</h4>
 	</div>
+
+	<div class="modal-body" style="text-align: center;">
+		<p>Apakah Anda Yakin Ingin Menghapus ?</p>
+	</div>
+
+	<form class="form-horizontal style-form formHapus" method="post">
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default btnKeluar"
+				id="keluarModalHapus" data-dismiss="modal">Tidak</button>
+			<input type="hidden" name="id" class="form-control" id="hapusId" />
+			<input type="submit" class="btn btn-danger" value="Hapus" />
+		</div>
+	</form>
 </div>
 
 <div>
@@ -148,13 +135,13 @@
 		});
 
 		$('.btnTambah').click(function() {
-			state = 0;			
+			state = 0;
 		});
-		
+
 		$('.btnKeluar').click(function() {
-			reset();			
+			reset();
 		});
-		
+
 		setMaskingUang("#tarif");
 
 		$(".formTambah").validate({
@@ -174,13 +161,13 @@
 				kode : "Kode Wajib Diisi",
 				tarif : "Tarif Wajib Diisi"
 			},
-			submitHandler : function(form) {				
+			submitHandler : function(form) {
 				var data = {};
-				data = setTindakan(data);								
+				data = setTindakan(data);
 				if (state == 0) {
 					$.postJSON('${tambah}', data, function() {
 						$('#gritter-tambah-sukses').click();
-						$('.btnKeluar').click();						
+						$('.btnKeluar').click();
 						refresh();
 					}, function() {
 						$('#gritter-tambah-gagal').click();
@@ -244,23 +231,23 @@
 			$('#nav').append(result.navigasiHalaman);
 		}, null);
 	}
-	
-	function setTindakan(data){
-		if ($('#ids').val() != null && $('#ids').val() != ''){
-			data['id'] = $('#ids').val();	
-		}		
+
+	function setTindakan(data) {
+		if ($('#ids').val() != null && $('#ids').val() != '') {
+			data['id'] = $('#ids').val();
+		}
 		data['nama'] = $('#nama').val();
 		data['kode'] = $('#kode').val();
 		data['tarif'] = $('#tarif').val();
 		data['info'] = $('#info').val();
 		return data;
 	}
-	
-	function reset(){
+
+	function reset() {
 		$('#ids').val('');
 		$('#nama').val('');
 		$('#kode').val('');
 		$('#tarif').val('0');
-		$('#info').val('');	
+		$('#info').val('');
 	}
 </script>

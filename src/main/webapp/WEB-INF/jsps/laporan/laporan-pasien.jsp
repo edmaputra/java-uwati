@@ -62,7 +62,7 @@
 		<div class="desc">
 			<div class="row">
 				<div class="col-md-12 pull-right">
-					<label>Penjualan</label>
+					<label>Jumlah Pasien</label>
 				</div>
 			</div>
 			<div class="row">				

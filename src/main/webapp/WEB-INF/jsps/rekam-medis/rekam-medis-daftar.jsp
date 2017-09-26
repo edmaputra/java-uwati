@@ -151,6 +151,34 @@
 				<textarea class="form-control" rows="3" name="anamnesa"
 					id="anamnesa"></textarea>
 			</div>
+			
+			<div class="row">
+				<div class="form-group col-md-2">
+					<label>Tekanan Darah (mmHg):</label>
+					<input type="text" name="tekanan_darah"	class="form-control" id="tekanan_darah" autocomplete="off"/>
+				</div>
+				<div class="form-group col-md-2">
+					<label>Denyut Nadi (kali/menit):</label>
+					<input type="text" name="nadi" class="form-control" id="nadi" autocomplete="off"/>
+				</div>
+				<div class="form-group col-md-2">
+					<label>Pernafasan (kali/menit):</label>
+					<input type="text" name="pernafasan" class="form-control" id="pernafasan" autocomplete="off"/>
+				</div>
+				<div class="form-group col-md-2">
+					<label>Suhu Tubuh (celcius):</label>
+					<input type="text" name="suhu_tubuh" class="form-control" id="suhu_tubuh" autocomplete="off"/>
+				</div>
+				<div class="form-group col-md-2">
+					<label>Tinggi Badan (cm):</label>
+					<input type="text" name="tinggi_badan"	class="form-control" id="tinggi_badan" autocomplete="off"/>
+				</div>
+				<div class="form-group col-md-2">
+					<label>Berat Badan (kg):</label>
+					<input type="text" name="berat_badan" class="form-control" id="berat_badan" autocomplete="off"/>
+				</div>
+			</div>
+			
 			<div class="form-group">
 				<label>Pemeriksaan :</label>
 				<textarea class="form-control" rows="3" name="pemeriksaan"
@@ -189,6 +217,7 @@
 								<th>Terapi</th>
 								<th>Jumlah</th>
 								<th>Biaya</th>
+								<th>Info</th>
 								<th>-</th>
 							</tr>
 						</thead>
@@ -253,6 +282,34 @@
 				<textarea class="form-control" rows="3" name="anamnesa"
 					id="anamnesa-detail" readonly="readonly"></textarea>
 			</div>
+			
+			<div class="row">
+				<div class="form-group col-md-2">
+					<label>Tekanan Darah (mmHg):</label>
+					<input type="text" name="tekanan_darah"	class="form-control" id="tekanan_darah_detail" autocomplete="off" readonly="readonly"/>
+				</div>
+				<div class="form-group col-md-2">
+					<label>Denyut Nadi (kali/menit):</label>
+					<input type="text" name="nadi" class="form-control" id="nadi_detail" autocomplete="off" readonly="readonly"/>
+				</div>
+				<div class="form-group col-md-2">
+					<label>Pernafasan (kali/menit):</label>
+					<input type="text" name="pernafasan" class="form-control" id="pernafasan_detail" autocomplete="off" readonly="readonly"/>
+				</div>
+				<div class="form-group col-md-2">
+					<label>Suhu Tubuh (celcius):</label>
+					<input type="text" name="suhu_tubuh" class="form-control" id="suhu_tubuh_detail" autocomplete="off" readonly="readonly"/>
+				</div>
+				<div class="form-group col-md-2">
+					<label>Tinggi Badan (cm):</label>
+					<input type="text" name="tinggi_badan"	class="form-control" id="tinggi_badan_detail" autocomplete="off" readonly="readonly"/>
+				</div>
+				<div class="form-group col-md-2">
+					<label>Berat Badan (kg):</label>
+					<input type="text" name="berat_badan" class="form-control" id="berat_badan_detail" autocomplete="off" readonly="readonly"/>
+				</div>
+			</div>
+			
 			<div class="form-group">
 				<label>Pemeriksaan :</label>
 				<textarea class="form-control" rows="3" name="pemeriksaan"
@@ -276,6 +333,7 @@
 					<tr>
 						<th>Terapi</th>
 						<th>Jumlah</th>
+						<th>Info</th>
 					</tr>
 				</thead>
 				<tbody id="tabel-terapi-detail">
@@ -290,7 +348,7 @@
 </div>
 
 <div class="modal fade" id="edit-terapi-modal" tabindex="-1"
-	style="display: none;">
+	style="display: none;" data-width="600">
 	<form class="form style-form formEdit" method="post">
 		<div class="modal-header">
 			<h4 class="modal-title" id="myModalLabel">Edit Terapi</h4>
@@ -327,6 +385,12 @@
 					</div>
 				</div>
 			</div>
+			<div class="row">
+				<div class="form-group col-md-12">
+					<label>Info:</label> <input type="text" class="form-control"
+						name="edit_info" id="edit_info" autocomplete="off">
+				</div>
+			</div>
 		</div>
 		<div class="modal-footer">
 			<input type="hidden" class="form-control" name="edit_id" id="edit_id" />
@@ -338,31 +402,24 @@
 	</form>
 </div>
 
-<div class="modal fade" id="rm-modal-hapus" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-sm">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title" id="myModalLabel">Hapus Rekam Medis</h4>
-			</div>
-			<div class="form-panel">
-				<div class="modal-body">
-					<p>Apakah Anda Yakin Ingin Menghapus ?</p>
-				</div>
-			</div>
-			<form class="form style-form formHapus" method="post">
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default btnKeluar"
-						id="keluarModalHapus" data-dismiss="modal">Tidak</button>
-					<form:hidden path="id" cssClass="form-control" id="hapusId" />
-					<input type="submit" class="btn btn-danger" value="Hapus" />
-				</div>
-			</form>
-		</div>
+<div class="modal fade" id="rm-modal-hapus" tabindex="-1"
+	style="display: none;" data-width="300">
+
+	<div class="modal-header">
+		<h4 class="modal-title" id="myModalLabel">Hapus Rekam Medis</h4>
 	</div>
+	<div class="modal-body" style="text-align: center;">
+		<p>Apakah Anda Yakin Ingin Menghapus ?</p>
+	</div>
+	<form class="form style-form formHapus" method="post">
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default btnKeluar"
+				id="keluarModalHapus" data-dismiss="modal">Tidak</button>
+			<form:hidden path="id" cssClass="form-control" id="hapusId" />
+			<input type="submit" class="btn btn-danger" value="Hapus" />
+		</div>
+	</form>
 </div>
-
-
 
 <div>
 	<%@ include file="../../layouts/gritter.jsp"%>
@@ -551,6 +608,12 @@
 		};
 		$.getAjax('${dapatkanUrl}', data, function(result) {
 			$('#anamnesa').val(result.anamnesa);
+			$('#tekanan_darah').val(result.tekananDarah);
+			$('#nadi').val(result.nadi);
+			$('#pernafasan').val(result.pernafasan);
+			$('#suhu_tubuh').val(result.suhuTubuh);
+			$('#tinggi_badan').val(result.tinggiBadan);
+			$('#berat_badan').val(result.beratBadan);
 			$('#pemeriksaan').val(result.pemeriksaan);
 			$('#nomor').val(result.nomor);
 			$('#tanggal').val(result.tanggal);
@@ -570,6 +633,12 @@
 		$.getAjax('${detailUrl}', data, function(result) {
 			$('#anamnesa-detail').val(result.anamnesa);
 			$('#pemeriksaan-detail').val(result.pemeriksaan);
+			$('#tekanan_darah_detail').val(result.tekananDarah);
+			$('#nadi_detail').val(result.nadi);
+			$('#pernafasan_detail').val(result.pernafasan);
+			$('#suhu_tubuh_detail').val(result.suhuTubuh);
+			$('#tinggi_badan_detail').val(result.tinggiBadan);
+			$('#berat_badan_detail').val(result.beratBadan);
 			$('#nomor-detail').val(result.nomor);
 			$('#tanggal-detail').val(result.tanggal);
 			$('#kunjungan-detail').val(result.kunjungan);
@@ -688,6 +757,7 @@
 			$('#edit_jumlah').val(result.jumlah);
 			$('#edit_harga').val(result.hargaJual);
 			$('#edit_total').val(result.hargaTotal);
+			$('#edit_info').val(result.info);
 			$('#edit_id').val(result.idObat);
 		}, null);
 	}
@@ -774,7 +844,6 @@
 	}
 
 	function prosesResep(n) {
-		console.log("proses resep");
 		var data = {
 			id : n
 		};
@@ -786,7 +855,6 @@
 	}
 
 	function batalProsesResep(n) {
-		console.log("batal proses resep");
 		var data = {
 			id : n
 		};
@@ -805,6 +873,12 @@
 		data['kunjungan'] = $('#kunjungan').val();
 		data['tanggal'] = $('#tanggal').val();
 		data['anamnesa'] = $('#anamnesa').val();
+		data['tekananDarah'] = $('#tekanan_darah').val();
+		data['pernafasan'] = $('#pernafasan').val();
+		data['nadi'] = $('#nadi').val();
+		data['suhuTubuh'] = $('#suhu_tubuh').val();
+		data['tinggiBadan'] = $('#tinggi_badan').val();
+		data['beratBadan'] = $('#berat_badan').val();
 		data['pemeriksaan'] = $('#pemeriksaan').val();
 		data['pasien'] = $('#pasienId').val();
 		return data;
@@ -815,6 +889,7 @@
 		data['idObat'] = $('#edit_id').val();
 		data['terapi'] = $('#edit_obat').val();
 		data['jumlah'] = $('#edit_jumlah').val();
+		data['info'] = $('#edit_info').val();
 		data['hargaJual'] = $('#edit_harga').val();
 		return data;
 	}
@@ -824,6 +899,7 @@
 		$('#edit_jumlah').val('0');
 		$('#edit_harga').val('0');
 		$('#edit_total').val('0');
+		$('#edit_info').val('');
 		$('#edit_id').val('');
 	}
 
@@ -832,6 +908,12 @@
 		$('#kunjungan').val('');
 		$('#tanggal').val(tanggalHariIni());
 		$('#anamnesa').val('');
+		$('#tekanan_darah').val('');
+		$('#pernafasan').val('');
+		$('#nadi').val('');
+		$('#suhu_tubuh').val('');
+		$('#tinggi_badan').val('');
+		$('#berat_badan').val('');
 		$('#pemeriksaan').val('');
 		$('#tabel-terapi').empty();
 		$('#tabel-diagnosa').empty();

@@ -285,6 +285,13 @@ public class RekamMedisController {
 			h.setAnamnesa(rekamMedis.getAnamnesa());
 			h.setPemeriksaan(rekamMedis.getPemeriksaan());
 			h.setKunjungan(rekamMedis.getKunjungan());
+			
+			h.setTekananDarah(rekamMedis.getTekananDarah());
+			h.setNadi(rekamMedis.getNadi());
+			h.setSuhuTubuh(rekamMedis.getSuhuTubuh());
+			h.setPernafasan(rekamMedis.getPernafasan());
+			h.setTinggiBadan(rekamMedis.getTinggiBadan());
+			h.setBeratBadan(rekamMedis.getBeratBadan());
 
 			rekamMedisDetailTempService.hapusBatchByNomor(rekamMedis.getNomor());
 			rekamMedisDiagnosaTempService.hapusBatchByNomor(rekamMedis.getNomor());
@@ -301,6 +308,7 @@ public class RekamMedisController {
 				temp.setDiskon(rmd.getDiskon() + "");
 				temp.setPajak(rmd.getPajak() + "");
 				temp.setTipe(rmd.getTipe());
+				temp.setInfo(rmd.getInfo());
 				temp.setTipePenggunaan(stat);
 				temp.setUserInput(principal.getName());
 				temp.setWaktuDibuat(new Date());
@@ -348,6 +356,13 @@ public class RekamMedisController {
 			h.setAnamnesa(rekamMedis.getAnamnesa());
 			h.setPemeriksaan(rekamMedis.getPemeriksaan());
 			h.setKunjungan(rekamMedis.getKunjungan());
+			
+			h.setTekananDarah(rekamMedis.getTekananDarah());
+			h.setNadi(rekamMedis.getNadi());
+			h.setSuhuTubuh(rekamMedis.getSuhuTubuh());
+			h.setPernafasan(rekamMedis.getPernafasan());
+			h.setTinggiBadan(rekamMedis.getTinggiBadan());
+			h.setBeratBadan(rekamMedis.getBeratBadan());
 
 			String tabel = tabelTerapiDetail(rekamMedis.getRekamMedisDetail());
 			String tabelDiagnosa = tabelDiagnosaDetail(rekamMedis.getRekamMedisDiagnosa());
@@ -413,7 +428,6 @@ public class RekamMedisController {
 			
 			for (RekamMedisDetail d : list) {			
 				if (!isBiaya(d.getTipe())) {
-					System.out.println(d.getTerapi());
 					Obat o = getObat(d.getTerapi());
 					if (o.getTipe() == 0) {
 						totalObat = totalObat.add(d.getHargaTotal());
@@ -717,6 +731,7 @@ public class RekamMedisController {
 				t.setPajak("0");
 				t.setJumlah("1");
 				t.setTipe(obat.getTipe());
+				t.setInfo("");
 				if (obat.getTipe() == 1) {
 					Racikan r = racikanService.dapatkanByNama(obat.getNama());
 					t.setHargaJual(Converter.patternCurrency(r.getBiayaRacik().add(r.getHargaJual())));
@@ -763,7 +778,7 @@ public class RekamMedisController {
 			BigDecimal h = new BigDecimal(temp.getHargaJual().replaceAll("[.,]", ""));
 			BigDecimal total = h.multiply(new BigDecimal(j));
 			tersimpan.setHargaTotal(Converter.patternCurrency(total));
-
+			tersimpan.setInfo(temp.getInfo());
 			tersimpan.setUserEditor(principal.getName());
 			tersimpan.setTerakhirDirubah(new Date());
 			rekamMedisDetailTempValidator.validate(tersimpan);
@@ -1143,6 +1158,7 @@ public class RekamMedisController {
 			row += Html.td(t.getTerapi());
 			row += Html.td(t.getJumlah() + "");
 			row += Html.td(t.getHargaTotal());
+			row += Html.td(t.getInfo());
 			btn += Html.aJs("<i class='fa fa-pencil'></i>", "btn btn-primary btn-xs", "onClick",
 					"editTerapi(" + t.getIdObat() + ")", "Edit " + t.getTerapi(), "modal", "#edit-terapi-modal");
 			btn += Html.aJs("<i class='fa fa-trash-o'></i>", "btn btn-danger btn-xs", "onClick",
@@ -1180,6 +1196,7 @@ public class RekamMedisController {
 			if (!StringUtils.equals(t.getTerapi(), "Biaya Resep")) {
 				row += Html.td(t.getTerapi());
 				row += Html.td(t.getJumlah() + "");
+				row += Html.td(t.getInfo());
 				data += Html.tr(row);
 			}
 		}
@@ -1207,10 +1224,10 @@ public class RekamMedisController {
 			row += Html.td(t.getTerapi());
 			row += Html.td(t.getJumlah().toString());
 			row += Html.td(Converter.patternCurrency(t.getHargaTotal()));
+			row += Html.td(t.getInfo());
 			data += Html.tr(row);
 		}
 		html = data;
-		// System.out.println(html);
 		return html;
 	}
 
@@ -1259,6 +1276,14 @@ public class RekamMedisController {
 		rm.setDiagnosa(h.getDiagnosa());
 		rm.setPemeriksaan(h.getPemeriksaan());
 		rm.setKunjungan(h.getKunjungan());
+		
+		rm.setBeratBadan(h.getBeratBadan());
+		rm.setTinggiBadan(h.getTinggiBadan());
+		rm.setTekananDarah(h.getTekananDarah());
+		rm.setNadi(h.getNadi());
+		rm.setPernafasan(h.getPernafasan());
+		rm.setSuhuTubuh(h.getSuhuTubuh());
+		
 		rm.setTanggal(Converter.stringToDate(h.getTanggal()));
 		rm.setTerakhirDirubah(new Date());
 
@@ -1277,6 +1302,7 @@ public class RekamMedisController {
 		rmd.setTipe(t.getTipe());
 		rmd.setTerapi(t.getTerapi());
 		rmd.setTerakhirDirubah(new Date());
+		rmd.setInfo(t.getInfo());
 		return rmd;
 	}
 

@@ -26,6 +26,8 @@ public class QRekamMedis extends EntityPathBase<RekamMedis> {
 
     public final StringPath anamnesa = createString("anamnesa");
 
+    public final StringPath beratBadan = createString("beratBadan");
+
     public final StringPath diagnosa = createString("diagnosa");
 
     public final id.edmaputra.uwati.entity.master.QKaryawan dokter;
@@ -43,20 +45,30 @@ public class QRekamMedis extends EntityPathBase<RekamMedis> {
 
     public final NumberPath<Integer> kunjungan = createNumber("kunjungan", Integer.class);
 
+    public final StringPath nadi = createString("nadi");
+
     public final StringPath nomor = createString("nomor");
 
     public final QPasien pasien;
 
     public final StringPath pemeriksaan = createString("pemeriksaan");
 
+    public final StringPath pernafasan = createString("pernafasan");
+
     public final ListPath<RekamMedisDetail, QRekamMedisDetail> rekamMedisDetail = this.<RekamMedisDetail, QRekamMedisDetail>createList("rekamMedisDetail", RekamMedisDetail.class, QRekamMedisDetail.class, PathInits.DIRECT2);
 
     public final ListPath<RekamMedisDiagnosa, QRekamMedisDiagnosa> rekamMedisDiagnosa = this.<RekamMedisDiagnosa, QRekamMedisDiagnosa>createList("rekamMedisDiagnosa", RekamMedisDiagnosa.class, QRekamMedisDiagnosa.class, PathInits.DIRECT2);
 
+    public final StringPath suhuTubuh = createString("suhuTubuh");
+
     public final DateTimePath<java.util.Date> tanggal = createDateTime("tanggal", java.util.Date.class);
+
+    public final StringPath tekananDarah = createString("tekananDarah");
 
     //inherited
     public final DateTimePath<java.util.Date> terakhirDirubah = _super.terakhirDirubah;
+
+    public final StringPath tinggiBadan = createString("tinggiBadan");
 
     //inherited
     public final StringPath userEditor = _super.userEditor;

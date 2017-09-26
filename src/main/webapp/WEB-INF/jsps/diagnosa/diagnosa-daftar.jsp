@@ -46,66 +46,56 @@
 </div>
 
 
-<div class="modal fade" id="diagnosa-modal" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Diagnosa</h4>
-			</div>
+<div class="modal fade" id="diagnosa-modal" tabindex="-1"
+	style="display: none;" data-focus-on="input:first">
 
-			<form class="form style-form formTambah" method="post">
-				<div class="form-panel">
-					<div class="modal-body">
-						<div class="row">
-							<div class="form-group col-md-3">
-								<label>Kode:</label> <input type="text" name="kode"
-									class="form-control" id="kode" autocomplete="off" />
-							</div>
-							<div class="form-group col-md-9">
-								<label>Nama:</label> <input type="text" name="nama"
-									class="form-control" id="nama" autocomplete="off" />
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default btnKeluar"
-						data-dismiss="modal">Keluar</button>
-					<input type="hidden" name="id" class="form-control" id="ids" /> <input
-						type="submit" class="btn btn-primary" value="Simpan" />
-				</div>
-
-			</form>
-		</div>
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal"
+			aria-hidden="true">&times;</button>
+		<h4 class="modal-title" id="myModalLabel">Diagnosa</h4>
 	</div>
+
+	<form class="form style-form formTambah" method="post">
+		<div class="modal-body">
+			<div class="row">
+				<div class="form-group col-md-3">
+					<label>Kode:</label> <input type="text" name="kode"
+						class="form-control" id="kode" autocomplete="off" />
+				</div>
+				<div class="form-group col-md-9">
+					<label>Nama:</label> <input type="text" name="nama"
+						class="form-control" id="nama" autocomplete="off" />
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default btnKeluar"
+				data-dismiss="modal">Keluar</button>
+			<input type="hidden" name="id" class="form-control" id="ids" /> <input
+				type="submit" class="btn btn-primary" value="Simpan" />
+		</div>
+
+	</form>
 </div>
 
 <div class="modal fade" id="diagnosa-modal-hapus" tabindex="-1"
-	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-sm">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Hapus Tindakan</h4>
-			</div>
-			<div class="form-panel">
-				<div class="modal-body" style="text-align: center;">
-					<p>Apakah Anda Yakin Ingin Menghapus ?</p>
-				</div>
-			</div>
-			<form class="form-horizontal style-form formHapus" method="post">
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default btnKeluar" id="keluarModalHapus" data-dismiss="modal">Tidak</button>
-					<input type="hidden" name="id" class="form-control" id="hapusId" />
-					<input type="submit" class="btn btn-danger" value="Hapus" />
-				</div>
-			</form>
-		</div>
+	style="display: none;" data-width="300">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal"
+			aria-hidden="true">&times;</button>
+		<h4 class="modal-title" id="myModalLabel">Hapus Tindakan</h4>
 	</div>
+	<div class="modal-body" style="text-align: center;">
+		<p>Apakah Anda Yakin Ingin Menghapus ?</p>
+	</div>
+	<form class="form-horizontal style-form formHapus" method="post">
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default btnKeluar"
+				id="keluarModalHapus" data-dismiss="modal">Tidak</button>
+			<input type="hidden" name="id" class="form-control" id="hapusId" />
+			<input type="submit" class="btn btn-danger" value="Hapus" />
+		</div>
+	</form>
 </div>
 
 <div>
@@ -116,7 +106,7 @@
 	var state = 1;
 	$(document).ready(function() {
 		refresh(1, '');
-		
+
 		$('#stringCari').on('keypress', function(e) {
 			if (e.which === 13) {
 				$('#btnCari').click();
@@ -126,7 +116,7 @@
 		$('#btnCari').click(function() {
 			refresh(1, $('#stringCari').val());
 		});
-		
+
 		$('#btnReset').click(function() {
 			refresh(1, '');
 		});
@@ -191,7 +181,7 @@
 		reset();
 		var data = {
 			id : ids
-		};		
+		};
 		$.getAjax('${dapatkan}', data, function(result) {
 			$('#nama').val(result.nama);
 			$('#kode').val(result.kode);

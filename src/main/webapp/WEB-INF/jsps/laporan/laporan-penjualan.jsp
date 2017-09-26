@@ -66,180 +66,173 @@
 					<label>Penjualan</label>
 				</div>
 			</div>
-			<div class="row">				
+			<div class="row">
 				<div class="col-md-12">
 					<h2 id="rekapitulasi" class="pull-right">0</h2>
 				</div>
 			</div>
-			
+
 		</div>
 		<div class="desc">
 			<div class="row">
 				<div class="col-md-12">
-					<button id="button_rekap" class="btn btn-primary" data-toggle="modal" data-target="#penjualan-rekap-modal" style="width: 100%;"><i class="fa fa-medkit" aria-hidden="true"> Obat</i></button>
+					<button id="button_rekap" class="btn btn-primary"
+						data-toggle="modal" data-target="#penjualan-rekap-modal"
+						style="width: 100%;">
+						<i class="fa fa-medkit" aria-hidden="true"> Obat</i>
+					</button>
 				</div>
 			</div>
 		</div>
 		<div class="desc">
 			<div class="row">
 				<div class="col-md-6">
-					<a href="#" class="btn btn-primary" style="width: 100%;"><i class="fa fa-file-excel-o fa-6" aria-hidden="true"> excel</i></a>
+					<a href="#" class="btn btn-primary" style="width: 100%;"><i
+						class="fa fa-file-excel-o fa-6" aria-hidden="true"> excel</i></a>
 				</div>
-				<div class="col-md-6">					
-					<a href="#" class="btn btn-danger" style="width: 100%;"><i class="fa fa-file-pdf-o fa-6" aria-hidden="true"> pdf</i></a>
+				<div class="col-md-6">
+					<a href="#" class="btn btn-danger" style="width: 100%;"><i
+						class="fa fa-file-pdf-o fa-6" aria-hidden="true"> pdf</i></a>
 				</div>
 			</div>
-		</div>		
-	</div>	
-</div>
-
-
-
-<div class="modal fade" id="penjualan-modal" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Laporan</h4>
-			</div>
-			<form class="form style-form" method="post">
-				<div class="form-panel">
-					<div class="modal-body">
-						<div class="row">
-							<div class="form-group col-md-5">
-								<label class="lb-sm">Nomor Faktur</label>
-								<input type="text" readonly="readonly" class="form-control" id="nomor_faktur"/>
-							</div>
-							<div class="form-group col-md-3">
-								<label class="lb-sm">Tanggal</label>
-								<input type="text" readonly="readonly" class="form-control" id="tanggal"/>
-							</div>							
-						</div>
-						<div class="row">
-							<div class="form-group col-md-4">
-								<label class="lb-sm">Kasir</label>
-								<input type="text" readonly="readonly" class="form-control" id="kasir"/>
-							</div>
-							<div class="form-group col-md-4">
-								<label class="lb-sm">Pasien/Pelanggan</label>
-								<input type="text" readonly="readonly" class="form-control" id="pelanggan"/>
-							</div>							
-							<div class="form-group col-md-4">
-								<label class="lb-sm">Dokter</label>
-								<input type="text" readonly="readonly" class="form-control" id="dokter"/>
-							</div>
-						</div>
-						<div class="row">
-							<div class="form-group col-md-2">
-								<label class="lb-sm">Pembelian</label>
-								<input type="text" readonly="readonly" class="form-control input-angka" id="pembelian"/>
-							</div>
-							<div class="form-group col-md-2">
-								<label class="lb-sm">Diskon</label>
-								<input type="text" readonly="readonly" class="form-control input-angka" id="diskon"/>
-							</div>
-							<div class="form-group col-md-2">
-								<label class="lb-sm">Pajak</label>
-								<input type="text" readonly="readonly" class="form-control input-angka" id="pajak"/>
-							</div>
-							<div class="form-group col-md-2">
-								<label class="lb-sm">Total</label>
-								<input type="text" readonly="readonly" class="form-control input-angka" id="pembelian_final"/>
-							</div>
-							<div class="form-group col-md-2">
-								<label class="lb-sm">Pembayaran</label>
-								<input type="text" readonly="readonly" class="form-control input-angka" id="bayar"/>
-							</div>
-							<div class="form-group col-md-2">
-								<label class="lb-sm">Kembali</label>
-								<input type="text" readonly="readonly" class="form-control input-angka" id="kembali"/>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<table class="table table-striped table-advance table-hover" id="tabel_detail" border="1"></table>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default btnKeluar"
-						data-dismiss="modal">Keluar</button>
-					<input type="hidden" name="id" class="form-control" id="ids" /> 
-				</div>
-			</form>
 		</div>
 	</div>
 </div>
 
-<div class="modal fade" id="penjualan-rekap-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Laporan Rekap</h4>
-			</div>
-			<form class="form style-form" method="post">
-				<div class="form-panel">
-					<div class="modal-body">
-						<div class="row">
-							<div class="form-group col-md-5">
-								<label class="lb-sm">Tanggal  Awal</label>
-								<input type="text" readonly="readonly" class="form-control" id="rekap_tanggal_awal"/>
-							</div>	
-							<div class="form-group col-md-5">
-								<label class="lb-sm">Tanggal Akhir</label>
-								<input type="text" readonly="readonly" class="form-control" id="rekap_tanggal_akhir"/>
-							</div>
-<!-- 							<div class="form-group col-md-2"> -->
-<!-- 								<label class="lb-sm">Total Penjualan Obat</label> -->
-<!-- 								<input type="text" readonly="readonly" class="form-control" id="rekap_total_obat"/> -->
-<!-- 							</div> -->
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<table class="table table-striped table-advance table-hover" id="tabel_detail_rekap" border="1"></table>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default btnKeluar"
-						data-dismiss="modal">Keluar</button>
-					<input type="hidden" name="id" class="form-control" id="ids" /> 
-				</div>
-			</form>
-		</div>
+<div class="modal container fade" id="penjualan-modal" tabindex="-1"
+	style="display: none;">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal"
+			aria-hidden="true">&times;</button>
+		<h4 class="modal-title" id="myModalLabel">Laporan</h4>
 	</div>
+	<form class="form style-form" method="post">
+		<div class="modal-body">
+			<div class="row">
+				<div class="form-group col-md-5">
+					<label class="lb-sm">Nomor Faktur</label> <input type="text"
+						readonly="readonly" class="form-control" id="nomor_faktur" />
+				</div>
+				<div class="form-group col-md-3">
+					<label class="lb-sm">Tanggal</label> <input type="text"
+						readonly="readonly" class="form-control" id="tanggal" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-4">
+					<label class="lb-sm">Kasir</label> <input type="text"
+						readonly="readonly" class="form-control" id="kasir" />
+				</div>
+				<div class="form-group col-md-4">
+					<label class="lb-sm">Pasien/Pelanggan</label> <input type="text"
+						readonly="readonly" class="form-control" id="pelanggan" />
+				</div>
+				<div class="form-group col-md-4">
+					<label class="lb-sm">Dokter</label> <input type="text"
+						readonly="readonly" class="form-control" id="dokter" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-2">
+					<label class="lb-sm">Pembelian</label> <input type="text"
+						readonly="readonly" class="form-control input-angka"
+						id="pembelian" />
+				</div>
+				<div class="form-group col-md-2">
+					<label class="lb-sm">Diskon</label> <input type="text"
+						readonly="readonly" class="form-control input-angka" id="diskon" />
+				</div>
+				<div class="form-group col-md-2">
+					<label class="lb-sm">Pajak</label> <input type="text"
+						readonly="readonly" class="form-control input-angka" id="pajak" />
+				</div>
+				<div class="form-group col-md-2">
+					<label class="lb-sm">Total</label> <input type="text"
+						readonly="readonly" class="form-control input-angka"
+						id="pembelian_final" />
+				</div>
+				<div class="form-group col-md-2">
+					<label class="lb-sm">Pembayaran</label> <input type="text"
+						readonly="readonly" class="form-control input-angka" id="bayar" />
+				</div>
+				<div class="form-group col-md-2">
+					<label class="lb-sm">Kembali</label> <input type="text"
+						readonly="readonly" class="form-control input-angka" id="kembali" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<table class="table table-striped table-advance table-hover"
+						id="tabel_detail" border="1"></table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default btnKeluar"
+				data-dismiss="modal">Keluar</button>
+			<input type="hidden" name="id" class="form-control" id="ids" />
+		</div>
+	</form>
+</div>
+
+<div class="modal container fade" id="penjualan-rekap-modal"
+	tabindex="-1" style="display: none;">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal"
+			aria-hidden="true">&times;</button>
+		<h4 class="modal-title" id="myModalLabel">Laporan Rekap</h4>
+	</div>
+	<form class="form style-form" method="post">
+		<div class="modal-body">
+			<div class="row">
+				<div class="form-group col-md-5">
+					<label class="lb-sm">Tanggal Awal</label> <input type="text"
+						readonly="readonly" class="form-control" id="rekap_tanggal_awal" />
+				</div>
+				<div class="form-group col-md-5">
+					<label class="lb-sm">Tanggal Akhir</label> <input type="text"
+						readonly="readonly" class="form-control" id="rekap_tanggal_akhir" />
+				</div>
+				<!-- 							<div class="form-group col-md-2"> -->
+				<!-- 								<label class="lb-sm">Total Penjualan Obat</label> -->
+				<!-- 								<input type="text" readonly="readonly" class="form-control" id="rekap_total_obat"/> -->
+				<!-- 							</div> -->
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<table class="table table-striped table-advance table-hover"
+						id="tabel_detail_rekap" border="1"></table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default btnKeluar"
+				data-dismiss="modal">Keluar</button>
+			<input type="hidden" name="id" class="form-control" id="ids" />
+		</div>
+	</form>
 </div>
 
 <div class="modal fade" id="penjualan-modal-hapus" tabindex="-1"
-	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-sm">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Hapus Pasien</h4>
-			</div>
-			<div class="form-panel">
-				<div class="modal-body">
-					<p>Apakah Anda Yakin Ingin Menghapus ?</p>
-				</div>
-			</div>
-			<form class="form-horizontal style-form formHapus" method="post">
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default btnKeluar"
-						id="keluarModalHapus" data-dismiss="modal">Tidak</button>
-					<input type="hidden" name="id" class="form-control" id="hapusId" />
-					<input type="submit" class="btn btn-danger" value="Hapus" />
-				</div>
-			</form>
-		</div>
+	style="display: none;">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal"
+			aria-hidden="true">&times;</button>
+		<h4 class="modal-title" id="myModalLabel">Hapus Pasien</h4>
 	</div>
+
+	<div class="modal-body" style="text-align: center;">
+		<p>Apakah Anda Yakin Ingin Menghapus ?</p>
+	</div>
+
+	<form class="form-horizontal style-form formHapus" method="post">
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default btnKeluar"
+				id="keluarModalHapus" data-dismiss="modal">Tidak</button>
+			<input type="hidden" name="id" class="form-control" id="hapusId" />
+			<input type="submit" class="btn btn-danger" value="Hapus" />
+		</div>
+	</form>
 </div>
 
 <div>
@@ -269,7 +262,7 @@
 			reset();
 			refresh(1, tipe, tanggalAwal, tanggalAkhir, cari);
 		});
-		
+
 		$('#button_rekap').click(function() {
 			getDataRekap();
 		});
@@ -298,7 +291,7 @@
 			isiFieldFromDataResult(result);
 		}, null);
 	}
-	
+
 	function getDataRekap() {
 		var data = {
 			tanggalAwal : $('#tanggalAwal').val(),
@@ -308,7 +301,7 @@
 		$.getAjax('${daftarRekap}', data, function(result) {
 			$('#rekap_total_obat').val(result.jumlah);
 			$('#rekap_tanggal_awal').val(data.tanggalAwal);
-			$('#rekap_tanggal_akhir').val(data.tanggalAkhir);			
+			$('#rekap_tanggal_akhir').val(data.tanggalAkhir);
 			$('#tabel_detail_rekap').empty();
 			$('#tabel_detail_rekap').append(result.details);
 		}, null);

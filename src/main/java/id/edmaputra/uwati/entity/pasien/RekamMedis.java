@@ -87,6 +87,24 @@ public class RekamMedis extends DasarEntity<Long>{
 	@JoinColumn(name = "id_pasien", nullable = true)
 	@JsonIgnore
 	private Pasien pasien;
+	
+	@Column(name="pernafasan", nullable=true, length = 30)
+	private String pernafasan;
+	
+	@Column(name="tekanan_darah", nullable=true, length = 30)
+	private String tekananDarah;
+	
+	@Column(name="nadi", nullable=true, length = 30)
+	private String nadi;
+	
+	@Column(name="suhu_tubuh", nullable=true, length = 30)
+	private String suhuTubuh;
+	
+	@Column(name="tinggi_badan", nullable=true, length = 30)
+	private String tinggiBadan;
+	
+	@Column(name="berat_badan", nullable=true, length = 30)
+	private String beratBadan;
 
 	public Long getId() {
 		return id;
@@ -202,6 +220,54 @@ public class RekamMedis extends DasarEntity<Long>{
 	
 	public Boolean getIsMasukListResep() {
 		return isMasukListResep;
+	}
+
+	public String getPernafasan() {
+		return pernafasan;
+	}
+
+	public void setPernafasan(String pernafasan) {
+		this.pernafasan = pernafasan;
+	}
+
+	public String getTekananDarah() {
+		return tekananDarah;
+	}
+
+	public void setTekananDarah(String tekananDarah) {
+		this.tekananDarah = tekananDarah;
+	}
+
+	public String getNadi() {
+		return nadi;
+	}
+
+	public void setNadi(String nadi) {
+		this.nadi = nadi;
+	}
+
+	public String getSuhuTubuh() {
+		return suhuTubuh;
+	}
+
+	public void setSuhuTubuh(String suhuTubuh) {
+		this.suhuTubuh = suhuTubuh;
+	}
+
+	public String getTinggiBadan() {
+		return tinggiBadan;
+	}
+
+	public void setTinggiBadan(String tinggiBadan) {
+		this.tinggiBadan = tinggiBadan;
+	}
+
+	public String getBeratBadan() {
+		return beratBadan;
+	}
+
+	public void setBeratBadan(String beratBadan) {
+		this.beratBadan = beratBadan;
 	}
 	
 }
