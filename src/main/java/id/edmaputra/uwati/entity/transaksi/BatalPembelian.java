@@ -27,9 +27,9 @@ import id.edmaputra.uwati.entity.DasarTransaksiEntity;
 import id.edmaputra.uwati.entity.pengguna.Pengguna;
 
 @Entity
-@Table(name = "pembelian", uniqueConstraints = { @UniqueConstraint(columnNames = "id")})
+@Table(name = "batal_pembelian", uniqueConstraints = { @UniqueConstraint(columnNames = "id")})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Pembelian extends DasarTransaksiEntity<Long> {
+public class BatalPembelian extends DasarTransaksiEntity<Long> {
 
 	private static final long serialVersionUID = 7769140999910692567L;
 
@@ -41,9 +41,8 @@ public class Pembelian extends DasarTransaksiEntity<Long> {
     @Column(name = "waktu_transaksi")
 	private Date waktuTransaksi;
 	
-	@ManyToOne
-    @JoinColumn(name = "id_pengguna")
-	private Pengguna pengguna;
+	@Column(name="pengguna", nullable=false, length=DBConf.LENGTH_NAMA_PENGGUNA)
+	private String pengguna;
 	
 	@Column(name="nomor_faktur", nullable=false, length=DBConf.LENGTH_TRANSAKSI_NOMORFAKTUR)	
 	private String nomorFaktur;
@@ -63,8 +62,8 @@ public class Pembelian extends DasarTransaksiEntity<Long> {
 	@Column(name = "supplier")
 	private String supplier;
 	
-	@OneToMany(mappedBy="pembelian", cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.LAZY)
-	private List<PembelianDetail> pembelianDetail;
+	@OneToMany(mappedBy="batalPembelian", cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.LAZY)
+	private List<BatalPembelianDetail> batalPembelianDetail;
 
 	public Long getId() {
 		return id;
@@ -82,11 +81,11 @@ public class Pembelian extends DasarTransaksiEntity<Long> {
 		this.waktuTransaksi = waktuTransaksi;
 	}
 
-	public Pengguna getPengguna() {
+	public String getPengguna() {
 		return pengguna;
 	}
 
-	public void setPengguna(Pengguna pengguna) {
+	public void setPengguna(String pengguna) {
 		this.pengguna = pengguna;
 	}
 
@@ -98,51 +97,12 @@ public class Pembelian extends DasarTransaksiEntity<Long> {
 		this.nomorFaktur = nomorFaktur;
 	}
 
-	public BigDecimal getGrandTotal() {
-		return grandTotal;
+	public BigDecimal getPajak() {
+		return pajak;
 	}
 
-	public void setGrandTotal(BigDecimal grandTotal) {
-		this.grandTotal = grandTotal;
-	}
-
-	public Date getWaktuBerakhir() {
-		return deadline;
-	}
-
-	public void setWaktuBerakhir(Date waktuBerakhir) {
-		this.deadline = waktuBerakhir;
-	}
-
-	public Date getDeadline() {
-		return deadline;
-	}
-
-	public void setDeadline(Date deadline) {
-		this.deadline = deadline;
-	}
-
-	public List<PembelianDetail> getPembelianDetail() {
-		return pembelianDetail;
-	}
-
-	public void setPembelianDetail(List<PembelianDetail> pembelianDxetail) {
-		this.pembelianDetail = pembelianDxetail;
-	}
-
-	public String getSupplier() {
-		return supplier;
-	}
-
-	public void setSupplier(String supplier) {
-		this.supplier = supplier;
-	}
-
-	@Override
-	public String toString() {
-		return "Pembelian [id=" + id + ", waktuTransaksi=" + waktuTransaksi + ", pengguna=" + pengguna
-				+ ", nomorFaktur=" + nomorFaktur + ", grandTotal=" + grandTotal + ", deadline=" + deadline
-				+ ", supplier=" + supplier + ", ]";
+	public void setPajak(BigDecimal pajak) {
+		this.pajak = pajak;
 	}
 
 	public BigDecimal getDiskon() {
@@ -153,12 +113,12 @@ public class Pembelian extends DasarTransaksiEntity<Long> {
 		this.diskon = diskon;
 	}
 
-	public BigDecimal getPajak() {
-		return pajak;
+	public BigDecimal getGrandTotal() {
+		return grandTotal;
 	}
 
-	public void setPajak(BigDecimal pajak) {
-		this.pajak = pajak;
+	public void setGrandTotal(BigDecimal grandTotal) {
+		this.grandTotal = grandTotal;
 	}
 
 	public BigDecimal getTotal() {
@@ -168,6 +128,29 @@ public class Pembelian extends DasarTransaksiEntity<Long> {
 	public void setTotal(BigDecimal total) {
 		this.total = total;
 	}
-	
+
+	public Date getDeadline() {
+		return deadline;
+	}
+
+	public void setDeadline(Date deadline) {
+		this.deadline = deadline;
+	}
+
+	public String getSupplier() {
+		return supplier;
+	}
+
+	public void setSupplier(String supplier) {
+		this.supplier = supplier;
+	}
+
+	public List<BatalPembelianDetail> getBatalPembelianDetail() {
+		return batalPembelianDetail;
+	}
+
+	public void setBatalPembelianDetail(List<BatalPembelianDetail> batalPembelianDetail) {
+		this.batalPembelianDetail = batalPembelianDetail;
+	}
 
 }

@@ -1,4 +1,4 @@
-package id.edmaputra.uwati.controller;
+package id.edmaputra.uwati.controller.transaksi;
 
 import java.math.BigDecimal;
 import java.security.Principal;
@@ -546,8 +546,7 @@ public class PenjualanObatController {
 				BigDecimal total = harga.multiply(new BigDecimal(j));
 				total = total.subtract(diskon);
 				t.setSubTotal(Converter.patternCurrency(total));
-			}
-			// updateStokObat(t.getObat(), "1", 0);
+			}			
 			t.setWaktuDibuat(new Date());
 			t.setTerakhirDirubah(new Date());
 			penjualanDetailTempService.simpan(t);
@@ -582,9 +581,6 @@ public class PenjualanObatController {
 				tersimpan.setDiskon(Converter.patternCurrency(diskon));
 				tersimpan.setTerakhirDirubah(new Date());
 				penjualanDetailTempService.simpan(tersimpan);
-				// updateStokObat(tersimpan.getObat(), jumlahLama.toString(),
-				// 1);
-				// updateStokObat(tersimpan.getObat(), jumlah.toString(), 0);
 			}
 
 			logger.info(LogSupport.tambah(principal.getName(), h.getIdObat(), request));
@@ -604,7 +600,6 @@ public class PenjualanObatController {
 		PenjualanDetailTemp tersimpan = penjualanDetailTempService.dapatkanByRandomIdAndIdObat(h.getRandomId(),
 				h.getIdObat());
 		try {
-			// updateStokObat(tersimpan.getObat(), tersimpan.getJumlah(), 1);
 			penjualanDetailTempService.hapus(tersimpan);
 			logger.info(LogSupport.hapus(principal.getName(), tersimpan.getId() + "", request));
 			h.setInfo(tersimpan.getObat() + " Terhapus");

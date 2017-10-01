@@ -37,5 +37,10 @@
 		<class>id.edmaputra.uwati.entity.pasien.RekamMedisDiagnosaTemp</class>
 		<class>id.edmaputra.uwati.entity.master.obat.Diagnosa</class>
 		<class>id.edmaputra.uwati.entity.pasien.KategoriPasien</class>
+		<class>id.edmaputra.uwati.entity.transaksi.BatalPenjualan</class>
+		<class>id.edmaputra.uwati.entity.transaksi.BatalPenjualanDetail</class>
+		<class>id.edmaputra.uwati.entity.transaksi.BatalPenjualanDetailRacikan</class>
+		<class>id.edmaputra.uwati.entity.transaksi.BatalPembelian</class>
+		<class>id.edmaputra.uwati.entity.transaksi.BatalPembelianDetail</class>
 	</persistence-unit>
 </persistence>

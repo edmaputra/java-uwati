@@ -1,34 +1,23 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://tiles.apache.org/tags-tiles-extras"
-	prefix="tilesx"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%><%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%><%@ taglib uri="http://tiles.apache.org/tags-tiles-extras" prefix="tilesx"%><%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<spring:url value="/static/css/bootstrap.min.css" var="bootstrapMinCss" />
-<spring:url value="/static/css/bootstrap-theme.min.css"
-	var="bootstrapThemeMinCss" />
-<spring:url value="/static/css/uwati.css" var="uwatiCss" />
-<spring:url value="/static/css/style.css" var="styleCss" />
-<spring:url value="/static/css/style-responsive.css"
-	var="styleResponsiveCss" />
+<spring:url value="/static/css/bootstrap.min.css" var="bootstrapMinCss" /><spring:url value="/static/css/bootstrap-theme.min.css" var="bootstrapThemeMinCss" /><spring:url value="/static/css/uwati.css" var="uwatiCss" /> <spring:url value="/static/css/style.css" var="styleCss" />
+<spring:url value="/static/css/style-responsive.css" var="styleResponsiveCss" />
 <spring:url value="/static/css/jquery.gritter.css" var="gritterCss" />
-<spring:url value="/static/css/bootstrap-datepicker3.min.css"
-	var="bootstrapDatePickerCss" />
-<spring:url value="/static/css/jquery.autocomplete.styles.css"
-	var="autoCompleteThemesCss" />
-<spring:url value="/static/css/font-awesome.min.css"
-	var="fontawesomeCss" />
-	
-<spring:url value="/static/baru/bootstrap-modal-patch/css/bootstrap-modal-bs3patch.css"
+<spring:url value="/static/css/bootstrap-datepicker3.min.css" var="bootstrapDatePickerCss" />
+<spring:url value="/static/css/jquery.autocomplete.styles.css" var="autoCompleteThemesCss" />
+<spring:url value="/static/css/font-awesome.min.css" var="fontawesomeCss" />
+
+<spring:url
+	value="/static/baru/bootstrap-modal-patch/css/bootstrap-modal-bs3patch.css"
 	var="bootstrap-modal-3-patch" />
-<spring:url value="/static/baru/bootstrap-modal-patch/css/bootstrap-modal.css"
+<spring:url
+	value="/static/baru/bootstrap-modal-patch/css/bootstrap-modal.css"
 	var="bootstrap-modal" />
-	
+
 <spring:url value="/static/js/jquery-2.1.1.min.js" var="jQuery2" />
 <spring:url value="/static/js/bootstrap.min.js" var="bootstrapJs" />
 <spring:url value="/static/js/uwati.js" var="uwatiJs" />
@@ -62,8 +51,12 @@
 <link href="${gritterCss}" rel="stylesheet" />
 <link href="${bootstrapDatePickerCss}" rel="stylesheet" />
 <link href="${autoCompleteThemesCss}" rel="stylesheet" />
-<link href="/uwati/static/baru/bootstrap-modal-patch/css/bootstrap-modal-bs3patch.css" rel="stylesheet" />
-<link href="/uwati/static/baru/bootstrap-modal-patch/css/bootstrap-modal.css" rel="stylesheet" />
+<link
+	href="/uwati/static/baru/bootstrap-modal-patch/css/bootstrap-modal-bs3patch.css"
+	rel="stylesheet" />
+<link
+	href="/uwati/static/baru/bootstrap-modal-patch/css/bootstrap-modal.css"
+	rel="stylesheet" />
 <script type="text/javascript" src="${jQuery2}"></script>
 <script type="text/javascript" src="${uwatiJs}"></script>
 <title><tiles:getAsString name="title" /></title>
@@ -102,21 +95,17 @@
 			<tiles:insertAttribute name="footer" />
 		</footer>
 	</section>
-	<div class="modal fade" id="pesan-modal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-sm">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">Pesan</h4>
-				</div>
-				<div class="modal-body">
-					<div id="pesan" style="text-align: center;"></div>
-				</div>
-				<div class="modal-footer"></div>
-			</div>
+	<div class="modal fade" id="pesan-modal" tabindex="-1"
+		style="display: none;">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true">&times;</button>
+			<h4 class="modal-title" id="myModalLabel">Pesan</h4>
 		</div>
+		<div class="modal-body">
+			<div id="pesan" style="text-align: center;"></div>
+		</div>
+		<div class="modal-footer"></div>
 	</div>
 	<script type="text/javascript" src="${bootstrapJs}"></script>
 	<script type="text/javascript" src="${jqueryUiCustom}"></script>
@@ -133,9 +122,15 @@
 	<script type="text/javascript" src="${dateFormatJs}"></script>
 	<script type="text/javascript" src="${jqueryautocompleteJs}"></script>
 	<script type="text/javascript" src="${maskMoney}"></script>
-	<spring:url value="/static/baru/bootstrap-modal-patch/js/bootstrap-modal.js" var="bootstrap-modal-js" />
-	<spring:url value="/static/baru/bootstrap-modal-patch/js/bootstrap-modalmanager.js" var="bootstrap-modalmanager-js" />
-	<script type="text/javascript" src="/uwati/static/baru/bootstrap-modal-patch/js/bootstrap-modal.js"></script>
-	<script type="text/javascript" src="/uwati/static/baru/bootstrap-modal-patch/js/bootstrap-modalmanager.js"></script>
+	<spring:url
+		value="/static/baru/bootstrap-modal-patch/js/bootstrap-modal.js"
+		var="bootstrap-modal-js" />
+	<spring:url
+		value="/static/baru/bootstrap-modal-patch/js/bootstrap-modalmanager.js"
+		var="bootstrap-modalmanager-js" />
+	<script type="text/javascript"
+		src="/uwati/static/baru/bootstrap-modal-patch/js/bootstrap-modal.js"></script>
+	<script type="text/javascript"
+		src="/uwati/static/baru/bootstrap-modal-patch/js/bootstrap-modalmanager.js"></script>
 </body>
 </html>

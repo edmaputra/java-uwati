@@ -1,8 +1,9 @@
 package id.edmaputra.uwati.entity.transaksi;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -18,46 +20,43 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import id.edmaputra.uwati.config.DBConf;
 import id.edmaputra.uwati.entity.DasarTransaksiEntity;
 
 @Entity
-@Table(name = "pembelian_detail", uniqueConstraints = { @UniqueConstraint(columnNames = "id")})
+@Table(name = "batal_penjualan_detail", uniqueConstraints = { @UniqueConstraint(columnNames = "id")})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class PembelianDetail extends DasarTransaksiEntity<Long> {
+public class BatalPenjualanDetail extends DasarTransaksiEntity<Long> {
 
-	private static final long serialVersionUID = -8422941488327899895L;
-
+	private static final long serialVersionUID = 3548899586680273181L;
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private Long id;
-
-	@Column(nullable = false, name = "obat")
+	
+	@Column(nullable=false, name = "obat", length = DBConf.LENGTH_NAMA) 
 	private String obat;
-
-	@Column(nullable = false)	
+	
+	@Column(nullable=false)	
 	private Integer jumlah;
 		
 	private BigDecimal hargaJual;
 	
-	private BigDecimal hargaJualResep;
-	
-	private BigDecimal hargaBeli;
-
-	@Column(columnDefinition="Decimal(19,2) default 0")
 	private BigDecimal diskon;
-
+	
 	private BigDecimal pajak;
-
-	private BigDecimal subTotal;
-
-	private Date tanggalKadaluarsa;
+		
+	private BigDecimal hargaTotal;
+	
+	private Boolean isRacikan;
+	
+	@OneToMany(mappedBy="batalPenjualanDetail", cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.EAGER)
+	private List<BatalPenjualanDetailRacikan> batalPenjualanDetailRacikan;		
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_pembelian")
+	@JoinColumn(name="id_penjualan")
 	@JsonIgnore
-	private Pembelian pembelian;
-
-	private Boolean isReturned;
+	private BatalPenjualan batalPenjualan;
 
 	public Long getId() {
 		return id;
@@ -91,22 +90,6 @@ public class PembelianDetail extends DasarTransaksiEntity<Long> {
 		this.hargaJual = hargaJual;
 	}
 
-	public BigDecimal getHargaJualResep() {
-		return hargaJualResep;
-	}
-
-	public void setHargaJualResep(BigDecimal hargaJualResep) {
-		this.hargaJualResep = hargaJualResep;
-	}
-
-	public BigDecimal getHargaBeli() {
-		return hargaBeli;
-	}
-
-	public void setHargaBeli(BigDecimal hargaBeli) {
-		this.hargaBeli = hargaBeli;
-	}
-
 	public BigDecimal getDiskon() {
 		return diskon;
 	}
@@ -123,35 +106,36 @@ public class PembelianDetail extends DasarTransaksiEntity<Long> {
 		this.pajak = pajak;
 	}
 
-	public BigDecimal getSubTotal() {
-		return subTotal;
+	public BigDecimal getHargaTotal() {
+		return hargaTotal;
 	}
 
-	public void setSubTotal(BigDecimal subTotal) {
-		this.subTotal = subTotal;
+	public void setHargaTotal(BigDecimal hargaTotal) {
+		this.hargaTotal = hargaTotal;
 	}
 
-	public Date getTanggalKadaluarsa() {
-		return tanggalKadaluarsa;
+	public Boolean getIsRacikan() {
+		return isRacikan;
 	}
 
-	public void setTanggalKadaluarsa(Date tanggalKadaluarsa) {
-		this.tanggalKadaluarsa = tanggalKadaluarsa;
+	public void setIsRacikan(Boolean isRacikan) {
+		this.isRacikan = isRacikan;
 	}
 
-	public Pembelian getPembelian() {
-		return pembelian;
+	public List<BatalPenjualanDetailRacikan> getBatalPenjualanDetailRacikan() {
+		return batalPenjualanDetailRacikan;
 	}
 
-	public void setPembelian(Pembelian pembelian) {
-		this.pembelian = pembelian;
+	public void setBatalPenjualanDetailRacikan(List<BatalPenjualanDetailRacikan> racikanDetailBatal) {
+		this.batalPenjualanDetailRacikan = racikanDetailBatal;
 	}
 
-	public Boolean getIsReturned() {
-		return isReturned;
+	public BatalPenjualan getBatalPenjualan() {
+		return batalPenjualan;
 	}
 
-	public void setIsReturned(Boolean isReturned) {
-		this.isReturned = isReturned;
+	public void setBatalPenjualan(BatalPenjualan penjualanBatal) {
+		this.batalPenjualan = penjualanBatal;
 	}
+
 }

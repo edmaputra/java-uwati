@@ -1,5 +1,6 @@
 package id.edmaputra.uwati.config;
 
+import java.util.List;
 import java.util.Properties;
 
 import javax.sql.DataSource;
@@ -21,6 +22,8 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView;
+
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "id.edmaputra.uwati.repository")
@@ -85,6 +88,26 @@ public class UwatiAppConfiguration {
 		JasperReportsPdfView v = new JasperReportsPdfView();
 		v.setUrl("classpath:reports/struk_penjualan.jasper");
 		v.setReportDataKey("datasource");
+		return v;
+	}
+	
+	@Bean
+	@Qualifier("laporanPenjualanPdf")
+	public JasperReportsPdfView getLaporanPenjualan() {
+		JasperReportsPdfView v = new JasperReportsPdfView();
+		v.setUrl("classpath:reports/LaporanPenjualan1.jasper");
+		v.setReportDataKey("datasource");
+//		v.setSubReportUrls(new Pro);
+//		v.setSubReportDataKeys("dataSourceSubReportObat");		
+		return v;
+	}
+	
+	@Bean
+	@Qualifier("dataSourceSubReportLaporanPenjualan")
+	public JasperReportsPdfView getLaporanPenjualanSubReportObat() {
+		JasperReportsPdfView v = new JasperReportsPdfView();
+		v.setUrl("classpath:reports/LaporanPenjualanObat.jasper");
+		v.setReportDataKey("dataSourceSubReportObat");
 		return v;
 	}
 

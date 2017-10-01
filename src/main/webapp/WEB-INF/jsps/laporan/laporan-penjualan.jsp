@@ -5,8 +5,11 @@
 
 <c:url var="dapatkan" value="/laporan/penjualan/dapatkan" />
 <c:url var="daftar" value="/laporan/penjualan/daftar" />
+<c:url var="batal" value="/laporan/penjualan/batal" />
 
 <c:url var="daftarRekap" value="/laporan/penjualan/dapatkan-rekap" />
+
+<c:url var="pdfUrl" value="/laporan/penjualan/pdf" />
 
 <div class="row">
 	<div class="col-lg-9">
@@ -38,11 +41,13 @@
 								placeholder="Pencarian" style="width: 150px" />
 						</div>
 						<div class="form-group">
-							<button type="button" class="btn btn-primary" id="btnCari"
-								style="width: 80px">Filter</button>
+							<a class="btn btn-primary" id="btnCari" style="width: 80px;">Filter</a>
+							<!-- 							<button type="button" class="btn btn-primary" id="btnCari" -->
+							<!-- 								style="width: 80px">Filter</button> -->
 						</div>
 						<div class="form-group">
-							<button type="button" class="btn btn-default" id="btnReset">Reset</button>
+							<a class="btn btn-default" id="btnReset">Reset</a>
+							<!-- 							<button type="button" class="btn btn-default" id="btnReset">Reset</button> -->
 						</div>
 					</form>
 				</div>
@@ -90,10 +95,15 @@
 					<a href="#" class="btn btn-primary" style="width: 100%;"><i
 						class="fa fa-file-excel-o fa-6" aria-hidden="true"> excel</i></a>
 				</div>
-				<div class="col-md-6">
-					<a href="#" class="btn btn-danger" style="width: 100%;"><i
-						class="fa fa-file-pdf-o fa-6" aria-hidden="true"> pdf</i></a>
-				</div>
+				<form action="${pdfUrl}" class="form-horizontal" method="POST">
+					<div class="col-md-6">
+						<input type="hidden" name="id" class="form-control" id="cetakId"
+							value="1" /> <input type="submit" id="cetak"
+							class="btn btn-primary" value="cetak">
+						<!-- 						<a href="#" class="btn btn-danger" style="width: 100%;"><i -->
+						<!-- 							class="fa fa-file-pdf-o fa-6" aria-hidden="true"> pdf</i></a> -->
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -213,24 +223,25 @@
 	</form>
 </div>
 
-<div class="modal fade" id="penjualan-modal-hapus" tabindex="-1"
-	style="display: none;">
+<div class="modal fade" id="batal-modal" tabindex="-1" style="display: none;">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal"
 			aria-hidden="true">&times;</button>
-		<h4 class="modal-title" id="myModalLabel">Hapus Pasien</h4>
+		<h4 class="modal-title" id="myModalLabel">Batalkan Penjualan</h4>
 	</div>
-
-	<div class="modal-body" style="text-align: center;">
-		<p>Apakah Anda Yakin Ingin Menghapus ?</p>
+	
+	<form class="form style-form form-batal" method="post">
+	<div class="modal-body">
+		<div class="form-group">
+			<label class="lb-sm">Isi Alasan Pembatalan :</label> 
+			<input type="text" class="form-control" id="info_batal" name="info_batal" />
+		</div>
 	</div>
-
-	<form class="form-horizontal style-form formHapus" method="post">
 		<div class="modal-footer">
 			<button type="button" class="btn btn-default btnKeluar"
 				id="keluarModalHapus" data-dismiss="modal">Tidak</button>
 			<input type="hidden" name="id" class="form-control" id="hapusId" />
-			<input type="submit" class="btn btn-danger" value="Hapus" />
+			<input type="submit" class="btn btn-danger" value="Batal" />
 		</div>
 	</form>
 </div>
@@ -266,20 +277,35 @@
 		$('#button_rekap').click(function() {
 			getDataRekap();
 		});
-
-		$(".formHapus").submit(function(e) {
-			e.preventDefault();
-			var data = {};
-			data['id'] = $('#hapusId').val();
-			$.postJSON('${hapus}', data, function(result) {
-				refresh();
-				$('#keluarModalHapus').click();
-				$('#gritter-hapus-sukses').click();
-			}, function(e) {
-				$('#gritter-hapus-sukses').click();
-				$('#keluarModalHapus').click();
-				refresh();
-			});
+		
+		$(".form-batal").validate({
+			rules : {
+				info_batal : {
+					required : true
+				}
+			},
+			messages : {
+				info_batal : {
+					required : "Harap Isi Alasan Pembatalan"
+				}
+			},
+			submitHandler : function(form) {
+				var data = {};
+				data['id'] = $('#hapusId').val();
+				data['info'] = $('#info_batal').val();				
+				resetBatal();
+				$.postJSON('${batal}', data, function(result) {					
+					$('#keluarModalHapus').click();
+					$('#gritter-hapus-sukses').click();
+					reset();
+					refresh(1, tipe, tanggalAwal, tanggalAkhir, cari);
+				}, function(e) {
+					$('#keluarModalHapus').click();
+					$('#gritter-hapus-sukses').click();
+					reset();
+					refresh(1, tipe, tanggalAwal, tanggalAkhir, cari);
+				});
+			}
 		});
 	});
 
@@ -355,5 +381,9 @@
 		$('#tanggalAwal').val(tanggalAwal);
 		$('#tanggalAkhir').val(tanggalAkhir);
 		$('#cari').val(cari);
+	}
+	
+	function resetBatal(){
+		$('#info_batal').val('');
 	}
 </script>

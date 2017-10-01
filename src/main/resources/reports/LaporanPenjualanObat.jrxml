@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LaporanPenjualanObat" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f0275281-19b8-4ea8-a2d5-2c4034c9debd">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="obat" class="java.lang.String"/>
+	<field name="hargaJual" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="401" height="20" uuid="538cadf2-1c5b-48d1-b37c-87dea81af8e3"/>
+				<text><![CDATA[obat]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="401" y="0" width="401" height="20" uuid="cdac68f1-574c-4d18-89a2-7b96ec7e187d"/>
+				<text><![CDATA[hargaJual]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="401" height="20" uuid="554853f1-2709-4fbb-b168-a77a650b2717"/>
+				<textFieldExpression><![CDATA[$F{obat}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="401" y="0" width="401" height="20" uuid="6fb3d991-c974-4078-a1f8-97e13d48a816"/>
+				<textFieldExpression><![CDATA[$F{hargaJual}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

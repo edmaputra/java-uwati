@@ -27,7 +27,8 @@ public class THead {
 			+ "<th>Kasir</th>"
 			+ "<th>Dokter</th>"
 			+ "<th>Total Pembelian</th>"
-			+ "<th></th>"
+			+ "<th>Detail</th>"
+			+ "<th>Batal</th>"
 			+ "</tr></thead>";
 	
 	public static final String THEAD_PENJUALAN_DETAIL = "<thead><tr>" 
@@ -50,7 +51,8 @@ public class THead {
 			+ "<th>Supplier</th>"
 			+ "<th>Nomor Faktur</th>"			
 			+ "<th>Total Pembelian</th>"
-			+ "<th></th>"
+			+ "<th>Detail</th>"
+			+ "<th>Batal</th>"
 			+ "</tr></thead>";
 	
 	public static final String THEAD_PEMBELIAN_DETAIL = "<thead><tr>" 

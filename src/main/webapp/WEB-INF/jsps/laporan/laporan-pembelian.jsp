@@ -5,8 +5,10 @@
 
 <c:url var="dapatkan" value="/laporan/pembelian/dapatkan" />
 <c:url var="daftar" value="/laporan/pembelian/daftar" />
-
+<c:url var="batal" value="/laporan/pembelian/batal" />
 <c:url var="daftarRekap" value="/laporan/pembelian/dapatkan-rekap" />
+
+
 
 <div class="row">
 	<div class="col-lg-9">
@@ -185,22 +187,25 @@
 	</form>
 </div>
 
-<div class="modal fade" id="penjualan-modal-hapus" tabindex="-1"
-	style="display: none;">
+<div class="modal fade" id="batal-modal" tabindex="-1" style="display: none;">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal"
 			aria-hidden="true">&times;</button>
-		<h4 class="modal-title" id="myModalLabel">Hapus</h4>
+		<h4 class="modal-title" id="myModalLabel">Batalkan Pembelian</h4>
 	</div>
-	<div class="modal-body" style="text-align: center;">
-		<p>Apakah Anda Yakin Ingin Menghapus ?</p>
+	
+	<form class="form style-form form-batal" method="post">
+	<div class="modal-body">
+		<div class="form-group">
+			<label class="lb-sm">Isi Alasan Pembatalan :</label> 
+			<input type="text" class="form-control" id="info_batal" name="info_batal" />
+		</div>
 	</div>
-	<form class="form-horizontal style-form formHapus" method="post">
 		<div class="modal-footer">
 			<button type="button" class="btn btn-default btnKeluar"
 				id="keluarModalHapus" data-dismiss="modal">Tidak</button>
 			<input type="hidden" name="id" class="form-control" id="hapusId" />
-			<input type="submit" class="btn btn-danger" value="Hapus" />
+			<input type="submit" class="btn btn-danger" value="Batal" />
 		</div>
 	</form>
 </div>
@@ -235,19 +240,34 @@
 			getDataRekap();
 		});
 
-		$(".formHapus").submit(function(e) {
-			e.preventDefault();
-			var data = {};
-			data['id'] = $('#hapusId').val();
-			$.postJSON('${hapus}', data, function(result) {
-				refresh();
-				$('#keluarModalHapus').click();
-				$('#gritter-hapus-sukses').click();
-			}, function(e) {
-				$('#gritter-hapus-sukses').click();
-				$('#keluarModalHapus').click();
-				refresh();
-			});
+		$(".form-batal").validate({
+			rules : {
+				info_batal : {
+					required : true
+				}
+			},
+			messages : {
+				info_batal : {
+					required : "Harap Isi Alasan Pembatalan"
+				}
+			},
+			submitHandler : function(form) {
+				var data = {};
+				data['id'] = $('#hapusId').val();
+				data['info'] = $('#info_batal').val();				
+				resetBatal();
+				$.postJSON('${batal}', data, function(result) {					
+					$('#keluarModalHapus').click();
+					$('#gritter-hapus-sukses').click();
+					reset();
+					refresh(1, tanggalAwal, tanggalAkhir, cari);
+				}, function(e) {
+					$('#keluarModalHapus').click();
+					$('#gritter-hapus-sukses').click();
+					reset();
+					refresh(1, tanggalAwal, tanggalAkhir, cari);
+				});
+			}
 		});
 	});
 
@@ -312,9 +332,12 @@
 		tanggalAwal = tanggalHariIni();
 		tanggalAkhir = '';
 		cari = '';
-		$('#tipe').val(tipe);
 		$('#tanggalAwal').val(tanggalAwal);
 		$('#tanggalAkhir').val(tanggalAkhir);
 		$('#cari').val(cari);
+	}
+	
+	function resetBatal(){
+		$('#info_batal').val('');
 	}
 </script>

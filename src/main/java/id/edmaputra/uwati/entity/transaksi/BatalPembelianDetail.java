@@ -21,9 +21,9 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import id.edmaputra.uwati.entity.DasarTransaksiEntity;
 
 @Entity
-@Table(name = "pembelian_detail", uniqueConstraints = { @UniqueConstraint(columnNames = "id")})
+@Table(name = "batal_pembelian_detail", uniqueConstraints = { @UniqueConstraint(columnNames = "id")})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class PembelianDetail extends DasarTransaksiEntity<Long> {
+public class BatalPembelianDetail extends DasarTransaksiEntity<Long> {
 
 	private static final long serialVersionUID = -8422941488327899895L;
 
@@ -55,7 +55,7 @@ public class PembelianDetail extends DasarTransaksiEntity<Long> {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_pembelian")
 	@JsonIgnore
-	private Pembelian pembelian;
+	private BatalPembelian batalPembelian;
 
 	private Boolean isReturned;
 
@@ -139,12 +139,12 @@ public class PembelianDetail extends DasarTransaksiEntity<Long> {
 		this.tanggalKadaluarsa = tanggalKadaluarsa;
 	}
 
-	public Pembelian getPembelian() {
-		return pembelian;
+	public BatalPembelian getBatalPembelian() {
+		return batalPembelian;
 	}
 
-	public void setPembelian(Pembelian pembelian) {
-		this.pembelian = pembelian;
+	public void setBatalPembelian(BatalPembelian batalPembelian) {
+		this.batalPembelian = batalPembelian;
 	}
 
 	public Boolean getIsReturned() {
