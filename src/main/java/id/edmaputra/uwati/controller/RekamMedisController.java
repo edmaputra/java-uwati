@@ -642,14 +642,18 @@ public class RekamMedisController {
 		}
 	}
 
-	@RequestMapping(value = "/rekammedis/hapus", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "/rekammedis/hapus", method = RequestMethod.POST)
 	@ResponseBody
 	public RekamMedisHandler hapus(@RequestBody RekamMedisHandler temp, BindingResult result, Principal principal,
 			HttpServletRequest request) {
-		RekamMedis rm = getRekamMedis(new Long(temp.getId()));
+		RekamMedis rm = rekamMedisService.dapatkan(new Long(temp.getId()));
 		try {
 			rekamMedisDetailService.hapusBatch(rm);
+			logger.info("Rekam Medis Detail Terhapus");
+			rekamMedisDiagnosaService.hapusBatch(rm);
+			logger.info("Rekam Medis Diagnosa Terhapus");
 			rekamMedisService.hapus(rm);
+			logger.info("Rekam Medis Terhapus");
 			logger.info(LogSupport.hapus(principal.getName(), temp.getId() + "", request));
 			temp.setInfo(temp.getId() + " Terhapus");
 			return temp;

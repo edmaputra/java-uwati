@@ -42,21 +42,19 @@ import id.edmaputra.uwati.entity.master.obat.RacikanDetail;
 import id.edmaputra.uwati.entity.transaksi.BatalPenjualan;
 import id.edmaputra.uwati.entity.transaksi.BatalPenjualanDetail;
 import id.edmaputra.uwati.entity.transaksi.BatalPenjualanDetailRacikan;
-import id.edmaputra.uwati.entity.transaksi.Pembelian;
-import id.edmaputra.uwati.entity.transaksi.PembelianDetail;
 import id.edmaputra.uwati.entity.transaksi.Penjualan;
 import id.edmaputra.uwati.entity.transaksi.PenjualanDetail;
 import id.edmaputra.uwati.entity.transaksi.PenjualanDetailRacikan;
 import id.edmaputra.uwati.reports.RPenjualan;
 import id.edmaputra.uwati.reports.RPenjualanDetail;
 import id.edmaputra.uwati.reports.Struk;
+import id.edmaputra.uwati.service.ApotekService;
 import id.edmaputra.uwati.service.obat.ObatDetailService;
 import id.edmaputra.uwati.service.obat.ObatExpiredService;
 import id.edmaputra.uwati.service.obat.ObatService;
 import id.edmaputra.uwati.service.obat.ObatStokService;
 import id.edmaputra.uwati.service.obat.RacikanDetailService;
 import id.edmaputra.uwati.service.obat.RacikanService;
-import id.edmaputra.uwati.service.transaksi.BatalPenjualanDetailService;
 import id.edmaputra.uwati.service.transaksi.BatalPenjualanService;
 import id.edmaputra.uwati.service.transaksi.PenjualanDetailService;
 import id.edmaputra.uwati.service.transaksi.PenjualanService;
@@ -68,7 +66,6 @@ import id.edmaputra.uwati.view.Html;
 import id.edmaputra.uwati.view.HtmlElement;
 import id.edmaputra.uwati.view.THead;
 import id.edmaputra.uwati.view.Table;
-import id.edmaputra.uwati.view.handler.PenjualanDetailHandler;
 import id.edmaputra.uwati.view.handler.PenjualanHandler;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -79,6 +76,9 @@ public class LaporanPenjualanController {
 
 	private static final Logger logger = LoggerFactory.getLogger(LaporanPenjualanController.class);
 
+	@Autowired
+	private ApotekService apotekService;
+	
 	@Autowired
 	private PenjualanService penjualanService;
 
@@ -105,6 +105,10 @@ public class LaporanPenjualanController {
 
 	@Autowired
 	private RacikanDetailService racikanDetailService;
+	
+	@Autowired
+	@Qualifier("strukPenjualanPdf")
+	private JasperReportsPdfView strukPenjualan;
 	
 	@Autowired 
 	@Qualifier("laporanPenjualanPdf")
@@ -189,6 +193,58 @@ public class LaporanPenjualanController {
 			return null;
 		}
 	}
+	
+	@RequestMapping(value = "/excel-all", method = RequestMethod.GET)	
+	public ModelAndView excelAll() {
+		try {
+			List<Penjualan> penjualans = penjualanService.dapatkanSemua();
+			return new ModelAndView("penjualanExcel","penjualanList", penjualans);
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+			return null;
+		}
+	}
+	
+	@RequestMapping(value = "/excel", method = RequestMethod.GET)	
+	public ModelAndView excel(@RequestParam(value = "hal", defaultValue = "1", required = false) Integer halaman,
+			@RequestParam(value = "tipe", defaultValue = "1", required = false) Integer tipe,
+			@RequestParam(value = "tanggalAwal", defaultValue = "", required = false) String tanggalAwal,
+			@RequestParam(value = "tanggalAkhir", defaultValue = "", required = false) String tanggalAkhir,
+			@RequestParam(value = "cari", defaultValue = "", required = false) String cari, HttpServletRequest request,
+			HttpServletResponse response) {
+		try {
+			PenjualanPredicateBuilder builder = new PenjualanPredicateBuilder();
+
+			if (StringUtils.isNotBlank(tanggalAwal) || StringUtils.isNotBlank(tanggalAkhir)) {
+				Date awal = Converter.stringToDate(tanggalAwal);
+				if (StringUtils.isBlank(tanggalAkhir)) {
+					builder.tanggal(awal, awal);
+				} else if (StringUtils.isNotBlank(tanggalAkhir)) {
+					Date akhir = Converter.stringToDate(tanggalAkhir);
+					if (awal.compareTo(akhir) > 0) {
+						builder.tanggal(akhir, awal);
+					} else if (awal.compareTo(akhir) < 0) {
+						builder.tanggal(awal, akhir);
+					}
+				}
+			}
+
+			if (tipe != -1) {
+				builder.tipe(tipe);
+			}
+
+			if (!StringUtils.isBlank(cari)) {
+				builder.cari(cari);
+			}
+
+			BooleanExpression exp = builder.getExpression();
+			List<Penjualan> penjualans = penjualanService.dapatkanList(exp);
+			return new ModelAndView("penjualanExcel","penjualanList", penjualans);
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+			return null;
+		}
+	}
 
 	private String tabelGenerator(Page<Penjualan> list, HttpServletRequest request) {
 		String html = "";
@@ -204,6 +260,8 @@ public class LaporanPenjualanController {
 			row += Html.td(Formatter.patternCurrency(p.getGrandTotal()));			
 			btn += Html.button("btn btn-primary btn-xs btnEdit", "modal", "#penjualan-modal", "onClick",
 					"getData(" + p.getId() + ")", 0, "Detail Penjualan " + p.getNomorFaktur());
+			btn += Html.button("btn btn-default btn-xs", null, null, "onClick",
+					"setIdUntukCetakResi(" + p.getId() + ")", 4, "Cetak Resi Penjualan " + p.getNomorFaktur());
 			btn += Html.td(Html.button("btn btn-danger btn-xs btnEdit", "modal", "#batal-modal", "onClick",
 					"setIdUntukHapus(" + p.getId() + ")", 1, "Batal Penjualan " + p.getNomorFaktur()));
 			// btn += Html.button("btn btn-danger btn-xs", "modal",
@@ -299,6 +357,66 @@ public class LaporanPenjualanController {
 			return batal;
 		} catch (Exception e) {
 			logger.info(e.getMessage());
+			return null;
+		}
+	}
+	
+	@RequestMapping(value = "/resi", method = RequestMethod.POST)
+	public ModelAndView buatResiDanCetakPenjualan(@RequestParam("id") String id, ModelAndView mav,
+			Principal principal) {
+		try {
+			List<Struk> struks = new ArrayList<>();
+			Map<String, Object> parameterMap = new HashMap<String, Object>();
+			Apotek apotek = apotekService.semua().get(0);
+			BigDecimal grandTotal = new BigDecimal(0);
+			Penjualan penjualan = penjualanService.dapatkan(new Long(id));
+			List<PenjualanDetail> list = penjualanDetailService.dapatkanByPenjualan(penjualan);
+
+			for (PenjualanDetail d : list) {
+				Struk struk = new Struk();
+				struk.setStrukNamaApotek(apotek.getNama());
+				struk.setStrukAlamatApotek(apotek.getAlamat() + "\n" + apotek.getTelepon());
+				struk.setStrukTanggal(Converter.dateToString(penjualan.getWaktuTransaksi()));
+				struk.setStrukNomorFaktur(penjualan.getNomorFaktur());
+				struk.setStrukOperator(penjualan.getPengguna());
+				struk.setStrukPelanggan(penjualan.getPelanggan());
+
+				struk.setStrukNamaObat(d.getObat());
+				struk.setStrukJumlahObat(d.getJumlah().toString() + " x");
+				struk.setStrukHargaObat(Converter.patternCurrency(d.getHargaJual()));
+				BigDecimal subTotal = d.getHargaTotal();
+				struk.setStrukSubTotalObat(Converter.patternCurrency(subTotal));
+				grandTotal = grandTotal.add(subTotal);
+
+				BigDecimal total = penjualan.getGrandTotal().add(penjualan.getDiskon());
+				total = total.subtract(penjualan.getPajak());
+
+				struk.setStrukTotal(Converter.patternCurrency(total));
+
+				BigDecimal p = penjualan.getPajak();
+				BigDecimal di = penjualan.getDiskon();
+				BigDecimal t = grandTotal.add(p);
+				t = t.subtract(di);
+
+				struk.setStrukPajak(Converter.patternCurrency(p));
+				struk.setStrukDiskon(Converter.patternCurrency(di));
+
+				struk.setStrukGrandTotal(Converter.patternCurrency(t));
+				struk.setStrukBayar(Converter.patternCurrency(penjualan.getBayar()));
+				struk.setStrukKembali(Converter.patternCurrency(penjualan.getKembali()));
+
+				struks.add(struk);
+			}
+
+			JRDataSource JRdataSource = new JRBeanCollectionDataSource(struks);			
+
+			parameterMap.put("datasource", JRdataSource);
+
+			mav = new ModelAndView(strukPenjualan, parameterMap);
+			return mav;
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+			System.out.println(e.getMessage());
 			return null;
 		}
 	}

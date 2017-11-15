@@ -47,5 +47,29 @@ public class PasienPredicateBuilder {
 			hasil = hasil.and(QPasien.pasien.id.eq(id));
 		}
 	}
+	
+	public void identitas(String cari){
+		if (hasil == null){
+			hasil = QPasien.pasien.identitas.containsIgnoreCase(cari);
+		} else {
+			hasil = hasil.and(QPasien.pasien.identitas.containsIgnoreCase(cari));
+		}
+	}
+	
+	public void nomorJaminanKesehatan(String cari){
+		if (hasil == null){
+			hasil = QPasien.pasien.nomorJaminanKesehatan.containsIgnoreCase(cari);
+		} else {
+			hasil = hasil.and(QPasien.pasien.nomorJaminanKesehatan.containsIgnoreCase(cari));
+		}
+	}
+	
+	public void kontak(String cari){
+		if (hasil == null){
+			hasil = QPasien.pasien.kontak.containsIgnoreCase(cari);
+		} else {
+			hasil = hasil.and(QPasien.pasien.kontak.containsIgnoreCase(cari));
+		}
+	}
 
 }

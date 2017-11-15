@@ -1,4 +1,4 @@
-package id.edmaputra.uwati.controller.transaksi;
+package id.edmaputra.uwati.controller;
 
 import java.math.BigDecimal;
 import java.security.Principal;
@@ -441,7 +441,7 @@ public class PenjualanObatController {
 				struks.add(struk);
 			}
 
-			JRDataSource JRdataSource = new JRBeanCollectionDataSource(struks);
+			JRDataSource JRdataSource = new JRBeanCollectionDataSource(struks);			
 
 			parameterMap.put("datasource", JRdataSource);
 

@@ -89,8 +89,17 @@ public class PasienController {
 			HtmlElement el = new HtmlElement();
 
 			PasienPredicateBuilder builder = new PasienPredicateBuilder();
-			if (!StringUtils.isBlank(cari)) {				
-				builder.cari(cari);
+			if (!StringUtils.isBlank(cari)) {
+//				if (StringUtils.isNumeric(cari)){
+//					System.out.println("Numeric "+cari);					
+//					builder.kontak(cari);					
+//					builder.nomorJaminanKesehatan(cari);
+//					builder.identitas(cari);
+//					builder.id(new Long(cari));
+//				} else {
+//					System.out.println("No Numeric");
+					builder.cari(cari);
+//				}
 			}
 			
 			if (kategori != -1) {				
@@ -149,6 +158,8 @@ public class PasienController {
 			pasien.setUserInput(principal.getName());
 			pasien.setWaktuDibuat(new Date());	
 			pasien.setTerakhirDirubah(new Date());
+			
+			pasien.setId(idGenerator(pasienService.dapatkanSemua()));
 			
 			pasienValidator.validate(pasien);
 			pasienService.simpan(pasien);
@@ -369,6 +380,16 @@ public class PasienController {
 		Hibernate.initialize(get.getRekamMedisDetail());
 
 		return get;
+	}
+	
+	private Long idGenerator(List<Pasien> pasiens){
+		Long id = new Long(0);
+		for (Pasien p : pasiens){
+			if (p.getId() > id){
+				id = p.getId();
+			}
+		}
+		return id+1;
 	}
 	
 	

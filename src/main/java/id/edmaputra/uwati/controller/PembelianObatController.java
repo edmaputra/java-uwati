@@ -1,4 +1,4 @@
-package id.edmaputra.uwati.controller.transaksi;
+package id.edmaputra.uwati.controller;
 
 import java.math.BigDecimal;
 import java.security.Principal;

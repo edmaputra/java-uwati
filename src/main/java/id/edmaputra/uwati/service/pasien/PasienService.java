@@ -1,5 +1,7 @@
 package id.edmaputra.uwati.service.pasien;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,7 +33,7 @@ public class PasienService {
 		PageRequest request = new PageRequest(halaman - 1, PAGE_SIZE, Sort.Direction.ASC, "nama");
 		return pasienRepository.findAll(expression, request);
 	}
-	
+
 	public Page<Pasien> muatDaftar(Integer halaman, Integer size, BooleanExpression expression) {
 		PageRequest request = new PageRequest(halaman - 1, size, Sort.Direction.ASC, "nama");
 		return pasienRepository.findAll(expression, request);
@@ -47,5 +49,9 @@ public class PasienService {
 
 	public Pasien dapatkanByIdentitas(String identitas) {
 		return pasienRepository.findByIdentitas(identitas);
+	}
+
+	public List<Pasien> dapatkanSemua() {
+		return pasienRepository.findAll();
 	}
 }

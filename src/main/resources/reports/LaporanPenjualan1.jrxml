@@ -3,6 +3,7 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="parameter1" class="java.lang.String"/>
 	<field name="nomorFaktur" class="java.lang.String"/>
 	<field name="waktuTransaksi" class="java.lang.String"/>
 	<field name="details" class="java.util.List"/>
@@ -12,9 +13,6 @@
 	<title>
 		<band height="79" splitType="Stretch"/>
 	</title>
-	<pageHeader>
-		<band height="35" splitType="Stretch"/>
-	</pageHeader>
 	<columnHeader>
 		<band height="23" splitType="Stretch">
 			<staticText>
@@ -28,7 +26,7 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="20" splitType="Stretch">
+		<band height="62" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="0" width="401" height="20" uuid="fa6525a2-0b98-45c5-87fb-3a6c8e1974a9"/>
 				<textFieldExpression><![CDATA[$F{nomorFaktur}]]></textFieldExpression>
@@ -37,21 +35,9 @@
 				<reportElement x="401" y="0" width="401" height="20" uuid="6faf2c0e-09e9-43ac-b27d-1334f408dd7c"/>
 				<textFieldExpression><![CDATA[$F{waktuTransaksi}]]></textFieldExpression>
 			</textField>
-		</band>
-		<band height="44">
-			<textField>
-				<reportElement x="0" y="0" width="802" height="20" uuid="77c67b57-ef40-4030-a076-149c1a7d27ba"/>
-				<textFieldExpression><![CDATA[""+$F{details}]]></textFieldExpression>
-			</textField>
+			<subreport>
+				<reportElement x="0" y="20" width="200" height="42" uuid="e47d3eea-12b9-4cbf-b4cc-92ac91817b67"/>
+			</subreport>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="45" splitType="Stretch"/>
-	</columnFooter>
-	<pageFooter>
-		<band height="54" splitType="Stretch"/>
-	</pageFooter>
-	<summary>
-		<band height="42" splitType="Stretch"/>
-	</summary>
 </jasperReport>

@@ -8,6 +8,7 @@
 <c:url var="batal" value="/laporan/penjualan/batal" />
 
 <c:url var="daftarRekap" value="/laporan/penjualan/dapatkan-rekap" />
+<c:url var="cetakResi" value="/laporan/penjualan/resi" />
 
 <c:url var="pdfUrl" value="/laporan/penjualan/pdf" />
 
@@ -90,21 +91,21 @@
 			</div>
 		</div>
 		<div class="desc">
-			<div class="row">
-				<div class="col-md-6">
-					<a href="#" class="btn btn-primary" style="width: 100%;"><i
-						class="fa fa-file-excel-o fa-6" aria-hidden="true"> excel</i></a>
-				</div>
-				<form action="${pdfUrl}" class="form-horizontal" method="POST">
-					<div class="col-md-6">
-						<input type="hidden" name="id" class="form-control" id="cetakId"
-							value="1" /> <input type="submit" id="cetak"
-							class="btn btn-primary" value="cetak">
-						<!-- 						<a href="#" class="btn btn-danger" style="width: 100%;"><i -->
-						<!-- 							class="fa fa-file-pdf-o fa-6" aria-hidden="true"> pdf</i></a> -->
-					</div>
-				</form>
-			</div>
+<!-- 			<div class="row"> -->
+<!-- 				<div class="col-md-6"> -->
+<!-- 					<a href="#" class="btn btn-primary" style="width: 100%;"><i -->
+<!-- 						class="fa fa-file-excel-o fa-6" aria-hidden="true"> excel</i></a> -->
+<!-- 				</div> -->
+<%-- 				<form action="${pdfUrl}" class="form-horizontal" method="POST"> --%>
+<!-- 					<div class="col-md-6"> -->
+<!-- 						<input type="hidden" name="id" class="form-control" id="cetakId" -->
+<!-- 							value="1" /> <input type="submit" id="cetak" -->
+<!-- 							class="btn btn-primary" value="cetak"> -->
+<!-- 												<a href="#" class="btn btn-danger" style="width: 100%;"><i -->
+<!-- 													class="fa fa-file-pdf-o fa-6" aria-hidden="true"> pdf</i></a> -->
+<!-- 					</div> -->
+<!-- 				</form> -->
+<!-- 			</div> -->
 		</div>
 	</div>
 </div>
@@ -246,6 +247,12 @@
 	</form>
 </div>
 
+<form action="${cetakResi}" class="form-horizontal style-form" id="form_cetak" method="POST" target="_blank" style="visibility: hidden;">
+		<div class="modal-footer">
+			<input type="hidden" name="id" class="form-control" id="cetakId" />			
+		</div>
+</form>
+
 <div>
 	<%@ include file="../../layouts/gritter.jsp"%>
 </div>
@@ -331,6 +338,11 @@
 			$('#tabel_detail_rekap').empty();
 			$('#tabel_detail_rekap').append(result.details);
 		}, null);
+	}
+	
+	function setIdUntukCetakResi(ids) {
+		$('#cetakId').val(ids);
+		$('#form_cetak').submit();
 	}
 
 	function setIdUntukHapus(ids) {

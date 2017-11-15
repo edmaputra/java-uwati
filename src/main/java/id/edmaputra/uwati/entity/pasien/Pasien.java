@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -36,8 +37,7 @@ public class Pasien extends DasarEntity<Long>{
 
 	private static final long serialVersionUID = 2272001067197118594L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Id	
 	private Long id;
 		
 	@Column(name="nama", nullable=false, length=DBConf.LENGTH_NAMA)

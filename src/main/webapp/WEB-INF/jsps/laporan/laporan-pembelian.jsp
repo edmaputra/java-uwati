@@ -79,14 +79,14 @@
 		</div>
 		<div class="desc">
 			<div class="row">
-				<div class="col-md-6">
-					<a href="#" class="btn btn-primary" style="width: 100%;"><i
-						class="fa fa-file-excel-o fa-6" aria-hidden="true"> excel</i></a>
-				</div>
-				<div class="col-md-6">
-					<a href="#" class="btn btn-danger" style="width: 100%;"><i
-						class="fa fa-file-pdf-o fa-6" aria-hidden="true"> pdf</i></a>
-				</div>
+<!-- 				<div class="col-md-6"> -->
+<!-- 					<a href="#" class="btn btn-primary" style="width: 100%;"><i -->
+<!-- 						class="fa fa-file-excel-o fa-6" aria-hidden="true"> excel</i></a> -->
+<!-- 				</div> -->
+<!-- 				<div class="col-md-6"> -->
+<!-- 					<a href="#" class="btn btn-danger" style="width: 100%;"><i -->
+<!-- 						class="fa fa-file-pdf-o fa-6" aria-hidden="true"> pdf</i></a> -->
+<!-- 				</div> -->
 			</div>
 		</div>
 	</div>

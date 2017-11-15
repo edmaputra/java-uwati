@@ -1,5 +1,6 @@
 package id.edmaputra.uwati.config;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -21,9 +22,10 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.view.document.AbstractXlsView;
 import org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView;
 
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import id.edmaputra.uwati.builder.LaporanPenjualanExcelBuilder;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "id.edmaputra.uwati.repository")
@@ -31,7 +33,8 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 @ComponentScan(basePackages = "id.edmaputra.uwati", excludeFilters = {
 		@ComponentScan.Filter(type = FilterType.ANNOTATION, classes = Controller.class) })
 @ImportResource(locations = { "classpath:/id/edmaputra/uwati/config/security-context.xml"})
-@PropertySource("classpath:/id/edmaputra/uwati/config/uwati.properties")
+//@PropertySource("classpath:/id/edmaputra/uwati/config/uwati.properties")
+@PropertySource("classpath:uwati.properties")
 public class UwatiAppConfiguration {
 
 	@Autowired
@@ -97,10 +100,18 @@ public class UwatiAppConfiguration {
 		JasperReportsPdfView v = new JasperReportsPdfView();
 		v.setUrl("classpath:reports/LaporanPenjualan1.jasper");
 		v.setReportDataKey("datasource");
-//		v.setSubReportUrls(new Pro);
+		v.setSubReportDataKeys("");
 //		v.setSubReportDataKeys("dataSourceSubReportObat");		
 		return v;
 	}
+	
+	@Bean
+	@Qualifier("datasourceSubReport")
+	public List<String> subReportDataSourceList(){
+		List<String> l = new ArrayList<>();
+		l.add("dataSourceSubReportObat");
+		return l;
+	};
 	
 	@Bean
 	@Qualifier("dataSourceSubReportLaporanPenjualan")
@@ -108,7 +119,15 @@ public class UwatiAppConfiguration {
 		JasperReportsPdfView v = new JasperReportsPdfView();
 		v.setUrl("classpath:reports/LaporanPenjualanObat.jasper");
 		v.setReportDataKey("dataSourceSubReportObat");
+//		v.setSubReportDataKeys("datasourceSubReport");
+//		v.setSubReportUrls((Properties) new Properties().setProperty("SubReportKantor", "classpath:reports/LaporanPenjualanObat.jasper"));
 		return v;
+	}
+	
+	@Bean
+	@Qualifier("penjualanExcel")
+	public AbstractXlsView laporanPenjualanExcel(){
+		return new LaporanPenjualanExcelBuilder();
 	}
 
 }

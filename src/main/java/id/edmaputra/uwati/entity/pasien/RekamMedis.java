@@ -72,10 +72,10 @@ public class RekamMedis extends DasarEntity<Long>{
 	@Column(name="kunjungan", nullable = false)
 	private Integer kunjungan;
 	
-	@OneToMany(mappedBy = "rekamMedis", cascade = CascadeType.ALL, fetch = FetchType.LAZY)	
+	@OneToMany(mappedBy = "rekamMedis", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)	
 	private List<RekamMedisDetail> rekamMedisDetail;
 	
-	@OneToMany(mappedBy = "rekamMedis", cascade = CascadeType.ALL, fetch = FetchType.LAZY)	
+	@OneToMany(mappedBy = "rekamMedis", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)	
 	private List<RekamMedisDiagnosa> rekamMedisDiagnosa;
 	
 	@OneToOne(fetch = FetchType.EAGER)
