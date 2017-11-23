@@ -24,6 +24,8 @@ public class QPembelian extends EntityPathBase<Pembelian> {
 
     public final id.edmaputra.uwati.entity.QDasarTransaksiEntity _super = new id.edmaputra.uwati.entity.QDasarTransaksiEntity(this);
 
+    public final ListPath<BayarPembelian, QBayarPembelian> bayarPembelian = this.<BayarPembelian, QBayarPembelian>createList("bayarPembelian", BayarPembelian.class, QBayarPembelian.class, PathInits.DIRECT2);
+
     public final DateTimePath<java.util.Date> deadline = createDateTime("deadline", java.util.Date.class);
 
     public final NumberPath<java.math.BigDecimal> diskon = createNumber("diskon", java.math.BigDecimal.class);

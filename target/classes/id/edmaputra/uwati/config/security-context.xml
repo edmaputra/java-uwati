@@ -24,33 +24,68 @@
 		<intercept-url pattern="/profil/simpan**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
 		<intercept-url pattern="/profil/dapatkan**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
 		
-		<intercept-url pattern="/kategori**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
-		<intercept-url pattern="/kategori/dapatkan**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
-		<intercept-url pattern="/kategori/daftar**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
-		<intercept-url pattern="/kategori/tambah**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
-		<intercept-url pattern="/kategori/edit**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
-		<intercept-url pattern="/kategori/hapus**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
+		<intercept-url pattern="/kategori**" access="isAuthenticated() and hasAnyRole('ADMIN')" />
+		<intercept-url pattern="/kategori/dapatkan**" access="isAuthenticated() and hasAnyRole('ADMIN')" />
+		<intercept-url pattern="/kategori/daftar**" access="isAuthenticated() and hasAnyRole('ADMIN')" />
+		<intercept-url pattern="/kategori/tambah**" access="isAuthenticated() and hasAnyRole('ADMIN')" />
+		<intercept-url pattern="/kategori/edit**" access="isAuthenticated() and hasAnyRole('ADMIN')" />
+		<intercept-url pattern="/kategori/hapus**" access="isAuthenticated() and hasAnyRole('ADMIN')" />
 		
-		<intercept-url pattern="/dokter**" access="isAuthenticated() and hasAnyRole('ADMIN','MEDIS')" />
-		<intercept-url pattern="/dokter/dapatkan**" access="isAuthenticated() and hasAnyRole('ADMIN','MEDIS')" />
-		<intercept-url pattern="/dokter/daftar**" access="isAuthenticated() and hasAnyRole('ADMIN','MEDIS')" />
-		<intercept-url pattern="/dokter/tambah**" access="isAuthenticated() and hasAnyRole('ADMIN','MEDIS')" />
-		<intercept-url pattern="/dokter/edit**" access="isAuthenticated() and hasAnyRole('ADMIN','MEDIS')" />
-		<intercept-url pattern="/dokter/hapus**" access="isAuthenticated() and hasAnyRole('ADMIN','MEDIS')" />
+		<intercept-url pattern="/karyawan**" access="isAuthenticated() and hasAnyRole('ADMIN')" />
+		<intercept-url pattern="/karyawanr/dapatkan**" access="isAuthenticated() and hasAnyRole('ADMIN')" />
+		<intercept-url pattern="/karyawan/daftar**" access="isAuthenticated() and hasAnyRole('ADMIN')" />
+		<intercept-url pattern="/karyawan/tambah**" access="isAuthenticated() and hasAnyRole('ADMIN')" />
+		<intercept-url pattern="/karyawan/edit**" access="isAuthenticated() and hasAnyRole('ADMIN')" />
+		<intercept-url pattern="/karyawan/hapus**" access="isAuthenticated() and hasAnyRole('ADMIN')" />
 		
 		<intercept-url pattern="/pelanggan**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
 		<intercept-url pattern="/pelanggan/dapatkan**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
 		<intercept-url pattern="/pelanggan/daftar**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
 		<intercept-url pattern="/pelanggan/tambah**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
 		<intercept-url pattern="/pelanggan/edit**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
-		<intercept-url pattern="/pelanggan/hapus**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
+		<intercept-url pattern="/pelanggan/hapus**" access="isAuthenticated() and hasAnyRole('ADMIN')" />
 		
 		<intercept-url pattern="/obat**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
 		<intercept-url pattern="/obat/dapatkan**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
 		<intercept-url pattern="/obat/daftar**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
 		<intercept-url pattern="/obat/tambah**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
 		<intercept-url pattern="/obat/edit**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
-		<intercept-url pattern="/obat/hapus**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
+		<intercept-url pattern="/obat/hapus**" access="isAuthenticated() and hasAnyRole('ADMIN')" />
+		
+		<intercept-url pattern="/racikan**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
+		<intercept-url pattern="/racikan/dapatkan**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
+		<intercept-url pattern="/racikan/daftar**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
+		<intercept-url pattern="/racikan/tambah**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
+		<intercept-url pattern="/racikan/edit**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
+		<intercept-url pattern="/racikan/hapus**" access="isAuthenticated() and hasAnyRole('ADMIN')" />
+		
+		<intercept-url pattern="/tindakan**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
+		<intercept-url pattern="/tindakan/dapatkan**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
+		<intercept-url pattern="/tindakan/daftar**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
+		<intercept-url pattern="/tindakan/tambah**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
+		<intercept-url pattern="/tindakan/edit**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
+		<intercept-url pattern="/tindakan/hapus**" access="isAuthenticated() and hasAnyRole('ADMIN')" />
+		
+		<intercept-url pattern="/diagnosa**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
+		<intercept-url pattern="/diagnosa/dapatkan**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
+		<intercept-url pattern="/diagnosa/daftar**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
+		<intercept-url pattern="/diagnosa/tambah**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
+		<intercept-url pattern="/diagnosa/edit**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
+		<intercept-url pattern="/diagnosa/hapus**" access="isAuthenticated() and hasAnyRole('ADMIN')" />
+		
+		<intercept-url pattern="/pasien**" access="isAuthenticated() and hasAnyRole('ADMIN','MEDIS')" />
+		<intercept-url pattern="/pasien/dapatkan**" access="isAuthenticated() and hasAnyRole('ADMIN','MEDIS')" />
+		<intercept-url pattern="/pasien/daftar**" access="isAuthenticated() and hasAnyRole('ADMIN','MEDIS')" />
+		<intercept-url pattern="/pasien/tambah**" access="isAuthenticated() and hasAnyRole('ADMIN','MEDIS')" />
+		<intercept-url pattern="/pasien/edit**" access="isAuthenticated() and hasAnyRole('ADMIN','MEDIS')" />
+		<intercept-url pattern="/pasien/hapus**" access="isAuthenticated() and hasAnyRole('ADMIN')" />
+		
+		<intercept-url pattern="/kategori-pasien**" access="isAuthenticated() and hasAnyRole('ADMIN')" />
+		<intercept-url pattern="/kategori-pasien/dapatkan**" access="isAuthenticated() and hasAnyRole('ADMIN')" />
+		<intercept-url pattern="/kategori-pasien/daftar**" access="isAuthenticated() and hasAnyRole('ADMIN')" />
+		<intercept-url pattern="/kategori-pasien/tambah**" access="isAuthenticated() and hasAnyRole('ADMIN')" />
+		<intercept-url pattern="/kategori-pasien/edit**" access="isAuthenticated() and hasAnyRole('ADMIN')" />
+		<intercept-url pattern="/kategori-pasien/hapus**" access="isAuthenticated() and hasAnyRole('ADMIN')" />
 		
 		<intercept-url pattern="/pengguna**" access="isAuthenticated() and permitAll"/>
 		<intercept-url pattern="/pengguna/simpan**" access="isAuthenticated() and permitAll" />

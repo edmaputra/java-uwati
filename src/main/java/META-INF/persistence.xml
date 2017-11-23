@@ -42,5 +42,8 @@
 		<class>id.edmaputra.uwati.entity.transaksi.BatalPenjualanDetailRacikan</class>
 		<class>id.edmaputra.uwati.entity.transaksi.BatalPembelian</class>
 		<class>id.edmaputra.uwati.entity.transaksi.BatalPembelianDetail</class>
+		<class>id.edmaputra.uwati.entity.Bayar</class>
+		<class>id.edmaputra.uwati.entity.transaksi.BayarPembelian</class>
+		<class>id.edmaputra.uwati.entity.transaksi.BayarPenjualan</class>
 	</persistence-unit>
 </persistence>

@@ -65,6 +65,9 @@ public class Pembelian extends DasarTransaksiEntity<Long> {
 	
 	@OneToMany(mappedBy="pembelian", cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.LAZY)
 	private List<PembelianDetail> pembelianDetail;
+	
+	@OneToMany(mappedBy = "pembelian", fetch = FetchType.LAZY, orphanRemoval = true, cascade=CascadeType.ALL)
+	private List<BayarPembelian> bayarPembelian;
 
 	public Long getId() {
 		return id;
@@ -168,6 +171,12 @@ public class Pembelian extends DasarTransaksiEntity<Long> {
 	public void setTotal(BigDecimal total) {
 		this.total = total;
 	}
-	
 
+	public List<BayarPembelian> getBayarPembelian() {
+		return bayarPembelian;
+	}
+
+	public void setBayarPembelian(List<BayarPembelian> bayarPembelian) {
+		this.bayarPembelian = bayarPembelian;
+	}
 }

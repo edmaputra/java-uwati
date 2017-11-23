@@ -35,6 +35,7 @@ import id.edmaputra.uwati.entity.master.obat.Obat;
 import id.edmaputra.uwati.entity.master.obat.ObatDetail;
 import id.edmaputra.uwati.entity.master.obat.ObatExpired;
 import id.edmaputra.uwati.entity.master.obat.ObatStok;
+import id.edmaputra.uwati.entity.transaksi.BayarPembelian;
 import id.edmaputra.uwati.entity.transaksi.Pembelian;
 import id.edmaputra.uwati.entity.transaksi.PembelianDetail;
 import id.edmaputra.uwati.entity.transaksi.PembelianDetailTemp;
@@ -45,6 +46,7 @@ import id.edmaputra.uwati.service.obat.ObatExpiredService;
 import id.edmaputra.uwati.service.obat.ObatService;
 import id.edmaputra.uwati.service.obat.ObatStokService;
 import id.edmaputra.uwati.service.pengguna.PenggunaService;
+import id.edmaputra.uwati.service.transaksi.BayarPembelianService;
 import id.edmaputra.uwati.service.transaksi.PembelianDetailService;
 import id.edmaputra.uwati.service.transaksi.PembelianDetailTempService;
 import id.edmaputra.uwati.service.transaksi.PembelianService;
@@ -93,6 +95,9 @@ public class PembelianObatController {
 	
 	@Autowired
 	private ApotekService apotekService;
+	
+	@Autowired
+	private BayarPembelianService bayarPembelianService;
 	
 	@Autowired 
 	@Qualifier("strukPembelianPdf")
@@ -321,9 +326,19 @@ public class PembelianObatController {
 				Obat obat = getObat(pembelianDetail.getObat());
 				updateObat(obat, pembelianDetail, principal.getName(), request);				
 			}
+			
+			List<BayarPembelian> bayarPembelians = new ArrayList<>();
+			BayarPembelian bayarPembelian = new BayarPembelian();
+			bayarPembelian.setPembelian(pembelian);
+			bayarPembelian.setWaktuTransaksi(Converter.stringToDate(h.getTanggal()));
+			bayarPembelian.setJumlahBayar(new BigDecimal(Formatter.hilangkanTitik(h.getBayar())));
+			bayarPembelians.add(bayarPembelian);			
+			
+			pembelian.setBayarPembelian(bayarPembelians);
 			pembelian.setPembelianDetail(listPembelianDetail);			
 			pembelianService.simpan(pembelian);
-			pembelianDetailTempService.hapusBatch(h.getRandomId());			
+			pembelianDetailTempService.hapusBatch(h.getRandomId());
+			
 			h.setId(pembelian.getId().toString());
 			logger.info(LogSupport.tambah(principal.getName(), pembelian.toString(), request));
 			return h;			

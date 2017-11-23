@@ -51,6 +51,8 @@ public class PembelianDetailHandler {
 	private String details;
 	
 	private String tanggalExpired;
+	
+	private String bayar;
 
 	public String getId() {
 		return id;
@@ -250,6 +252,14 @@ public class PembelianDetailHandler {
 
 	public void setTanggalExpired(String tanggalExpired) {
 		this.tanggalExpired = tanggalExpired;
+	}
+
+	public String getBayar() {
+		return bayar;
+	}
+
+	public void setBayar(String bayar) {
+		this.bayar = bayar;
 	}
 
 }

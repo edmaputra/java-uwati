@@ -138,8 +138,7 @@
 	</div>
 	<div class="modal-body">
 		<div id="pesan-cetak-modal" style="text-align: center;"></div>
-		<div style="text-align: center;">Apakah Anda Ingin Mencetak
-			Bukti Pembelian ?</div>
+		<div style="text-align: center;">Apakah Anda Ingin Mencetak Bukti Pembelian ?</div>
 	</div>
 	<form action="${cetakUrl}" class="form-horizontal style-form formCetak"
 		method="POST" target="_blank">
@@ -225,7 +224,7 @@
 </div>
 
 <div class="modal fade" id="pajak-modal" tabindex="-1"
-	style="display: none;" data-width="300">	
+	style="display: none;" data-width="300">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal"
 			aria-hidden="true">&times;</button>
@@ -264,6 +263,38 @@
 	</div>
 </div>
 
+<div class="modal fade" id="bayar-modal" tabindex="-1" data-width="700"
+	style="display: none;">
+	<form class="form-horizontal form-bayar" method="POST">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true">&times;</button>
+			<h4 class="modal-title" id="myModalLabel">Bayar</h4>
+		</div>
+		<div class="modal-body">
+			<div class="form-group">
+				<label class="col-sm-4 control-label">Total Pembelian</label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control input-lg input-angka"
+						id="totalPembelianFinal" readonly="readonly" value="0"
+						name="totalPembelianFinal">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">Total Pembayaran</label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control input-lg input-angka"
+						id="bayar" value="0" name="totalPembayaran" autocomplete="off">
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default btnKeluar" data-dismiss="modal">Keluar</button>
+			<input type="submit" class="btn btn-primary" value="BELI" id="button-beli" style="width: 65%" />
+		</div>
+	</form>
+</div>
+
 <script>
 	$(document).ready(function() {
 		refreshObat(halamanObat, cariObat);
@@ -283,6 +314,11 @@
 		$("#button-bayar").click(function() {
 			cek("#tanggal", "#distributor", "#nomor_faktur");
 		});
+		
+		$("#cetak").click(function() {
+			$('#bayar-modal').modal('show');
+		});
+
 
 		hitungHargaTotalOnKeyUp("#edit_jumlah", "#edit_harga_total");
 		hitungHargaTotalOnKeyUp("#edit_harga_beli", "#edit_harga_total");
@@ -350,6 +386,25 @@
 				});
 			}
 		});
+		
+		$(".form-bayar").validate({
+			submitHandler : function(form) {
+				var data = {};
+				data = setPembelian(data);
+				$.postJSON('${beliUrl}', data, function(result) {
+					resetAll();
+					randomId = Math.floor(Math.random() * 1000000);
+					refreshObat(halamanObat, cariObat);
+					var p = "Pembelian Tersimpan, Stok Update Diperbarui";
+					$('#pesan-cetak-modal').empty();
+					$('#pesan-cetak-modal').append(p);
+					$('#beli_id').val(result.id);
+					$('#cetak-modal').modal('show');
+				}, function() {
+					$('#gritter-tambah-gagal').click();
+				});
+			}
+		});
 
 		setMaskingUang("#input-diskon");
 		setMaskingUang("#input-pajak");
@@ -367,22 +422,9 @@
 	var pajakTotal = "0";
 
 	function cek(tanggal, distributor, nomor_faktur) {
-		if ($(tanggal).val() != '' && $(distributor).val() != ''
-				&& $(nomor_faktur).val() != '') {
-			var data = {};
-			data = setPembelian(data);
-			$.postJSON('${beliUrl}', data, function(result) {
-				resetAll();
-				randomId = Math.floor(Math.random() * 1000000);
-				refreshObat(halamanObat, cariObat);
-				var p = "Pembelian Tersimpan, Stok Update Diperbarui";
-				$('#pesan-cetak-modal').empty();
-				$('#pesan-cetak-modal').append(p);
-				$('#beli_id').val(result.id);
-				$('#cetak-modal').modal('show');
-			}, function() {
-				$('#gritter-tambah-gagal').click();
-			});
+		if ($(tanggal).val() != '' && $(distributor).val() != '' && $(nomor_faktur).val() != '') {
+			$('#totalPembelianFinal').val($('#totalBayar').val());
+			$('#bayar-modal').modal('show');
 		} else {
 			var p = "Harap Isi Tanggal, Distributor dan Nomor Faktur Pembelian";
 			$('#pesan').empty();
@@ -555,6 +597,7 @@
 		data['pajak'] = $('#pajak').val();
 		data['totalPembelian'] = $('#total').val();
 		data['totalPembelianFinal'] = $('#totalBayar').val();
+		data['bayar'] = $('#bayar').val();
 		data['randomId'] = randomId;
 		return data;
 	}
@@ -576,5 +619,7 @@
 		$('#totalBayar').val('0')
 		$('#distributor').val('');
 		$('#nomor_faktur').val('');
+		$('#totalPembelianFinal').val('0');
+		$('#bayar').val('0');		
 	}
 </script>
