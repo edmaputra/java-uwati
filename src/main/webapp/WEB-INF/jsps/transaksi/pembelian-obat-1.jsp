@@ -284,7 +284,7 @@
 				<label class="col-sm-4 control-label">Total Pembayaran</label>
 				<div class="col-sm-8">
 					<input type="text" class="form-control input-lg input-angka"
-						id="bayar" value="0" name="totalPembayaran" autocomplete="off">
+						id="bayar" value="0" name="bayar" autocomplete="off">
 				</div>
 			</div>
 		</div>
@@ -388,18 +388,40 @@
 		});
 		
 		$(".form-bayar").validate({
+			rules : {
+				bayar : {
+					required : true,
+					number : true,
+					min : 0,
+					lessEqualThan : '#totalPembelianFinal'
+				},
+			},
+			messages : {
+				bayar : {
+					required : "Harap Isi Jumlah Pembayaran",
+					number : "Harap Isi dengan Angka",
+					min : "Minimal Isi Dengan Angka 0",
+					lessEqualThan : 'Jumlah Bayar Lebih Besar'
+				},
+			},
 			submitHandler : function(form) {
 				var data = {};
 				data = setPembelian(data);
 				$.postJSON('${beliUrl}', data, function(result) {
-					resetAll();
-					randomId = Math.floor(Math.random() * 1000000);
-					refreshObat(halamanObat, cariObat);
-					var p = "Pembelian Tersimpan, Stok Update Diperbarui";
+					var p = "Pembelian Tersimpan, Stok Update Diperbarui.";
 					$('#pesan-cetak-modal').empty();
 					$('#pesan-cetak-modal').append(p);
+					if (data['totalPembelianFinal'] >  data['bayar']){
+						var utang = data['totalPembelianFinal'] - data['bayar'];
+						var u = " Pembayaran Pembelian menyisakan utang sebesar "+ utang;
+						$('#pesan-cetak-modal').append(u);
+					}
+										
 					$('#beli_id').val(result.id);
 					$('#cetak-modal').modal('show');
+					resetAll();
+					randomId = Math.floor(Math.random() * 1000000);
+					refreshObat(halamanObat, cariObat);					
 				}, function() {
 					$('#gritter-tambah-gagal').click();
 				});
@@ -423,7 +445,7 @@
 
 	function cek(tanggal, distributor, nomor_faktur) {
 		if ($(tanggal).val() != '' && $(distributor).val() != '' && $(nomor_faktur).val() != '') {
-			$('#totalPembelianFinal').val($('#totalBayar').val());
+			$('#totalPembelianFinal').val($('#totalBayar').val().replace(/\./g, ''));
 			$('#bayar-modal').modal('show');
 		} else {
 			var p = "Harap Isi Tanggal, Distributor dan Nomor Faktur Pembelian";
@@ -596,7 +618,7 @@
 		data['diskon'] = $('#diskon').val();
 		data['pajak'] = $('#pajak').val();
 		data['totalPembelian'] = $('#total').val();
-		data['totalPembelianFinal'] = $('#totalBayar').val();
+		data['totalPembelianFinal'] = $('#totalBayar').val().replace(/\./g, '');;
 		data['bayar'] = $('#bayar').val();
 		data['randomId'] = randomId;
 		return data;
