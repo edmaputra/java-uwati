@@ -37,6 +37,8 @@ public class QPenjualan extends EntityPathBase<Penjualan> {
 
     public final NumberPath<java.math.BigDecimal> kembali = createNumber("kembali", java.math.BigDecimal.class);
 
+    public final BooleanPath lunas = createBoolean("lunas");
+
     public final StringPath nomorFaktur = createString("nomorFaktur");
 
     public final StringPath nomorResep = createString("nomorResep");
@@ -44,6 +46,8 @@ public class QPenjualan extends EntityPathBase<Penjualan> {
     public final NumberPath<java.math.BigDecimal> pajak = createNumber("pajak", java.math.BigDecimal.class);
 
     public final StringPath pelanggan = createString("pelanggan");
+
+    public final ListPath<BayarPenjualan, QBayarPenjualan> pembayaran = this.<BayarPenjualan, QBayarPenjualan>createList("pembayaran", BayarPenjualan.class, QBayarPenjualan.class, PathInits.DIRECT2);
 
     public final StringPath pengguna = createString("pengguna");
 

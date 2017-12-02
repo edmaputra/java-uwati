@@ -175,4 +175,11 @@
 		<!-- <put-attribute name="current" value="home" /> -->
 	</definition>
 	
+	<definition name="utang-piutang-daftar" extends="dasar">
+		<put-attribute name="title" value="UWATI - Utang Piutang" />
+		<put-attribute name="page_title" value="Utang-Piutang" />
+		<put-attribute name="body" value="/WEB-INF/jsps/utang-piutang/daftar.jsp" />
+		<!-- <put-attribute name="current" value="home" /> -->
+	</definition>
+	
 </tiles-definitions>

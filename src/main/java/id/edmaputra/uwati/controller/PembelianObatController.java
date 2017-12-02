@@ -327,13 +327,20 @@ public class PembelianObatController {
 				updateObat(obat, pembelianDetail, principal.getName(), request);				
 			}
 			
+			BigDecimal grandTotal = pembelian.getGrandTotal();
+			BigDecimal jumlahDibayar = new BigDecimal(Formatter.hilangkanTitik(h.getBayar()));
+			
 			List<BayarPembelian> bayarPembelians = new ArrayList<>();
 			BayarPembelian bayarPembelian = new BayarPembelian();
 			bayarPembelian.setPembelian(pembelian);
 			bayarPembelian.setWaktuTransaksi(Converter.stringToDate(h.getTanggal()));
-			bayarPembelian.setJumlahBayar(new BigDecimal(Formatter.hilangkanTitik(h.getBayar())));
-			bayarPembelians.add(bayarPembelian);			
-			
+			bayarPembelian.setJumlahBayar(jumlahDibayar);
+			bayarPembelians.add(bayarPembelian);
+			if (grandTotal.compareTo(jumlahDibayar) > 0) {
+				pembelian.setLunas(false);
+			} else if (grandTotal.compareTo(jumlahDibayar) <= 0) {
+				pembelian.setLunas(true);
+			}			
 			pembelian.setBayarPembelian(bayarPembelians);
 			pembelian.setPembelianDetail(listPembelianDetail);			
 			pembelianService.simpan(pembelian);

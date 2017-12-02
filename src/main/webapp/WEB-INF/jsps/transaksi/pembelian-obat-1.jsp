@@ -112,15 +112,16 @@
 					</div>
 					<div class="col-md-7">
 						<div class="form-group">
-							<a href="#" class="form control btn btn-primary"
-								style="width: 100%; height: 100%;" id="button-bayar">BELI</a>
+							<table style="width: 100%; height: 100%;">
+								<tr>
+									<td style="position: relative; height: 100px; font-size: 16pt; text-align: center;">
+										<button
+											style="position: absolute; top: 0; bottom: 0; border-radius: 0; right: 0; width: 100%; background-color: blue; color: white;" id="button-bayar">Beli</button>
+									</td>
+								</tr>
+							</table>
 						</div>
 					</div>
-					<!-- 					<div class="col-md-1"> -->
-					<!-- 						<div class="form-group"> -->
-					<!-- 							<a href="#" class="form control btn btn-default" style="height: 100%;" id="button-batal" onclick="resetAll()">Batal</a>							 -->
-					<!-- 						</div> -->
-					<!-- 					</div> -->
 				</div>
 			</form>
 		</div>
@@ -311,7 +312,8 @@
 			hitungPajakAtauDiskon("#input-diskon", 1);
 		});
 
-		$("#button-bayar").click(function() {
+		$("#button-bayar").click(function(e) {
+			e.preventDefault();
 			cek("#tanggal", "#distributor", "#nomor_faktur");
 		});
 		
@@ -414,7 +416,7 @@
 					if (data['totalPembelianFinal'] >  data['bayar']){
 						var utang = data['totalPembelianFinal'] - data['bayar'];
 						var u = " Pembayaran Pembelian menyisakan utang sebesar "+ utang;
-						$('#pesan-cetak-modal').append(u);
+						$('#pesan-cetak-modal').append($('<p>').text(u));
 					}
 										
 					$('#beli_id').val(result.id);

@@ -353,7 +353,6 @@ public class LaporanPembelianController {
 		} else {
 			html = THead.THEAD_PEMBELIAN_DETAIL + tbody;
 		}
-
 		return html;
 	}
 

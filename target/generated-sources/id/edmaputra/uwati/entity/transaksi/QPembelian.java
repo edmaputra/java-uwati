@@ -37,6 +37,8 @@ public class QPembelian extends EntityPathBase<Pembelian> {
     //inherited
     public final StringPath info = _super.info;
 
+    public final BooleanPath lunas = createBoolean("lunas");
+
     public final StringPath nomorFaktur = createString("nomorFaktur");
 
     public final NumberPath<java.math.BigDecimal> pajak = createNumber("pajak", java.math.BigDecimal.class);

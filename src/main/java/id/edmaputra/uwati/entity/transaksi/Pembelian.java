@@ -25,6 +25,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import id.edmaputra.uwati.config.DBConf;
 import id.edmaputra.uwati.entity.DasarTransaksiEntity;
 import id.edmaputra.uwati.entity.pengguna.Pengguna;
+import id.edmaputra.uwati.view.Formatter;
 
 @Entity
 @Table(name = "pembelian", uniqueConstraints = { @UniqueConstraint(columnNames = "id")})
@@ -68,6 +69,32 @@ public class Pembelian extends DasarTransaksiEntity<Long> {
 	
 	@OneToMany(mappedBy = "pembelian", fetch = FetchType.LAZY, orphanRemoval = true, cascade=CascadeType.ALL)
 	private List<BayarPembelian> bayarPembelian;
+	
+	@Column(name="status_lunas", nullable = true)
+	private Boolean lunas;
+	
+	public boolean sisaUtangAvailable() {
+		BigDecimal sisaUtang = new BigDecimal(0);
+		for (BayarPembelian bayar : this.bayarPembelian) {
+			sisaUtang.add(bayar.getJumlahBayar());
+		}
+		if (this.grandTotal.compareTo(sisaUtang) > 0) {
+			return true;
+		}
+		return false;		
+	}
+	
+	public BigDecimal sisaUtang() {
+		BigDecimal totalDibayar = new BigDecimal(0);
+		for (BayarPembelian bayar : this.bayarPembelian) {
+			totalDibayar.add(bayar.getJumlahBayar());
+		}
+		return this.grandTotal.subtract(totalDibayar);
+	}
+	
+	public String sisaUtangString() {		
+		return Formatter.patternCurrency(sisaUtang());
+	}
 
 	public Long getId() {
 		return id;
@@ -103,6 +130,10 @@ public class Pembelian extends DasarTransaksiEntity<Long> {
 
 	public BigDecimal getGrandTotal() {
 		return grandTotal;
+	}
+	
+	public String getGrandTotalString() {
+		return Formatter.patternCurrency(grandTotal);
 	}
 
 	public void setGrandTotal(BigDecimal grandTotal) {
@@ -141,13 +172,6 @@ public class Pembelian extends DasarTransaksiEntity<Long> {
 		this.supplier = supplier;
 	}
 
-	@Override
-	public String toString() {
-		return "Pembelian [id=" + id + ", waktuTransaksi=" + waktuTransaksi + ", pengguna=" + pengguna
-				+ ", nomorFaktur=" + nomorFaktur + ", grandTotal=" + grandTotal + ", deadline=" + deadline
-				+ ", supplier=" + supplier + ", ]";
-	}
-
 	public BigDecimal getDiskon() {
 		return diskon;
 	}
@@ -167,6 +191,10 @@ public class Pembelian extends DasarTransaksiEntity<Long> {
 	public BigDecimal getTotal() {
 		return total;
 	}
+	
+	public String getTotalString() {
+		return Formatter.patternCurrency(this.total);
+	}
 
 	public void setTotal(BigDecimal total) {
 		this.total = total;
@@ -178,5 +206,13 @@ public class Pembelian extends DasarTransaksiEntity<Long> {
 
 	public void setBayarPembelian(List<BayarPembelian> bayarPembelian) {
 		this.bayarPembelian = bayarPembelian;
+	}
+
+	public Boolean getLunas() {
+		return lunas;
+	}
+
+	public void setLunas(Boolean lunas) {
+		this.lunas = lunas;
 	}
 }

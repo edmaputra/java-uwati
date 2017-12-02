@@ -92,6 +92,10 @@
 					access="hasAnyRole('ADMIN') and isAuthenticated()">
 					<li><a href="<spring:url value="/pembelian-obat" />">Pembelian</a></li>
 				</security:authorize>
+				<security:authorize
+					access="hasAnyRole('ADMIN') and isAuthenticated()">
+					<li><a href="<spring:url value="/utang-piutang" />">Utang &amp; Piutang</a></li>
+				</security:authorize>
 			</ul></li>
 
 	</ul>

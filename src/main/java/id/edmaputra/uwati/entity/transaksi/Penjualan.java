@@ -22,6 +22,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import id.edmaputra.uwati.config.DBConf;
 import id.edmaputra.uwati.entity.DasarTransaksiEntity;
+import id.edmaputra.uwati.view.Formatter;
 
 @Entity
 @Table(name = "penjualan", uniqueConstraints = { @UniqueConstraint(columnNames = "id")})
@@ -71,6 +72,28 @@ public class Penjualan extends DasarTransaksiEntity<Long> {
 	@OneToMany(mappedBy="penjualan", cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.LAZY)
 	private List<PenjualanDetail> penjualanDetail;
 	
+	@OneToMany(mappedBy="penjualan", cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.EAGER)
+	private List<BayarPenjualan> pembayaran;
+	
+	@Column(name="status_lunas", nullable = true)
+	private Boolean lunas;
+	
+	public Boolean getLunas() {
+		return lunas;
+	}
+
+	public void setLunas(Boolean lunas) {
+		this.lunas = lunas;
+	}
+
+	public List<BayarPenjualan> getPembayaran() {
+		return pembayaran;
+	}
+
+	public void setPembayaran(List<BayarPenjualan> pembayaran) {
+		this.pembayaran = pembayaran;
+	}
+
 	public Date getWaktuTransaksi() {
 		return waktuTransaksi;
 	}
@@ -162,6 +185,10 @@ public class Penjualan extends DasarTransaksiEntity<Long> {
 
 	public BigDecimal getGrandTotal() {
 		return grandTotal;
+	}
+	
+	public String getGrandTotalString() {
+		return Formatter.patternCurrency(grandTotal);
 	}
 
 	public void setGrandTotal(BigDecimal grandTotal) {

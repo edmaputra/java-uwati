@@ -213,6 +213,8 @@ public class Html {
 			btn += "<i class='fa fa-print'></i>";
 		} else if (tipe == 5) {
 			btn += "<i class='fa fa-file-o'></i>";
+		} else if (tipe == 6) {
+			btn += "<i class='fa fa-usd'></i>";
 		}
 		btn += "</button>";
 		return btn;

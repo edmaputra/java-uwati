@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.mysema.query.types.expr.BooleanExpression;
 
 import id.edmaputra.uwati.entity.transaksi.BayarPembelian;
+import id.edmaputra.uwati.entity.transaksi.Pembelian;
 import id.edmaputra.uwati.repository.transaksi.BayarPembelianRepository;
 
 @Service
@@ -33,6 +34,10 @@ public class BayarPembelianService {
 	public Page<BayarPembelian> muatDaftar(Integer halaman, BooleanExpression expression) {
 		PageRequest request = new PageRequest(halaman - 1, PAGE_SIZE, Sort.Direction.ASC, "waktuTransaksi");
 		return bayarPembelianRepository.findAll(expression, request);
+	}
+	
+	public List<BayarPembelian> dapatkanByPembelian(Pembelian pembelian){
+		return bayarPembelianRepository.findByPembelian(pembelian);
 	}
 	
 	public List<BayarPembelian> dapatkanSemua(){

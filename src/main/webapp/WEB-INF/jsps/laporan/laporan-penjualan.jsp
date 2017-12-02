@@ -43,12 +43,9 @@
 						</div>
 						<div class="form-group">
 							<a class="btn btn-primary" id="btnCari" style="width: 80px;">Filter</a>
-							<!-- 							<button type="button" class="btn btn-primary" id="btnCari" -->
-							<!-- 								style="width: 80px">Filter</button> -->
 						</div>
 						<div class="form-group">
-							<a class="btn btn-default" id="btnReset">Reset</a>
-							<!-- 							<button type="button" class="btn btn-default" id="btnReset">Reset</button> -->
+							<a class="btn btn-default" id="btnReset">Reset</a>							
 						</div>
 					</form>
 				</div>

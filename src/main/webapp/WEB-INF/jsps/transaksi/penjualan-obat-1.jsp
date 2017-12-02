@@ -110,15 +110,18 @@
 							</tr>
 						</table>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-7">
 						<div class="form-group">
-							<a href="#" class="form control btn btn-primary"
-								style="width: 100%; height: 100%;" id="button-bayar">BAYAR</a>
-						</div>
-					</div>
-					<div class="col-md-1">
-						<div class="form-group">
-							<!-- 							<a href="#" class="form control btn btn-default" style="height: 100%;" id="button-batal" onclick="resetAll()">Batal</a>							 -->
+							<table style="width: 100%; height: 100%;">
+								<tr>
+									<td
+										style="position: relative; height: 100px; font-size: 16pt; text-align: center;">
+										<button
+											style="position: absolute; top: 0; bottom: 0; border-radius: 0; right: 0; width: 100%; background-color: blue; color: white;"
+											id="button-bayar">Bayar</button>
+									</td>
+								</tr>
+							</table>
 						</div>
 					</div>
 				</div>
@@ -280,7 +283,6 @@
 
 <div class="modal fade" id="cetak-modal" tabindex="-1" data-width="400"
 	style="display: none;">
-
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal"
 			aria-hidden="true">&times;</button>
@@ -299,6 +301,21 @@
 				value="Cetak" />
 		</div>
 	</form>
+</div>
+
+<div class="modal fade" id="utang-modal" tabindex="-1" data-width="400" style="display: none;">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal"
+			aria-hidden="true">&times;</button>
+		<h4 class="modal-title" id="myModalLabel">Pesan</h4>
+	</div>
+	<div class="modal-body" style="text-align: center;">
+		<div id="pesan-utang"></div>
+	</div>	
+	<div class="modal-footer">
+		<button type="button" class="btn btn-default btnKeluar" id="keluar-modal" data-dismiss="utang-modal">Tidak</button>
+		<button type="button" class="btn btn-primary" id="button-lanjut-transaksi">Lanjut</button>		
+	</div>	
 </div>
 
 
@@ -332,12 +349,39 @@
 					hitungPajakAtauDiskon("#input-diskon", 1);
 				});
 
-				$("#button-bayar").click(function() {
+				$("#button-bayar").click(function(e) {
+					e.preventDefault();
 					cekStokPerObat(randomId);
+				});
+				
+				$("#button-jual").click(function(e) {
+					e.preventDefault();
+					var total_pembayaran = parseFloat($("#totalPembayaran").val().replace(/\./g, ''));
+					var total_pembelian = parseFloat($("#totalPembelianFinal").val().replace(/\./g, ''));
+					if (total_pembayaran < total_pembelian){
+						console.log("b");
+						var p = "Total Pembayaran lebih kurang dari total Belanja. Transaksi ini akan tercatat sebagai Piutang. <p>Lanjutkan Transaksi ?</p>";
+						$("#pesan-utang").empty();
+						$("#pesan-utang").append(p);
+						$("#utang-modal").modal('show');
+						$('#button-lanjut-transaksi').click(function (e) {
+							e.preventDefault();
+							$("#utang-modal").modal('hide');
+							if (this.id == 'button-lanjut-transaksi') {
+								$(".form-bayar").submit();		
+							}
+						});
+					} else {
+						$(".form-bayar").submit();
+					}
 				});
 
 				$("#button-cetak").click(function() {
 					$("#cetak-modal").modal('hide');
+				});
+				
+				$("#keluar-modal").click(function() {
+					$("#utang-modal").modal('hide');
 				});
 
 				hitungHargaTotalOnKeyUp("#editJumlah", "#editHargaTotal");
@@ -418,11 +462,10 @@
 							required : true,
 							min : 1,
 							number : true,
-							greaterEqualThan : '#totalPembelianFinal'
+// 							greaterEqualThan : '#totalPembelianFinal'
 						},
 						kembalian : {
 							required : true,
-							min : 0,
 							number : true
 						}
 					},
@@ -441,15 +484,14 @@
 							required : "Harga Wajib Diisi",
 							min : "Total Pembayaran Tidak Boleh 0",
 							number : "Masukkan Angka",
-							greaterEqualThan : "Jumlah Bayar Kurang"
+// 							greaterEqualThan : "Jumlah Bayar Kurang"
 						},
 						kembalian : {
 							required : "Kembalian Wajib Terisi",
-							min : "Kembalian Tidak Boleh lebih Kecil dari 0",
 							number : "Masukkan Angka"
 						}
 					},
-					submitHandler : function(form) {
+					submitHandler : function(form) {						
 						var data = {};
 						data = setPenjualanData(data);
 						$.postJSON('${penjualanUrl}', data, function(result) {

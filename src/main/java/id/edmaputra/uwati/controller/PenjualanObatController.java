@@ -40,6 +40,7 @@ import id.edmaputra.uwati.entity.master.obat.Racikan;
 import id.edmaputra.uwati.entity.master.obat.RacikanDetail;
 import id.edmaputra.uwati.entity.pasien.RekamMedis;
 import id.edmaputra.uwati.entity.pasien.RekamMedisDetail;
+import id.edmaputra.uwati.entity.transaksi.BayarPenjualan;
 import id.edmaputra.uwati.entity.transaksi.NomorFaktur;
 import id.edmaputra.uwati.entity.transaksi.Penjualan;
 import id.edmaputra.uwati.entity.transaksi.PenjualanDetail;
@@ -183,6 +184,11 @@ public class PenjualanObatController {
 			penjualan.setPajak(new BigDecimal(Formatter.hilangkanTitik(h.getPajak())));
 			BigDecimal totalPembelianFinal = new BigDecimal(Formatter.hilangkanTitik(h.getTotalPembelianFinal()));
 			BigDecimal totalPembayaran = new BigDecimal(Formatter.hilangkanTitik(h.getTotalPembayaran()));
+			if (totalPembayaran.compareTo(totalPembelianFinal) >= 0) {
+				penjualan.setLunas(true);
+			} else if (totalPembayaran.compareTo(totalPembelianFinal) < 0) {
+				penjualan.setLunas(false);
+			}
 			penjualan.setGrandTotal(totalPembelianFinal);
 			penjualan.setBayar(totalPembayaran);
 			penjualan.setKembali(totalPembayaran.subtract(totalPembelianFinal));
@@ -250,8 +256,17 @@ public class PenjualanObatController {
 					updateStokObat(obat, jumlah, 0);
 				}
 			}
+			
+			List<BayarPenjualan> pembayarans = new ArrayList<>();
+			BayarPenjualan bayarPenjualan = new BayarPenjualan();
+			bayarPenjualan.setPenjualan(penjualan);
+			bayarPenjualan.setWaktuTransaksi(penjualan.getWaktuTransaksi());
+			bayarPenjualan.setJumlahBayar(totalPembayaran);
+			pembayarans.add(bayarPenjualan);
+			
 			penjualan.setPenjualanDetail(listPenjualanDetail);
-
+			penjualan.setPembayaran(pembayarans);
+			
 			penjualanValidator.validate(penjualan);
 			penjualanService.simpan(penjualan);
 

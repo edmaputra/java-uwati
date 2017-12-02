@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.mysema.query.types.expr.BooleanExpression;
 
 import id.edmaputra.uwati.entity.transaksi.BayarPenjualan;
+import id.edmaputra.uwati.entity.transaksi.Penjualan;
 import id.edmaputra.uwati.repository.transaksi.BayarPenjualanRepository;
 
 @Service
@@ -49,5 +50,9 @@ public class BayarPenjualanService {
 	
 	public BayarPenjualan dapatkan(BooleanExpression expression){
 		return bayarPenjualanRepository.findOne(expression);
+	}
+
+	public List<BayarPenjualan> dapatkanByPenjualan(Penjualan p) {
+		return bayarPenjualanRepository.findByPenjualan(p);
 	}
 }

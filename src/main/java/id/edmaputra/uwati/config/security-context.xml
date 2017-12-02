@@ -123,6 +123,10 @@
 		<intercept-url pattern="/penjualan-obat/hapusTemp**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
 		<intercept-url pattern="/penjualan-obat/jual**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />	
 		<intercept-url pattern="/penjualan-obat/cetak**" access="isAuthenticated() and hasAnyRole('ADMIN','APOTIK')" />
+		
+		<intercept-url pattern="/utang-piutang**" access="isAuthenticated() and hasAnyRole('ADMIN')" />		
+		<intercept-url pattern="/utang-piutang/dapatkan**" access="isAuthenticated() and hasAnyRole('ADMIN')" />
+		<intercept-url pattern="/utang-piutang/bayar**" access="isAuthenticated() and hasAnyRole('ADMIN')" />
 				
 		<form-login login-page="/masuk"
 			default-target-url="/" username-parameter="username"

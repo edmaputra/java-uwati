@@ -31,9 +31,17 @@ public class PembelianPredicateBuilder {
 
 	public void tanggal(Date firstDate, Date lastDate) {
 		if (hasil == null) {
-			hasil = QPembelian.pembelian.waktuTransaksi.between(firstDate, lastDate);
+			hasil = QPembelian.pembelian.waktuTransaksi.between(firstDate, lastDate);			
 		} else {
 			hasil = hasil.and(QPembelian.pembelian.waktuTransaksi.between(firstDate, lastDate));
+		}
+	}
+	
+	public void lunas(Boolean isLunas) {
+		if (hasil == null) {
+			hasil = QPembelian.pembelian.lunas.eq(isLunas);			
+		} else {
+			hasil = hasil.and(QPembelian.pembelian.lunas.eq(isLunas));
 		}
 	}
 

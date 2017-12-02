@@ -43,4 +43,13 @@ public class PenjualanPredicateBuilder {
 		}
 	}
 
+
+	public void lunas(boolean b) {
+		if (hasil == null) {			
+			hasil = QPenjualan.penjualan.lunas.eq(b);
+		} else {
+			hasil = hasil.and(hasil = QPenjualan.penjualan.lunas.eq(b));
+		}		
+	}
+
 }

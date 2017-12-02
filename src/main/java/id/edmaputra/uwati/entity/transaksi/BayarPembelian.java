@@ -48,5 +48,11 @@ public class BayarPembelian extends Bayar<Long> {
 		this.pembelian = pembelian;
 	}
 
+	@Override
+	public String toString() {
+		return "BayarPembelian [id=" + id + ", pembelian=" + pembelian + ", getJumlahBayar()=" + getJumlahBayar() + "]";
+	}
+	
+	
 	
 }
