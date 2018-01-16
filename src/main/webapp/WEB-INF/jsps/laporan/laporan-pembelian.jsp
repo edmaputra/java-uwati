@@ -8,8 +8,6 @@
 <c:url var="batal" value="/laporan/pembelian/batal" />
 <c:url var="daftarRekap" value="/laporan/pembelian/dapatkan-rekap" />
 
-
-
 <div class="row">
 	<div class="col-lg-9">
 		<div class="content-panel">
@@ -96,7 +94,6 @@
 
 <div class="modal container fade" id="penjualan-modal" tabindex="-1"
 	style="display: none;">
-
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal"
 			aria-hidden="true">&times;</button>

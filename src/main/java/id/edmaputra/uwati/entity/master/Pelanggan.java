@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import id.edmaputra.uwati.config.DBConf;
+import id.edmaputra.uwati.DBConf;
 import id.edmaputra.uwati.entity.DasarEntity;
 
 @Entity

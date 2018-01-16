@@ -19,6 +19,46 @@ public class HtmlElement {
 	private String button;
 	
 	private String daftar;
+	
+	private String tabelObat;
+	
+	private String tabelDiagnosa;
+	
+	private String tabelObatDetail;
+	
+	private String tabelDiagnosaDetail;
+
+	public String getTabelObat() {
+		return tabelObat;
+	}
+
+	public void setTabelObat(String tabelObat) {
+		this.tabelObat = tabelObat;
+	}
+
+	public String getTabelDiagnosa() {
+		return tabelDiagnosa;
+	}
+
+	public void setTabelDiagnosa(String tabelDiagnosa) {
+		this.tabelDiagnosa = tabelDiagnosa;
+	}
+
+	public String getTabelObatDetail() {
+		return tabelObatDetail;
+	}
+
+	public void setTabelObatDetail(String tabelObatDetail) {
+		this.tabelObatDetail = tabelObatDetail;
+	}
+
+	public String getTabelDiagnosaDetail() {
+		return tabelDiagnosaDetail;
+	}
+
+	public void setTabelDiagnosaDetail(String tabelDiagnosaDetail) {
+		this.tabelDiagnosaDetail = tabelDiagnosaDetail;
+	}
 
 	public String getNavigasiHalaman() {
 		return navigasiHalaman;

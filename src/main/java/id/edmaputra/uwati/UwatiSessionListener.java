@@ -1,4 +1,4 @@
-package id.edmaputra.uwati.config;
+package id.edmaputra.uwati;
 
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;

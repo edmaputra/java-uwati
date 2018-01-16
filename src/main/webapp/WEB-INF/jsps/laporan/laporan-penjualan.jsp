@@ -11,6 +11,7 @@
 <c:url var="cetakResi" value="/laporan/penjualan/resi" />
 
 <c:url var="pdfUrl" value="/laporan/penjualan/pdf" />
+<c:url var="excel" value="/laporan/penjualan/excel" />
 
 <div class="row">
 	<div class="col-lg-9">
@@ -88,11 +89,11 @@
 			</div>
 		</div>
 		<div class="desc">
-<!-- 			<div class="row"> -->
-<!-- 				<div class="col-md-6"> -->
-<!-- 					<a href="#" class="btn btn-primary" style="width: 100%;"><i -->
-<!-- 						class="fa fa-file-excel-o fa-6" aria-hidden="true"> excel</i></a> -->
-<!-- 				</div> -->
+			<div class="row">
+				<div class="col-md-6">
+					<a href="${excel}" class="btn btn-primary" style="width: 100%;"><i
+						class="fa fa-file-excel-o fa-6" aria-hidden="true"> excel</i></a>
+				</div>
 <%-- 				<form action="${pdfUrl}" class="form-horizontal" method="POST"> --%>
 <!-- 					<div class="col-md-6"> -->
 <!-- 						<input type="hidden" name="id" class="form-control" id="cetakId" -->
@@ -102,7 +103,7 @@
 <!-- 													class="fa fa-file-pdf-o fa-6" aria-hidden="true"> pdf</i></a> -->
 <!-- 					</div> -->
 <!-- 				</form> -->
-<!-- 			</div> -->
+			</div>
 		</div>
 	</div>
 </div>

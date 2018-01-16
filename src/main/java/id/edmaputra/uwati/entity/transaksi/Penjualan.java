@@ -20,7 +20,7 @@ import javax.persistence.UniqueConstraint;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import id.edmaputra.uwati.config.DBConf;
+import id.edmaputra.uwati.DBConf;
 import id.edmaputra.uwati.entity.DasarTransaksiEntity;
 import id.edmaputra.uwati.view.Formatter;
 
@@ -72,7 +72,7 @@ public class Penjualan extends DasarTransaksiEntity<Long> {
 	@OneToMany(mappedBy="penjualan", cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.LAZY)
 	private List<PenjualanDetail> penjualanDetail;
 	
-	@OneToMany(mappedBy="penjualan", cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="penjualan", cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.LAZY)
 	private List<BayarPenjualan> pembayaran;
 	
 	@Column(name="status_lunas", nullable = true)

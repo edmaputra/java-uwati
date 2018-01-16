@@ -1,5 +1,6 @@
 package id.edmaputra.uwati.service.transaksi;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +51,9 @@ public class PenjualanDetailService {
 
 	public List<PenjualanDetail> dapatkanByPenjualan(Penjualan penjualan) {
 		return penjualanDetailRepository.findByPenjualan(penjualan);
+	}
+	
+	public List<Object[]> top10PenjualanObat(Date from, Date to){		
+		return penjualanDetailRepository.top10PenjualanObat(from, to);
 	}
 }

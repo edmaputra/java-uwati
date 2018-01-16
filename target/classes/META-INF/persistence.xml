@@ -45,5 +45,6 @@
 		<class>id.edmaputra.uwati.entity.Bayar</class>
 		<class>id.edmaputra.uwati.entity.transaksi.BayarPembelian</class>
 		<class>id.edmaputra.uwati.entity.transaksi.BayarPenjualan</class>
+		<class>id.edmaputra.uwati.entity.transaksi.ReturPembelianDetailTemp</class>
 	</persistence-unit>
 </persistence>

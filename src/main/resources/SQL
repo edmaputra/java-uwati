@@ -1,0 +1,14 @@
+SELECT penjualan_detail.obat, SUM(penjualan_detail.jumlah) as total
+FROM penjualan 
+JOIN penjualan_detail 
+ON penjualan_detail.id_penjualan = penjualan.id 
+WHERE penjualan.waktu_transaksi BETWEEN '2017-09-01' AND '2017-10-01'
+GROUP BY penjualan_detail.obat
+ORDER BY total DESC
+LIMIT 10
+
+SELECT rekam_medis_diagnosa.diagnosa, COUNT(rekam_medis_diagnosa.diagnosa) as total FROM `rekam_medis_diagnosa` join rekam_medis ON rekam_medis_diagnosa.id_rekam_medis = rekam_medis.id 
+WHERE rekam_medis.tanggal BETWEEN '2017-01-01' AND '2017-12-30'
+GROUP BY rekam_medis_diagnosa.diagnosa
+ORDER BY total DESC
+

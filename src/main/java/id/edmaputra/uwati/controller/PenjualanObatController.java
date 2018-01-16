@@ -431,7 +431,7 @@ public class PenjualanObatController {
 
 				struk.setStrukNamaObat(d.getObat());
 				struk.setStrukJumlahObat(d.getJumlah().toString() + " x");
-				struk.setStrukHargaObat(Converter.patternCurrency(d.getHargaJual()));
+				struk.setStrukHargaObat(Converter.patternCurrency(d.getHargaJual().subtract(d.getDiskon())));
 				BigDecimal subTotal = d.getHargaTotal();
 				struk.setStrukSubTotalObat(Converter.patternCurrency(subTotal));
 				grandTotal = grandTotal.add(subTotal);

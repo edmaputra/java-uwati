@@ -108,7 +108,7 @@
 				<div class="form-group col-md-3">
 					<label class="lb-sm">Jumlah Pembayaran</label> <input type="text"
 						class="form-control input-angka" id="jumlah-pembayaran"
-						name="jumlah_pembayaran" />
+						name="jumlah_pembayaran" value="0" autocomplete="off" />
 				</div>
 				<div class="form-group col-md-3">
 					<label class="lb-sm">-</label> <input type="submit"
@@ -128,8 +128,7 @@
 </div>
 
 
-<script>
-	var state = 1;
+<script>	
 	var tipe = 0;
 	var tanggalAwal = '';
 	var tanggalAkhir = '';
@@ -201,16 +200,19 @@
 			cari : cari
 		};
 		$.getAjax('${daftar}', data, function(result) {
+			tipe = data.tipe;
 			$('#tabelCoba').empty();
 			$('#tabelCoba').append(result.tabel);
 			$('#nav').empty();
-			$('#nav').append(result.navigasiHalaman);
+			$('#nav').append(result.navigasiHalaman);			
 		}, null);
 	}
 	
-	function getDataUtang(ids) {
+	function getData(ids) {
+		$('#jumlah-pembayaran').val('0');
 		var data = {
-			id : ids
+			id : ids,
+			tipe : tipe
 		};
 		$.getAjax('${dapatkan}', data, function(result) {
 			$('#ids').val(data.id);
@@ -243,5 +245,6 @@
 		tanggalAkhir = $('#tanggalAkhir').val();
 		cari = $('#cari').val();
 		tipe = $('#tipe').val();
+		$('#jumlah-pembayaran').val('0');
 	}
 </script>

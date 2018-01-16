@@ -262,6 +262,8 @@
 				<configuration>
 					<wtpversion>2.0</wtpversion>
 					<wtpContextName>uwati</wtpContextName>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>true</downloadJavadocs>
 				</configuration>
 			</plugin>
 
@@ -270,7 +272,7 @@
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<version>2.2</version>
 				<configuration>
-<!-- 					<url>http://192.168.1.10:8080/manager/text</url> -->
+					<!-- <url>http://192.168.1.10:8080/manager/text</url> -->
 					<url>http://192.168.241.100:8080/manager/text</url>
 					<server>TomcatServer</server>
 					<path>/uwati</path>

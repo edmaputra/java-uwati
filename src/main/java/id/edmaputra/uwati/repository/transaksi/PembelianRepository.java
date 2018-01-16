@@ -9,6 +9,7 @@ public interface PembelianRepository extends JpaRepository<Pembelian, Long>, Que
 
 	Pembelian findByNomorFaktur(String nomorFaktur);
 
-	
+	Pembelian findByNomorFakturAndSupplier(String nomorFaktur, String supplier);
+
 
 }

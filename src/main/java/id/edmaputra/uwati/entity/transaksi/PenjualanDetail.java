@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import id.edmaputra.uwati.config.DBConf;
+import id.edmaputra.uwati.DBConf;
 import id.edmaputra.uwati.entity.DasarTransaksiEntity;
 
 @Entity
@@ -65,7 +65,7 @@ public class PenjualanDetail extends DasarTransaksiEntity<Long> {
 	@JoinColumn(name="id_penjualan")
 	@JsonIgnore
 	private Penjualan penjualan;
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -136,6 +136,13 @@ public class PenjualanDetail extends DasarTransaksiEntity<Long> {
 
 	public void setPenjualan(Penjualan penjualan) {
 		this.penjualan = penjualan;
+	}
+
+	@Override
+	public String toString() {
+		return "PenjualanDetail [id=" + id + ", obat=" + obat + ", jumlah=" + jumlah + ", hargaJual=" + hargaJual
+				+ ", diskon=" + diskon + ", pajak=" + pajak + ", hargaTotal=" + hargaTotal + ", isRacikan=" + isRacikan
+				+ ", racikanDetail=" + racikanDetail + "]";
 	} 
 
 }

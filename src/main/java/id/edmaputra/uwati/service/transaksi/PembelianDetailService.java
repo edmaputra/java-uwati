@@ -30,6 +30,14 @@ public class PembelianDetailService {
 	public PembelianDetail dapatkan(Long id) {
 		return pembelianDetailRepo.findOne(id);
 	}
+	
+	public PembelianDetail dapatkan(Long id, String nomorFaktur, String supplier) {
+		return pembelianDetailRepo.findByIdAndNomorFakturAndSupplier(id, nomorFaktur, supplier);
+	}
+	
+	public PembelianDetail dapatkan(String obat, String nomorFaktur, String supplier) {
+		return pembelianDetailRepo.findByObatAndNomorFakturAndSupplier(obat, nomorFaktur, supplier);
+	}
 
 	public Page<PembelianDetail> muatDaftar(Integer halaman, BooleanExpression expression) {
 		PageRequest request = new PageRequest(halaman - 1, PAGE_SIZE, Sort.Direction.ASC, "id");

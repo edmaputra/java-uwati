@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="laporan_penjualan" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b16f59cb-0988-40da-b57b-fd4d1e59e9c6">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="ireport.zoom" value="1.9487171000000019"/>
+	<property name="ireport.x" value="281"/>
+	<property name="ireport.y" value="127"/>
+	<parameter name="PENJUALAN_DETAIL" class="java.util.Collection"/>
+	<parameter name="SUBREPORT_DIR" class="java.io.InputStream" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\BangunEdma\\Documents\\coding\\oxygen-workplace\\java-uwati\\src\\main\\resources\\reports\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT nomor_faktur, waktu_transaksi FROM penjualan]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="45" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="241" height="25" uuid="dee295c1-978e-4570-b1dc-a468e6fead05"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LAPORAN PENJUALAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="25" width="241" height="18" uuid="39747372-c42f-41fa-a8ec-a6e45b0d608e"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tanggal : ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="9" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="126" splitType="Stretch">
+			<staticText>
+				<reportElement x="22" y="0" width="375" height="20" uuid="dc2ed89f-9e48-4c47-a769-2f51649d0977"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nomor Faktur]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="397" y="0" width="158" height="20" uuid="c7f7c93f-dd09-47f3-9efd-6b27353eb9e8"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Waktu Transaksi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="22" height="20" uuid="2c7b57c0-4233-4e56-891d-49d905a4fc9d"/>
+				<text><![CDATA[id]]></text>
+			</staticText>
+			<subreport>
+				<reportElement positionType="Float" x="0" y="55" width="555" height="71" uuid="1e6f6b70-e436-469c-b6a5-c4623725bf8d"/>
+				<dataSourceExpression><![CDATA[new JRBeanCollectionDataSource($P{PENJUALAN_DETAIL})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

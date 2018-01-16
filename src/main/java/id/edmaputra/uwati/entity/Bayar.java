@@ -9,7 +9,7 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import id.edmaputra.uwati.config.DBConf;
+import id.edmaputra.uwati.DBConf;
 import id.edmaputra.uwati.view.Table;
 
 @MappedSuperclass

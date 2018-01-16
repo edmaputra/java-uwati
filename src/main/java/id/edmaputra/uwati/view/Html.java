@@ -215,6 +215,54 @@ public class Html {
 			btn += "<i class='fa fa-file-o'></i>";
 		} else if (tipe == 6) {
 			btn += "<i class='fa fa-usd'></i>";
+		} else if (tipe == 7) {
+			btn += "<i class='fa fa-arrow-down'></i>";
+		}
+		btn += "</button>";
+		return btn;
+	}
+	
+	public static String button(String clazz, String dataToggle, String dataTarget, String evt, String eventName,
+			int tipe, String title, String id, String type) {
+		String btn = "<button ";
+		if (!StringUtils.isEmpty(clazz) || clazz != null) {
+			btn += "class = '" + clazz + "' ";
+		}
+		if (!StringUtils.isEmpty(dataToggle) || dataToggle != null) {
+			btn += "data-toggle = '" + dataToggle + "' ";
+		}
+		if (!StringUtils.isEmpty(dataTarget) || dataTarget != null) {
+			btn += "data-target = '" + dataTarget + "' ";
+		}
+		if (!StringUtils.isEmpty(evt) || evt != null) {
+			btn += evt + " = \"" + eventName + "\" ";
+		}
+		if (!StringUtils.isEmpty(title) || title != null) {
+			btn += "title = '" + title + "' ";
+		}
+		if (!StringUtils.isEmpty(id) || id != null) {
+			btn += "id = '" + id + "' ";
+		}
+		if (!StringUtils.isEmpty(type) || type != null) {
+			btn += "type = '" + type + "' ";
+		}
+		btn += ">";
+		if (tipe == 0) {
+			btn += "<i class='fa fa-pencil'></i>";
+		} else if (tipe == 1) {
+			btn += "<i class='fa fa-trash-o'></i>";
+		} else if (tipe == 2) {
+			btn += "<i class='fa fa-check-square-o'></i>";
+		} else if (tipe == 3) {
+			btn += "<i class='fa fa-cart-plus'></i>";
+		} else if (tipe == 4) {
+			btn += "<i class='fa fa-print'></i>";
+		} else if (tipe == 5) {
+			btn += "<i class='fa fa-file-o'></i>";
+		} else if (tipe == 6) {
+			btn += "<i class='fa fa-usd'></i>";
+		} else if (tipe == 7) {
+			btn += "<i class='fa fa-arrow-down'></i>";
 		}
 		btn += "</button>";
 		return btn;

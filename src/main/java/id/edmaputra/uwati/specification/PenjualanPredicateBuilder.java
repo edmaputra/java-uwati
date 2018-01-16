@@ -1,14 +1,33 @@
 package id.edmaputra.uwati.specification;
 
 import java.util.Date;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+
+import com.mysema.query.jpa.impl.JPAQuery;
 import com.mysema.query.types.expr.BooleanExpression;
 
+import id.edmaputra.uwati.entity.transaksi.Penjualan;
 import id.edmaputra.uwati.entity.transaksi.QPenjualan;
 
 public class PenjualanPredicateBuilder {
 
 	private BooleanExpression hasil = null;
+	
+	@Autowired
+	@Qualifier("entity-manager")
+	private LocalContainerEntityManagerFactoryBean entityManager;
+	
+	public List<Penjualan> cobaPenjualan(Date from, Date to) {
+		JPAQuery query = new JPAQuery();
+		QPenjualan qPenjualan = QPenjualan.penjualan;		
+//		List<Penjualan> q = query.from(qPenjualan).where(qPenjualan.waktuTransaksi.between(from, to)).list(qPenjualan);
+		List<Penjualan> q = query.from(qPenjualan).list(qPenjualan);
+		return q;
+	}
 
 	public BooleanExpression getExpression() {
 		return hasil;
@@ -41,6 +60,7 @@ public class PenjualanPredicateBuilder {
 		} else {
 			hasil = hasil.and(QPenjualan.penjualan.waktuTransaksi.between(tanggalAwal, tanggalAkhir));
 		}
+		
 	}
 
 

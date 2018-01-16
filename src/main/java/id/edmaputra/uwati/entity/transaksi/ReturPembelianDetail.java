@@ -31,9 +31,8 @@ public class ReturPembelianDetail extends DasarTransaksiEntity<Long> {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne
-	@JoinColumn(name = "id_obat_detail", nullable = false)
-	private ObatDetail obatDetail;
+	@Column(name = "obat")
+	private String obat;
 
 	@Column(nullable = false)
 	private Integer jumlah;
@@ -52,6 +51,8 @@ public class ReturPembelianDetail extends DasarTransaksiEntity<Long> {
 	@JoinColumn(name = "id_retur_pembelian")
 	@JsonIgnore
 	private ReturPembelian returPembelian;
+	
+	private Date tanggal;
 
 	public Long getId() {
 		return id;
@@ -59,14 +60,6 @@ public class ReturPembelianDetail extends DasarTransaksiEntity<Long> {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public ObatDetail getObatDetail() {
-		return obatDetail;
-	}
-
-	public void setObatDetail(ObatDetail obatDetail) {
-		this.obatDetail = obatDetail;
 	}
 
 	public Integer getJumlah() {
@@ -115,6 +108,37 @@ public class ReturPembelianDetail extends DasarTransaksiEntity<Long> {
 
 	public void setTanggalKadaluarsa(Date tanggalKadaluarsa) {
 		this.tanggalKadaluarsa = tanggalKadaluarsa;
+	}
+
+	public Date getTanggal() {
+		return tanggal;
+	}
+
+	public void setTanggal(Date tanggal) {
+		this.tanggal = tanggal;
+	}
+
+	public String getObat() {
+		return obat;
+	}
+
+	public void setObat(String obat) {
+		this.obat = obat;
+	}
+
+	public ReturPembelian getReturPembelian() {
+		return returPembelian;
+	}
+
+	public void setReturPembelian(ReturPembelian returPembelian) {
+		this.returPembelian = returPembelian;
+	}
+
+	@Override
+	public String toString() {
+		return "ReturPembelianDetail [obat=" + obat + ", jumlah=" + jumlah + ", hargaBeli=" + hargaBeli + ", diskon="
+				+ diskon + ", pajak=" + pajak + ", hargaTotal=" + hargaTotal + ", tanggalKadaluarsa="
+				+ tanggalKadaluarsa + ", returPembelian=" + returPembelian + ", tanggal=" + tanggal + "]";
 	}
 
 }

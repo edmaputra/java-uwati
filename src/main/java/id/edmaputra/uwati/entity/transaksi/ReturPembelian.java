@@ -21,7 +21,7 @@ import javax.persistence.UniqueConstraint;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import id.edmaputra.uwati.config.DBConf;
+import id.edmaputra.uwati.DBConf;
 import id.edmaputra.uwati.entity.DasarTransaksiEntity;
 import id.edmaputra.uwati.entity.pengguna.Pengguna;
 
@@ -29,6 +29,14 @@ import id.edmaputra.uwati.entity.pengguna.Pengguna;
 @Table(name = "retur_pembelian", uniqueConstraints = { @UniqueConstraint(columnNames = "id")})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ReturPembelian extends DasarTransaksiEntity<Long> {
+
+	public List<ReturPembelianDetail> getReturPembelianDetail() {
+		return returPembelianDetail;
+	}
+
+	public void setReturPembelianDetail(List<ReturPembelianDetail> returPembelianDetail) {
+		this.returPembelianDetail = returPembelianDetail;
+	}
 
 	private static final long serialVersionUID = 7769140999910692567L;
 
@@ -121,6 +129,13 @@ public class ReturPembelian extends DasarTransaksiEntity<Long> {
 
 	public void setSupplier(String supplier) {
 		this.supplier = supplier;
+	}
+
+	@Override
+	public String toString() {
+		return "ReturPembelian [waktuTransaksi=" + waktuTransaksi + ", pengguna=" + pengguna + ", nomorFaktur="
+				+ nomorFaktur + ", grandTotal=" + grandTotal + ", deadline=" + deadline + ", supplier=" + supplier
+				+ ", returPembelianDetail=" + returPembelianDetail + "]";
 	}
 	
 

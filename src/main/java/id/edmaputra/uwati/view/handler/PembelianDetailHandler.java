@@ -272,4 +272,16 @@ public class PembelianDetailHandler {
 		this.bayarDetails = bayarDetails;
 	}
 
+	@Override
+	public String toString() {
+		return "PembelianDetailHandler [id=" + id + ", idObat=" + idObat + ", randomId=" + randomId + ", nomorFaktur="
+				+ nomorFaktur + ", tanggal=" + tanggal + ", tipe=" + tipe + ", dokter=" + dokter + ", pelanggan="
+				+ pelanggan + ", obat=" + obat + ", jumlah=" + jumlah + ", hargaJual=" + hargaJual + ", diskon="
+				+ diskon + ", pajak=" + pajak + ", subTotal=" + subTotal + ", pengguna=" + pengguna + ", info=" + info
+				+ ", totalPembelian=" + totalPembelian + ", totalPembelianFinal=" + totalPembelianFinal
+				+ ", totalPembayaran=" + totalPembayaran + ", kembali=" + kembali + ", hargaBeli=" + hargaBeli
+				+ ", hargaJualResep=" + hargaJualResep + ", distributor=" + distributor + ", details=" + details
+				+ ", tanggalExpired=" + tanggalExpired + ", bayar=" + bayar + ", bayarDetails=" + bayarDetails + "]";
+	}
+
 }

@@ -27,7 +27,7 @@ public class BayarPenjualan extends Bayar<Long> {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 		
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_penjualan")
 	@JsonIgnore
 	private Penjualan penjualan;

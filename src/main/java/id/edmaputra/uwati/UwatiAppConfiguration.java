@@ -1,9 +1,11 @@
-package id.edmaputra.uwati.config;
+package id.edmaputra.uwati;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import javax.inject.Provider;
+import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSource;
@@ -25,6 +27,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.view.document.AbstractXlsView;
 import org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView;
 
+import com.mysema.query.jpa.impl.JPAQueryFactory;
+
 import id.edmaputra.uwati.builder.LaporanPenjualanExcelBuilder;
 
 @Configuration
@@ -32,7 +36,8 @@ import id.edmaputra.uwati.builder.LaporanPenjualanExcelBuilder;
 @EnableTransactionManagement
 @ComponentScan(basePackages = "id.edmaputra.uwati", excludeFilters = {
 		@ComponentScan.Filter(type = FilterType.ANNOTATION, classes = Controller.class) })
-@ImportResource(locations = { "classpath:/id/edmaputra/uwati/config/security-context.xml"})
+@ImportResource(locations = { "classpath:security-context.xml"})
+//@ImportResource(locations = { "classpath:/id/edmaputra/uwati/config/security-context.xml"})
 //@PropertySource("classpath:/id/edmaputra/uwati/config/uwati.properties")
 @PropertySource("classpath:uwati.properties")
 public class UwatiAppConfiguration {
@@ -72,9 +77,20 @@ public class UwatiAppConfiguration {
 	@Bean
 	public JpaTransactionManager transactionManager(DataSource dataSource) {
 		JpaTransactionManager transactionManager = new JpaTransactionManager();
-		transactionManager.setDataSource(dataSource);
+		transactionManager.setDataSource(dataSource);		
 		return transactionManager;
 	}
+	
+//	@Bean
+//	public EntityManager entityManager() {
+//		return entityManagerFactory().getObject().createEntityManager();
+//	}
+//	
+//	@Bean
+//	public JPAQueryFactory JpaQueryFactory() {
+//		JPAQueryFactory queryFactory = new JPAQueryFactory((Provider<EntityManager>) entityManager());
+//		return queryFactory;
+//	}
 
 	@Bean
 	@Qualifier("strukPembelianPdf")
@@ -94,16 +110,16 @@ public class UwatiAppConfiguration {
 		return v;
 	}
 	
-	@Bean
-	@Qualifier("laporanPenjualanPdf")
-	public JasperReportsPdfView getLaporanPenjualan() {
-		JasperReportsPdfView v = new JasperReportsPdfView();
-		v.setUrl("classpath:reports/LaporanPenjualan1.jasper");
-		v.setReportDataKey("datasource");
-		v.setSubReportDataKeys("");
+//	@Bean
+//	@Qualifier("laporanPenjualanPdf")
+//	public JasperReportsPdfView getLaporanPenjualan() {
+//		JasperReportsPdfView v = new JasperReportsPdfView();
+//		v.setUrl("classpath:reports/LaporanPenjualan1.jasper");
+//		v.setReportDataKey("datasource");
+//		v.setSubReportDataKeys("");
 //		v.setSubReportDataKeys("dataSourceSubReportObat");		
-		return v;
-	}
+//		return v;
+//	}
 	
 	@Bean
 	@Qualifier("datasourceSubReport")
@@ -113,16 +129,16 @@ public class UwatiAppConfiguration {
 		return l;
 	};
 	
-	@Bean
-	@Qualifier("dataSourceSubReportLaporanPenjualan")
-	public JasperReportsPdfView getLaporanPenjualanSubReportObat() {
-		JasperReportsPdfView v = new JasperReportsPdfView();
-		v.setUrl("classpath:reports/LaporanPenjualanObat.jasper");
-		v.setReportDataKey("dataSourceSubReportObat");
+//	@Bean
+//	@Qualifier("dataSourceSubReportLaporanPenjualan")
+//	public JasperReportsPdfView getLaporanPenjualanSubReportObat() {
+//		JasperReportsPdfView v = new JasperReportsPdfView();
+//		v.setUrl("classpath:reports/LaporanPenjualanObat.jasper");
+//		v.setReportDataKey("dataSourceSubReportObat");
 //		v.setSubReportDataKeys("datasourceSubReport");
 //		v.setSubReportUrls((Properties) new Properties().setProperty("SubReportKantor", "classpath:reports/LaporanPenjualanObat.jasper"));
-		return v;
-	}
+//		return v;
+//	}
 	
 	@Bean
 	@Qualifier("penjualanExcel")

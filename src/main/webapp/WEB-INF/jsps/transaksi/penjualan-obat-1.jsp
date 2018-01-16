@@ -358,22 +358,28 @@
 					e.preventDefault();
 					var total_pembayaran = parseFloat($("#totalPembayaran").val().replace(/\./g, ''));
 					var total_pembelian = parseFloat($("#totalPembelianFinal").val().replace(/\./g, ''));
+					var i = 0;
 					if (total_pembayaran < total_pembelian){
-						console.log("b");
+						console.log('Pesan Utang');
 						var p = "Total Pembayaran lebih kurang dari total Belanja. Transaksi ini akan tercatat sebagai Piutang. <p>Lanjutkan Transaksi ?</p>";
 						$("#pesan-utang").empty();
 						$("#pesan-utang").append(p);
-						$("#utang-modal").modal('show');
+						$("#utang-modal").modal('show');						
 						$('#button-lanjut-transaksi').click(function (e) {
-							e.preventDefault();
-							$("#utang-modal").modal('hide');
-							if (this.id == 'button-lanjut-transaksi') {
-								$(".form-bayar").submit();		
+							i = i+1;
+							if (i == 1){
+//	 							e.preventDefault();
+								$("#utang-modal").modal('hide');
+								console.log('Bayar utang');
+								$(".form-bayar").submit();	
 							}
+														
 						});
 					} else {
+						console.log('Bayar non utang');
 						$(".form-bayar").submit();
 					}
+					i = 0;
 				});
 
 				$("#button-cetak").click(function() {
@@ -460,7 +466,7 @@
 						},
 						totalPembayaran : {
 							required : true,
-							min : 1,
+							min : 0,
 							number : true,
 // 							greaterEqualThan : '#totalPembelianFinal'
 						},
@@ -482,7 +488,7 @@
 						},
 						totalPembayaran : {
 							required : "Harga Wajib Diisi",
-							min : "Total Pembayaran Tidak Boleh 0",
+							min : "Total Pembayaran Tidak Boleh Kurang dari 0",
 							number : "Masukkan Angka",
 // 							greaterEqualThan : "Jumlah Bayar Kurang"
 						},

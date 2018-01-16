@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.mysema.query.types.expr.BooleanExpression;
 
 import id.edmaputra.uwati.entity.transaksi.Pembelian;
-import id.edmaputra.uwati.repository.transaksi.BayarPembelianRepository;
 import id.edmaputra.uwati.repository.transaksi.PembelianRepository;
 
 @Service
@@ -59,5 +58,9 @@ public class PembelianService {
 	
 	public Pembelian dapatkan(BooleanExpression expression){
 		return pembelianRepo.findOne(expression);
+	}
+
+	public Pembelian dapatkan(String nomorFaktur, String supplier) {
+		return pembelianRepo.findByNomorFakturAndSupplier(nomorFaktur, supplier);
 	}
 }

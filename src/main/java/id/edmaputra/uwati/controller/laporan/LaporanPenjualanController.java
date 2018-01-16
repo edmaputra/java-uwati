@@ -110,9 +110,11 @@ public class LaporanPenjualanController {
 	@Qualifier("strukPenjualanPdf")
 	private JasperReportsPdfView strukPenjualan;
 	
-	@Autowired 
-	@Qualifier("laporanPenjualanPdf")
-	private JasperReportsPdfView pdfPenjualan;
+//	@Autowired 
+//	@Qualifier("laporanPenjualanPdf")
+//	private JasperReportsPdfView pdfPenjualan;
+	
+	private List<Penjualan> penjualans;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView tampilkanPelanggan(Principal principal, HttpServletRequest request) {
@@ -180,6 +182,8 @@ public class LaporanPenjualanController {
 			}
 
 			List<Penjualan> list = penjualanService.dapatkanList(exp);
+			penjualans = new ArrayList<>();
+			penjualans = list;
 			BigDecimal rekap = BigDecimal.ZERO;
 			for (Penjualan p : list) {
 				rekap = rekap.add(p.getGrandTotal());
@@ -206,40 +210,15 @@ public class LaporanPenjualanController {
 	}
 	
 	@RequestMapping(value = "/excel", method = RequestMethod.GET)	
-	public ModelAndView excel(@RequestParam(value = "hal", defaultValue = "1", required = false) Integer halaman,
-			@RequestParam(value = "tipe", defaultValue = "1", required = false) Integer tipe,
-			@RequestParam(value = "tanggalAwal", defaultValue = "", required = false) String tanggalAwal,
-			@RequestParam(value = "tanggalAkhir", defaultValue = "", required = false) String tanggalAkhir,
-			@RequestParam(value = "cari", defaultValue = "", required = false) String cari, HttpServletRequest request,
-			HttpServletResponse response) {
+	public ModelAndView excel(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			PenjualanPredicateBuilder builder = new PenjualanPredicateBuilder();
-
-			if (StringUtils.isNotBlank(tanggalAwal) || StringUtils.isNotBlank(tanggalAkhir)) {
-				Date awal = Converter.stringToDate(tanggalAwal);
-				if (StringUtils.isBlank(tanggalAkhir)) {
-					builder.tanggal(awal, awal);
-				} else if (StringUtils.isNotBlank(tanggalAkhir)) {
-					Date akhir = Converter.stringToDate(tanggalAkhir);
-					if (awal.compareTo(akhir) > 0) {
-						builder.tanggal(akhir, awal);
-					} else if (awal.compareTo(akhir) < 0) {
-						builder.tanggal(awal, akhir);
-					}
-				}
+			for (int i = 0; i < this.penjualans.size(); i++) {
+				List<PenjualanDetail> penjualanDetails = penjualanDetailService.dapatkanByPenjualan(penjualans.get(i));
+				penjualans.get(i).setPenjualanDetail(penjualanDetails);
+				this.penjualans.set(i, penjualans.get(i));
 			}
-
-			if (tipe != -1) {
-				builder.tipe(tipe);
-			}
-
-			if (!StringUtils.isBlank(cari)) {
-				builder.cari(cari);
-			}
-
-			BooleanExpression exp = builder.getExpression();
-			List<Penjualan> penjualans = penjualanService.dapatkanList(exp);
-			return new ModelAndView("penjualanExcel","penjualanList", penjualans);
+			return new ModelAndView(new LaporanPenjualanExcelReportView(),"penjualans", this.penjualans);
+			
 		} catch (Exception e) {
 			logger.info(e.getMessage());
 			return null;
@@ -504,62 +483,62 @@ public class LaporanPenjualanController {
 		}
 	}
 	
-	@RequestMapping(value = "/pdf", method = RequestMethod.POST)
-	public ModelAndView pdf(ModelAndView mav, @RequestParam("id") String id, Principal principal){
+//	@RequestMapping(value = "/pdf", method = RequestMethod.POST)
+//	public ModelAndView pdf(ModelAndView mav, @RequestParam("id") String id, Principal principal){
 //	public ModelAndView pdf(ModelAndView mav, Principal principal){
-		try {
-			
-			String tanggalAwal = "01-07-2017";
-			String tanggalAkhir = "02-07-2017";
-			
-			PenjualanPredicateBuilder builder = new PenjualanPredicateBuilder();
-
-			if (StringUtils.isNotBlank(tanggalAwal) || StringUtils.isNotBlank(tanggalAkhir)) {
-				Date awal = Converter.stringToDate(tanggalAwal);
-				if (StringUtils.isBlank(tanggalAkhir)) {
-					builder.tanggal(awal, awal);
-				} else if (StringUtils.isNotBlank(tanggalAkhir)) {
-					Date akhir = Converter.stringToDate(tanggalAkhir);
-					if (awal.compareTo(akhir) > 0) {
-						builder.tanggal(akhir, awal);
-					} else if (awal.compareTo(akhir) < 0) {
-						builder.tanggal(awal, akhir);
-					} else if (awal.compareTo(akhir) == 0){
-						builder.tanggal(awal, awal);
-					}
-				}
-			}
-			
-			BooleanExpression exp = builder.getExpression();
-			List<Penjualan> lists = penjualanService.dapatkanList(exp);
-			List<RPenjualan> laporan = new ArrayList<>();
-			for (Penjualan p : lists){
-				RPenjualan rp = new RPenjualan();
-				rp.setNomorFaktur(p.getNomorFaktur());
-				rp.setWaktuTransaksi(Converter.dateToString(p.getWaktuTransaksi()));				
-				List<RPenjualanDetail> listRpd = new ArrayList<>();				
-				List<PenjualanDetail> details = penjualanDetailService.dapatkanByPenjualan(p);
-				for (PenjualanDetail d : details){
-					RPenjualanDetail rpd = new RPenjualanDetail();
-					rpd.setObat(d.getObat());
-					rpd.setHargaJual(d.getHargaJual().toString());
-					listRpd.add(rpd);
-				}
-				rp.setDetails(listRpd);
-				laporan.add(rp);
-			}
-								
-			Map<String, Object> parameterMap = new HashMap<String, Object>();
-			JRDataSource JRdataSource = new JRBeanCollectionDataSource(laporan);			
-			parameterMap.put("datasource", JRdataSource);			
-			mav = new ModelAndView(pdfPenjualan, parameterMap);			
-			return mav;
-		} catch (Exception e) {
-			logger.info(e.getMessage());
-			System.out.println(e.getMessage());
-			return null;
-		}		
-	}
+//		try {
+//			
+//			String tanggalAwal = "01-07-2017";
+//			String tanggalAkhir = "02-07-2017";
+//			
+//			PenjualanPredicateBuilder builder = new PenjualanPredicateBuilder();
+//
+//			if (StringUtils.isNotBlank(tanggalAwal) || StringUtils.isNotBlank(tanggalAkhir)) {
+//				Date awal = Converter.stringToDate(tanggalAwal);
+//				if (StringUtils.isBlank(tanggalAkhir)) {
+//					builder.tanggal(awal, awal);
+//				} else if (StringUtils.isNotBlank(tanggalAkhir)) {
+//					Date akhir = Converter.stringToDate(tanggalAkhir);
+//					if (awal.compareTo(akhir) > 0) {
+//						builder.tanggal(akhir, awal);
+//					} else if (awal.compareTo(akhir) < 0) {
+//						builder.tanggal(awal, akhir);
+//					} else if (awal.compareTo(akhir) == 0){
+//						builder.tanggal(awal, awal);
+//					}
+//				}
+//			}
+//			
+//			BooleanExpression exp = builder.getExpression();
+//			List<Penjualan> lists = penjualanService.dapatkanList(exp);
+//			List<RPenjualan> laporan = new ArrayList<>();
+//			for (Penjualan p : lists){
+//				RPenjualan rp = new RPenjualan();
+//				rp.setNomorFaktur(p.getNomorFaktur());
+//				rp.setWaktuTransaksi(Converter.dateToString(p.getWaktuTransaksi()));				
+//				List<RPenjualanDetail> listRpd = new ArrayList<>();				
+//				List<PenjualanDetail> details = penjualanDetailService.dapatkanByPenjualan(p);
+//				for (PenjualanDetail d : details){
+//					RPenjualanDetail rpd = new RPenjualanDetail();
+//					rpd.setObat(d.getObat());
+//					rpd.setHargaJual(d.getHargaJual().toString());
+//					listRpd.add(rpd);
+//				}
+//				rp.setDetails(listRpd);
+//				laporan.add(rp);
+//			}
+//								
+//			Map<String, Object> parameterMap = new HashMap<String, Object>();
+//			JRDataSource JRdataSource = new JRBeanCollectionDataSource(laporan);			
+//			parameterMap.put("datasource", JRdataSource);			
+//			mav = new ModelAndView(pdfPenjualan, parameterMap);			
+//			return mav;
+//		} catch (Exception e) {
+//			logger.info(e.getMessage());
+//			System.out.println(e.getMessage());
+//			return null;
+//		}		
+//	}
 
 	private PenjualanHandler setContent(Penjualan p, PenjualanHandler ph) {
 		ph.setNomorFaktur(p.getNomorFaktur());

@@ -1,4 +1,4 @@
-package id.edmaputra.uwati.config;
+package id.edmaputra.uwati;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 

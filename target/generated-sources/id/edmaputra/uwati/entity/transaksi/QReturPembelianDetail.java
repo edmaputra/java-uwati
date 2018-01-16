@@ -37,11 +37,13 @@ public class QReturPembelianDetail extends EntityPathBase<ReturPembelianDetail> 
 
     public final NumberPath<Integer> jumlah = createNumber("jumlah", Integer.class);
 
-    public final id.edmaputra.uwati.entity.master.obat.QObatDetail obatDetail;
+    public final StringPath obat = createString("obat");
 
     public final NumberPath<java.math.BigDecimal> pajak = createNumber("pajak", java.math.BigDecimal.class);
 
     public final QReturPembelian returPembelian;
+
+    public final DateTimePath<java.util.Date> tanggal = createDateTime("tanggal", java.util.Date.class);
 
     public final DateTimePath<java.util.Date> tanggalKadaluarsa = createDateTime("tanggalKadaluarsa", java.util.Date.class);
 
@@ -69,7 +71,6 @@ public class QReturPembelianDetail extends EntityPathBase<ReturPembelianDetail> 
 
     public QReturPembelianDetail(Class<? extends ReturPembelianDetail> type, PathMetadata<?> metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.obatDetail = inits.isInitialized("obatDetail") ? new id.edmaputra.uwati.entity.master.obat.QObatDetail(forProperty("obatDetail"), inits.get("obatDetail")) : null;
         this.returPembelian = inits.isInitialized("returPembelian") ? new QReturPembelian(forProperty("returPembelian"), inits.get("returPembelian")) : null;
     }
 

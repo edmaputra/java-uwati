@@ -1,4 +1,4 @@
-package id.edmaputra.uwati.config;
+package id.edmaputra.uwati;
 
 public class DBConf {
 	

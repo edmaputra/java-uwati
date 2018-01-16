@@ -55,6 +55,14 @@ public class THead {
 			+ "<th>Batal</th>"
 			+ "</tr></thead>";
 	
+	public static final String THEAD_PEMBELIAN_RETUR = "<thead><tr>" 
+			+ "<th>Tanggal</th>"			
+			+ "<th>Supplier</th>"
+			+ "<th>Nomor Faktur</th>"			
+			+ "<th>Total Pembelian</th>"
+			+ "<th>Retur</th>"
+			+ "</tr></thead>";
+	
 	public static final String THEAD_PEMBELIAN_DETAIL = "<thead><tr>" 
 			+ "<th>Obat</th>"
 			+ "<th>Harga Beli</th>"
@@ -66,6 +74,13 @@ public class THead {
 	public static final String THEAD_PEMBELIAN_DETAIL_ONUTANG = "<thead><tr>" 
 			+ "<th>Obat</th>"
 			+ "<th>Harga Beli</th>"
+			+ "<th>Jumlah</th>"
+			+ "<th>Total</th>"
+			+ "</tr></thead>";
+	
+	public static final String THEAD_PENJUALAN_DETAIL_ONUTANG = "<thead><tr>" 
+			+ "<th>Obat</th>"
+			+ "<th>Harga Jual</th>"
 			+ "<th>Jumlah</th>"
 			+ "<th>Total</th>"
 			+ "</tr></thead>";
@@ -99,7 +114,7 @@ public class THead {
 			+ "<th>Tanggal</th>"
 			+ "<th>Nomor Faktur</th>"
 			+ "<th>Pelanggan</th>"			
-			+ "<th>Total/th>"
+			+ "<th>Total</th>"
 			+ "<th>Sisa Piutang</th>"
 			+ "<th>Detail</th>"			
 			+ "</tr></thead>";
@@ -107,6 +122,27 @@ public class THead {
 	public static final String THEAD_BAYAR_PEMBELIAN_DETAIL = "<thead><tr>" 
 			+ "<th>Tanggal</th>"
 			+ "<th>Jumlah Bayar</th>"			
+			+ "</tr></thead>";
+	
+	public static final String THEAD_TOP_10_OBAT = "<thead><tr>" 
+			+ "<th>#</th>"
+			+ "<th>Obat</th>"
+			+ "<th>Total</th>"
+			+ "</tr></thead>";
+	
+	public static final String THEAD_TOP_10_DIAGNOSA = "<thead><tr>" 
+			+ "<th>#</th>"
+			+ "<th>Diagnosa</th>"
+			+ "<th>Total</th>"
+			+ "</tr></thead>";
+
+	public static final String THEAD_PEMBELIAN_DETAIL_RETUR = "<thead><tr>" 			
+			+ "<th>Obat</th>"
+			+ "<th>Harga Beli</th>"
+			+ "<th>Jumlah Beli</th>"
+			+ "<th>Subtotal</th>"
+			+ "<th>Sudah Diretur</th>"
+			+ "<th></th>"
 			+ "</tr></thead>";
 
 }

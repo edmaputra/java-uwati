@@ -13,7 +13,6 @@ import com.mysema.query.types.expr.BooleanExpression;
 
 import id.edmaputra.uwati.entity.transaksi.PembelianDetailTemp;
 import id.edmaputra.uwati.repository.transaksi.PembelianDetailTempRepository;
-import id.edmaputra.uwati.view.handler.PembelianDetailHandler;
 
 @Service
 public class PembelianDetailTempService {

@@ -1,5 +1,6 @@
 package id.edmaputra.uwati.service.pasien;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,5 +55,9 @@ public class RekamMedisDiagnosaService {
 
 	public List<RekamMedisDiagnosa> dapatkan(RekamMedis rekamMedis) {
 		return rekamMedisDiagnosaRepository.findByRekamMedis(rekamMedis);
+	}
+	
+	public List<Object[]> top10Diagnosa(Date from, Date to){
+		return rekamMedisDiagnosaRepository.top10Diagnosa(from, to);
 	}
 }

@@ -14,7 +14,6 @@ import com.mysema.query.types.expr.BooleanExpression;
 
 import id.edmaputra.uwati.entity.transaksi.NomorFaktur;
 import id.edmaputra.uwati.repository.transaksi.NomorFakturRepository;
-import id.edmaputra.uwati.repository.transaksi.PenjualanDetailTempRepository;
 
 @Service
 public class NomorFakturService {

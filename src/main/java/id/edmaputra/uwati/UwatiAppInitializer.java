@@ -1,4 +1,4 @@
-package id.edmaputra.uwati.config;
+package id.edmaputra.uwati;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;

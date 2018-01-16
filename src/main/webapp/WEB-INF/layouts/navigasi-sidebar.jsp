@@ -72,7 +72,7 @@
 					<li><a href="<spring:url value="/laporan/penjualan" />">Penjualan</a></li>
 					<li><a href="<spring:url value="/laporan/pembelian" />">Pembelian</a></li>
 					<li><a href="<spring:url value="/laporan/pasien" />">Pasien</a></li>
-					<li><a href="<spring:url value="#" />">Obat &amp; Diagnosa</a></li>
+					<li><a href="<spring:url value="/obat-diagnosa" />">Obat &amp; Diagnosa</a></li>
 				</ul></li>
 		</security:authorize>
 
@@ -95,6 +95,10 @@
 				<security:authorize
 					access="hasAnyRole('ADMIN') and isAuthenticated()">
 					<li><a href="<spring:url value="/utang-piutang" />">Utang &amp; Piutang</a></li>
+				</security:authorize>				
+				<security:authorize
+					access="hasAnyRole('ADMIN') and isAuthenticated()">
+					<li><a href="<spring:url value="/retur" />">Retur</a></li>
 				</security:authorize>
 			</ul></li>
 

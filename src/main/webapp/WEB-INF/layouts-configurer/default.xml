@@ -182,4 +182,18 @@
 		<!-- <put-attribute name="current" value="home" /> -->
 	</definition>
 	
+	<definition name="laporan-obat-diagnosa" extends="dasar">
+		<put-attribute name="title" value="UWATI - Obat - Diagnosa" />
+		<put-attribute name="page_title" value="Top 10 Obat dan Diagnosa" />
+		<put-attribute name="body" value="/WEB-INF/jsps/laporan/obat-diagnosa.jsp" />
+		<!-- <put-attribute name="current" value="home" /> -->
+	</definition>
+	
+	<definition name="retur-pembelian" extends="dasar">
+		<put-attribute name="title" value="UWATI - Retur Pembelian" />
+		<put-attribute name="page_title" value="Retur Pembelian" />
+		<put-attribute name="body" value="/WEB-INF/jsps/transaksi/retur-pembelian-obat.jsp" />
+		<!-- <put-attribute name="current" value="home" /> -->
+	</definition>
+	
 </tiles-definitions>
