@@ -196,4 +196,11 @@
 		<!-- <put-attribute name="current" value="home" /> -->
 	</definition>
 	
+	<definition name="notifikasi" extends="dasar">
+		<put-attribute name="title" value="UWATI - Notifikasi" />
+		<put-attribute name="page_title" value="Notifikasi" />
+		<put-attribute name="body" value="/WEB-INF/jsps/notifikasi/daftar.jsp" />
+		<!-- <put-attribute name="current" value="home" /> -->
+	</definition>
+	
 </tiles-definitions>

@@ -154,4 +154,12 @@ public class PembelianDetail extends DasarTransaksiEntity<Long> {
 	public void setIsReturned(Boolean isReturned) {
 		this.isReturned = isReturned;
 	}
+
+	@Override
+	public String toString() {
+		return "PembelianDetail [id=" + id + ", obat=" + obat + ", jumlah=" + jumlah + ", hargaJual=" + hargaJual
+				+ ", hargaJualResep=" + hargaJualResep + ", hargaBeli=" + hargaBeli + ", diskon=" + diskon + ", pajak="
+				+ pajak + ", subTotal=" + subTotal + ", tanggalKadaluarsa=" + tanggalKadaluarsa + ", isReturned="
+				+ isReturned + "]";
+	}
 }

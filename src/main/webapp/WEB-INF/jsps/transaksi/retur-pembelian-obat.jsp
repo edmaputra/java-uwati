@@ -72,6 +72,7 @@
 						<label class="lb-sm">Supplier/Distributor</label> <input
 							type="text" readonly="readonly" class="form-control"
 							id="supplier" />
+							<input type="hidden" class="form-control" id="id-pembelian" />
 					</div>
 				</div>
 				<div class="row">
@@ -100,12 +101,13 @@
 						<label class="lb-sm">Subtotal</label> <input type="text"
 							readonly="readonly" class="form-control" id="retur-subtotal"
 							value="0" />
+							
 					</div>
 					<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
 						<label class="lb-sm">-</label> <input type="hidden"
 							id="retur-id-obat" />
 						<button type="button" class="form-control btn btn-primary"
-							id="retur-button">Retur</button>
+							id="retur-button">Tambah</button>
 					</div>
 				</div>
 				<hr />
@@ -145,12 +147,17 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="form-control btn btn-default" value="Batal" id="retur-batal"></button>
-				<input type="submit" class="btn btn-primary" value="RETUR"
-					id="retur" style="width: 30%" />
+				<input type="button" class="btn btn-default" value="Batal" id="retur-batal" style="width: 15%;" />
+				<input type="submit" class="btn btn-primary" value="RETUR" id="retur" style="width: 30%" />
 			</div>
 		</form>
 	</div>
+</div>
+
+
+
+<div>
+	<%@ include file="../../layouts/gritter.jsp"%>
 </div>
 
 <script>
@@ -179,17 +186,30 @@
 					returObat();
 					resetFieldReturObat();
 				});
+				
+				$("#retur-batal").click(function() {
+					$('#modal-detail').modal('hide');
+					resetAll();
+				});
+				
+				$("#retur-jumlah").keyup(function(event) {
+					if (event.keyCode == 13) {
+						$('#retur-button').click();
+					}
+				});
+				
+				setMaskingUang("#retur-subtotal");
 
 				$("#retur-form").validate({
 					submitHandler : function(form) {
 						var data = {
 							randomId : randomId,
-							nomorFaktur : $('#nomor_faktur').val(),
-							distributor : $('#supplier').val()
+							idPembelian : $("#id-pembelian").val()
 						};
 						$.postJSON('${retur}', data, function() {
 							$('#retur-batal').click();							
 							$('#gritter-tambah-sukses').click();
+							randomId = Math.floor(Math.random() * 1000000);
 						}, function() {
 							$('#gritter-tambah-gagal').click();
 						});
@@ -248,18 +268,17 @@
 		var data = {
 			id : ids
 		};
-		$.getAjax('${dapatkan}', data, function(result) {
+		$.getAjax('${dapatkan}', data, function(result) {			
 			isiFieldFromDataResult(result);
+			$('#id-pembelian').val(ids);
 		}, null);
 	}
 
 	function getObat(ids) {
 		var data = {
 			id : ids,
-			nomorFaktur : $('#nomor_faktur').val(),
-			supplier : $('#supplier').val()
+			idPembelian : $('#id-pembelian').val()
 		};
-		console.log(data);
 		$.getAjax('${dapatkanObat}', data, function(result) {
 			isiFieldReturObat(result);
 			$('#retur-jumlah').focus();
@@ -276,6 +295,7 @@
 			nomorFaktur : $('#nomor_faktur').val(),
 			distributor : $('#supplier').val(),
 			idObat : $('#retur-id-obat').val(),
+			idPembelian : $('#id-pembelian').val(),
 			randomId : randomId
 		};
 		$.postJSON('${tambahObat}', data, function(result) {
@@ -309,8 +329,7 @@
 		$('#retur-id-obat').val(result.idObat);
 	}
 
-	function isiFieldFromDataResult(result) {
-		$('#ids').val(result.id);
+	function isiFieldFromDataResult(result) {		
 		$('#nomor_faktur').val(result.nomorFaktur);
 		$('#supplier').val(result.distributor);
 		$('#tanggal').val(result.tanggal);
@@ -332,6 +351,7 @@
 		$('#supplier').val('');
 		$('#tanggal').val('');
 		$('#tabel_detail').empty();
+		$('#id-pembelian').val('');
 	}
 
 	function resetDaftarObatRetur() {

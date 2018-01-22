@@ -26,6 +26,21 @@ public class Converter {
 			return null;
 		}
 	}
+	
+	public static Date stringToDateSlashSeparator(String tgl) {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		Date date;
+		try {
+			if (tgl.equals("") || tgl.equals(null)) {
+				date = new Date();
+			}
+			date = formatter.parse(tgl);
+			return date;
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 	public static int stringtoInt(String nominal) {
 		int returnValue = 0;
@@ -144,6 +159,9 @@ public class Converter {
 	}
 	
 	public static String hilangkanTandaTitikKoma(String s){
+		if (s == null) {
+			return null;
+		}
 		return s.replaceAll("[.,]", "");
 	}
 }

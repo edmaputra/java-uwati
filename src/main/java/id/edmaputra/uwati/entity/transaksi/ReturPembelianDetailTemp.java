@@ -71,6 +71,8 @@ public class ReturPembelianDetailTemp extends DasarTransaksiEntity<Long>{
 	private String randomId;
 		
 	private Long idObat;
+		
+	private Long idPembelian;
 
 	public String getRandomId() {
 		return randomId;
@@ -215,6 +217,14 @@ public class ReturPembelianDetailTemp extends DasarTransaksiEntity<Long>{
 				+ ", pajak=" + pajak + ", subTotal=" + subTotal + ", tanggalKadaluarsa=" + tanggalKadaluarsa
 				+ ", pengguna=" + pengguna + ", nomorFaktur=" + nomorFaktur + ", tanggal=" + tanggal + ", supplier="
 				+ supplier + ", pesan=" + pesan + ", randomId=" + randomId + ", idObat=" + idObat + "]";
+	}
+
+	public Long getIdPembelian() {
+		return idPembelian;
+	}
+
+	public void setIdPembelian(Long idPembelian) {
+		this.idPembelian = idPembelian;
 	}
 	
 	

@@ -36,6 +36,9 @@ public class Apotek extends DasarEntity<Integer>{
 	@Column(name="biaya_resep", nullable = false)	
 	private BigDecimal biayaResep;
 	
+	@Column(name="tenggat_kadaluarsa")
+	private Integer tenggatKadaluarsa = 90;
+	
 	public BigDecimal getBiayaResep() {
 		return biayaResep;
 	}
@@ -85,5 +88,13 @@ public class Apotek extends DasarEntity<Integer>{
 
 	public void setTelepon(String telepon) {
 		this.telepon = telepon;
+	}
+
+	public Integer getTenggatKadaluarsa() {
+		return tenggatKadaluarsa;
+	}
+
+	public void setTenggatKadaluarsa(Integer tenggatExpire) {
+		this.tenggatKadaluarsa = tenggatExpire;
 	}
 }

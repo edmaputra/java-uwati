@@ -34,6 +34,8 @@ public class QApotek extends EntityPathBase<Apotek> {
 
     public final StringPath telepon = createString("telepon");
 
+    public final NumberPath<Integer> tenggatKadaluarsa = createNumber("tenggatKadaluarsa", Integer.class);
+
     //inherited
     public final DateTimePath<java.util.Date> terakhirDirubah = _super.terakhirDirubah;
 

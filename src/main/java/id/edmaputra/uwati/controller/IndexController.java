@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import id.edmaputra.uwati.entity.master.Apotek;
 import id.edmaputra.uwati.service.ApotekService;
+import id.edmaputra.uwati.service.obat.ObatService;
 
 @Controller
 public class IndexController {
@@ -26,6 +27,9 @@ public class IndexController {
 
 	 @Autowired
 	 private ApotekService apotekService;
+	 
+	 @Autowired
+	 private ObatService obatService;
 
 	@RequestMapping(value = "/keluar", method = RequestMethod.GET)
 	public String keluar(HttpServletRequest request, HttpServletResponse response) {
@@ -48,6 +52,9 @@ public class IndexController {
 		try {
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			if (!(auth instanceof AnonymousAuthenticationToken)) {
+				model.addAttribute("obatAkanKadaluarsa", obatService.countObatAkanKadaluarsa());
+				model.addAttribute("obatSudahKadaluarsa", obatService.countObatSudahKadaluarsa());
+				model.addAttribute("obatAkanHabis", obatService.countObatAkanHabis());
 				return "beranda";
 			}
 			Page<Apotek> apoteks = apotekService.muatDaftar(1);

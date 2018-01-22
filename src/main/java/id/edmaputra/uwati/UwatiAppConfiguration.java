@@ -62,6 +62,9 @@ public class UwatiAppConfiguration {
 		dataSource.setUrl(environment.getRequiredProperty("jdbc.url"));
 		dataSource.setUsername(environment.getRequiredProperty("jdbc.username"));
 		dataSource.setPassword(environment.getRequiredProperty("jdbc.password"));
+		dataSource.setMaxWait(40000);
+		dataSource.setMaxActive(80);
+		dataSource.setMaxIdle(20);
 		return dataSource;
 	}
 

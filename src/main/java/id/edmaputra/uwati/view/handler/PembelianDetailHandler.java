@@ -55,6 +55,8 @@ public class PembelianDetailHandler {
 	private String bayar;
 	
 	private String bayarDetails;
+	
+	private String idPembelian;
 
 	public String getId() {
 		return id;
@@ -282,6 +284,14 @@ public class PembelianDetailHandler {
 				+ ", totalPembayaran=" + totalPembayaran + ", kembali=" + kembali + ", hargaBeli=" + hargaBeli
 				+ ", hargaJualResep=" + hargaJualResep + ", distributor=" + distributor + ", details=" + details
 				+ ", tanggalExpired=" + tanggalExpired + ", bayar=" + bayar + ", bayarDetails=" + bayarDetails + "]";
+	}
+
+	public String getIdPembelian() {
+		return idPembelian;
+	}
+
+	public void setIdPembelian(String idPembelian) {
+		this.idPembelian = idPembelian;
 	}
 
 }

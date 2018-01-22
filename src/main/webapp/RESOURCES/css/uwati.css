@@ -150,3 +150,91 @@ input.input-angka {
 button.btn-wrap{
 	white-space: normal;
 }
+
+.jualObat {
+	background: url(../images/uwati/jualobat.jpg) no-repeat center top;
+	text-align: center;
+	background-position: center center;
+}
+.jualObat i {
+	color: white;
+	margin-top: 45px;
+}
+.jualObat h2 {
+	color: white;
+	font-weight: 900;
+}
+.jualObat h4 {
+	color: white;
+	font-weight: 900;
+	letter-spacing: 1px;
+} 
+.jualObat h4 a {
+	color: white;
+}
+
+.beli-obat {
+	background: url(../images/uwati/beliobat.jpg) no-repeat center top;
+	text-align: center;
+	background-position: center center;
+}
+.beli-obat i {
+	color: white;
+	margin-top: 45px;
+}
+.beli-obat h2 {
+	color: white;
+	font-weight: 900;
+}
+.beli-obat h4 {
+	color: white;
+	font-weight: 900;
+	letter-spacing: 1px;
+} 
+.beli-obat h4 a {
+	color: white;
+}
+
+.retur-obat {
+	background: url(../images/uwati/returobat.jpg) no-repeat center top;
+	text-align: center;
+	background-position: center center;
+}
+.retur-obat i {
+	color: white;
+	margin-top: 45px;
+}
+.retur-obat h2 {
+	color: white;
+	font-weight: 900;
+}
+.retur-obat h4 {
+	color: white;
+	font-weight: 900;
+	letter-spacing: 1px;
+} 
+.retur-obat h4 a {
+	color: white;
+}
+
+.laporan {
+	background: url(../images/uwati/laporan.jpg) no-repeat center top;
+	text-align: center;
+	background-position: center center;
+}
+.laporan i {
+	color: white;
+	margin-top: 45px;
+}
+.laporan h2 {
+	color: white;
+	font-weight: 900;
+}
+.laporan h4 {
+	color: white;
+	font-weight: 900;
+	letter-spacing: 1px;
+} 
+.laporan h4 a {
+	color: white;
+}

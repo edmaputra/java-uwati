@@ -31,5 +31,15 @@ public interface PembelianDetailRepository extends JpaRepository<PembelianDetail
 			+ "AND pembelian.supplier = ?3")
 	PembelianDetail findByObatAndNomorFakturAndSupplier(String obat, String nomorFaktur, String supplier);
 	
+	@Query(nativeQuery = true, value = "UPDATE pembelian,pembelian_detail SET pembelian_detail.isReturned = ?4 " + 
+			"WHERE pembelian_detail.obat = ?1 " + 
+			"AND pembelian.nomor_faktur = ?2 " + 
+			"AND pembelian.supplier = ?3")
+	void setStatusReturObat(String obat, String nomorFaktur, String supplier, int status);
+
+	PembelianDetail findByIdAndPembelian(Long id, Pembelian pembelian);
+
+	PembelianDetail findByObatAndPembelian(String obat, Pembelian pembelian);
+	
 
 }

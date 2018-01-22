@@ -1176,27 +1176,7 @@ PANELS CONFIGURATIONS
 /*WEATHER PANELS*/
 
 /* Weather 1 */
-.jualObat {
-	background: url(../images/uwati/jualobat.jpg) no-repeat center top;
-	text-align: center;
-	background-position: center center;
-}
-.jualObat i {
-	color: white;
-	margin-top: 45px;
-}
-.jualObat h2 {
-	color: white;
-	font-weight: 900;
-}
-.jualObat h4 {
-	color: white;
-	font-weight: 900;
-	letter-spacing: 1px;
-} 
-.jualObat h4 a {
-	color: white;
-}
+
 
 /* Weather 2 */
 .weather-2 {

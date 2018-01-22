@@ -166,6 +166,7 @@ public class PembelianObatController {
 				t.setSubTotal(Converter.patternCurrency(obat.getDetail().get(0).getHargaBeli()));
 				t.setHargaJual(Converter.patternCurrency(obat.getDetail().get(0).getHargaJual()));
 				t.setHargaJualResep(Converter.patternCurrency(obat.getDetail().get(0).getHargaJualResep()));
+				t.setPajak("0");
 			} else {
 				t = tersimpan;
 				Integer j = Integer.valueOf(tersimpan.getJumlah()).intValue() + 1;

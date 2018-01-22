@@ -267,6 +267,28 @@ public class Html {
 		btn += "</button>";
 		return btn;
 	}
+		
+//	<input type="checkbox" disabled="disabled" checked="checked"/>
+	public static String checkbox(String id, String clazz, boolean isChecked, boolean isReadonly, boolean isEnabled) {
+		String chkbox = "<input type='checkbox'";
+		if (!StringUtils.isEmpty(id) || id != null) {
+			chkbox += "id = '" + clazz + "' ";
+		}
+		if (!StringUtils.isEmpty(clazz) || clazz != null) {
+			chkbox += "class = '" + clazz + "' ";
+		}
+		if (isChecked) {
+			chkbox += "checked = 'checked' ";
+		}
+		if (isReadonly) {
+			chkbox += "readonly = 'readonly' ";
+		}
+		if (!isEnabled) {
+			chkbox += "disabled = 'disabled' ";
+		}
+		chkbox += "/>";
+		return chkbox;
+	}
 	
 	public static String desc(int urutan, String namaObat){
 		String desc = "";

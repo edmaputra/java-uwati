@@ -17,38 +17,50 @@ import id.edmaputra.uwati.repository.obat.ObatRepository;
 public class ObatService {
 
 	@Autowired
-	private ObatRepository obatRepository;
+	private ObatRepository repository;
 
 	private static final int PAGE_SIZE = 25;
 
 	public void simpan(Obat obat) {
-		obatRepository.save(obat);
+		repository.save(obat);
 	}
 
 	public Obat dapatkan(Long id) {
-		return obatRepository.findOne(id);
+		return repository.findOne(id);
 	}
 	
 	public Obat dapatkanByNama(String nama){
-		return obatRepository.findByNama(nama);
+		return repository.findByNama(nama);
 	}
 
 	public Page<Obat> muatDaftar(Integer halaman, BooleanExpression expression) {
 		PageRequest request = new PageRequest(halaman - 1, PAGE_SIZE, Sort.Direction.ASC, "nama");
-		return obatRepository.findAll(expression, request);
+		return repository.findAll(expression, request);
 	}
 	
 	public Page<Obat> muatDaftar(Integer halaman, BooleanExpression expression, int size) {
 		PageRequest request = new PageRequest(halaman - 1, size, Sort.Direction.ASC, "id");
-		return obatRepository.findAll(expression, request);
+		return repository.findAll(expression, request);
 	}
 
 	public void hapus(Obat obat) {
-		obatRepository.delete(obat);
+		repository.delete(obat);
 	}
 
 	public List<Obat> dapatkanListByNama(BooleanExpression exp) {
-		return (List<Obat>) obatRepository.findAll(exp);
+		return (List<Obat>) repository.findAll(exp);
+	}
+
+	public Integer countObatAkanKadaluarsa() {
+		return repository.countObatAkanKadaluarsa();
+	}
+
+	public Integer countObatSudahKadaluarsa() {
+		return repository.countObatSudahKadaluarsa();
+	}
+
+	public Integer countObatAkanHabis() {		
+		return repository.countObatAkanHabis();
 	}
 
 }

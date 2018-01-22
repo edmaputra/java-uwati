@@ -9,7 +9,7 @@
 		<!-- 			<a href="profile.html"><img src="#" class="img-circle" width="60"></a> -->
 		<!-- 		</p> -->
 
-		<h5 class="centered">Apotik Nur Jannah</h5>
+<!-- 		<h5 class="centered">Apotik Nur Jannah</h5> -->
 
 		<li class="sub-menu"><a href="<spring:url value="/" />"> <i
 				class="fa fa-home"></i> <span>Beranda</span>

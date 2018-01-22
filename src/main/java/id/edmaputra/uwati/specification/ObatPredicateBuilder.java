@@ -62,5 +62,9 @@ public class ObatPredicateBuilder {
 		}
 	}
 	
+	public void tanggalKadaluarsa() {
+		
+	}
+	
 
 }

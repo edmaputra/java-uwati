@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -237,11 +237,11 @@ public class ReturController {
 
 	@RequestMapping(value = "/dapatkanobat", method = RequestMethod.GET)
 	@ResponseBody
-	public PembelianDetailHandler dapatkanObat(@RequestParam("nomorFaktur") String nomorFaktur,
-			@RequestParam("id") String id, @RequestParam("supplier") String supplier) {
+	public PembelianDetailHandler dapatkanObat(@RequestParam("idPembelian") String idPembelian, @RequestParam("id") String id) {
 		try {
 			PembelianDetailHandler ph = new PembelianDetailHandler();
-			PembelianDetail get = pembelianDetailService.dapatkan(new Long(id), nomorFaktur, supplier);
+			Pembelian pembelian = pembelianService.dapatkan(new Long(idPembelian));
+			PembelianDetail get = pembelianDetailService.dapatkan(new Long(id), pembelian);
 			ph.setObat(get.getObat());
 			ph.setHargaBeli(Converter.patternCurrency(get.getHargaBeli()));
 			ph.setJumlah(get.getJumlah().toString());
@@ -261,24 +261,35 @@ public class ReturController {
 		try {
 			Obat obat = obatService.dapatkan(h.getIdObat());
 			List<ObatStok> listObatStok = obatStokService.temukanByObats(obat);
-			PembelianDetail pembelianObat = pembelianDetailService.dapatkan(h.getObat(), h.getNomorFaktur(),
-					h.getDistributor());
+			Pembelian pembelian = pembelianService.dapatkan(new Long(h.getIdPembelian()));
+			PembelianDetail pembelianDetail = pembelianDetailService.dapatkan(h.getObat(), pembelian);
 			Integer jumlahRetur = Integer.valueOf(h.getJumlah());
-			if (jumlahRetur > listObatStok.get(0).getStok() || jumlahRetur > pembelianObat.getJumlah()) {
+			if (jumlahRetur > listObatStok.get(0).getStok() || jumlahRetur > pembelianDetail.getJumlah()) {
 				String pesan = "<p>Jumlah Obat Retur lebih banyak dari Stok yang tersedia atau lebih besar dari pada jumlah pembelian sebelumnya ! </p>";
 				pesan += "<p>Obat : " + h.getObat() + "</p>";
 				pesan += "<p>Jumlah Retur : " + jumlahRetur + "</p>";
 				pesan += "<p>Stok : " + listObatStok.get(0).getStok() + "</p>";
-				pesan += "<p>Jumlah Pembelian : " + pembelianObat.getJumlah() + " </p>";
+				pesan += "<p>Jumlah Pembelian : " + pembelianDetail.getJumlah() + " </p>";
 				h.setInfo(pesan);
 				h.setTipe(0);
 			} else {
 				ReturPembelianDetailTemp temp = null;
-				ReturPembelianDetailTemp tersimpan = tempService.dapatkanByRandomIdAndIdObat(h.getRandomId(),
-						obat.getId());
+				ReturPembelianDetailTemp tersimpan = tempService.dapatkanByRandomIdAndIdObat(h.getRandomId(),obat.getId());
 				if (tersimpan == null) {
 					temp = new ReturPembelianDetailTemp();
-					BeanUtils.copyProperties(h, temp);
+										
+					temp.setObat(pembelianDetail.getObat());
+					temp.setDiskon(pembelianDetail.getDiskon()+"");
+					temp.setHargaJualResep(pembelianDetail.getHargaJualResep()+"");
+					temp.setPajak(pembelianDetail.getPajak()+"");
+					temp.setTanggalKadaluarsa(Converter.dateToString(pembelianDetail.getTanggalKadaluarsa()));
+					temp.setJumlah(h.getJumlah());
+					temp.setHargaBeli(h.getHargaBeli());
+					temp.setIdObat(h.getIdObat());
+					temp.setSubTotal(h.getSubTotal());
+					temp.setRandomId(h.getRandomId());
+					temp.setNomorFaktur(h.getNomorFaktur());
+					temp.setSupplier(h.getDistributor());
 				} else {
 					temp = tersimpan;
 					int jumlahTersimpan = Integer.valueOf(tersimpan.getJumlah());
@@ -342,9 +353,11 @@ public class ReturController {
 			row += Html.td(Formatter.patternCurrency(d.getHargaBeli()));
 			row += Html.td(Formatter.patternCurrency(d.getJumlah()));
 			row += Html.td(Formatter.patternCurrency(d.getSubTotal()));
-			row += Html.td("A");
-			btn += Html.button("btn btn-primary btn-xs", null, null, "onClick", "getObat('" + d.getId() + "')", 7,
-					"Retur Obat : " + d.getObat(), "button-pilih-obat", "button");
+			row += Html.td(Html.checkbox(null, null, d.getIsReturned(), true, false));
+			if (!d.getIsReturned()) {
+				btn += Html.button("btn btn-primary btn-xs", null, null, "onClick", "getObat('" + d.getId() + "')", 7,
+						"Retur Obat : " + d.getObat(), "button-pilih-obat", "button");
+			}			
 			row += Html.td(btn);
 			data += Html.tr(row);
 		}
@@ -357,41 +370,79 @@ public class ReturController {
 	@ResponseBody
 	public PembelianDetailHandler jual(@RequestBody PembelianDetailHandler h, BindingResult result, Principal principal,
 			HttpServletRequest request) {
-		ReturPembelian returPembelian = new ReturPembelian();
+		ReturPembelian retur = new ReturPembelian();
 		try {
-			Pembelian pembelian = pembelianService.dapatkan(h.getNomorFaktur(), h.getDistributor());
+			Pembelian pembelian = pembelianService.dapatkan(new Long(h.getIdPembelian()));
 			List<ReturPembelianDetailTemp> temps = tempService.dapatkanListByRandomId(h.getRandomId());
 			List<ReturPembelianDetail> details = new ArrayList<>();
 			for (ReturPembelianDetailTemp temp : temps) {
 				ReturPembelianDetail detail = new ReturPembelianDetail();
 				detail = copyReturPembelianDetail(detail, temp);
+				detail.setTanggal(new Date());
+				detail.setReturPembelian(retur);
 				details.add(detail);
+			}			
+			retur = copyReturPembelian(retur, pembelian);
+			retur.setPengguna(penggunaService.temukan(principal.getName()));			
+			retur.setGrandTotal(totalHarga(temps));
+			retur.setReturPembelianDetail(details);
+			retur.setWaktuTransaksi(new Date());
+			
+			retur.setWaktuDibuat(new Date());
+			retur.setTerakhirDirubah(new Date());			
+			
+			returPembelianService.simpan(retur);
+			
+			for(ReturPembelianDetailTemp temp : temps) {
+				setStatusObatRetur(temp.getObat(), pembelian);
+				updateStokObat(temp.getIdObat(), new Integer(temp.getJumlah()));
 			}
 			
-			returPembelian = copyReturPembelian(returPembelian, pembelian);			
-			
-			returPembelian.setPengguna(penggunaService.temukan(principal.getName()));
-			returPembelian.setReturPembelianDetail(details);
-			returPembelianService.simpan(returPembelian);
-			
+			tempService.hapusBatch(h.getRandomId());
 			return h;
 		} catch (Exception e) {
 			logger.info(e.getMessage());
-			logger.info(LogSupport.tambahGagal(principal.getName(), returPembelian.toString(), request));
+			logger.info(LogSupport.tambahGagal(principal.getName(), retur.getId().toString(), request));
 			h.setInfo(e.getMessage());
 			return h;
 		}
 	}
 	
+	private void updateStokObat(Long idObat, Integer jumlah) {
+		Obat obat = obatService.dapatkan(idObat);
+		List<ObatStok> stokObat = obatStokService.temukanByObats(obat);
+		obat.setStok(stokObat);
+		Hibernate.initialize(obat.getStok());
+		Integer stokBaru = obat.getStok().get(0).getStok() - jumlah;
+		obat.getStok().get(0).setStok(stokBaru);
+		obatService.simpan(obat);
+	}
+	
+	private void setStatusObatRetur(String obat, Pembelian pembelian) {
+		PembelianDetail detail = pembelianDetailService.dapatkan(obat, pembelian);
+		detail.setIsReturned(true);
+		pembelianDetailService.simpan(detail);		
+	}
+	
 	private ReturPembelian copyReturPembelian(ReturPembelian returPembelian, Pembelian pembelian) {
 		returPembelian.setDeadline(pembelian.getDeadline());
 		returPembelian.setNomorFaktur(pembelian.getNomorFaktur());
-		returPembelian.setSupplier(pembelian.getSupplier());		
+		returPembelian.setSupplier(pembelian.getSupplier());
 		
 		return returPembelian;
 	}
 	
-	private ReturPembelianDetail copyReturPembelianDetail(ReturPembelianDetail detail, ReturPembelianDetailTemp temp) {
+	private ReturPembelianDetail copyReturPembelianDetail(ReturPembelianDetail detail, ReturPembelianDetailTemp temp) {		
+		detail.setDiskon(new BigDecimal(Converter.hilangkanTandaTitikKoma(temp.getDiskon())));		
+		detail.setHargaBeli(new BigDecimal(Converter.hilangkanTandaTitikKoma(temp.getHargaBeli())));		
+		detail.setHargaTotal(new BigDecimal(Converter.hilangkanTandaTitikKoma(temp.getSubTotal())));		
+		detail.setJumlah(Integer.valueOf(temp.getJumlah()));		
+		detail.setObat(temp.getObat());		
+		detail.setPajak((new BigDecimal(Converter.hilangkanTandaTitikKoma(temp.getPajak()))));		
+		detail.setTanggalKadaluarsa(Converter.stringToDateSlashSeparator(temp.getTanggalKadaluarsa()));
+		
+		detail.setWaktuDibuat(new Date());		
+		detail.setTerakhirDirubah(new Date());		
 		return detail;
 	}
 
