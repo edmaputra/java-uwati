@@ -130,6 +130,9 @@
 		
 		<intercept-url pattern="/retur**" access="isAuthenticated() and hasAnyRole('ADMIN')" />		
 		<intercept-url pattern="/retur/dapatkan**" access="isAuthenticated() and hasAnyRole('ADMIN')" />
+		
+		<intercept-url pattern="/notifikasi**" access="isAuthenticated()" />		
+		<intercept-url pattern="/notifikasi/daftar**" access="isAuthenticated()" />
 				
 		<form-login login-page="/masuk"
 			default-target-url="/" username-parameter="username"

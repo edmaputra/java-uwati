@@ -21,7 +21,8 @@
 						<h4 style="color: red;">${obatAkanHabis}</h4>
 					</div>
 					<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-						<a href="#" class="btn btn-primary" style="width: 100%;">Rincian</a>
+						<label>&nbsp;</label>
+						<a href="<spring:url value="/notifikasi" />" class="btn btn-default" style="width: 100%;">Rincian</a>
 					</div>
 				</div>
 			</div>

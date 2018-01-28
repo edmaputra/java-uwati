@@ -9,6 +9,8 @@ public class ApotekHandler {
 	private String telepon;
 	
 	private String biayaResep;
+	
+	private Integer tenggatKadaluarsa;
 
 	public String getNama() {
 		return nama;
@@ -40,6 +42,14 @@ public class ApotekHandler {
 
 	public void setBiayaResep(String biayaResep) {
 		this.biayaResep = biayaResep;
+	}
+
+	public Integer getTenggatKadaluarsa() {
+		return tenggatKadaluarsa;
+	}
+
+	public void setTenggatKadaluarsa(Integer tenggatKadaluarsa) {
+		this.tenggatKadaluarsa = tenggatKadaluarsa;
 	}
 	
 

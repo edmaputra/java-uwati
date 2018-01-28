@@ -62,5 +62,17 @@ public class ObatService {
 	public Integer countObatAkanHabis() {		
 		return repository.countObatAkanHabis();
 	}
+	
+	public List<Object[]> obatAkanHabis(int a, int b){		
+		return repository.obatAkanHabis(a, b);
+	}
+	
+	public List<Object[]> obatAkanKadaluarsa(int a, int b){		
+		return repository.obatAkanKadaluarsa(a, b);
+	}
+	
+	public List<Object[]> obatSudahKadaluarsa(int a, int b){		
+		return repository.obatSudahKadaluarsa(a, b);
+	}
 
 }

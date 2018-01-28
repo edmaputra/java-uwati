@@ -413,7 +413,4 @@ public class Html {
 		String nav = Html.nav(Html.ul(html, "pagination"));
 		return nav;
 	}
-	
-	
-
 }

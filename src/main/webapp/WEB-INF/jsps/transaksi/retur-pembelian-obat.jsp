@@ -71,8 +71,8 @@
 					<div class="form-group col-xs-4 col-sm-4 col-md-4 col-lg-4">
 						<label class="lb-sm">Supplier/Distributor</label> <input
 							type="text" readonly="readonly" class="form-control"
-							id="supplier" />
-							<input type="hidden" class="form-control" id="id-pembelian" />
+							id="supplier" /> <input type="hidden" class="form-control"
+							id="id-pembelian" />
 					</div>
 				</div>
 				<div class="row">
@@ -101,7 +101,7 @@
 						<label class="lb-sm">Subtotal</label> <input type="text"
 							readonly="readonly" class="form-control" id="retur-subtotal"
 							value="0" />
-							
+
 					</div>
 					<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
 						<label class="lb-sm">-</label> <input type="hidden"
@@ -147,8 +147,9 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<input type="button" class="btn btn-default" value="Batal" id="retur-batal" style="width: 15%;" />
-				<input type="submit" class="btn btn-primary" value="RETUR" id="retur" style="width: 30%" />
+				<input type="button" class="btn btn-default" value="Batal"
+					id="retur-batal" style="width: 15%;" /> <input type="submit"
+					class="btn btn-primary" value="RETUR" id="retur" style="width: 30%" />
 			</div>
 		</form>
 	</div>
@@ -166,6 +167,7 @@
 	var tanggalAkhir = '';
 	var cari = '';
 	var randomId = Math.floor(Math.random() * 1000000);
+	var isi = 0;
 
 	$(document).ready(
 			function() {
@@ -186,33 +188,40 @@
 					returObat();
 					resetFieldReturObat();
 				});
-				
+
 				$("#retur-batal").click(function() {
 					$('#modal-detail').modal('hide');
 					resetAll();
 				});
-				
+
 				$("#retur-jumlah").keyup(function(event) {
 					if (event.keyCode == 13) {
 						$('#retur-button').click();
 					}
 				});
-				
+
 				setMaskingUang("#retur-subtotal");
 
 				$("#retur-form").validate({
 					submitHandler : function(form) {
-						var data = {
-							randomId : randomId,
-							idPembelian : $("#id-pembelian").val()
-						};
-						$.postJSON('${retur}', data, function() {
-							$('#retur-batal').click();							
-							$('#gritter-tambah-sukses').click();
-							randomId = Math.floor(Math.random() * 1000000);
-						}, function() {
-							$('#gritter-tambah-gagal').click();
-						});
+						if (isi == 0) {
+							var p = "Harap Pilih Obat Dulu";
+							$('#pesan').empty();
+							$('#pesan').append(p);
+							$('#pesan-modal').modal('show');
+						} else {
+							var data = {
+								randomId : randomId,
+								idPembelian : $("#id-pembelian").val()
+							};
+							$.postJSON('${retur}', data, function() {
+								$('#retur-batal').click();
+								$('#gritter-tambah-sukses').click();
+								randomId = Math.floor(Math.random() * 1000000);
+							}, function() {
+								$('#gritter-tambah-gagal').click();
+							});
+						}
 					}
 				});
 			});
@@ -268,7 +277,7 @@
 		var data = {
 			id : ids
 		};
-		$.getAjax('${dapatkan}', data, function(result) {			
+		$.getAjax('${dapatkan}', data, function(result) {
 			isiFieldFromDataResult(result);
 			$('#id-pembelian').val(ids);
 		}, null);
@@ -307,6 +316,7 @@
 			} else {
 				refreshDaftarObatRetur(randomId);
 				resetFieldReturObat();
+				isi = 1;
 			}
 		}, null);
 	}
@@ -329,7 +339,7 @@
 		$('#retur-id-obat').val(result.idObat);
 	}
 
-	function isiFieldFromDataResult(result) {		
+	function isiFieldFromDataResult(result) {
 		$('#nomor_faktur').val(result.nomorFaktur);
 		$('#supplier').val(result.distributor);
 		$('#tanggal').val(result.tanggal);
@@ -357,6 +367,7 @@
 	function resetDaftarObatRetur() {
 		$('#retur-total').val('0');
 		$('#tabel-obat').empty();
+		isi = 0;
 	}
 
 	function resetAll() {

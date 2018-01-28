@@ -70,17 +70,17 @@ public class ApotekController {
 		}
 	}
 	
-	@Transactional
+	
 	@RequestMapping(value="/simpan", method = RequestMethod.POST)
 	@ResponseBody
-	public Apotek simpan(@RequestBody ApotekHandler apotek, BindingResult result, Principal principal, HttpServletRequest request){
+	public Apotek simpan(@RequestBody ApotekHandler handler, BindingResult result, Principal principal, HttpServletRequest request){
 		Page<Apotek> apoteks = apotekService.muatDaftar(1, null);
 		Apotek saved = apoteks.getContent().get(0);
 		try {			
-			saved.setAlamat(apotek.getAlamat());
-			saved.setNama(apotek.getNama());
-			saved.setTelepon(apotek.getTelepon());
-//			saved.setBiayaResep(new BigDecimal(Formatter.hilangkanTitikKoma(apotek.getBiayaResep())));
+			saved.setAlamat(handler.getAlamat());
+			saved.setNama(handler.getNama());
+			saved.setTelepon(handler.getTelepon());
+			saved.setTenggatKadaluarsa(handler.getTenggatKadaluarsa());
 			saved.setTerakhirDirubah(new Date());
 			saved.setUserEditor(principal.getName());
 			apotekValidator.validate(saved);
