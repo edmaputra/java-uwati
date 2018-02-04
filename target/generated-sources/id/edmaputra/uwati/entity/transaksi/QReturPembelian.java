@@ -37,8 +37,6 @@ public class QReturPembelian extends EntityPathBase<ReturPembelian> {
 
     public final id.edmaputra.uwati.entity.pengguna.QPengguna pengguna;
 
-    public final ListPath<ReturPembelianDetail, QReturPembelianDetail> returPembelianDetail = this.<ReturPembelianDetail, QReturPembelianDetail>createList("returPembelianDetail", ReturPembelianDetail.class, QReturPembelianDetail.class, PathInits.DIRECT2);
-
     public final StringPath supplier = createString("supplier");
 
     //inherited

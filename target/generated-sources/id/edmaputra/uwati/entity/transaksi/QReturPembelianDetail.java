@@ -7,7 +7,6 @@ import com.mysema.query.types.path.*;
 import com.mysema.query.types.PathMetadata;
 import javax.annotation.Generated;
 import com.mysema.query.types.Path;
-import com.mysema.query.types.path.PathInits;
 
 
 /**
@@ -17,8 +16,6 @@ import com.mysema.query.types.path.PathInits;
 public class QReturPembelianDetail extends EntityPathBase<ReturPembelianDetail> {
 
     private static final long serialVersionUID = -1917758375L;
-
-    private static final PathInits INITS = PathInits.DIRECT2;
 
     public static final QReturPembelianDetail returPembelianDetail = new QReturPembelianDetail("returPembelianDetail");
 
@@ -32,20 +29,28 @@ public class QReturPembelianDetail extends EntityPathBase<ReturPembelianDetail> 
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final NumberPath<Long> idPembelian = createNumber("idPembelian", Long.class);
+
     //inherited
     public final StringPath info = _super.info;
 
     public final NumberPath<Integer> jumlah = createNumber("jumlah", Integer.class);
 
+    public final StringPath nomorFaktur = createString("nomorFaktur");
+
     public final StringPath obat = createString("obat");
 
     public final NumberPath<java.math.BigDecimal> pajak = createNumber("pajak", java.math.BigDecimal.class);
 
-    public final QReturPembelian returPembelian;
+    public final StringPath pengguna = createString("pengguna");
+
+    public final StringPath supplier = createString("supplier");
 
     public final DateTimePath<java.util.Date> tanggal = createDateTime("tanggal", java.util.Date.class);
 
     public final DateTimePath<java.util.Date> tanggalKadaluarsa = createDateTime("tanggalKadaluarsa", java.util.Date.class);
+
+    public final DatePath<java.util.Date> tanggalPembelian = createDate("tanggalPembelian", java.util.Date.class);
 
     //inherited
     public final DateTimePath<java.util.Date> terakhirDirubah = _super.terakhirDirubah;
@@ -54,24 +59,15 @@ public class QReturPembelianDetail extends EntityPathBase<ReturPembelianDetail> 
     public final DateTimePath<java.util.Date> waktuDibuat = _super.waktuDibuat;
 
     public QReturPembelianDetail(String variable) {
-        this(ReturPembelianDetail.class, forVariable(variable), INITS);
+        super(ReturPembelianDetail.class, forVariable(variable));
     }
 
     public QReturPembelianDetail(Path<? extends ReturPembelianDetail> path) {
-        this(path.getType(), path.getMetadata(), path.getMetadata().isRoot() ? INITS : PathInits.DEFAULT);
+        super(path.getType(), path.getMetadata());
     }
 
     public QReturPembelianDetail(PathMetadata<?> metadata) {
-        this(metadata, metadata.isRoot() ? INITS : PathInits.DEFAULT);
-    }
-
-    public QReturPembelianDetail(PathMetadata<?> metadata, PathInits inits) {
-        this(ReturPembelianDetail.class, metadata, inits);
-    }
-
-    public QReturPembelianDetail(Class<? extends ReturPembelianDetail> type, PathMetadata<?> metadata, PathInits inits) {
-        super(type, metadata, inits);
-        this.returPembelian = inits.isInitialized("returPembelian") ? new QReturPembelian(forProperty("returPembelian"), inits.get("returPembelian")) : null;
+        super(ReturPembelianDetail.class, metadata);
     }
 
 }

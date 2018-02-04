@@ -2,7 +2,6 @@ package id.edmaputra.uwati.controller.transaksi;
 
 import java.math.BigDecimal;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,11 +35,10 @@ import id.edmaputra.uwati.entity.transaksi.ReturPembelianDetail;
 import id.edmaputra.uwati.entity.transaksi.ReturPembelianDetailTemp;
 import id.edmaputra.uwati.service.obat.ObatService;
 import id.edmaputra.uwati.service.obat.ObatStokService;
-import id.edmaputra.uwati.service.pengguna.PenggunaService;
 import id.edmaputra.uwati.service.transaksi.PembelianDetailService;
 import id.edmaputra.uwati.service.transaksi.PembelianService;
+import id.edmaputra.uwati.service.transaksi.ReturPembelianDetailService;
 import id.edmaputra.uwati.service.transaksi.ReturPembelianDetailTempService;
-import id.edmaputra.uwati.service.transaksi.ReturPembelianService;
 import id.edmaputra.uwati.specification.PembelianPredicateBuilder;
 import id.edmaputra.uwati.support.Converter;
 import id.edmaputra.uwati.support.LogSupport;
@@ -56,8 +55,8 @@ public class ReturController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ReturController.class);
 	
-	@Autowired
-	private ReturPembelianService returPembelianService;
+//	@Autowired
+//	private ReturPembelianService returPembelianService;
 	
 	@Autowired
 	private PembelianService pembelianService;
@@ -74,8 +73,9 @@ public class ReturController {
 	@Autowired
 	private ReturPembelianDetailTempService tempService;
 	
+	
 	@Autowired
-	private PenggunaService penggunaService;
+	private ReturPembelianDetailService returPembelianDetailService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView tampilkanPage(Principal principal, HttpServletRequest request) {
@@ -368,30 +368,24 @@ public class ReturController {
 
 	@RequestMapping(value = "/retur", method = RequestMethod.POST)
 	@ResponseBody
+	@Transactional
 	public PembelianDetailHandler jual(@RequestBody PembelianDetailHandler h, BindingResult result, Principal principal,
 			HttpServletRequest request) {
 		ReturPembelian retur = new ReturPembelian();
 		try {
 			Pembelian pembelian = pembelianService.dapatkan(new Long(h.getIdPembelian()));
 			List<ReturPembelianDetailTemp> temps = tempService.dapatkanListByRandomId(h.getRandomId());
-			List<ReturPembelianDetail> details = new ArrayList<>();
 			for (ReturPembelianDetailTemp temp : temps) {
 				ReturPembelianDetail detail = new ReturPembelianDetail();
 				detail = copyReturPembelianDetail(detail, temp);
 				detail.setTanggal(new Date());
-				detail.setReturPembelian(retur);
-				details.add(detail);
-			}			
-			retur = copyReturPembelian(retur, pembelian);
-			retur.setPengguna(penggunaService.temukan(principal.getName()));			
-			retur.setGrandTotal(totalHarga(temps));
-			retur.setReturPembelianDetail(details);
-			retur.setWaktuTransaksi(new Date());
-			
-			retur.setWaktuDibuat(new Date());
-			retur.setTerakhirDirubah(new Date());			
-			
-			returPembelianService.simpan(retur);
+				detail.setTanggalPembelian(pembelian.getWaktuTransaksi());
+				detail.setNomorFaktur(pembelian.getNomorFaktur());
+				detail.setSupplier(pembelian.getSupplier());
+				detail.setPengguna(principal.getName());
+				detail.setIdPembelian(new Long(h.getIdPembelian()));
+				returPembelianDetailService.simpan(detail);
+			}
 			
 			for(ReturPembelianDetailTemp temp : temps) {
 				setStatusObatRetur(temp.getObat(), pembelian);
@@ -424,13 +418,13 @@ public class ReturController {
 		pembelianDetailService.simpan(detail);		
 	}
 	
-	private ReturPembelian copyReturPembelian(ReturPembelian returPembelian, Pembelian pembelian) {
-		returPembelian.setDeadline(pembelian.getDeadline());
-		returPembelian.setNomorFaktur(pembelian.getNomorFaktur());
-		returPembelian.setSupplier(pembelian.getSupplier());
-		
-		return returPembelian;
-	}
+//	private ReturPembelian copyReturPembelian(ReturPembelian returPembelian, Pembelian pembelian) {
+//		returPembelian.setDeadline(pembelian.getDeadline());
+//		returPembelian.setNomorFaktur(pembelian.getNomorFaktur());
+//		returPembelian.setSupplier(pembelian.getSupplier());
+//		
+//		return returPembelian;
+//	}
 	
 	private ReturPembelianDetail copyReturPembelianDetail(ReturPembelianDetail detail, ReturPembelianDetailTemp temp) {		
 		detail.setDiskon(new BigDecimal(Converter.hilangkanTandaTitikKoma(temp.getDiskon())));		

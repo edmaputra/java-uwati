@@ -30,13 +30,6 @@ import id.edmaputra.uwati.entity.pengguna.Pengguna;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ReturPembelian extends DasarTransaksiEntity<Long> {
 
-	public List<ReturPembelianDetail> getReturPembelianDetail() {
-		return returPembelianDetail;
-	}
-
-	public void setReturPembelianDetail(List<ReturPembelianDetail> returPembelianDetail) {
-		this.returPembelianDetail = returPembelianDetail;
-	}
 
 	private static final long serialVersionUID = 7769140999910692567L;
 
@@ -64,8 +57,8 @@ public class ReturPembelian extends DasarTransaksiEntity<Long> {
 	@Column(name = "supplier")
 	private String supplier;
 	
-	@OneToMany(mappedBy="returPembelian", cascade=CascadeType.ALL, orphanRemoval=true)
-	private List<ReturPembelianDetail> returPembelianDetail;
+//	@OneToMany(mappedBy="returPembelian", cascade=CascadeType.ALL, orphanRemoval=true)
+//	private List<ReturPembelianDetail> returPembelianDetail;
 
 	public Long getId() {
 		return id;
@@ -131,12 +124,6 @@ public class ReturPembelian extends DasarTransaksiEntity<Long> {
 		this.supplier = supplier;
 	}
 
-	@Override
-	public String toString() {
-		return "ReturPembelian [waktuTransaksi=" + waktuTransaksi + ", pengguna=" + pengguna + ", nomorFaktur="
-				+ nomorFaktur + ", grandTotal=" + grandTotal + ", deadline=" + deadline + ", supplier=" + supplier
-				+ ", returPembelianDetail=" + returPembelianDetail + "]";
-	}
 	
 
 }

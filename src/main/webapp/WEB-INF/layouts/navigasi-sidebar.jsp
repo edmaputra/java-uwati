@@ -73,6 +73,7 @@
 					<li><a href="<spring:url value="/laporan/pembelian" />">Pembelian</a></li>
 					<li><a href="<spring:url value="/laporan/pasien" />">Pasien</a></li>
 					<li><a href="<spring:url value="/obat-diagnosa" />">Obat &amp; Diagnosa</a></li>
+					<li><a href="<spring:url value="/laporan/retur" />">Retur Obat</a></li>
 				</ul></li>
 		</security:authorize>
 

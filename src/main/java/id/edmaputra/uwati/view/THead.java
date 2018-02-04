@@ -145,4 +145,17 @@ public class THead {
 			+ "<th></th>"
 			+ "</tr></thead>";
 
+	public static final String THEAD_RETUR_PEMBELIAN = "<thead><tr>" 			
+			+ "<th>Nomor Faktur</th>"
+			+ "<th>Tanggal Retur</th>"
+			+ "<th>Supplier</th>"
+			+ "<th>Obat</th>"
+			+ "<th>Harga Beli</th>"
+			+ "<th>Jumlah</th>"
+			+ "<th>Total</th>"
+			+ "<th>Tanggal Pembelian</th>"
+			+ "<th>User Input</th>"
+			+ "<th></th>"
+			+ "</tr></thead>";
+
 }

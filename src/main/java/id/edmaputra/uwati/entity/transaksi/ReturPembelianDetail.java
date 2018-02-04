@@ -8,17 +8,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import id.edmaputra.uwati.DBConf;
 import id.edmaputra.uwati.entity.DasarTransaksiEntity;
-import id.edmaputra.uwati.entity.master.obat.ObatDetail;
 
 @Entity
 @Table(name = "retur_pembelian_detail", uniqueConstraints = { @UniqueConstraint(columnNames = "id")})
@@ -47,12 +46,31 @@ public class ReturPembelianDetail extends DasarTransaksiEntity<Long> {
 
 	private Date tanggalKadaluarsa;
 
-	@ManyToOne
-	@JoinColumn(name = "id_retur_pembelian")
-	@JsonIgnore
-	private ReturPembelian returPembelian;
-	
 	private Date tanggal;
+	
+	@Column(name = "supplier")
+	private String supplier;
+	
+	@Temporal(TemporalType.DATE)
+    @Column(name = "tanggal_pembelian")
+	private Date tanggalPembelian;
+	
+	@Column(name="pengguna")
+	private String pengguna;
+	
+	@Column(name="nomor_faktur", nullable=false, length=DBConf.LENGTH_TRANSAKSI_NOMORFAKTUR)	
+	private String nomorFaktur;
+	
+	@Column(name="id_pembelian", nullable=false)
+	private Long idPembelian;
+
+	public Long getIdPembelian() {
+		return idPembelian;
+	}
+
+	public void setIdPembelian(Long idPembelian) {
+		this.idPembelian = idPembelian;
+	}
 
 	public Long getId() {
 		return id;
@@ -126,19 +144,36 @@ public class ReturPembelianDetail extends DasarTransaksiEntity<Long> {
 		this.obat = obat;
 	}
 
-	public ReturPembelian getReturPembelian() {
-		return returPembelian;
+	public String getSupplier() {
+		return supplier;
 	}
 
-	public void setReturPembelian(ReturPembelian returPembelian) {
-		this.returPembelian = returPembelian;
+	public void setSupplier(String supplier) {
+		this.supplier = supplier;
 	}
 
-	@Override
-	public String toString() {
-		return "ReturPembelianDetail [obat=" + obat + ", jumlah=" + jumlah + ", hargaBeli=" + hargaBeli + ", diskon="
-				+ diskon + ", pajak=" + pajak + ", hargaTotal=" + hargaTotal + ", tanggalKadaluarsa="
-				+ tanggalKadaluarsa + ", returPembelian=" + returPembelian + ", tanggal=" + tanggal + "]";
+	public Date getTanggalPembelian() {
+		return tanggalPembelian;
+	}
+
+	public void setTanggalPembelian(Date waktuTransaksi) {
+		this.tanggalPembelian = waktuTransaksi;
+	}
+
+	public String getPengguna() {
+		return pengguna;
+	}
+
+	public void setPengguna(String pengguna) {
+		this.pengguna = pengguna;
+	}
+
+	public String getNomorFaktur() {
+		return nomorFaktur;
+	}
+
+	public void setNomorFaktur(String nomorFaktur) {
+		this.nomorFaktur = nomorFaktur;
 	}
 
 }

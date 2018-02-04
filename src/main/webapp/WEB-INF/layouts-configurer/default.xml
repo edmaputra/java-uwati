@@ -203,4 +203,11 @@
 		<!-- <put-attribute name="current" value="home" /> -->
 	</definition>
 	
+	<definition name="laporan-retur-pembelian" extends="dasar">
+		<put-attribute name="title" value="UWATI - Laporan Retur Pembelian" />
+		<put-attribute name="page_title" value="Laporan Retur Pembelian" />
+		<put-attribute name="body" value="/WEB-INF/jsps/laporan/laporan-retur-pembelian.jsp" />
+		<!-- <put-attribute name="current" value="home" /> -->
+	</definition>
+	
 </tiles-definitions>
