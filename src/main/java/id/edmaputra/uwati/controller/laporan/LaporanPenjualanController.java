@@ -322,6 +322,7 @@ public class LaporanPenjualanController {
 			}			
 			batal.setBatalPenjualanDetail(listBatalDetail);
 			batal.setInfo(h.getInfo());
+			batal.setWaktuPembatalan(new Date());
 			batalPenjualanService.simpan(batal);
 			for (BatalPenjualanDetail batalDetail : listBatalDetail){
 				Obat obat = getObat(batalDetail.getObat());

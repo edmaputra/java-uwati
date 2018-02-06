@@ -70,6 +70,10 @@ public class BatalPenjualan extends DasarTransaksiEntity<Long> {
 		
 	@OneToMany(mappedBy="batalPenjualan", cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.LAZY)
 	private List<BatalPenjualanDetail> batalPenjualanDetail;
+	
+	@Temporal(TemporalType.DATE)
+    @Column(name = "waktu_pembatalan")
+	private Date waktuPembatalan;
 
 	public Long getId() {
 		return id;
@@ -189,6 +193,14 @@ public class BatalPenjualan extends DasarTransaksiEntity<Long> {
 
 	public void setBatalPenjualanDetail(List<BatalPenjualanDetail> penjualanDetailBatal) {
 		this.batalPenjualanDetail = penjualanDetailBatal;
+	}
+
+	public Date getWaktuPembatalan() {
+		return waktuPembatalan;
+	}
+
+	public void setWaktuPembatalan(Date waktuPembatalan) {
+		this.waktuPembatalan = waktuPembatalan;
 	}
 	
 	

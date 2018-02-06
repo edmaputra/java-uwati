@@ -175,6 +175,7 @@ public class LaporanReturPembelianController {
 			ReturPembelianDetail detail = returPembelianDetailService.dapatkan(new Long(h.getId()));
 			BeanUtils.copyProperties(detail, batal);
 			batal.setInfo(h.getInfo());
+			batal.setWaktuPembatalan(new Date());
 
 			batalService.simpan(batal);
 

@@ -288,6 +288,7 @@ public class LaporanPembelianController {
 			}
 			batal.setBatalPembelianDetail(listBatalDetail);
 			batal.setInfo(h.getInfo());
+			batal.setWaktuPembatalan(new Date());
 			batalPembelianService.simpan(batal);
 			for (BatalPembelianDetail batalDetail : listBatalDetail) {
 				Obat obat = getObat(batalDetail.getObat());

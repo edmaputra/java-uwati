@@ -60,6 +60,10 @@ public class BatalReturPembelianDetail extends DasarTransaksiEntity<Long> {
 	
 	@Column(name="nomor_faktur", nullable=false, length=DBConf.LENGTH_TRANSAKSI_NOMORFAKTUR)	
 	private String nomorFaktur;
+	
+	@Temporal(TemporalType.DATE)
+    @Column(name = "waktu_pembatalan")
+	private Date waktuPembatalan;
 
 	public Long getId() {
 		return id;
@@ -163,6 +167,14 @@ public class BatalReturPembelianDetail extends DasarTransaksiEntity<Long> {
 
 	public void setNomorFaktur(String nomorFaktur) {
 		this.nomorFaktur = nomorFaktur;
+	}
+
+	public Date getWaktuPembatalan() {
+		return waktuPembatalan;
+	}
+
+	public void setWaktuPembatalan(Date waktuPembatalan) {
+		this.waktuPembatalan = waktuPembatalan;
 	}
 
 }

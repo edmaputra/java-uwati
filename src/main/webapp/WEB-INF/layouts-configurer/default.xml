@@ -210,4 +210,11 @@
 		<!-- <put-attribute name="current" value="home" /> -->
 	</definition>
 	
+	<definition name="laporan-pembatalan" extends="dasar">
+		<put-attribute name="title" value="UWATI - Laporan Pembatalan" />
+		<put-attribute name="page_title" value="Laporan Pembatalan" />
+		<put-attribute name="body" value="/WEB-INF/jsps/laporan/laporan-pembatalan.jsp" />
+		<!-- <put-attribute name="current" value="home" /> -->
+	</definition>
+	
 </tiles-definitions>
