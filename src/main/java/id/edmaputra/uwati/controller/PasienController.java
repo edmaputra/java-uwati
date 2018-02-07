@@ -28,7 +28,6 @@ import com.mysema.query.types.expr.BooleanExpression;
 import id.edmaputra.uwati.entity.pasien.Pasien;
 import id.edmaputra.uwati.entity.pasien.RekamMedis;
 import id.edmaputra.uwati.entity.pasien.RekamMedisDetail;
-import id.edmaputra.uwati.service.KaryawanService;
 import id.edmaputra.uwati.service.pasien.KategoriPasienService;
 import id.edmaputra.uwati.service.pasien.PasienService;
 import id.edmaputra.uwati.service.pasien.RekamMedisDetailService;
@@ -51,16 +50,16 @@ public class PasienController {
 
 	@Autowired
 	private PasienService pasienService;
-	
+
 	@Autowired
 	private RekamMedisService rekamMedisService;
-	
+
 	@Autowired
 	private PasienValidator pasienValidator;
-	
+
 	@Autowired
 	private RekamMedisDetailService rekamMedisDetailService;
-	
+
 	@Autowired
 	private KategoriPasienService kategoriPasienService;
 
@@ -83,29 +82,34 @@ public class PasienController {
 	public HtmlElement tampilkanDaftar(
 			@RequestParam(value = "hal", defaultValue = "1", required = false) Integer halaman,
 			@RequestParam(value = "k", defaultValue = "-1", required = false) Integer kategori,
-			@RequestParam(value = "cari", defaultValue = "", required = false) String cari, HttpServletRequest request,
+			@RequestParam(value = "cari", defaultValue = "", required = false) String cari,
+			@RequestParam(value = "i", defaultValue = "", required = false) String id, HttpServletRequest request,
 			HttpServletResponse response) {
 		try {
 			HtmlElement el = new HtmlElement();
 
 			PasienPredicateBuilder builder = new PasienPredicateBuilder();
 			if (!StringUtils.isBlank(cari)) {
-//				if (StringUtils.isNumeric(cari)){
-//					System.out.println("Numeric "+cari);					
-//					builder.kontak(cari);					
-//					builder.nomorJaminanKesehatan(cari);
-//					builder.identitas(cari);
-//					builder.id(new Long(cari));
-//				} else {
-//					System.out.println("No Numeric");
-					builder.cari(cari);
-//				}
+				// if (StringUtils.isNumeric(cari)){
+				// System.out.println("Numeric "+cari);
+				// builder.kontak(cari);
+				// builder.nomorJaminanKesehatan(cari);
+				// builder.identitas(cari);
+				// builder.id(new Long(cari));
+				// } else {
+				// System.out.println("No Numeric");
+				builder.cari(cari);
+				// }
 			}
-			
-			if (kategori != -1) {				
+
+			if (!StringUtils.isBlank(id)) {
+				builder.id(new Long(id));
+			}
+
+			if (kategori != -1) {
 				builder.kategori(kategori);
-			}			
-			
+			}
+
 			BooleanExpression exp = builder.getExpression();
 			Page<Pasien> page = pasienService.muatDaftar(halaman, exp);
 
@@ -119,7 +123,7 @@ public class PasienController {
 				int first = Math.max(1, current - 5);
 				int last = Math.min(first + 10, page.getTotalPages());
 
-				String h = navigasiHalamanGenerator(first, prev, current, next, last, page.getTotalPages(), cari);
+				String h = navigasiHalamanGenerator(first, prev, current, next, last, page.getTotalPages(), cari, kategori.toString(), id);
 				el.setNavigasiHalaman(h);
 			}
 			return el;
@@ -140,7 +144,7 @@ public class PasienController {
 			return null;
 		}
 	}
-	
+
 	@RequestMapping(value = "/tersedia", method = RequestMethod.GET)
 	@ResponseBody
 	public Boolean isAda(@RequestParam("identitas") String identitas) {
@@ -149,22 +153,23 @@ public class PasienController {
 
 	@RequestMapping(value = "/tambah", method = RequestMethod.POST)
 	@ResponseBody
-	public Pasien tambah(@RequestBody PasienHandler h, BindingResult result, Principal principal, HttpServletRequest request) {
+	public Pasien tambah(@RequestBody PasienHandler h, BindingResult result, Principal principal,
+			HttpServletRequest request) {
 		Pasien pasien = null;
 		try {
 			pasien = new Pasien();
 			pasien = setPasien(pasien, h);
-			
+
 			pasien.setUserInput(principal.getName());
-			pasien.setWaktuDibuat(new Date());	
+			pasien.setWaktuDibuat(new Date());
 			pasien.setTerakhirDirubah(new Date());
-			
+
 			pasien.setId(idGenerator(pasienService.dapatkanSemua()));
-			
+
 			pasienValidator.validate(pasien);
 			pasienService.simpan(pasien);
 			logger.info(LogSupport.tambah(principal.getName(), pasien.toString(), request));
-			pasien.setInfo("Pasien " + pasien.getNama()+" Berhasil Ditambah");
+			pasien.setInfo("Pasien " + pasien.getNama() + " Berhasil Ditambah");
 			return pasien;
 		} catch (Exception e) {
 			logger.info(e.getMessage());
@@ -173,6 +178,7 @@ public class PasienController {
 			return pasien;
 		}
 	}
+
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	@ResponseBody
 	public Pasien edit(@RequestBody PasienHandler h, BindingResult result, Principal principal,
@@ -181,14 +187,14 @@ public class PasienController {
 		String entity = edit.toString();
 		try {
 			edit = setPasien(edit, h);
-			
+
 			edit.setUserEditor(principal.getName());
 			edit.setTerakhirDirubah(new Date());
-			
+
 			pasienValidator.validate(edit);
 			pasienService.simpan(edit);
 			logger.info(LogSupport.edit(principal.getName(), entity, request));
-			edit.setInfo("Pasien "+edit.getNama()+" Berhasil Diubah");
+			edit.setInfo("Pasien " + edit.getNama() + " Berhasil Diubah");
 			return edit;
 		} catch (Exception e) {
 			logger.info(e.getMessage());
@@ -197,8 +203,8 @@ public class PasienController {
 			return edit;
 		}
 	}
-	
-	@RequestMapping(value = "/hapus", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+
+	@RequestMapping(value = "/hapus", method = RequestMethod.POST)
 	@ResponseBody
 	public Pasien hapus(@RequestBody PasienHandler p, BindingResult result, Principal principal,
 			HttpServletRequest request) {
@@ -215,23 +221,19 @@ public class PasienController {
 			return null;
 		}
 	}
-	
+
 	@RequestMapping(value = "/{id}/rekam-medis", method = RequestMethod.GET)
 	@ResponseBody
-	public Pasien rekamMedis(@PathVariable("id") PasienHandler p, BindingResult result, Principal principal, HttpServletRequest request) {
+	public Pasien rekamMedis(@PathVariable("id") PasienHandler p, BindingResult result, Principal principal,
+			HttpServletRequest request) {
 		Pasien pasien = getPasien(p.getId());
 		return pasien;
 	}
-	
+
 	private String tabelGenerator(Page<Pasien> list, HttpServletRequest request) {
 		String html = "";
-		String thead = "<thead><tr>"
-				+ "<th>Pasien</th>"
-				+ "<th>ID</th>"
-				+ "<th>Usia</th>"
-				+ "<th>Jaminan</th>"
-				+ "<th>Nomor</th>"
-				+ "<th>Kategori</th>";
+		String thead = "<thead><tr>" + "<th>Pasien</th>" + "<th>ID</th>" + "<th>Usia</th>" + "<th>Jaminan</th>"
+				+ "<th>Nomor</th>" + "<th>Kategori</th>";
 		if (request.isUserInRole("ROLE_ADMIN")) {
 			thead += "<th>User Input</th>" + "<th>Waktu Dibuat</th>" + "<th>User Editor</th>"
 					+ "<th>Terakhir Diubah</th>";
@@ -261,7 +263,8 @@ public class PasienController {
 				btn += Html.button("btn btn-danger btn-xs", "modal", "#pasien-modal-hapus", "onClick",
 						"setIdUntukHapus(" + t.getId() + ")", 1, "Hapus Data");
 			}
-			row += Html.td(Html.a("<i class='fa fa-book'></i>", ", btn btn-primary btn-xs", null, null, "/uwati/rekam-medis/"+t.getId(), null, null));
+			row += Html.td(Html.a("<i class='fa fa-book'></i>", ", btn btn-primary btn-xs", null, null,
+					"/uwati/rekam-medis/" + t.getId(), null, null));
 			row += Html.td(btn);
 			data += Html.tr(row);
 		}
@@ -269,17 +272,11 @@ public class PasienController {
 		html = thead + tbody;
 		return html;
 	}
-	
+
 	private String tabelRekamMedisGenerator(Page<RekamMedis> list, HttpServletRequest request) {
 		String html = "";
-		String thead = "<thead><tr>"
-				+ "<th>Id</th>"
-				+ "<th>Nomor</th>"
-				+ "<th>Tanggal</th>"
-				+ "<th>Anamnesa</th>"
-				+ "<th>Pemeriksaan</th>"
-				+ "<th>Diagnosa</th>"
-				+ "<th>Dokter</th>";	
+		String thead = "<thead><tr>" + "<th>Id</th>" + "<th>Nomor</th>" + "<th>Tanggal</th>" + "<th>Anamnesa</th>"
+				+ "<th>Pemeriksaan</th>" + "<th>Diagnosa</th>" + "<th>Dokter</th>";
 		thead += "<th></th></tr></thead>";
 		String data = "";
 		for (RekamMedis t : list.getContent()) {
@@ -291,7 +288,7 @@ public class PasienController {
 			row += Html.td(t.getAnamnesa());
 			row += Html.td(t.getPemeriksaan());
 			row += Html.td(t.getDiagnosa());
-			row += Html.td(t.getDokter().getNama());			
+			row += Html.td(t.getDokter().getNama());
 			if (request.isUserInRole("ROLE_ADMIN") || request.isUserInRole("ROLE_MEDIS")) {
 
 				btn = Html.button("btn btn-primary btn-xs btnEdit", "modal", "#pasien-modal", "onClick",
@@ -309,26 +306,27 @@ public class PasienController {
 	}
 
 	private String navigasiHalamanGenerator(int first, int prev, int current, int next, int last, int totalPage,
-			String cari) {
+			String cari, String k, String id) {
 		String html = "";
 
 		if (current == 1) {
 			html += Html.li(Html.aJs("&lt;&lt;", null, null, null), "disabled", null, null);
 			html += Html.li(Html.aJs("&lt;", null, null, null), "disabled", null, null);
 		} else {
-			html += Html.li(Html.aJs("&lt;&lt;", null, "onClick", "refresh(" + first + ",\"" + cari + "\")"), null,
-					null, null);
-			html += Html.li(Html.aJs("&lt;", null, "onClick", "refresh(" + prev + ",\"" + cari + "\")"), null, null,
-					null);
+			html += Html.li(
+					Html.aJs("&lt;&lt;", null, "onClick", "refresh(" + first + ",\"" + cari + "\",\"" + k + "\",\"" + id + ")"),
+					null, null, null);
+			html += Html.li(Html.aJs("&lt;", null, "onClick", "refresh(" + prev + ",\"" + cari + "\",\"" + k + "\",\"" + id + ")"),
+					null, null, null);
 		}
 
 		for (int i = first; i <= last; i++) {
 			if (i == current) {
-				html += Html.li(Html.aJs(i + "", null, "onClick", "refresh(" + i + ",\"" + cari + "\")"), "active",
-						null, null);
+				html += Html.li(Html.aJs(i + "", null, "onClick", "refresh(" + i + ",\"" + cari + "\",\"" + k + "\",\"" + id + ")"),
+						"active", null, null);
 			} else {
-				html += Html.li(Html.aJs(i + "", null, "onClick", "refresh(" + i + ",\"" + cari + "\")"), null, null,
-						null);
+				html += Html.li(Html.aJs(i + "", null, "onClick", "refresh(" + i + ",\"" + cari + "\",\"" + k + "\",\"" + id + ")"),
+						null, null, null);
 			}
 		}
 
@@ -336,18 +334,19 @@ public class PasienController {
 			html += Html.li(Html.aJs("&gt;", null, null, null), "disabled", null, null);
 			html += Html.li(Html.aJs("&gt;&gt;", null, null, null), "disabled", null, null);
 		} else {
-			html += Html.li(Html.aJs("&gt;", null, "onClick", "refresh(" + next + ",\"" + cari + "\")"), null, null,
-					null);
-			html += Html.li(Html.aJs("&gt;&gt;", null, "onClick", "refresh(" + last + ",\"" + cari + "\")"), null, null,
-					null);
+			html += Html.li(Html.aJs("&gt;", null, "onClick",
+					"refresh(" + next + ",\"" + cari + "\",\"" + k + "\",\"" + id + ")"), null, null, null);
+			html += Html.li(
+					Html.aJs("&gt;&gt;", null, "onClick", "refresh(" + last + ",\"" + cari + "\",\"" + k + "\",\"" + id + ")"), null,
+					null, null);
 		}
 
 		String nav = Html.nav(Html.ul(html, "pagination"));
 
 		return nav;
 	}
-	
-	private Pasien setPasien(Pasien p, PasienHandler h){		
+
+	private Pasien setPasien(Pasien p, PasienHandler h) {
 		p.setAgama(h.getAgama());
 		p.setAlamat(h.getAlamat());
 		p.setIdentitas(h.getIdentitas());
@@ -361,8 +360,8 @@ public class PasienController {
 		p.setKategoriPasien(kategoriPasienService.dapatkan(h.getKategori()));
 		return p;
 	}
-	
-	private Pasien getPasien(Long id){
+
+	private Pasien getPasien(Long id) {
 		Pasien get = pasienService.dapatkan(id);
 
 		List<RekamMedis> rekamMedis = rekamMedisService.temukanByPasien(get);
@@ -371,8 +370,8 @@ public class PasienController {
 
 		return get;
 	}
-	
-	private RekamMedis getRekamMedis(Long id){
+
+	private RekamMedis getRekamMedis(Long id) {
 		RekamMedis get = rekamMedisService.dapatkan(id);
 
 		List<RekamMedisDetail> rekamMedisDetails = rekamMedisDetailService.dapatkan(get);
@@ -381,18 +380,15 @@ public class PasienController {
 
 		return get;
 	}
-	
-	private Long idGenerator(List<Pasien> pasiens){
+
+	private Long idGenerator(List<Pasien> pasiens) {
 		Long id = new Long(0);
-		for (Pasien p : pasiens){
-			if (p.getId() > id){
+		for (Pasien p : pasiens) {
+			if (p.getId() > id) {
 				id = p.getId();
 			}
 		}
-		return id+1;
+		return id + 1;
 	}
-	
-	
-	
 
 }

@@ -34,8 +34,10 @@
 								</c:forEach>
 							</select>
 						</div>
-
-
+						<div class="form-group">
+							<input type="text" id="id_cari" class="form-control"
+								placeholder="ID" style="width: 70px" />
+						</div>
 						<div class="form-group">
 							<input type="text" id="stringCari" class="form-control"
 								placeholder="Pencarian" style="width: 150px" />
@@ -201,21 +203,25 @@
 
 	var c = '';
 	var k = -1;
+	var i = '';
 	$(document).ready(function() {
-		refresh(1, c, k);
+		refresh(1, c, k, i);
 
 		$('#btnCari').click(function() {
 			c = $('#stringCari').val();
 			k = $('#kategori_cari').val();
-			refresh(1, c, k);
+			i = $('#id_cari').val();
+			refresh(1, c, k, i);
 		});
 
 		$('#btnReset').click(function() {
 			c = '';
 			k = -1;
+			i = '';
 			$('#stringCari').val(c);
-			$('#kategori_cari').val(-1);
-			refresh(1, c, k);
+			$('#kategori_cari').val(k);
+			i = $('#id_cari').val(i);
+			refresh(1, c, k, i);
 		});
 
 		$('.btnTambah').click(function() {
@@ -320,11 +326,12 @@
 		$('#hapusId').val(ids);
 	}
 
-	function refresh(halaman, find, kategori) {
+	function refresh(halaman, find, kategori, i) {
 		var data = {
 			hal : halaman,
 			cari : find,
-			k : kategori
+			k : kategori,
+			i : i
 		};
 
 		$.getAjax('${daftar}', data, function(result) {
